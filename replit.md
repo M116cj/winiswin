@@ -112,12 +112,16 @@ The bot runs automatically via the configured workflow. It will:
 
 ## Recent Changes
 - **2025-10-22**: Initial project setup with complete trading infrastructure
-  - Implemented Binance API client with WebSocket support
+  - Implemented Binance API client with WebSocket support and error handling
   - Created ICT/SMC and arbitrage strategies
-  - Built LSTM model for price prediction
+  - Built LSTM model for price prediction with NaN handling
   - Set up Discord notification system
-  - Implemented comprehensive risk management
+  - Implemented comprehensive risk management with defensive checks
   - Added trade logging and performance tracking
+  - Fixed NaN handling in technical indicators (removed leading NaNs only)
+  - Added data validation at every stage (indicators, model training, risk calculations)
+  - Created Railway deployment configuration with GitHub Actions CI/CD
+  - Configured for Singapore deployment region to avoid Binance geo-restrictions
 
 ## User Preferences
 - Language: Traditional Chinese (繁體中文)

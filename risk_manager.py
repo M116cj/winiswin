@@ -27,12 +27,24 @@ class RiskManager:
             self.max_drawdown = current_drawdown
     
     def calculate_position_size(self, entry_price, stop_loss_price):
+        if entry_price is None or stop_loss_price is None:
+            logger.error("Cannot calculate position size: entry_price or stop_loss_price is None")
+            return 0
+        
+        if np.isnan(entry_price) or np.isnan(stop_loss_price):
+            logger.error("Cannot calculate position size: NaN values detected")
+            return 0
+        
         position_size = calculate_position_size(
             self.account_balance,
             self.risk_per_trade,
             entry_price,
             stop_loss_price
         )
+        
+        if np.isnan(position_size) or position_size <= 0:
+            logger.error(f"Invalid position size calculated: {position_size}")
+            return 0
         
         max_position_value = self.account_balance * (self.max_position_size / 100)
         max_quantity = max_position_value / entry_price
@@ -43,6 +55,14 @@ class RiskManager:
         return final_position_size
     
     def calculate_stop_loss(self, entry_price, atr, direction='LONG'):
+        if atr is None or np.isnan(atr) or atr <= 0:
+            logger.error(f"Invalid ATR value: {atr}")
+            return None
+        
+        if entry_price is None or np.isnan(entry_price):
+            logger.error(f"Invalid entry price: {entry_price}")
+            return None
+        
         multiplier = Config.STOP_LOSS_ATR_MULTIPLIER
         
         if direction == 'LONG':
@@ -53,6 +73,14 @@ class RiskManager:
         return stop_loss
     
     def calculate_take_profit(self, entry_price, atr, direction='LONG'):
+        if atr is None or np.isnan(atr) or atr <= 0:
+            logger.error(f"Invalid ATR value: {atr}")
+            return None
+        
+        if entry_price is None or np.isnan(entry_price):
+            logger.error(f"Invalid entry price: {entry_price}")
+            return None
+        
         multiplier = Config.TAKE_PROFIT_ATR_MULTIPLIER
         
         if direction == 'LONG':

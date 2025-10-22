@@ -36,7 +36,13 @@ class LSTMPredictor:
     def prepare_data(self, df):
         features = ['close', 'volume', 'macd', 'rsi', 'atr']
         
-        data = df[features].values
+        df_clean = df[features].dropna()
+        
+        if len(df_clean) < self.lookback + 10:
+            logger.error(f"Insufficient data after removing NaN: {len(df_clean)} rows")
+            return None, None
+        
+        data = df_clean.values
         scaled_data = self.scaler.fit_transform(data)
         
         X, y = [], []
@@ -51,6 +57,10 @@ class LSTMPredictor:
             logger.info("Starting LSTM model training...")
             
             X, y = self.prepare_data(df)
+            
+            if X is None or y is None:
+                logger.error("Data preparation failed")
+                return False
             
             if len(X) < 10:
                 logger.warning("Insufficient data for training")
@@ -107,7 +117,17 @@ class LSTMPredictor:
         
         try:
             features = ['close', 'volume', 'macd', 'rsi', 'atr']
-            data = df[features].values[-self.lookback:]
+            df_clean = df[features].dropna()
+            
+            if len(df_clean) < self.lookback:
+                logger.error(f"Insufficient clean data for prediction: {len(df_clean)} rows")
+                return None
+            
+            data = df_clean.values[-self.lookback:]
+            
+            if np.isnan(data).any():
+                logger.error("NaN values detected in prediction data")
+                return None
             
             scaled_data = self.scaler.transform(data)
             X = torch.FloatTensor(scaled_data).unsqueeze(0).to(self.device)

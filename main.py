@@ -1,6 +1,7 @@
 import asyncio
 import time
 from datetime import datetime
+import numpy as np
 from binance_client import BinanceDataClient
 from strategies.ict_smc import ICTSMCStrategy
 from strategies.arbitrage import ArbitrageStrategy
@@ -47,6 +48,9 @@ class TradingBot:
             return
         
         df = TechnicalIndicators.calculate_all_indicators(df)
+        if df is None or len(df) < 100:
+            logger.warning(f"Insufficient data after indicator calculation for {symbol}: {len(df) if df is not None else 0} rows")
+            return
         
         success = self.lstm_predictor.train(df, epochs=30)
         if success:
@@ -61,9 +65,16 @@ class TradingBot:
             return None
         
         df = TechnicalIndicators.calculate_all_indicators(df)
+        if df is None or len(df) < 50:
+            logger.warning(f"Insufficient data after indicator calculation for {symbol}: {len(df) if df is not None else 0} rows")
+            return None
         
         current_price = df.iloc[-1]['close']
         atr = df.iloc[-1]['atr']
+        
+        if np.isnan(current_price) or np.isnan(atr):
+            logger.error(f"Invalid price or ATR for {symbol}: price={current_price}, atr={atr}")
+            return None
         
         ict_signal = self.ict_strategy.generate_signal(df)
         
@@ -89,6 +100,10 @@ class TradingBot:
         entry_price = signal['price']
         atr = analysis['atr']
         
+        if atr is None or np.isnan(atr):
+            logger.error(f"Cannot execute trade: ATR is invalid ({atr})")
+            return
+        
         if signal['type'] == 'BUY':
             direction = 'LONG'
             side = 'BUY'
@@ -99,9 +114,13 @@ class TradingBot:
         stop_loss = self.risk_manager.calculate_stop_loss(entry_price, atr, direction)
         take_profit = self.risk_manager.calculate_take_profit(entry_price, atr, direction)
         
+        if stop_loss is None or take_profit is None:
+            logger.error("Cannot execute trade: failed to calculate stop loss or take profit")
+            return
+        
         quantity = self.risk_manager.calculate_position_size(entry_price, stop_loss)
         
-        if quantity == 0:
+        if quantity == 0 or np.isnan(quantity):
             logger.warning("Calculated position size is 0, skipping trade")
             return
         

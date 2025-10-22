@@ -31,6 +31,9 @@ class TechnicalIndicators:
     
     @staticmethod
     def calculate_all_indicators(df):
+        if len(df) < 50:
+            return None
+        
         close = df['close'].values
         high = df['high'].values
         low = df['low'].values
@@ -38,7 +41,6 @@ class TechnicalIndicators:
         df['ema_9'] = TechnicalIndicators.calculate_ema(close, 9)
         df['ema_21'] = TechnicalIndicators.calculate_ema(close, 21)
         df['ema_50'] = TechnicalIndicators.calculate_ema(close, 50)
-        df['sma_200'] = TechnicalIndicators.calculate_sma(close, 200)
         
         macd, signal, hist = TechnicalIndicators.calculate_macd(close)
         df['macd'] = macd
@@ -52,5 +54,16 @@ class TechnicalIndicators:
         
         df['atr'] = TechnicalIndicators.calculate_atr(high, low, close)
         df['rsi'] = TechnicalIndicators.calculate_rsi(close)
+        
+        first_valid_idx = df[['ema_50', 'macd', 'atr', 'rsi']].first_valid_index()
+        
+        if first_valid_idx is None or first_valid_idx >= len(df) - 10:
+            return None
+        
+        df = df.loc[first_valid_idx:].copy()
+        df = df.reset_index(drop=True)
+        
+        if len(df) < 10:
+            return None
         
         return df
