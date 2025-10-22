@@ -1,0 +1,12 @@
+python-binance==1.0.30
+ccxt==4.5.12
+discord.py==2.6.4
+websockets==15.0.1
+pandas==2.3.3
+numpy==2.3.4
+TA-Lib==0.6.8
+torch==2.9.0
+scikit-learn==1.7.2
+matplotlib==3.10.7
+python-dotenv==1.1.1
+aiohttp==3.13.1
