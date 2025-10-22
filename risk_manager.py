@@ -1,0 +1,153 @@
+import numpy as np
+from config import Config
+from utils.helpers import setup_logger, calculate_position_size
+
+logger = setup_logger(__name__)
+
+class RiskManager:
+    def __init__(self, account_balance=10000):
+        self.account_balance = account_balance
+        self.risk_per_trade = Config.RISK_PER_TRADE_PERCENT
+        self.max_position_size = Config.MAX_POSITION_SIZE_PERCENT
+        self.open_positions = {}
+        self.total_trades = 0
+        self.winning_trades = 0
+        self.losing_trades = 0
+        self.total_profit = 0
+        self.max_drawdown = 0
+        self.peak_balance = account_balance
+    
+    def update_balance(self, new_balance):
+        self.account_balance = new_balance
+        if new_balance > self.peak_balance:
+            self.peak_balance = new_balance
+        
+        current_drawdown = ((self.peak_balance - new_balance) / self.peak_balance) * 100
+        if current_drawdown > self.max_drawdown:
+            self.max_drawdown = current_drawdown
+    
+    def calculate_position_size(self, entry_price, stop_loss_price):
+        position_size = calculate_position_size(
+            self.account_balance,
+            self.risk_per_trade,
+            entry_price,
+            stop_loss_price
+        )
+        
+        max_position_value = self.account_balance * (self.max_position_size / 100)
+        max_quantity = max_position_value / entry_price
+        
+        final_position_size = min(position_size, max_quantity)
+        
+        logger.info(f"Calculated position size: {final_position_size:.6f} (Entry: {entry_price}, SL: {stop_loss_price})")
+        return final_position_size
+    
+    def calculate_stop_loss(self, entry_price, atr, direction='LONG'):
+        multiplier = Config.STOP_LOSS_ATR_MULTIPLIER
+        
+        if direction == 'LONG':
+            stop_loss = entry_price - (atr * multiplier)
+        else:
+            stop_loss = entry_price + (atr * multiplier)
+        
+        return stop_loss
+    
+    def calculate_take_profit(self, entry_price, atr, direction='LONG'):
+        multiplier = Config.TAKE_PROFIT_ATR_MULTIPLIER
+        
+        if direction == 'LONG':
+            take_profit = entry_price + (atr * multiplier)
+        else:
+            take_profit = entry_price - (atr * multiplier)
+        
+        return take_profit
+    
+    def can_open_position(self, symbol):
+        if symbol in self.open_positions:
+            logger.warning(f"Position already open for {symbol}")
+            return False
+        
+        return True
+    
+    def open_position(self, symbol, side, entry_price, quantity, stop_loss, take_profit):
+        if not self.can_open_position(symbol):
+            return False
+        
+        self.open_positions[symbol] = {
+            'side': side,
+            'entry_price': entry_price,
+            'quantity': quantity,
+            'stop_loss': stop_loss,
+            'take_profit': take_profit,
+            'unrealized_pnl': 0
+        }
+        
+        logger.info(f"Opened {side} position for {symbol} at {entry_price}")
+        return True
+    
+    def close_position(self, symbol, exit_price):
+        if symbol not in self.open_positions:
+            logger.warning(f"No open position for {symbol}")
+            return None
+        
+        position = self.open_positions[symbol]
+        
+        if position['side'] == 'LONG':
+            pnl = (exit_price - position['entry_price']) * position['quantity']
+        else:
+            pnl = (position['entry_price'] - exit_price) * position['quantity']
+        
+        pnl_percent = (pnl / self.account_balance) * 100
+        
+        self.total_trades += 1
+        if pnl > 0:
+            self.winning_trades += 1
+        else:
+            self.losing_trades += 1
+        
+        self.total_profit += pnl
+        self.update_balance(self.account_balance + pnl)
+        
+        logger.info(f"Closed position for {symbol} at {exit_price}. PnL: ${pnl:.2f} ({pnl_percent:+.2f}%)")
+        
+        del self.open_positions[symbol]
+        
+        return {
+            'symbol': symbol,
+            'pnl': pnl,
+            'pnl_percent': pnl_percent,
+            'exit_price': exit_price
+        }
+    
+    def check_stop_loss_take_profit(self, symbol, current_price):
+        if symbol not in self.open_positions:
+            return None
+        
+        position = self.open_positions[symbol]
+        
+        if position['side'] == 'LONG':
+            if current_price <= position['stop_loss']:
+                return {'action': 'CLOSE', 'reason': 'STOP_LOSS', 'price': position['stop_loss']}
+            elif current_price >= position['take_profit']:
+                return {'action': 'CLOSE', 'reason': 'TAKE_PROFIT', 'price': position['take_profit']}
+        else:
+            if current_price >= position['stop_loss']:
+                return {'action': 'CLOSE', 'reason': 'STOP_LOSS', 'price': position['stop_loss']}
+            elif current_price <= position['take_profit']:
+                return {'action': 'CLOSE', 'reason': 'TAKE_PROFIT', 'price': position['take_profit']}
+        
+        return None
+    
+    def get_performance_stats(self):
+        win_rate = (self.winning_trades / self.total_trades * 100) if self.total_trades > 0 else 0
+        
+        return {
+            'account_balance': self.account_balance,
+            'total_trades': self.total_trades,
+            'winning_trades': self.winning_trades,
+            'losing_trades': self.losing_trades,
+            'win_rate': win_rate,
+            'total_profit': self.total_profit,
+            'max_drawdown': self.max_drawdown,
+            'roi': (self.total_profit / 10000) * 100
+        }
