@@ -25,10 +25,31 @@ class TradingBot:
         self.trade_logger = TradeLogger()
         self.notifier = TradingBotNotifier()
         
-        self.symbols = Config.SYMBOLS
+        self.symbols = self._initialize_trading_pairs()
         self.timeframe = Config.TIMEFRAME
         self.running = False
         self.last_model_training = 0
+        self.lstm_models = {}
+    
+    def _initialize_trading_pairs(self):
+        """根據配置初始化交易對列表"""
+        mode = Config.SYMBOL_MODE
+        
+        if mode == 'all':
+            logger.info("Mode: ALL - Fetching all USDT perpetual pairs...")
+            pairs = self.binance.get_all_usdt_perpetual_pairs()
+            logger.info(f"Loaded {len(pairs)} trading pairs")
+            return pairs
+        
+        elif mode == 'auto':
+            logger.info(f"Mode: AUTO - Fetching top {Config.MAX_SYMBOLS} pairs by volume...")
+            pairs = self.binance.get_top_pairs_by_volume(limit=Config.MAX_SYMBOLS)
+            logger.info(f"Loaded {len(pairs)} trading pairs")
+            return pairs
+        
+        else:
+            logger.info("Mode: STATIC - Using predefined trading pairs")
+            return Config.STATIC_SYMBOLS
     
     async def initialize(self):
         logger.info("Initializing Trading Bot...")
@@ -52,7 +73,10 @@ class TradingBot:
             logger.warning(f"Insufficient data after indicator calculation for {symbol}: {len(df) if df is not None else 0} rows")
             return
         
-        success = self.lstm_predictor.train(df, epochs=30)
+        if symbol not in self.lstm_models:
+            self.lstm_models[symbol] = LSTMPredictor()
+        
+        success = self.lstm_models[symbol].train(df, epochs=30)
         if success:
             logger.info(f"Model training completed for {symbol}")
         else:
@@ -78,7 +102,10 @@ class TradingBot:
         
         ict_signal = self.ict_strategy.generate_signal(df)
         
-        lstm_prediction = self.lstm_predictor.predict(df)
+        if symbol in self.lstm_models:
+            lstm_prediction = self.lstm_models[symbol].predict(df)
+        else:
+            lstm_prediction = None
         
         analysis = {
             'symbol': symbol,

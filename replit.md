@@ -86,7 +86,11 @@ The bot runs automatically via the configured workflow. It will:
 - `TAKE_PROFIT_ATR_MULTIPLIER`: Take profit distance in ATR units (default: 3.0)
 
 ### Trading Parameters
-- `SYMBOLS`: List of trading pairs (default: ['BTCUSDT', 'ETHUSDT'])
+- `SYMBOL_MODE`: Trading pair selection mode
+  - `static`: Use predefined list (5 pairs: BTC, ETH, BNB, SOL, XRP)
+  - `auto`: Auto-select top N pairs by volume (default: 50)
+  - `all`: Trade all 648 USDT perpetual pairs (requires Railway Enterprise)
+- `MAX_SYMBOLS`: Maximum symbols when using auto mode (default: 50)
 - `TIMEFRAME`: Candle timeframe (default: '1h')
 - `MODEL_RETRAIN_INTERVAL`: Model retraining frequency in seconds (default: 3600)
 
@@ -111,6 +115,16 @@ The bot runs automatically via the configured workflow. It will:
 - Automatic position tracking and closure
 
 ## Recent Changes
+- **2025-10-23**: Expanded to ALL Binance USDT perpetual pairs (648 contracts)
+  - **Dynamic trading pair selection system**:
+    - `SYMBOL_MODE=static`: 5 predefined pairs (BTC, ETH, BNB, SOL, XRP)
+    - `SYMBOL_MODE=auto`: Top N pairs by volume (default: 50, configurable)
+    - `SYMBOL_MODE=all`: All 648 USDT perpetual contracts
+  - **Multi-model LSTM management**: Separate LSTM model for each trading pair
+  - **Volume-based ranking**: Auto-select most liquid markets
+  - **Resource optimization**: Configurable symbol limits to balance coverage vs resources
+  - Created ALL_PAIRS_DEPLOYMENT_GUIDE.md with scaling strategies
+  
 - **2025-10-23**: Configured for small capital live trading
   - **Adjusted risk parameters for conservative live trading**:
     - RISK_PER_TRADE_PERCENT: 1.0% → **0.3%**

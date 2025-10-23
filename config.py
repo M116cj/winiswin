@@ -16,13 +16,21 @@ class Config:
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
-    SYMBOLS = [
+    # 交易對選擇模式
+    SYMBOL_MODE = os.getenv('SYMBOL_MODE', 'auto').lower()
+    MAX_SYMBOLS = int(os.getenv('MAX_SYMBOLS', '50'))
+    
+    # 靜態交易對列表（備用）
+    STATIC_SYMBOLS = [
         'BTCUSDT',   # Bitcoin
         'ETHUSDT',   # Ethereum
         'BNBUSDT',   # Binance Coin
         'SOLUSDT',   # Solana
         'XRPUSDT',   # Ripple
     ]
+    
+    # SYMBOLS 將在運行時動態設置
+    SYMBOLS = STATIC_SYMBOLS
     TIMEFRAME = '1h'
     
     MODEL_RETRAIN_INTERVAL = 3600

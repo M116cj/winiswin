@@ -162,6 +162,66 @@ class BinanceDataClient:
             logger.error(f"Error placing order: {e}")
             return None
     
+    def get_all_usdt_perpetual_pairs(self):
+        """獲取所有 USDT 永續合約交易對"""
+        if not self.client:
+            logger.error("Binance client not initialized")
+            return ['BTCUSDT', 'ETHUSDT']
+        
+        try:
+            exchange_info = self.client.futures_exchange_info()
+            
+            usdt_pairs = [
+                symbol['symbol'] 
+                for symbol in exchange_info['symbols'] 
+                if symbol['contractType'] == 'PERPETUAL' 
+                and symbol['quoteAsset'] == 'USDT'
+                and symbol['status'] == 'TRADING'
+            ]
+            
+            logger.info(f"Found {len(usdt_pairs)} USDT perpetual pairs")
+            return usdt_pairs
+        
+        except Exception as e:
+            logger.error(f"Error fetching trading pairs: {e}")
+            return ['BTCUSDT', 'ETHUSDT']
+    
+    def get_top_pairs_by_volume(self, limit=50):
+        """獲取按24小時成交量排序的前N個交易對"""
+        if not self.client:
+            logger.error("Binance client not initialized")
+            return ['BTCUSDT', 'ETHUSDT']
+        
+        try:
+            all_pairs = self.get_all_usdt_perpetual_pairs()
+            
+            tickers = self.client.futures_ticker()
+            
+            usdt_tickers = [
+                ticker for ticker in tickers 
+                if ticker['symbol'] in all_pairs
+            ]
+            
+            sorted_tickers = sorted(
+                usdt_tickers, 
+                key=lambda x: float(x.get('quoteVolume', 0)), 
+                reverse=True
+            )
+            
+            top_pairs = [ticker['symbol'] for ticker in sorted_tickers[:limit]]
+            
+            logger.info(f"Selected top {len(top_pairs)} pairs by 24h volume")
+            
+            for i, pair in enumerate(top_pairs[:10]):
+                volume = float([t for t in sorted_tickers if t['symbol'] == pair][0]['quoteVolume'])
+                logger.info(f"  {i+1}. {pair}: ${volume:,.0f} (24h volume)")
+            
+            return top_pairs
+        
+        except Exception as e:
+            logger.error(f"Error fetching top pairs: {e}")
+            return ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT']
+    
     async def close_async(self):
         if self.async_client:
             await self.async_client.close_connection()
