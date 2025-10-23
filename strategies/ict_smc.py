@@ -181,13 +181,32 @@ class ICTSMCStrategy:
         self.identify_liquidity_zones(df)
         structure = self.check_market_structure(df)
         
-        # 獲取當前指標
-        current_price = df.iloc[-1]['close']
-        macd = df.iloc[-1]['macd']
-        macd_signal = df.iloc[-1]['macd_signal']
-        ema_9 = df.iloc[-1]['ema_9']
-        ema_21 = df.iloc[-1]['ema_21']
-        atr = df.iloc[-1]['atr']
+        # 獲取當前指標並驗證數據完整性
+        try:
+            current_price = df.iloc[-1]['close']
+            macd = df.iloc[-1]['macd']
+            macd_signal = df.iloc[-1]['macd_signal']
+            ema_9 = df.iloc[-1]['ema_9']
+            ema_21 = df.iloc[-1]['ema_21']
+            atr = df.iloc[-1]['atr']
+        except (KeyError, IndexError) as e:
+            logger.error(f"Missing required indicators: {e}")
+            return None
+        
+        # 驗證所有指標數據有效性
+        if any(pd.isna(x) or x is None for x in [current_price, macd, macd_signal, ema_9, ema_21, atr]):
+            logger.warning("One or more indicators are NaN or None, skipping signal generation")
+            return None
+        
+        # ATR 必須為正數
+        if atr <= 0:
+            logger.warning(f"Invalid ATR value: {atr}, skipping signal generation")
+            return None
+        
+        # 價格必須為正數
+        if current_price <= 0:
+            logger.warning(f"Invalid price: {current_price}, skipping signal generation")
+            return None
         
         signal = None
         
@@ -215,14 +234,30 @@ class ICTSMCStrategy:
             
             # 如果信心度超過門檻，生成信號
             if confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈
-                stop_loss = current_price - (atr * 2.0)
-                take_profit = current_price + (atr * 3.0)
-                
-                # 計算預期投報率
-                risk = current_price - stop_loss
-                reward = take_profit - current_price
-                expected_roi = (reward / risk) if risk > 0 else 1.5
+                # 計算止損和止盈（防禦性檢查）
+                try:
+                    stop_loss = current_price - (atr * 2.0)
+                    take_profit = current_price + (atr * 3.0)
+                    
+                    # 確保止損和止盈有效
+                    if stop_loss <= 0 or take_profit <= 0:
+                        logger.warning(f"Invalid stop/take levels: SL={stop_loss}, TP={take_profit}")
+                        return None
+                    
+                    # 計算預期投報率
+                    risk = abs(current_price - stop_loss)
+                    reward = abs(take_profit - current_price)
+                    
+                    # 防止除以零並確保合理的風險回報比
+                    if risk > 0:
+                        expected_roi = reward / risk
+                    else:
+                        logger.warning("Risk is zero or negative, using default ROI")
+                        expected_roi = 1.5
+                        
+                except Exception as e:
+                    logger.error(f"Error calculating trade parameters: {e}")
+                    return None
                 
                 signal = {
                     'type': 'BUY',
@@ -266,14 +301,30 @@ class ICTSMCStrategy:
             
             # 如果信心度超過門檻，生成信號
             if confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈
-                stop_loss = current_price + (atr * 2.0)
-                take_profit = current_price - (atr * 3.0)
-                
-                # 計算預期投報率
-                risk = stop_loss - current_price
-                reward = current_price - take_profit
-                expected_roi = (reward / risk) if risk > 0 else 1.5
+                # 計算止損和止盈（防禦性檢查）
+                try:
+                    stop_loss = current_price + (atr * 2.0)
+                    take_profit = current_price - (atr * 3.0)
+                    
+                    # 確保止損和止盈有效
+                    if stop_loss <= 0 or take_profit <= 0:
+                        logger.warning(f"Invalid stop/take levels: SL={stop_loss}, TP={take_profit}")
+                        return None
+                    
+                    # 計算預期投報率
+                    risk = abs(stop_loss - current_price)
+                    reward = abs(current_price - take_profit)
+                    
+                    # 防止除以零並確保合理的風險回報比
+                    if risk > 0:
+                        expected_roi = reward / risk
+                    else:
+                        logger.warning("Risk is zero or negative, using default ROI")
+                        expected_roi = 1.5
+                        
+                except Exception as e:
+                    logger.error(f"Error calculating trade parameters: {e}")
+                    return None
                 
                 signal = {
                     'type': 'SELL',
