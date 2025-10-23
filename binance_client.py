@@ -108,6 +108,17 @@ class BinanceDataClient:
             logger.error(f"Error fetching account balance: {e}")
             return {}
     
+    def get_futures_balance(self):
+        """Get futures account USDT balance."""
+        if not self.client:
+            return 0.0
+        try:
+            account = self.client.futures_account()
+            return float(account.get('totalWalletBalance', 0.0))
+        except Exception as e:
+            logger.error(f"Error fetching futures balance: {e}")
+            return 0.0
+    
     def get_funding_rate(self, symbol):
         try:
             funding_rate = self.client.futures_funding_rate(symbol=symbol, limit=1)

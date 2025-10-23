@@ -135,12 +135,16 @@ class TradingBotV3:
         logger.info("="*70 + "\n")
     
     async def _verify_connections(self):
-        """Verify all API connections."""
+        """Verify all API connections and load account balance."""
         # Test Binance
         try:
             await self.binance.get_ticker('BTCUSDT')
             self.monitoring_service.update_health('binance_api', 'healthy')
             logger.info("✅ Binance API connection verified")
+            
+            # Load real account balance
+            await self._load_account_balance()
+            
         except Exception as e:
             self.monitoring_service.update_health('binance_api', 'unhealthy')
             logger.error(f"❌ Binance API connection failed: {e}")
@@ -151,6 +155,46 @@ class TradingBotV3:
             logger.info("✅ Discord bot ready")
         else:
             self.monitoring_service.update_health('discord_api', 'unhealthy')
+    
+    async def _load_account_balance(self):
+        """Load real account balance from Binance and update RiskManager."""
+        try:
+            logger.info("📊 Loading account balance from Binance...")
+            
+            # Get account balance (using sync methods in executor)
+            loop = asyncio.get_event_loop()
+            balance_data = await loop.run_in_executor(None, self.binance.get_account_balance)
+            
+            if not balance_data:
+                logger.warning("⚠️  No balance data received, using default $10,000")
+                return
+            
+            # Calculate total USDT balance (spot + futures)
+            usdt_balance = 0.0
+            
+            # Get USDT from spot account
+            if 'USDT' in balance_data:
+                usdt_balance += balance_data['USDT'].get('total', 0.0)
+            
+            # Try to get futures account balance
+            try:
+                futures_balance = await loop.run_in_executor(None, self.binance.get_futures_balance)
+                if futures_balance:
+                    usdt_balance += futures_balance
+            except Exception as e:
+                logger.debug(f"Futures balance not available: {e}")
+            
+            if usdt_balance > 0:
+                # Update RiskManager with real balance
+                self.risk_manager.update_balance(usdt_balance)
+                logger.info(f"✅ Account balance loaded: ${usdt_balance:,.2f} USDT")
+                logger.info(f"   Capital per position: ${usdt_balance/3:,.2f} USDT")
+            else:
+                logger.warning(f"⚠️  Zero or negative balance detected, using default")
+                
+        except Exception as e:
+            logger.error(f"❌ Failed to load account balance: {e}")
+            logger.info("ℹ️  Using default balance of $10,000 USDT")
     
     async def run_cycle(self):
         """Execute one complete trading cycle."""
