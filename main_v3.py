@@ -184,20 +184,21 @@ class TradingBotV3:
             # Get USDT from spot account
             if 'USDT' in balance_data:
                 spot_usdt = balance_data['USDT'].get('total', 0.0)
-                logger.info(f"💼 Spot Account USDT: ${spot_usdt:,.2f}")
-            else:
-                logger.info("💼 Spot Account USDT: $0.00 (No USDT found)")
+                if spot_usdt > 0:
+                    logger.info(f"💼 Spot Account USDT: ${spot_usdt:,.2f}")
             
-            # Try to get futures account balance
+            # Try to get futures account balance (USDT-M)
             try:
                 futures_usdt = await loop.run_in_executor(None, self.binance.get_futures_balance)
-                if futures_usdt:
-                    logger.info(f"📈 Futures Account USDT: ${futures_usdt:,.2f}")
-                else:
-                    logger.info("📈 Futures Account USDT: $0.00")
+                if futures_usdt and futures_usdt > 0:
+                    logger.info(f"📈 U本位合約 USDT: ${futures_usdt:,.2f}")
+                    logger.info(f"   (USDT-Margined Futures)")
             except Exception as e:
                 logger.warning(f"⚠️  Could not fetch futures balance: {e}")
-                logger.info("📈 Futures Account USDT: Not available")
+            
+            # Show zero balances only if both are zero
+            if spot_usdt == 0.0 and futures_usdt == 0.0:
+                logger.warning("⚠️  No USDT found in Spot or Futures accounts")
             
             # Calculate total
             total_usdt = spot_usdt + futures_usdt

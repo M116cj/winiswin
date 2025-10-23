@@ -109,12 +109,27 @@ class BinanceDataClient:
             return {}
     
     def get_futures_balance(self):
-        """Get futures account USDT balance."""
+        """Get USDT-M futures account USDT balance."""
         if not self.client:
             return 0.0
         try:
+            # Method 1: Try to get account balance (more accurate)
+            try:
+                balances = self.client.futures_account_balance()
+                for balance in balances:
+                    if balance['asset'] == 'USDT':
+                        usdt_balance = float(balance['balance'])
+                        logger.debug(f"Futures USDT balance (from account_balance): {usdt_balance}")
+                        return usdt_balance
+            except Exception as e:
+                logger.debug(f"futures_account_balance failed, trying totalWalletBalance: {e}")
+            
+            # Method 2: Fallback to totalWalletBalance
             account = self.client.futures_account()
-            return float(account.get('totalWalletBalance', 0.0))
+            total_balance = float(account.get('totalWalletBalance', 0.0))
+            logger.debug(f"Futures balance (from totalWalletBalance): {total_balance}")
+            return total_balance
+            
         except Exception as e:
             logger.error(f"Error fetching futures balance: {e}")
             return 0.0
