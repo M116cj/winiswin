@@ -126,12 +126,16 @@ class TradingBotV3:
         # Verify API connections
         await self._verify_connections()
         
-        logger.info("\n✅ Initialization complete")
+        logger.info("\n" + "="*70)
+        logger.info("✅ Initialization Complete - Bot Ready")
+        logger.info("="*70)
         logger.info(f"📊 Monitoring: {len(self.symbols)} symbols")
         logger.info(f"⏱️  Timeframe: {self.timeframe}")
         logger.info(f"🔄 Cycle interval: {self.cycle_interval}s")
-        logger.info(f"💰 Max positions: {self.execution_service.max_positions}")
-        logger.info(f"📈 Trading: {'ENABLED' if Config.ENABLE_TRADING else 'DISABLED (SIMULATION)'}")
+        logger.info(f"💰 Account Balance: ${self.risk_manager.account_balance:,.2f} USDT")
+        logger.info(f"📍 Max Positions: {self.execution_service.max_positions}")
+        logger.info(f"💵 Capital per Position: ${self.risk_manager.account_balance/3:,.2f} USDT")
+        logger.info(f"📈 Trading Mode: {'LIVE TRADING' if Config.ENABLE_TRADING else 'SIMULATION (Paper Trading)'}")
         logger.info("="*70 + "\n")
     
     async def _verify_connections(self):
@@ -159,42 +163,67 @@ class TradingBotV3:
     async def _load_account_balance(self):
         """Load real account balance from Binance and update RiskManager."""
         try:
-            logger.info("📊 Loading account balance from Binance...")
+            logger.info("="*70)
+            logger.info("📊 Loading Account Balance from Binance")
+            logger.info("="*70)
             
             # Get account balance (using sync methods in executor)
             loop = asyncio.get_event_loop()
             balance_data = await loop.run_in_executor(None, self.binance.get_account_balance)
             
             if not balance_data:
-                logger.warning("⚠️  No balance data received, using default $10,000")
+                logger.warning("⚠️  No balance data received from Binance API")
+                logger.info("ℹ️  Using default balance: $10,000 USDT")
+                logger.info("="*70)
                 return
             
             # Calculate total USDT balance (spot + futures)
-            usdt_balance = 0.0
+            spot_usdt = 0.0
+            futures_usdt = 0.0
             
             # Get USDT from spot account
             if 'USDT' in balance_data:
-                usdt_balance += balance_data['USDT'].get('total', 0.0)
+                spot_usdt = balance_data['USDT'].get('total', 0.0)
+                logger.info(f"💼 Spot Account USDT: ${spot_usdt:,.2f}")
+            else:
+                logger.info("💼 Spot Account USDT: $0.00 (No USDT found)")
             
             # Try to get futures account balance
             try:
-                futures_balance = await loop.run_in_executor(None, self.binance.get_futures_balance)
-                if futures_balance:
-                    usdt_balance += futures_balance
+                futures_usdt = await loop.run_in_executor(None, self.binance.get_futures_balance)
+                if futures_usdt:
+                    logger.info(f"📈 Futures Account USDT: ${futures_usdt:,.2f}")
+                else:
+                    logger.info("📈 Futures Account USDT: $0.00")
             except Exception as e:
-                logger.debug(f"Futures balance not available: {e}")
+                logger.warning(f"⚠️  Could not fetch futures balance: {e}")
+                logger.info("📈 Futures Account USDT: Not available")
             
-            if usdt_balance > 0:
+            # Calculate total
+            total_usdt = spot_usdt + futures_usdt
+            
+            if total_usdt > 0:
+                logger.info("-"*70)
+                logger.info(f"✅ Total Account Balance: ${total_usdt:,.2f} USDT")
+                logger.info("-"*70)
+                logger.info(f"📊 Risk Management Configuration:")
+                logger.info(f"   • Max Positions: 3")
+                logger.info(f"   • Capital per Position: ${total_usdt/3:,.2f} USDT (33.33%)")
+                logger.info(f"   • Risk per Trade: {Config.RISK_PER_TRADE_PERCENT}%")
+                logger.info(f"   • Max Position Size: {Config.MAX_POSITION_SIZE_PERCENT}%")
+                logger.info("="*70)
+                
                 # Update RiskManager with real balance
-                self.risk_manager.update_balance(usdt_balance)
-                logger.info(f"✅ Account balance loaded: ${usdt_balance:,.2f} USDT")
-                logger.info(f"   Capital per position: ${usdt_balance/3:,.2f} USDT")
+                self.risk_manager.update_balance(total_usdt)
             else:
-                logger.warning(f"⚠️  Zero or negative balance detected, using default")
+                logger.warning("⚠️  Zero balance detected in all accounts")
+                logger.info("ℹ️  Using default balance: $10,000 USDT")
+                logger.info("="*70)
                 
         except Exception as e:
             logger.error(f"❌ Failed to load account balance: {e}")
-            logger.info("ℹ️  Using default balance of $10,000 USDT")
+            logger.info("ℹ️  Using default balance: $10,000 USDT")
+            logger.info("="*70)
     
     async def run_cycle(self):
         """Execute one complete trading cycle."""

@@ -9,6 +9,12 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Focus on: ICT/SMC strategy with ML confirmation
 - Notifications: Discord alerts for all trades and warnings
 
+### Recent Updates (October 23, 2025)
+- **Automatic Account Balance Loading**: Bot now automatically reads real USDT balance from both Spot and Futures accounts on startup
+- **Enhanced Balance Reporting**: Detailed logging shows Spot balance, Futures balance, and total USDT with capital allocation per position
+- **Railway Deployment Ready**: Fixed IP configured, ready for deployment on Railway EU West region
+- **Discord Integration**: `/balance` command displays real-time account balance from Binance API
+
 ### System Architecture
 The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.
 
@@ -30,10 +36,12 @@ The bot has undergone a significant architectural overhaul to v3.0, transitionin
 - **Trading Strategy (ICT/SMC)**: Identifies order blocks, liquidity zones, and market structure. Uses MACD and EMA for confirmation and assigns a confidence score (70-100%).
 - **Intelligent Position Selection**: Scans all 648 symbols, scores signals by confidence/expected ROI, sorts them, and opens positions only for the top 3 signals. It dynamically manages existing positions.
 - **Advanced Risk Management**:
-    - Dual position limits based on 0.3% risk and a 0.5% maximum position size.
-    - Capital is divided into 3 equal parts, with each position using 33.33% of the allocated funds.
-    - Dynamic stop-loss/take-profit based on ATR.
-    - Automatic drawdown alerts (5% triggers Discord alert).
+    - Automatic account balance detection from Binance API (Spot + Futures USDT)
+    - Dual position limits based on 0.3% risk and a 0.5% maximum position size
+    - Capital is divided into 3 equal parts, with each position using 33.33% of the allocated funds
+    - Dynamic stop-loss/take-profit based on ATR
+    - Automatic drawdown alerts (5% triggers Discord alert)
+    - Real-time balance updates in Discord `/balance` command
 - **Technical Indicators**: Uses pure Python/NumPy for MACD, Bollinger Bands, EMA, and ATR to reduce dependencies.
 - **Dependency Optimization**: Significant reduction in external libraries, removing PyTorch LSTM and TA-Lib dependencies, leading to smaller Docker images and faster startup times.
 - **Trade Logging**: Optimized batch writing for performance.
