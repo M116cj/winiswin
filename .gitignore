@@ -75,6 +75,9 @@ uv.lock
 replit.nix
 .config/
 
+# Git lock files
+.git/index.lock
+
 # Keep important deployment configs
 !nixpacks.toml
 !railway.json
