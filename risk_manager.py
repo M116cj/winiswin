@@ -36,6 +36,80 @@ class RiskManager:
         """Get capital allocated per position (1/3 of total for 3-position system)."""
         return self.account_balance * (self.capital_per_position / 100)
     
+    def calculate_dynamic_leverage(self, confidence, atr, current_price):
+        """
+        智能槓桿計算：根據信心度和市場波動性動態調整槓桿倍數
+        
+        Args:
+            confidence: 信號信心度 (70-100)
+            atr: 平均真實波幅（ATR）
+            current_price: 當前價格
+        
+        Returns:
+            槓桿倍數 (1.0-2.0x)
+        """
+        # 如果未啟用動態槓桿，返回預設值
+        if not Config.ENABLE_DYNAMIC_LEVERAGE:
+            return Config.DEFAULT_LEVERAGE
+        
+        # 數據驗證
+        if confidence is None or np.isnan(confidence) or confidence < 0:
+            logger.warning(f"Invalid confidence {confidence}, using default leverage")
+            return Config.DEFAULT_LEVERAGE
+        
+        if atr is None or np.isnan(atr) or atr <= 0:
+            logger.warning(f"Invalid ATR {atr}, using default leverage")
+            return Config.DEFAULT_LEVERAGE
+        
+        if current_price is None or np.isnan(current_price) or current_price <= 0:
+            logger.warning(f"Invalid price {current_price}, using default leverage")
+            return Config.DEFAULT_LEVERAGE
+        
+        try:
+            # === 第一步：根據信心度計算基礎槓桿 ===
+            if confidence >= Config.HIGH_CONFIDENCE_THRESHOLD:
+                # 90-100% 信心度：1.8-2.0x
+                base_leverage = 1.8 + (confidence - Config.HIGH_CONFIDENCE_THRESHOLD) / 50.0
+            elif confidence >= Config.MEDIUM_CONFIDENCE_THRESHOLD:
+                # 80-90% 信心度：1.4-1.8x
+                confidence_range = Config.HIGH_CONFIDENCE_THRESHOLD - Config.MEDIUM_CONFIDENCE_THRESHOLD
+                base_leverage = 1.4 + (confidence - Config.MEDIUM_CONFIDENCE_THRESHOLD) / confidence_range * 0.4
+            else:
+                # 70-80% 信心度：1.0-1.4x
+                base_leverage = 1.0 + (confidence - 70.0) / 10.0 * 0.4
+            
+            # === 第二步：根據波動性調整 ===
+            atr_percent = (atr / current_price) * 100  # ATR 佔價格百分比
+            
+            volatility_adjustment = 0.0
+            if atr_percent < Config.LOW_VOLATILITY_ATR_THRESHOLD * 100:
+                # 低波動：可以增加槓桿
+                volatility_adjustment = 0.2
+                volatility_level = "低"
+            elif atr_percent > Config.HIGH_VOLATILITY_ATR_THRESHOLD * 100:
+                # 高波動：降低槓桿以控制風險
+                volatility_adjustment = -0.3
+                volatility_level = "高"
+            else:
+                # 正常波動：不調整
+                volatility_level = "正常"
+            
+            # === 第三步：計算最終槓桿 ===
+            final_leverage = base_leverage + volatility_adjustment
+            
+            # 限制在允許範圍內
+            final_leverage = max(Config.MIN_LEVERAGE, min(final_leverage, Config.MAX_LEVERAGE))
+            
+            logger.info(f"🎯 槓桿計算: 信心度={confidence:.1f}% → 基礎={base_leverage:.2f}x, "
+                       f"波動性={volatility_level}({atr_percent:.2f}%) → 調整={volatility_adjustment:+.1f}x, "
+                       f"最終槓桿={final_leverage:.2f}x")
+            
+            return final_leverage
+            
+        except Exception as e:
+            logger.error(f"Error calculating dynamic leverage: {e}")
+            return Config.DEFAULT_LEVERAGE
+    
     def calculate_position_size(self, symbol, entry_price, stop_loss_price, allocated_capital=None):
         """
         Calculate position size with risk management.
