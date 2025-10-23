@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord import app_commands
 import asyncio
 from datetime import datetime
 from config import Config
@@ -16,7 +16,8 @@ class TradingBotNotifier:
         intents = discord.Intents.default()
         intents.message_content = True
         
-        self.bot = commands.Bot(command_prefix='!', intents=intents)
+        self.bot = discord.Client(intents=intents)
+        self.tree = app_commands.CommandTree(self.bot)
         self.channel = None
         self.is_ready = False
         
@@ -26,6 +27,14 @@ class TradingBotNotifier:
         @self.bot.event
         async def on_ready():
             logger.info(f'Discord bot logged in as {self.bot.user}')
+            
+            # 同步斜線命令
+            try:
+                synced = await self.tree.sync()
+                logger.info(f"Synced {len(synced)} slash commands")
+            except Exception as e:
+                logger.error(f"Failed to sync commands: {e}")
+            
             if self.channel_id:
                 self.channel = self.bot.get_channel(self.channel_id)
                 if self.channel:
@@ -41,54 +50,12 @@ class TradingBotNotifier:
         self.risk_manager = risk_manager
     
     def _setup_commands(self):
-        """設置所有 Discord 命令"""
+        """設置所有 Discord 斜線命令"""
         
-        @self.bot.command(name='commands', help='顯示所有可用命令')
-        async def commands_list(ctx):
-            embed = discord.Embed(
-                title="🤖 交易機器人命令列表",
-                description="可用的命令：",
-                color=discord.Color.blue(),
-                timestamp=datetime.utcnow()
-            )
-            
-            embed.add_field(
-                name="!commands",
-                value="顯示此命令列表",
-                inline=False
-            )
-            embed.add_field(
-                name="!positions",
-                value="查看當前持倉",
-                inline=False
-            )
-            embed.add_field(
-                name="!balance",
-                value="查看賬戶餘額和性能統計",
-                inline=False
-            )
-            embed.add_field(
-                name="!stats",
-                value="查看詳細性能統計",
-                inline=False
-            )
-            embed.add_field(
-                name="!status",
-                value="查看機器人運行狀態",
-                inline=False
-            )
-            embed.add_field(
-                name="!config",
-                value="查看當前配置",
-                inline=False
-            )
-            
-            await ctx.send(embed=embed)
-        
-        @self.bot.command(name='positions', help='查看當前持倉')
-        async def positions(ctx):
+        @self.tree.command(name="positions", description="查看當前持倉")
+        async def positions(interaction: discord.Interaction):
             if not self.risk_manager:
-                await ctx.send("❌ 風險管理器未初始化")
+                await interaction.response.send_message("❌ 風險管理器未初始化", ephemeral=True)
                 return
             
             open_positions = self.risk_manager.open_positions
@@ -128,12 +95,12 @@ class TradingBotNotifier:
                     )
                     embed.add_field(name=f"📈 {symbol}", value=position_info, inline=True)
             
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
         
-        @self.bot.command(name='balance', help='查看賬戶餘額')
-        async def balance(ctx):
+        @self.tree.command(name="balance", description="查看賬戶餘額和資金分配")
+        async def balance(interaction: discord.Interaction):
             if not self.risk_manager:
-                await ctx.send("❌ 風險管理器未初始化")
+                await interaction.response.send_message("❌ 風險管理器未初始化", ephemeral=True)
                 return
             
             stats = self.risk_manager.get_performance_stats()
@@ -182,12 +149,12 @@ class TradingBotNotifier:
                 inline=True
             )
             
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
         
-        @self.bot.command(name='stats', help='查看詳細統計')
-        async def stats(ctx):
+        @self.tree.command(name="stats", description="查看詳細性能統計")
+        async def stats(interaction: discord.Interaction):
             if not self.risk_manager:
-                await ctx.send("❌ 風險管理器未初始化")
+                await interaction.response.send_message("❌ 風險管理器未初始化", ephemeral=True)
                 return
             
             stats = self.risk_manager.get_performance_stats()
@@ -216,10 +183,10 @@ class TradingBotNotifier:
                 inline=False
             )
             
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
         
-        @self.bot.command(name='status', help='查看機器人狀態')
-        async def status(ctx):
+        @self.tree.command(name="status", description="查看機器人運行狀態")
+        async def status(interaction: discord.Interaction):
             embed = discord.Embed(
                 title="🤖 機器人狀態",
                 color=discord.Color.green(),
@@ -236,10 +203,10 @@ class TradingBotNotifier:
             
             embed.add_field(name="交易模式", value="✅ 已啟用" if Config.ENABLE_TRADING else "⚠️ 模擬模式", inline=True)
             
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
         
-        @self.bot.command(name='config', help='查看配置')
-        async def config(ctx):
+        @self.tree.command(name="config", description="查看機器人配置")
+        async def config(interaction: discord.Interaction):
             embed = discord.Embed(
                 title="⚙️ 機器人配置",
                 color=discord.Color.blue(),
@@ -272,7 +239,7 @@ class TradingBotNotifier:
                 inline=False
             )
             
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
     
     async def start_bot(self):
         if not self.token:

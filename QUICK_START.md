@@ -9,38 +9,38 @@
 
 ```bash
 # 查看命令列表
-!commands
+/commands
 
 # 查看當前持倉（最常用）⭐
-!positions
+/positions
 
 # 查看賬戶餘額（最常用）⭐  
-!balance
+/balance
 
 # 查看性能統計
-!stats
+/stats
 
 # 查看機器人狀態
-!status
+/status
 
 # 查看配置
-!config
+/config
 
 # Discord 內建幫助
-!help
+/help
 ```
 
 ---
 
 ## 📊 命令說明
 
-### !positions - 查看持倉
+### /positions - 查看持倉
 顯示：
 - 持倉數量（X/3）
 - 每個倉位的詳細資訊
 - 實時盈虧 🟢/🔴
 
-### !balance - 查看餘額
+### /balance - 查看餘額
 顯示：
 - 賬戶餘額
 - 總盈虧
@@ -48,7 +48,7 @@
 - 可用倉位
 - 每倉位資金
 
-### !stats - 詳細統計
+### /stats - 詳細統計
 顯示：
 - 總交易數
 - 勝率
@@ -61,18 +61,18 @@
 
 ```bash
 # 早上檢查
-!balance
-!positions
+/balance
+/positions
 
 # 交易前檢查
-!positions
-!status
+/positions
+/status
 
 # 完整檢查
-!status
-!stats
-!balance
-!positions
+/status
+/stats
+/balance
+/positions
 ```
 
 ---
