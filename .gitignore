@@ -1,4 +1,8 @@
+# Environment
 .env
+.env.local
+
+# Python
 .pythonlibs/
 __pycache__/
 *.pyc
@@ -10,15 +14,39 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+venv/
+ENV/
+env/
+
+# Logs
 *.log
+trading_bot.log
+
+# Database
 *.sqlite
 *.db
+
+# Trading data
+trades.json
 checkpoints/
 models/saved/
 data/cache/
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Temporary
+/tmp/
+*.tmp
+*.bak
+
+# UV
+uv.lock
