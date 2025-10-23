@@ -242,7 +242,9 @@ class TradingBot:
         self.risk_manager.clear_pending_signals()
         
         # 步驟2: 掃描所有交易對，收集信號
-        for symbol in self.symbols:
+        # 批量處理以避免阻塞 Discord bot 心跳
+        batch_size = 30
+        for idx, symbol in enumerate(self.symbols):
             logger.info(f"Analyzing {symbol}...")
             
             analysis = await self.analyze_market(symbol)
@@ -283,6 +285,12 @@ class TradingBot:
                 
                 logger.info(f"✅ Signal detected for {symbol}: {signal['type']} "
                           f"(confidence: {confidence:.1f}%, roi: {expected_roi:.2f}%)")
+            
+            # 每處理 batch_size 個交易對，讓出控制權給事件循環
+            # 這樣 Discord bot 可以發送心跳，避免連接超時
+            if (idx + 1) % batch_size == 0:
+                logger.info(f"📊 Processed {idx + 1}/{len(self.symbols)} symbols, yielding to event loop...")
+                await asyncio.sleep(0.1)
         
         # 步驟3: 選擇最優信號（優先使用信心度，也可改為 'roi'）
         sort_mode = 'confidence'  # 可改為 'roi' 按投報率排序
