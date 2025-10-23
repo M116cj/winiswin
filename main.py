@@ -8,7 +8,7 @@ from strategies.arbitrage import ArbitrageStrategy
 from risk_manager import RiskManager
 from discord_bot import TradingBotNotifier
 from trade_logger import TradeLogger
-from utils.indicators_lite import TechnicalIndicators
+from utils.indicators import TechnicalIndicators
 from utils.helpers import setup_logger
 from config import Config
 
@@ -280,6 +280,9 @@ class TradingBot:
         """關閉機器人"""
         logger.info("Shutting down Trading Bot...")
         self.running = False
+        
+        self.trade_logger.flush()
+        logger.info("Flushed all pending trades")
         
         if self.notifier:
             await self.notifier.send_message("🛑 Trading Bot shutting down")
