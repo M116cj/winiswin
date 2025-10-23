@@ -1,8 +1,5 @@
 [phases.setup]
-nixPkgs = ["python311", "python311Packages.pip", "gcc", "ta-lib"]
-
-[phases.install]
-cmds = ["pip install -r requirements.txt"]
+nixPkgs = ["python311", "gcc", "ta-lib"]
 
 [start]
 cmd = "python main.py"
