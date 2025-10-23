@@ -58,10 +58,7 @@ class TradingBotV3:
         self.discord = None
         if Config.DISCORD_BOT_TOKEN:
             try:
-                self.discord = DiscordBot(
-                    token=Config.DISCORD_BOT_TOKEN,
-                    channel_id=Config.DISCORD_CHANNEL_ID
-                )
+                self.discord = DiscordBot(risk_manager=self.risk_manager)
                 logger.info("Discord bot initialized")
             except Exception as e:
                 logger.error(f"Failed to initialize Discord bot: {e}")
