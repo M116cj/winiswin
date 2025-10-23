@@ -263,29 +263,101 @@ class TradingBotNotifier:
             logger.error(f"Error sending Discord message: {e}")
     
     async def send_trade_notification(self, trade_info):
+        """Send comprehensive trade notification with full position details."""
         if not self.is_ready:
             return
         
-        embed = discord.Embed(
-            title=f"🔔 Trade Executed: {trade_info['symbol']}",
-            color=discord.Color.green() if trade_info['type'] == 'BUY' else discord.Color.red(),
-            timestamp=datetime.utcnow()
-        )
+        trade_type = trade_info.get('type', 'TRADE')
+        mode = trade_info.get('mode', 'SIMULATION')
         
-        embed.add_field(name="Type", value=trade_info['type'], inline=True)
-        embed.add_field(name="Price", value=f"${format_number(trade_info['price'])}", inline=True)
-        embed.add_field(name="Quantity", value=format_number(trade_info['quantity'], 6), inline=True)
+        # Position OPENED notification
+        if trade_type == 'OPEN':
+            action = trade_info.get('action', 'BUY')
+            emoji = "📈" if action == 'BUY' else "📉"
+            color = discord.Color.green() if action == 'BUY' else discord.Color.red()
+            mode_emoji = "🔴" if mode == 'LIVE' else "🟡"
+            
+            embed = discord.Embed(
+                title=f"{emoji} 新倉位開啟 - {trade_info['symbol']}",
+                description=f"{mode_emoji} **{mode} 模式**",
+                color=color,
+                timestamp=datetime.utcnow()
+            )
+            
+            # Position details
+            embed.add_field(name="方向", value=f"**{action}**", inline=True)
+            embed.add_field(name="入場價格", value=f"${format_number(trade_info['price'])}", inline=True)
+            embed.add_field(name="數量", value=format_number(trade_info['quantity'], 6), inline=True)
+            
+            embed.add_field(name="止損", value=f"${format_number(trade_info['stop_loss'])}", inline=True)
+            embed.add_field(name="止盈", value=f"${format_number(trade_info['take_profit'])}", inline=True)
+            embed.add_field(name="信心度", value=f"{format_number(trade_info.get('confidence', 0))}%", inline=True)
+            
+            embed.add_field(name="分配資金", value=f"${format_number(trade_info.get('allocated_capital', 0))}", inline=True)
+            embed.add_field(name="風險金額", value=f"${format_number(trade_info.get('risk_amount', 0))}", inline=True)
+            embed.add_field(name="策略", value=trade_info.get('strategy', 'N/A'), inline=True)
+            
+            # Risk/Reward ratio
+            if trade_info.get('stop_loss') and trade_info.get('take_profit'):
+                risk = abs(trade_info['price'] - trade_info['stop_loss'])
+                reward = abs(trade_info['take_profit'] - trade_info['price'])
+                rr_ratio = reward / risk if risk > 0 else 0
+                embed.add_field(name="風險回報比", value=f"1:{format_number(rr_ratio, 2)}", inline=False)
         
-        if 'stop_loss' in trade_info:
-            embed.add_field(name="Stop Loss", value=f"${format_number(trade_info['stop_loss'])}", inline=True)
-        if 'take_profit' in trade_info:
-            embed.add_field(name="Take Profit", value=f"${format_number(trade_info['take_profit'])}", inline=True)
+        # Position CLOSED notification
+        elif trade_type == 'CLOSE':
+            reason = trade_info.get('reason', 'MANUAL')
+            pnl = trade_info.get('pnl', 0)
+            pnl_pct = trade_info.get('pnl_percent', 0)
+            
+            # Determine emoji and color based on PnL
+            if pnl > 0:
+                emoji = "💰"
+                color = discord.Color.green()
+            else:
+                emoji = "💸"
+                color = discord.Color.red()
+            
+            # Special emoji for stop-loss/take-profit
+            if reason == 'STOP-LOSS':
+                emoji = "🛑"
+                reason_text = "止損觸發"
+            elif reason == 'TAKE-PROFIT':
+                emoji = "🎯"
+                reason_text = "止盈觸發"
+            else:
+                reason_text = reason
+            
+            mode_emoji = "🔴" if mode == 'LIVE' else "🟡"
+            
+            embed = discord.Embed(
+                title=f"{emoji} 倉位平倉 - {trade_info['symbol']}",
+                description=f"{mode_emoji} **{mode} 模式** | 原因：{reason_text}",
+                color=color,
+                timestamp=datetime.utcnow()
+            )
+            
+            # Trade details
+            embed.add_field(name="方向", value=trade_info.get('action', 'N/A'), inline=True)
+            embed.add_field(name="入場價格", value=f"${format_number(trade_info.get('entry_price', 0))}", inline=True)
+            embed.add_field(name="出場價格", value=f"${format_number(trade_info.get('exit_price', 0))}", inline=True)
+            
+            embed.add_field(name="數量", value=format_number(trade_info.get('quantity', 0), 6), inline=True)
+            embed.add_field(name="持倉時間", value=f"{format_number(trade_info.get('duration', 0), 2)} 小時", inline=True)
+            embed.add_field(name="策略", value=trade_info.get('strategy', 'N/A'), inline=True)
+            
+            # PnL - highlighted
+            pnl_symbol = "+" if pnl >= 0 else ""
+            embed.add_field(
+                name="📊 盈虧",
+                value=f"**{pnl_symbol}${format_number(pnl)} USDT**\n**{pnl_symbol}{format_number(pnl_pct, 2)}%**",
+                inline=False
+            )
         
-        if 'reason' in trade_info:
-            embed.add_field(name="Reason", value=trade_info['reason'], inline=False)
-        
+        # Send notification
         try:
             await self.channel.send(embed=embed)
+            logger.info(f"Sent {trade_type} notification for {trade_info.get('symbol')}")
         except Exception as e:
             logger.error(f"Error sending trade notification: {e}")
     
