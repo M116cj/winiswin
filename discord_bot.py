@@ -178,6 +178,9 @@ class TradingBotNotifier:
         if 'confidence' in signal_info:
             embed.add_field(name="信心度", value=f"{format_number(signal_info['confidence'])}%", inline=True)
         
+        if 'expected_roi' in signal_info:
+            embed.add_field(name="預期投報率", value=f"{format_number(signal_info['expected_roi'])}%", inline=True)
+        
         if 'reason' in signal_info:
             embed.add_field(name="原因", value=signal_info['reason'], inline=False)
         
@@ -186,23 +189,44 @@ class TradingBotNotifier:
         except Exception as e:
             logger.error(f"Error sending signal: {e}")
     
-    async def send_cycle_start(self, symbols_count):
+    async def send_cycle_start(self, symbols_count, current_positions=0, max_positions=3):
         if not self.is_ready:
             return
         
-        message = f"🔄 開始新的分析週期 - 監控 {symbols_count} 個交易對..."
+        embed = discord.Embed(
+            title="🔄 開始新的分析週期",
+            description=f"監控 **{symbols_count}** 個交易對",
+            color=discord.Color.blue(),
+            timestamp=datetime.utcnow()
+        )
+        
+        embed.add_field(name="當前倉位", value=f"{current_positions}/{max_positions}", inline=True)
+        embed.add_field(name="可用倉位", value=str(max_positions - current_positions), inline=True)
+        embed.add_field(name="倉位管理", value="資金3等分，最多持倉3個", inline=False)
+        
         try:
-            await self.channel.send(message)
+            await self.channel.send(embed=embed)
         except Exception as e:
             logger.error(f"Error sending cycle start: {e}")
     
-    async def send_cycle_complete(self, duration, signals_found):
+    async def send_cycle_complete(self, duration, signals_found, summary=None):
         if not self.is_ready:
             return
         
-        message = f"✅ 分析週期完成（用時 {duration:.1f}秒）- 發現 {signals_found} 個信號"
+        embed = discord.Embed(
+            title="✅ 分析週期完成",
+            color=discord.Color.green(),
+            timestamp=datetime.utcnow()
+        )
+        
+        embed.add_field(name="用時", value=f"{duration:.1f}秒", inline=True)
+        embed.add_field(name="發現信號", value=str(signals_found), inline=True)
+        
+        if summary:
+            embed.add_field(name="本週期總結", value=summary, inline=False)
+        
         try:
-            await self.channel.send(message)
+            await self.channel.send(embed=embed)
         except Exception as e:
             logger.error(f"Error sending cycle complete: {e}")
     

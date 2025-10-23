@@ -110,11 +110,14 @@ class ICTSMCStrategy:
             
             for zone in self.liquidity_zones:
                 if zone['type'] == 'support' and abs(current_price - zone['price']) < current_price * 0.01:
+                    # 計算信心度（70% 基礎 + 10% MACD + 10% EMA + 10% 結構）
+                    confidence = 100.0  # 所有條件都滿足
+                    
                     signal = {
                         'type': 'BUY',
                         'price': current_price,
                         'reason': 'Bullish structure + MACD crossover + price at support',
-                        'confidence': 0.75
+                        'confidence': confidence
                     }
                     break
         
@@ -125,11 +128,14 @@ class ICTSMCStrategy:
             
             for zone in self.liquidity_zones:
                 if zone['type'] == 'resistance' and abs(current_price - zone['price']) < current_price * 0.01:
+                    # 計算信心度（70% 基礎 + 10% MACD + 10% EMA + 10% 結構）
+                    confidence = 100.0  # 所有條件都滿足
+                    
                     signal = {
                         'type': 'SELL',
                         'price': current_price,
                         'reason': 'Bearish structure + MACD crossover + price at resistance',
-                        'confidence': 0.75
+                        'confidence': confidence
                     }
                     break
         

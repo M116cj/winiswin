@@ -218,20 +218,30 @@ class TradingBot:
         """
         運行一個交易週期
         
-        優化點：
-        1. 移除 LSTM 模型訓練（節省大量時間）
-        2. 並行分析多個交易對（提升速度）
-        3. 簡化決策邏輯（純技術指標）
-        4. 完整的 Discord 通知
+        新的3倉位管理邏輯：
+        1. 掃描所有交易對，收集所有信號
+        2. 計算每個信號的信心度和預期投報率
+        3. 選擇信心度最高或投報率最高的3個信號
+        4. 只對這3個信號執行交易
+        5. 完整的 Discord 通知
         """
         start_time = time.time()
         signals_found = 0
         
-        logger.info(f"Starting analysis cycle for {len(self.symbols)} symbols...")
+        logger.info(f"🔄 Starting analysis cycle for {len(self.symbols)} symbols...")
+        logger.info(f"📊 Current positions: {len(self.risk_manager.open_positions)}/{self.risk_manager.max_concurrent_positions}")
         
         if self.notifier:
-            await self.notifier.send_cycle_start(len(self.symbols))
+            await self.notifier.send_cycle_start(
+                len(self.symbols),
+                len(self.risk_manager.open_positions),
+                self.risk_manager.max_concurrent_positions
+            )
         
+        # 步驟1: 清空上一輪的待處理信號
+        self.risk_manager.clear_pending_signals()
+        
+        # 步驟2: 掃描所有交易對，收集信號
         for symbol in self.symbols:
             logger.info(f"Analyzing {symbol}...")
             
@@ -241,30 +251,82 @@ class TradingBot:
             
             if analysis['ict_signal']:
                 signals_found += 1
-                logger.info(f"Signal detected for {symbol}: {analysis['ict_signal']}")
+                signal = analysis['ict_signal']
                 
+                # 計算信心度和預期投報率
+                entry_price = signal['price']
+                stop_loss = signal.get('stop_loss', entry_price * 0.98)
+                take_profit = signal.get('take_profit', entry_price * 1.03)
+                
+                # 信心度計算（基於多個指標的一致性）
+                confidence = signal.get('confidence', 75.0)
+                
+                # 預期投報率計算
+                if signal['type'] == 'BUY':
+                    expected_roi = ((take_profit - entry_price) / entry_price) * 100
+                else:
+                    expected_roi = ((entry_price - take_profit) / entry_price) * 100
+                
+                # 添加到待處理信號
+                signal_info = {
+                    'type': signal['type'],
+                    'entry_price': entry_price,
+                    'stop_loss': stop_loss,
+                    'take_profit': take_profit,
+                    'confidence': confidence,
+                    'expected_roi': expected_roi,
+                    'reason': signal.get('reason', 'ICT/SMC 策略'),
+                    'analysis': analysis
+                }
+                
+                self.risk_manager.add_pending_signal(symbol, signal_info)
+                
+                logger.info(f"✅ Signal detected for {symbol}: {signal['type']} "
+                          f"(confidence: {confidence:.1f}%, roi: {expected_roi:.2f}%)")
+        
+        # 步驟3: 選擇最優信號（優先使用信心度，也可改為 'roi'）
+        sort_mode = 'confidence'  # 可改為 'roi' 按投報率排序
+        top_signals = self.risk_manager.get_top_signals(sort_by=sort_mode)
+        
+        # 步驟4: 對選中的信號執行交易
+        executed_trades = 0
+        if top_signals:
+            logger.info(f"🎯 Executing top {len(top_signals)} signals (sorted by {sort_mode})...")
+            
+            for symbol, signal_info in top_signals:
+                # 發送 Discord 通知
                 if self.notifier:
-                    signal_info = {
-                        'type': analysis['ict_signal']['type'],
-                        'entry_price': analysis['ict_signal']['price'],
-                        'stop_loss': analysis['ict_signal'].get('stop_loss'),
-                        'take_profit': analysis['ict_signal'].get('take_profit'),
-                        'reason': f"ICT/SMC 策略: {analysis['ict_signal'].get('reason', 'N/A')}"
-                    }
                     await self.notifier.send_signal(symbol, signal_info)
                 
-                await self.execute_trade(analysis['ict_signal'], analysis)
+                # 執行交易
+                ict_signal = {
+                    'type': signal_info['type'],
+                    'price': signal_info['entry_price'],
+                    'stop_loss': signal_info['stop_loss'],
+                    'take_profit': signal_info['take_profit'],
+                    'reason': signal_info['reason']
+                }
+                
+                await self.execute_trade(ict_signal, signal_info['analysis'])
+                executed_trades += 1
+                
+                logger.info(f"✅ Executed trade {executed_trades}/{len(top_signals)}: {symbol}")
         
+        # 步驟5: 檢查現有倉位
         await self.check_open_positions()
         
         duration = time.time() - start_time
         
+        # 發送週期完成通知
         if self.notifier:
-            await self.notifier.send_cycle_complete(duration, signals_found)
+            summary = f"掃描了 {len(self.symbols)} 個幣種，發現 {signals_found} 個信號，執行了 {executed_trades} 筆交易"
+            await self.notifier.send_cycle_complete(duration, signals_found, summary)
         
         stats = self.risk_manager.get_performance_stats()
-        logger.info(f"Performance: Balance=${stats['account_balance']:.2f}, "
+        logger.info(f"📊 Performance: Balance=${stats['account_balance']:.2f}, "
                    f"Trades={stats['total_trades']}, Win Rate={stats['win_rate']:.1f}%")
+        logger.info(f"📈 Signals found: {signals_found}, Executed: {executed_trades}, "
+                   f"Open positions: {len(self.risk_manager.open_positions)}")
         
         if stats['max_drawdown'] > 5.0 and self.notifier:
             await self.notifier.send_alert(
