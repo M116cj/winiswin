@@ -158,12 +158,14 @@ The bot runs automatically via the configured workflow. It will:
 - **2025-10-23**: **🔧 修復 Discord Bot 心跳阻塞問題（critical fix）**
   - 問題：掃描 648 個交易對（約 3-4 分鐘）阻塞 asyncio 事件循環
   - 症狀：Discord bot 心跳超時 (>90 秒)，導致 Bot 離線
-  - 解決：實施批量處理 + 事件循環喘息機制
+  - 解決：實施批量處理 + 事件循環喘息機制 + 自動重連
   - v1: 每處理 30 個交易對 → 心跳阻塞降到 50 秒
-  - v2: 優化為每處理 20 個交易對 → 預期心跳阻塞 < 10 秒
+  - v2: 優化為每處理 20 個交易對 → 心跳改善但仍有斷線
+  - v3: 最終優化為每處理 10 個交易對 → 每 3 秒讓出控制權
   - 每批次後 await asyncio.sleep(0.1) 讓出控制權
-  - 保留 648 個交易對監控 + Discord 連接穩定
-  - Railway 歐洲部署成功，Binance API 連接正常
+  - Discord.py 自動重連機制（斷線後 0.2 秒自動重連）
+  - 保留 648 個交易對監控 + 交易功能正常
+  - Railway 歐洲部署成功，Binance API 連接正常，發現多個交易信號
 
 - **2025-10-23**: **🚨 關鍵發現：新加坡被 Binance 限制**
   - 新加坡是 Binance 封鎖的地區之一（MAS 監管限制）

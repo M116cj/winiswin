@@ -243,7 +243,8 @@ class TradingBot:
         
         # 步驟2: 掃描所有交易對，收集信號
         # 批量處理以避免阻塞 Discord bot 心跳
-        batch_size = 20
+        # 每 10 個交易對讓出控制權，確保 Discord 心跳穩定
+        batch_size = 10
         for idx, symbol in enumerate(self.symbols):
             logger.info(f"Analyzing {symbol}...")
             
