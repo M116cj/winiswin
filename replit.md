@@ -1,17 +1,34 @@
-# Cryptocurrency Trading Bot v2.0 (優化版)
+# Cryptocurrency Trading Bot v3.0 (全量648幣種 + 智能3倉位管理)
 
 ## Overview
-An automated cryptocurrency trading bot that monitors Binance markets, uses ICT/SMC trading strategies, manages risk automatically, and sends notifications via Discord.
+An automated cryptocurrency trading bot that monitors ALL 648 Binance USDT perpetual contracts, uses ICT/SMC trading strategies with intelligent 3-position management, and sends comprehensive notifications via Discord.
 
-**v2.0 優化**：移除 PyTorch LSTM，使用純技術指標策略，構建時間減少 75%，記憶體使用減少 81%。
+**v3.0 重大升級**：
+- 📊 監控全交易所 648 個 USDT 永續合約
+- 🎯 智能 3 倉位管理系統（資金三等分，只持有最優倉位）
+- 🔍 按信心度或投報率自動選擇最優信號
+- ⚖️ 雙重風險保護（0.3% 每筆 + 0.5% 最大倉位）
+- 💰 每個倉位使用賬戶 33.33% 的資金
 
 ## Features
+- **Full Market Coverage**: Monitors ALL 648 USDT perpetual contracts on Binance
+- **Intelligent Position Management**: 
+  - Maximum 3 concurrent positions (資金三等分)
+  - Automatic signal ranking by confidence or ROI
+  - Only trades the top 3 signals each cycle
 - **Real-time Market Monitoring**: Connects to Binance API for live market data
 - **Technical Analysis**: Lightweight indicators (MACD, Bollinger Bands, EMA, ATR, RSI) using pure Python/NumPy
-- **ICT/SMC Strategy**: Identifies order blocks, liquidity zones, and market structure
-- **Arbitrage Detection**: Monitors spot vs futures price differences
-- **Risk Management**: Automated position sizing, stop-loss, and take-profit based on ATR
-- **Discord Notifications**: Real-time trade alerts and performance reports (conditional initialization)
+- **ICT/SMC Strategy**: Identifies order blocks, liquidity zones, and market structure with confidence scoring
+- **Advanced Risk Management**: 
+  - Double protection: 0.3% risk per trade + 0.5% max position
+  - Capital allocation: 33.33% per position (3 equal parts)
+  - Dynamic position sizing based on ATR and allocated capital
+- **Discord Notifications**: 
+  - Cycle start/end with position status
+  - Market analysis for each symbol
+  - Signal detection with confidence & ROI
+  - Trade execution details
+  - Daily performance reports
 - **Trade Logging**: Optimized batch writing for better performance
 
 ## Project Structure
@@ -80,20 +97,21 @@ The bot runs automatically via the configured workflow. It will:
 ## Configuration
 
 ### Risk Parameters (config.py)
-- `RISK_PER_TRADE_PERCENT`: Maximum risk per trade (default: 1.0%)
-- `MAX_POSITION_SIZE_PERCENT`: Maximum position size (default: 1.5% of balance)
+- `RISK_PER_TRADE_PERCENT`: Maximum risk per trade (default: 0.3%)
+- `MAX_POSITION_SIZE_PERCENT`: Maximum position size (default: 0.5% of allocated capital)
+- `MAX_CONCURRENT_POSITIONS`: Maximum simultaneous positions (default: 3)
+- `CAPITAL_PER_POSITION_PERCENT`: Capital per position (default: 33.33% = 100/3)
 - `DEFAULT_LEVERAGE`: Trading leverage (default: 1.0x)
 - `STOP_LOSS_ATR_MULTIPLIER`: Stop loss distance in ATR units (default: 2.0)
 - `TAKE_PROFIT_ATR_MULTIPLIER`: Take profit distance in ATR units (default: 3.0)
 
 ### Trading Parameters
-- `SYMBOL_MODE`: Trading pair selection mode
+- `SYMBOL_MODE`: Trading pair selection mode (default: **'all'** for 648 pairs)
   - `static`: Use predefined list (5 pairs: BTC, ETH, BNB, SOL, XRP)
-  - `auto`: Auto-select top N pairs by volume (default: 50)
-  - `all`: Trade all 648 USDT perpetual pairs (requires Railway Enterprise)
-- `MAX_SYMBOLS`: Maximum symbols when using auto mode (default: 50)
+  - `auto`: Auto-select top N pairs by volume
+  - `all`: Monitor all 648 USDT perpetual pairs ✅ **CURRENT DEFAULT**
+- `MAX_SYMBOLS`: Maximum symbols (default: 648)
 - `TIMEFRAME`: Candle timeframe (default: '1h')
-- `MODEL_RETRAIN_INTERVAL`: Model retraining frequency in seconds (default: 3600)
 
 ## Trading Strategy
 
@@ -102,20 +120,61 @@ The bot runs automatically via the configured workflow. It will:
 2. **Liquidity Zones**: Detects support/resistance levels
 3. **Market Structure**: Analyzes bullish/bearish trends
 4. **Confirmation**: Uses MACD and EMA crossovers
+5. **Confidence Scoring**: 
+   - Base: 70% (structure detected)
+   - +10% for MACD confirmation
+   - +10% for EMA confirmation
+   - +10% for liquidity zone alignment
+   - Maximum: 100%
 
-### LSTM Model
-- Trained on 500 periods of historical data
-- Features: Close, Volume, MACD, RSI, ATR
-- Confirms strategy signals with price predictions
-- Retrains every hour to adapt to market changes
+### Intelligent Position Selection (NEW in v3.0)
+**每個交易週期的流程：**
+1. **掃描階段**: 分析所有 648 個幣種，收集所有交易信號
+2. **評分階段**: 計算每個信號的：
+   - **信心度** (Confidence): 基於技術指標一致性 (70-100%)
+   - **預期投報率** (Expected ROI): 基於止盈/止損比例
+3. **排序階段**: 按信心度或投報率排序所有信號
+4. **執行階段**: 只對前 3 個最優信號開倉
+5. **管理階段**: 持續監控現有倉位，觸及止損/止盈自動平倉
 
-### Risk Management
-- Position sizing based on account balance and stop-loss distance
-- Dynamic stop-loss and take-profit using ATR
-- Maximum drawdown alerts at 5%
-- Automatic position tracking and closure
+**排序模式（可配置）：**
+- `sort_by='confidence'`: 優先選擇信心度最高的信號（預設）
+- `sort_by='roi'`: 優先選擇預期投報率最高的信號
+
+### Risk Management (Enhanced in v3.0)
+- **雙重倉位限制**:
+  1. 基於風險的倉位計算（0.3% 風險）
+  2. 最大倉位限制（分配資金的 0.5%）
+- **資金分配**: 
+  - 總資金平均拆成 3 等份
+  - 每個倉位使用 33.33% 的資金
+  - 最多同時持有 3 個倉位
+- **動態止損止盈**: 基於 ATR 自動計算
+- **最大回撤警報**: 5% 觸發 Discord 警報
+- **自動倉位管理**: 觸及目標自動平倉
 
 ## Recent Changes
+- **2025-10-23**: **v3.0 全量監控 + 智能3倉位管理系統**
+  - **全交易所監控**: 預設監控所有 648 個 USDT 永續合約
+  - **3 倉位管理**: 資金拆成 3 等份，最多同時持有 3 個倉位
+  - **智能信號選擇**: 
+    - 收集所有信號 → 計算信心度和投報率 → 排序 → 只執行前 3 個
+    - 可按信心度或投報率排序
+  - **增強風險管理**:
+    - 每倉位使用賬戶 33.33% 的資金
+    - 雙重保護: 0.3% 風險 + 0.5% 最大倉位
+    - 動態倉位計算基於分配資金
+  - **完整測試**: 5 個測試全部通過
+    - ✅ 最大倉位數限制（3個）
+    - ✅ 資金分配（33.33% 每倉位）
+    - ✅ 信號排序（信心度 vs 投報率）
+    - ✅ 完整週期模擬
+    - ✅ 配置驗證
+  - **增強 Discord 通知**:
+    - 週期開始顯示倉位狀態（X/3）
+    - 信號通知包含信心度和預期投報率
+    - 週期完成顯示詳細統計
+
 - **2025-10-23**: **v2.0 重大優化 - Grok 4 架構審查**
   - **移除 PyTorch LSTM**：從 ~800MB 降到 ~150MB 記憶體
   - **純 Python 技術指標**：替換 TA-Lib，無需原生編譯
