@@ -16,7 +16,13 @@ class Config:
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
-    SYMBOLS = ['BTCUSDT', 'ETHUSDT']
+    SYMBOLS = [
+        'BTCUSDT',   # Bitcoin
+        'ETHUSDT',   # Ethereum
+        'BNBUSDT',   # Binance Coin
+        'SOLUSDT',   # Solana
+        'XRPUSDT',   # Ripple
+    ]
     TIMEFRAME = '1h'
     
     MODEL_RETRAIN_INTERVAL = 3600
