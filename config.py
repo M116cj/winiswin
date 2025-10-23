@@ -11,8 +11,8 @@ class Config:
     DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN', '')
     DISCORD_CHANNEL_ID = os.getenv('DISCORD_CHANNEL_ID', '')
     
-    MAX_POSITION_SIZE_PERCENT = float(os.getenv('MAX_POSITION_SIZE_PERCENT', '1.5'))
-    RISK_PER_TRADE_PERCENT = float(os.getenv('RISK_PER_TRADE_PERCENT', '1.0'))
+    MAX_POSITION_SIZE_PERCENT = float(os.getenv('MAX_POSITION_SIZE_PERCENT', '0.5'))
+    RISK_PER_TRADE_PERCENT = float(os.getenv('RISK_PER_TRADE_PERCENT', '0.3'))
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     

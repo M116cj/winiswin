@@ -111,6 +111,14 @@ The bot runs automatically via the configured workflow. It will:
 - Automatic position tracking and closure
 
 ## Recent Changes
+- **2025-10-23**: Configured for small capital live trading
+  - **Adjusted risk parameters for conservative live trading**:
+    - RISK_PER_TRADE_PERCENT: 1.0% → **0.3%**
+    - MAX_POSITION_SIZE_PERCENT: 1.5% → **0.5%**
+  - Created comprehensive production deployment guides
+  - Prepared Railway deployment with live trading configuration
+  - Added emergency stop procedures and monitoring guidelines
+  
 - **2025-10-22**: Initial project setup with complete trading infrastructure
   - Implemented Binance API client with WebSocket support and error handling
   - Created ICT/SMC and arbitrage strategies
