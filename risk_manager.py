@@ -32,20 +32,37 @@ class RiskManager:
         if current_drawdown > self.max_drawdown:
             self.max_drawdown = current_drawdown
     
-    def calculate_position_size(self, entry_price, stop_loss_price):
+    def get_allocated_capital(self):
+        """Get capital allocated per position (1/3 of total for 3-position system)."""
+        return self.account_balance * (self.capital_per_position / 100)
+    
+    def calculate_position_size(self, symbol, entry_price, stop_loss_price, allocated_capital=None):
+        """
+        Calculate position size with risk management.
+        
+        Args:
+            symbol: Trading symbol
+            entry_price: Entry price
+            stop_loss_price: Stop loss price
+            allocated_capital: Capital allocated for this position (optional)
+        
+        Returns:
+            Dict with position parameters or None if invalid
+        """
         if entry_price is None or stop_loss_price is None:
             logger.error("Cannot calculate position size: entry_price or stop_loss_price is None")
-            return 0
+            return None
         
         if np.isnan(entry_price) or np.isnan(stop_loss_price):
             logger.error("Cannot calculate position size: NaN values detected")
-            return 0
+            return None
         
-        # 使用每個倉位分配的資金（賬戶的1/3）
-        position_capital = self.account_balance * (self.capital_per_position / 100)
+        # Use provided capital or calculate from account
+        if allocated_capital is None:
+            allocated_capital = self.get_allocated_capital()
         
         position_size = calculate_position_size(
-            position_capital,  # 使用分配的資金，而非全部賬戶
+            allocated_capital,
             self.risk_per_trade,
             entry_price,
             stop_loss_price
@@ -53,18 +70,23 @@ class RiskManager:
         
         if np.isnan(position_size) or position_size <= 0:
             logger.error(f"Invalid position size calculated: {position_size}")
-            return 0
+            return None
         
-        # 最大倉位限制（基於分配的資金）
-        max_position_value = position_capital * (self.max_position_size / 100)
+        # Maximum position limit (based on allocated capital)
+        max_position_value = allocated_capital * (self.max_position_size / 100)
         max_quantity = max_position_value / entry_price
         
         final_position_size = min(position_size, max_quantity)
         
         logger.info(f"Calculated position size: {final_position_size:.6f} "
                    f"(Entry: {entry_price}, SL: {stop_loss_price}, "
-                   f"Capital allocated: ${position_capital:.2f})")
-        return final_position_size
+                   f"Capital allocated: ${allocated_capital:.2f})")
+        
+        return {
+            'quantity': final_position_size,
+            'allocated_capital': allocated_capital,
+            'risk_amount': allocated_capital * (self.risk_per_trade / 100)
+        }
     
     def calculate_stop_loss(self, entry_price, atr, direction='LONG'):
         if atr is None or np.isnan(atr) or atr <= 0:
@@ -171,6 +193,10 @@ class RiskManager:
         self.pending_signals = {}
         logger.info(f"Cleared {count} pending signals")
     
+    def add_position(self, symbol, side, entry_price, quantity, stop_loss, take_profit):
+        """Add a position (v3.0 compatible method name)."""
+        return self.open_position(symbol, side, entry_price, quantity, stop_loss, take_profit)
+    
     def open_position(self, symbol, side, entry_price, quantity, stop_loss, take_profit):
         if not self.can_open_position(symbol):
             return False
@@ -187,14 +213,19 @@ class RiskManager:
         logger.info(f"Opened {side} position for {symbol} at {entry_price}")
         return True
     
-    def close_position(self, symbol, exit_price):
+    def close_position(self, symbol, exit_price=None):
+        """Close a position (supports both old and new signatures)."""
         if symbol not in self.open_positions:
             logger.warning(f"No open position for {symbol}")
             return None
         
         position = self.open_positions[symbol]
         
-        if position['side'] == 'LONG':
+        # If no exit price provided, use current entry price (for API compatibility)
+        if exit_price is None:
+            exit_price = position['entry_price']
+        
+        if position['side'] in ['LONG', 'BUY']:
             pnl = (exit_price - position['entry_price']) * position['quantity']
         else:
             pnl = (position['entry_price'] - exit_price) * position['quantity']

@@ -222,7 +222,66 @@ class BinanceDataClient:
             logger.error(f"Error fetching top pairs: {e}")
             return ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT']
     
+    async def get_klines_async(self, symbol, interval='1h', limit=500):
+        """Async version of get_klines for non-blocking data fetch."""
+        if not self.async_client:
+            await self.initialize_async()
+        
+        if not self.async_client:
+            logger.error("Async client not available")
+            return None
+        
+        try:
+            klines = await self.async_client.get_klines(
+                symbol=symbol,
+                interval=interval,
+                limit=limit
+            )
+            
+            df = pd.DataFrame(klines, columns=[
+                'timestamp', 'open', 'high', 'low', 'close', 'volume',
+                'close_time', 'quote_volume', 'trades', 'taker_buy_base',
+                'taker_buy_quote', 'ignore'
+            ])
+            
+            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+            for col in ['open', 'high', 'low', 'close', 'volume']:
+                df[col] = df[col].astype(float)
+            
+            return df
+        
+        except Exception as e:
+            logger.error(f"Error fetching async klines for {symbol}: {e}")
+            return None
+    
+    async def get_ticker(self, symbol):
+        """Async get ticker (v3.0 compatible method)."""
+        if not self.async_client:
+            await self.initialize_async()
+        
+        if not self.async_client:
+            return None
+        
+        try:
+            ticker = await self.async_client.get_symbol_ticker(symbol=symbol)
+            return ticker
+        except Exception as e:
+            logger.error(f"Error fetching ticker for {symbol}: {e}")
+            return None
+    
+    def create_order(self, symbol, side, type, quantity, price=None):
+        """Create order (v3.0 compatible method)."""
+        return self.place_order(symbol, side, type, quantity, price)
+    
+    async def get_usdt_perpetual_symbols(self):
+        """Async get all USDT perpetual symbols (v3.0 compatible)."""
+        return self.get_all_usdt_perpetual_pairs()
+    
     async def close_async(self):
         if self.async_client:
             await self.async_client.close_connection()
             logger.info("Async client closed")
+
+
+# Alias for backwards compatibility
+BinanceClient = BinanceDataClient

@@ -2,9 +2,26 @@
 Service modules for the trading bot.
 """
 
-from .data_service import DataService
-from .strategy_engine import StrategyEngine
-from .execution_service import ExecutionService
-from .monitoring_service import MonitoringService
+try:
+    from .data_service import DataService
+except ImportError:
+    DataService = None
 
-__all__ = ['DataService', 'StrategyEngine', 'ExecutionService', 'MonitoringService']
+try:
+    from .strategy_engine import StrategyEngine, Signal
+except ImportError:
+    StrategyEngine = None
+    Signal = None
+
+try:
+    from .execution_service import ExecutionService, Position
+except ImportError:
+    ExecutionService = None
+    Position = None
+
+try:
+    from .monitoring_service import MonitoringService
+except ImportError:
+    MonitoringService = None
+
+__all__ = ['DataService', 'StrategyEngine', 'ExecutionService', 'MonitoringService', 'Signal', 'Position']

@@ -138,13 +138,15 @@ class DataService:
             return None
         
         try:
-            # Fetch with circuit breaker protection
-            df = await self.circuit_breaker.call(
-                self.binance.get_klines,
-                symbol,
-                timeframe,
-                limit
-            )
+            # Initialize async client if needed
+            if not self.binance.async_client:
+                await self.binance.initialize_async()
+            
+            # TRUE async fetch with circuit breaker protection (non-blocking I/O)
+            async def fetch_async():
+                return await self.binance.get_klines_async(symbol, timeframe, limit)
+            
+            df = await self.circuit_breaker.call(fetch_async)
             
             if df is not None and not df.empty:
                 # Cache the result

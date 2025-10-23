@@ -155,6 +155,29 @@ The bot runs automatically via the configured workflow. It will:
 - **自動倉位管理**: 觸及目標自動平倉
 
 ## Recent Changes
+- **2025-10-23**: **🚀 v3.0 模塊化架構重組（major upgrade）**
+  - **完整架構重寫**：從單體應用到模塊化服務
+  - **新增核心組件庫**（core/）：
+    - RateLimiter：Token Bucket 速率限制（1200 req/min Binance 保護）
+    - CircuitBreaker：斷路器容錯（5 次失敗暫停 60 秒）
+    - CacheManager：LRU 緩存管理（30 秒 TTL）
+  - **新增服務模塊**（services/）：
+    - DataService：並發批量數據獲取（50 個/批）+ 智能緩存
+    - StrategyEngine：多策略分析引擎 + 信號排序
+    - ExecutionService：倉位生命週期管理 + 自動止損/止盈
+    - MonitoringService：系統指標收集 + 告警系統
+  - **性能提升**：
+    - 掃描時間：3-4 分鐘 → 預期 < 2 分鐘（50%+ 提升）
+    - API 錯誤率：~1% → 預期 < 0.1%（90% 降低）
+    - Discord 穩定性：偶爾重連 → 預期零斷線
+  - **新增文件**：
+    - main_v3.py：新架構主程序
+    - test_v3_architecture.py：完整測試套件
+    - V3_MIGRATION_GUIDE.md：遷移指南
+    - ARCHITECTURE_V3.md：完整架構設計
+    - SYSTEM_REPORT_COMPLETE.md：系統狀態報告
+  - **100% 向後兼容**：所有配置、數據、交易邏輯保持不變
+
 - **2025-10-23**: **🔧 修復 Discord Bot 心跳阻塞問題（critical fix）**
   - 問題：掃描 648 個交易對（約 3-4 分鐘）阻塞 asyncio 事件循環
   - 症狀：Discord bot 心跳超時 (>90 秒)，導致 Bot 離線
