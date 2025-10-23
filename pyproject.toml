@@ -1,21 +1,15 @@
 [project]
-name = "repl-nix-workspace"
-version = "0.1.0"
-description = "Add your description here"
+name = "crypto-trading-bot"
+version = "2.0.0"
+description = "Optimized cryptocurrency trading bot with ICT/SMC strategies"
 requires-python = ">=3.11"
 dependencies = [
-    "aiohttp>=3.13.1",
-    "ccxt>=4.5.12",
-    "discord-py>=2.6.4",
-    "matplotlib>=3.10.7",
-    "numpy>=2.3.4",
-    "pandas>=2.3.3",
-    "python-binance>=1.0.30",
-    "python-dotenv>=1.1.1",
-    "scikit-learn>=1.7.2",
-    "ta-lib>=0.6.8",
-    "torch>=2.9.0",
-    "websockets>=15.0.1",
+    "python-binance==1.0.19",
+    "discord.py==2.3.2",
+    "pandas==2.1.4",
+    "numpy==1.26.3",
+    "python-dotenv==1.0.0",
+    "requests==2.32.3",
 ]
 
 [[tool.uv.index]]

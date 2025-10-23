@@ -1,0 +1,67 @@
+
+  File "/app/discord_bot.py", line 4, in <module>
+Traceback (most recent call last):
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+  File "/app/main.py", line 9, in <module>
+    from discord_bot import TradingBotNotifier
+  File "/app/discord_bot.py", line 4, in <module>
+    import matplotlib.pyplot as plt
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
