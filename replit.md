@@ -10,10 +10,14 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 23, 2025)
-- **Automatic Account Balance Loading**: Bot now automatically reads real USDT balance from both Spot and Futures accounts on startup
+- **Automatic Account Balance Loading**: Bot now automatically reads real USDT balance from both Spot and Futures accounts (especially USDT-M Futures) on startup
 - **Enhanced Balance Reporting**: Detailed logging shows Spot balance, Futures balance, and total USDT with capital allocation per position
+- **Real-time Position Notifications**: Comprehensive Discord notifications for all position events:
+  - 📈 Position opened: Entry price, stop-loss, take-profit, confidence, allocated capital, risk/reward ratio
+  - 💰 Position closed: Exit price, PnL (USDT & %), holding duration, reason (stop-loss/take-profit/manual)
+  - 🔴 Live trading mode indicator vs 🟡 Simulation mode
 - **Railway Deployment Ready**: Fixed IP configured, ready for deployment on Railway EU West region
-- **Discord Integration**: `/balance` command displays real-time account balance from Binance API
+- **Discord Integration**: `/balance` command displays real-time account balance, slash commands for monitoring and control
 
 ### System Architecture
 The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.
