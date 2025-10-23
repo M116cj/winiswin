@@ -87,14 +87,14 @@ class StrategyEngine:
         self.stats['strategy_stats']['ict_smc']['analyses'] += 1
         
         try:
-            result = strategy.analyze(df)
+            result = strategy.generate_signal(df)
             
-            if result and result['signal'] != 'HOLD':
+            if result and result.get('type') != 'HOLD':
                 # Create signal object
                 signal = Signal(
                     symbol=symbol,
-                    action=result['signal'],
-                    price=result['entry_price'],
+                    action=result['type'],
+                    price=result['price'],
                     confidence=result['confidence'],
                     expected_roi=result.get('expected_roi', 3.0),
                     stop_loss=result['stop_loss'],

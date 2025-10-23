@@ -35,7 +35,7 @@ class Config:
     
     # SYMBOLS 將在運行時動態設置
     SYMBOLS = STATIC_SYMBOLS
-    TIMEFRAME = '1h'
+    TIMEFRAME = '15m'  # 15分鐘K線
     
     MODEL_RETRAIN_INTERVAL = 3600
     LOOKBACK_PERIODS = 100
