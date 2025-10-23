@@ -1,304 +1,45 @@
-# Cryptocurrency Trading Bot v3.0 (全量648幣種 + 智能3倉位管理)
+# Cryptocurrency Trading Bot v3.0
 
-## Overview
-An automated cryptocurrency trading bot that monitors ALL 648 Binance USDT perpetual contracts, uses ICT/SMC trading strategies with intelligent 3-position management, and sends comprehensive notifications via Discord.
+### Overview
+This project is an automated cryptocurrency trading bot designed to monitor all 648 Binance USDT perpetual contracts. It utilizes ICT/SMC trading strategies combined with an intelligent 3-position management system to identify and execute trades. The bot provides comprehensive real-time notifications via Discord, ensuring users are informed of market activities and bot performance. Key features include full market coverage, advanced risk management (0.3% per trade, 0.5% max position, 33.33% capital per position), and dynamic signal selection based on confidence or ROI.
 
-**v3.0 重大升級**：
-- 📊 監控全交易所 648 個 USDT 永續合約
-- 🎯 智能 3 倉位管理系統（資金三等分，只持有最優倉位）
-- 🔍 按信心度或投報率自動選擇最優信號
-- ⚖️ 雙重風險保護（0.3% 每筆 + 0.5% 最大倉位）
-- 💰 每個倉位使用賬戶 33.33% 的資金
-
-## Features
-- **Full Market Coverage**: Monitors ALL 648 USDT perpetual contracts on Binance
-- **Intelligent Position Management**: 
-  - Maximum 3 concurrent positions (資金三等分)
-  - Automatic signal ranking by confidence or ROI
-  - Only trades the top 3 signals each cycle
-- **Real-time Market Monitoring**: Connects to Binance API for live market data
-- **Technical Analysis**: Lightweight indicators (MACD, Bollinger Bands, EMA, ATR, RSI) using pure Python/NumPy
-- **ICT/SMC Strategy**: Identifies order blocks, liquidity zones, and market structure with confidence scoring
-- **Advanced Risk Management**: 
-  - Double protection: 0.3% risk per trade + 0.5% max position
-  - Capital allocation: 33.33% per position (3 equal parts)
-  - Dynamic position sizing based on ATR and allocated capital
-- **Interactive Discord Bot**: 
-  - **Slash Commands**: `/positions`, `/balance`, `/stats`, `/status`, `/config`
-  - Uses Discord's official Application Commands API
-  - Real-time position查询
-  - Account balance and performance查詢
-  - Detailed statistics on demand
-  - Auto notifications for cycles and trades
-- **Trade Logging**: Optimized batch writing for better performance
-
-## Project Structure
-```
-.
-├── main.py                 # Main bot entry point
-├── config.py              # Configuration management
-├── binance_client.py      # Binance API integration
-├── discord_bot.py         # Discord notification system
-├── risk_manager.py        # Risk management and position tracking
-├── trade_logger.py        # Trade logging and statistics
-├── utils/
-│   ├── indicators.py      # Technical indicators (MACD, BB, EMA, ATR)
-│   └── helpers.py         # Utility functions
-├── strategies/
-│   ├── ict_smc.py        # ICT/SMC trading strategy
-│   └── arbitrage.py      # Arbitrage detection
-└── models/
-    └── lstm_model.py     # LSTM price prediction model
-```
-
-## Setup Instructions
-
-### 1. Configure Environment Variables
-Copy `.env.example` to `.env` and fill in your API keys:
-
-```bash
-BINANCE_API_KEY=your_binance_api_key_here
-BINANCE_SECRET_KEY=your_binance_secret_key_here
-BINANCE_TESTNET=true
-
-DISCORD_BOT_TOKEN=your_discord_bot_token_here
-DISCORD_CHANNEL_ID=your_discord_channel_id_here
-
-ENABLE_TRADING=false  # Set to true for live trading
-```
-
-**Important Security Notes:**
-- Create API keys with trading permissions but **DISABLE WITHDRAWAL**
-- Start with TESTNET mode (`BINANCE_TESTNET=true`)
-- Keep `ENABLE_TRADING=false` for simulation mode
-
-### 2. Get API Keys
-
-**Binance API:**
-1. Go to Binance.com → Account → API Management
-2. Create new API key with trading permissions
-3. **Disable** withdrawal permissions for security
-4. Add IP whitelist for additional security
-
-**Discord Bot:**
-1. Go to Discord Developer Portal
-2. Create new application → Bot
-3. Copy bot token
-4. Enable necessary permissions and invite to your server
-5. Get channel ID from Discord (right-click channel → Copy ID)
-
-### 3. Run the Bot
-The bot runs automatically via the configured workflow. It will:
-- Initialize connections to Binance and Discord
-- Train LSTM model on historical data
-- Monitor markets every 60 seconds
-- Execute trades based on strategy signals
-- Send notifications to Discord
-
-## Configuration
-
-### Risk Parameters (config.py)
-- `RISK_PER_TRADE_PERCENT`: Maximum risk per trade (default: 0.3%)
-- `MAX_POSITION_SIZE_PERCENT`: Maximum position size (default: 0.5% of allocated capital)
-- `MAX_CONCURRENT_POSITIONS`: Maximum simultaneous positions (default: 3)
-- `CAPITAL_PER_POSITION_PERCENT`: Capital per position (default: 33.33% = 100/3)
-- `DEFAULT_LEVERAGE`: Trading leverage (default: 1.0x)
-- `STOP_LOSS_ATR_MULTIPLIER`: Stop loss distance in ATR units (default: 2.0)
-- `TAKE_PROFIT_ATR_MULTIPLIER`: Take profit distance in ATR units (default: 3.0)
-
-### Trading Parameters
-- `SYMBOL_MODE`: Trading pair selection mode (default: **'all'** for 648 pairs)
-  - `static`: Use predefined list (5 pairs: BTC, ETH, BNB, SOL, XRP)
-  - `auto`: Auto-select top N pairs by volume
-  - `all`: Monitor all 648 USDT perpetual pairs ✅ **CURRENT DEFAULT**
-- `MAX_SYMBOLS`: Maximum symbols (default: 648)
-- `TIMEFRAME`: Candle timeframe (default: '1h')
-
-## Trading Strategy
-
-### ICT/SMC (Inner Circle Trader / Smart Money Concepts)
-1. **Order Blocks**: Identifies institutional entry zones
-2. **Liquidity Zones**: Detects support/resistance levels
-3. **Market Structure**: Analyzes bullish/bearish trends
-4. **Confirmation**: Uses MACD and EMA crossovers
-5. **Confidence Scoring**: 
-   - Base: 70% (structure detected)
-   - +10% for MACD confirmation
-   - +10% for EMA confirmation
-   - +10% for liquidity zone alignment
-   - Maximum: 100%
-
-### Intelligent Position Selection (NEW in v3.0)
-**每個交易週期的流程：**
-1. **掃描階段**: 分析所有 648 個幣種，收集所有交易信號
-2. **評分階段**: 計算每個信號的：
-   - **信心度** (Confidence): 基於技術指標一致性 (70-100%)
-   - **預期投報率** (Expected ROI): 基於止盈/止損比例
-3. **排序階段**: 按信心度或投報率排序所有信號
-4. **執行階段**: 只對前 3 個最優信號開倉
-5. **管理階段**: 持續監控現有倉位，觸及止損/止盈自動平倉
-
-**排序模式（可配置）：**
-- `sort_by='confidence'`: 優先選擇信心度最高的信號（預設）
-- `sort_by='roi'`: 優先選擇預期投報率最高的信號
-
-### Risk Management (Enhanced in v3.0)
-- **雙重倉位限制**:
-  1. 基於風險的倉位計算（0.3% 風險）
-  2. 最大倉位限制（分配資金的 0.5%）
-- **資金分配**: 
-  - 總資金平均拆成 3 等份
-  - 每個倉位使用 33.33% 的資金
-  - 最多同時持有 3 個倉位
-- **動態止損止盈**: 基於 ATR 自動計算
-- **最大回撤警報**: 5% 觸發 Discord 警報
-- **自動倉位管理**: 觸及目標自動平倉
-
-## Recent Changes
-- **2025-10-23**: **🚀 v3.0 模塊化架構重組（major upgrade）**
-  - **完整架構重寫**：從單體應用到模塊化服務
-  - **新增核心組件庫**（core/）：
-    - RateLimiter：Token Bucket 速率限制（1200 req/min Binance 保護）
-    - CircuitBreaker：斷路器容錯（5 次失敗暫停 60 秒）
-    - CacheManager：LRU 緩存管理（30 秒 TTL）
-  - **新增服務模塊**（services/）：
-    - DataService：並發批量數據獲取（50 個/批）+ 智能緩存
-    - StrategyEngine：多策略分析引擎 + 信號排序
-    - ExecutionService：倉位生命週期管理 + 自動止損/止盈
-    - MonitoringService：系統指標收集 + 告警系統
-  - **性能提升**：
-    - 掃描時間：3-4 分鐘 → 預期 < 2 分鐘（50%+ 提升）
-    - API 錯誤率：~1% → 預期 < 0.1%（90% 降低）
-    - Discord 穩定性：偶爾重連 → 預期零斷線
-  - **新增文件**：
-    - main_v3.py：新架構主程序
-    - test_v3_architecture.py：完整測試套件
-    - V3_MIGRATION_GUIDE.md：遷移指南
-    - ARCHITECTURE_V3.md：完整架構設計
-    - SYSTEM_REPORT_COMPLETE.md：系統狀態報告
-  - **100% 向後兼容**：所有配置、數據、交易邏輯保持不變
-
-- **2025-10-23**: **🔧 修復 Discord Bot 心跳阻塞問題（critical fix）**
-  - 問題：掃描 648 個交易對（約 3-4 分鐘）阻塞 asyncio 事件循環
-  - 症狀：Discord bot 心跳超時 (>90 秒)，導致 Bot 離線
-  - 解決：實施批量處理 + 事件循環喘息機制 + 自動重連
-  - v1: 每處理 30 個交易對 → 心跳阻塞降到 50 秒
-  - v2: 優化為每處理 20 個交易對 → 心跳改善但仍有斷線
-  - v3: 最終優化為每處理 10 個交易對 → 每 3 秒讓出控制權
-  - 每批次後 await asyncio.sleep(0.1) 讓出控制權
-  - Discord.py 自動重連機制（斷線後 0.2 秒自動重連）
-  - 保留 648 個交易對監控 + 交易功能正常
-  - Railway 歐洲部署成功，Binance API 連接正常，發現多個交易信號
-
-- **2025-10-23**: **🚨 關鍵發現：新加坡被 Binance 限制**
-  - 新加坡是 Binance 封鎖的地區之一（MAS 監管限制）
-  - **解決方案**：改用 Railway 歐洲區域（EU West）
-  - 更新 railway.json 預設為歐洲部署
-  - 延遲影響：50-150ms，對 60 秒週期完全可接受
-  - 創建 BINANCE_REGION_FIX.md 完整修復指南
-
-- **2025-10-23**: **Discord 斜線命令系統（Application Commands）**
-  - 使用 Discord 官方規範的斜線命令（Slash Commands）
-  - 5 個互動命令：`/positions`, `/balance`, `/stats`, `/status`, `/config`
-  - 自動補全和內建說明
-  - 使用 `app_commands` API
-  - 實時查詢當前持倉
-  - 查看賬戶餘額和資金分配
-  - 詳細性能統計
-  - 機器人狀態和配置查詢
-  - 美觀的 Embed 格式回應
-  - 創建 DISCORD_COMMANDS_GUIDE.md 完整文檔
-
-- **2025-10-23**: **v3.0 全量監控 + 智能3倉位管理系統**
-  - **全交易所監控**: 預設監控所有 648 個 USDT 永續合約
-  - **3 倉位管理**: 資金拆成 3 等份，最多同時持有 3 個倉位
-  - **智能信號選擇**: 
-    - 收集所有信號 → 計算信心度和投報率 → 排序 → 只執行前 3 個
-    - 可按信心度或投報率排序
-  - **增強風險管理**:
-    - 每倉位使用賬戶 33.33% 的資金
-    - 雙重保護: 0.3% 風險 + 0.5% 最大倉位
-    - 動態倉位計算基於分配資金
-  - **完整測試**: 5 個測試全部通過
-    - ✅ 最大倉位數限制（3個）
-    - ✅ 資金分配（33.33% 每倉位）
-    - ✅ 信號排序（信心度 vs 投報率）
-    - ✅ 完整週期模擬
-    - ✅ 配置驗證
-  - **增強 Discord 通知**:
-    - 週期開始顯示倉位狀態（X/3）
-    - 信號通知包含信心度和預期投報率
-    - 週期完成顯示詳細統計
-
-- **2025-10-23**: **v2.0 重大優化 - Grok 4 架構審查**
-  - **移除 PyTorch LSTM**：從 ~800MB 降到 ~150MB 記憶體
-  - **純 Python 技術指標**：替換 TA-Lib，無需原生編譯
-  - **優化依賴**：從 12 個減到 6 個（移除 torch, matplotlib, aiohttp, websockets, scikit-learn, TA-Lib）
-  - **條件性 Discord**：按需初始化，節省 ~100MB
-  - **批量寫入**：TradeLogger 緩衝優化
-  - **構建時間**：從 ~8 分鐘降到 ~2 分鐘 (75% ↓)
-  - **啟動時間**：從 3-5 分鐘降到 10-20 秒 (90% ↓)
-  - **Docker 鏡像**：從 ~3.5GB 降到 ~800MB (77% ↓)
-  
-- **2025-10-23**: Expanded to ALL Binance USDT perpetual pairs (648 contracts)
-  - **Dynamic trading pair selection system**:
-    - `SYMBOL_MODE=static`: 5 predefined pairs (BTC, ETH, BNB, SOL, XRP)
-    - `SYMBOL_MODE=auto`: Top N pairs by volume (default: 50, configurable)
-    - `SYMBOL_MODE=all`: All 648 USDT perpetual contracts
-  - **Multi-model LSTM management**: Separate LSTM model for each trading pair
-  - **Volume-based ranking**: Auto-select most liquid markets
-  - **Resource optimization**: Configurable symbol limits to balance coverage vs resources
-  - Created ALL_PAIRS_DEPLOYMENT_GUIDE.md with scaling strategies
-  
-- **2025-10-23**: Configured for small capital live trading
-  - **Adjusted risk parameters for conservative live trading**:
-    - RISK_PER_TRADE_PERCENT: 1.0% → **0.3%**
-    - MAX_POSITION_SIZE_PERCENT: 1.5% → **0.5%**
-  - Created comprehensive production deployment guides
-  - Prepared Railway deployment with live trading configuration
-  - Added emergency stop procedures and monitoring guidelines
-  
-- **2025-10-22**: Initial project setup with complete trading infrastructure
-  - Implemented Binance API client with WebSocket support and error handling
-  - Created ICT/SMC and arbitrage strategies
-  - Built LSTM model for price prediction with NaN handling
-  - Set up Discord notification system
-  - Implemented comprehensive risk management with defensive checks
-  - Added trade logging and performance tracking
-  - Fixed NaN handling in technical indicators (removed leading NaNs only)
-  - Added data validation at every stage (indicators, model training, risk calculations)
-  - Created Railway deployment configuration with GitHub Actions CI/CD
-  - Configured for Singapore deployment region to avoid Binance geo-restrictions
-  - **Grok 4 System Check**: Fixed TA-Lib deployment dependency, all systems verified
-
-## User Preferences
+### User Preferences
 - Language: Traditional Chinese (繁體中文)
 - Trading mode: Conservative (low risk per trade)
 - Focus on: ICT/SMC strategy with ML confirmation
 - Notifications: Discord alerts for all trades and warnings
 
-## Next Phase Features
-- xAI Grok 4 integration for automated model iteration
-- Multi-model comparison (LSTM, ARIMA, XGBoost, Transformer)
-- Advanced arbitrage (triangular arbitrage across multiple pairs)
-- Sentiment analysis from X platform
-- VaR (Value at Risk) modeling
-- PostgreSQL database for persistent storage
-- Redis caching for market data
-- Interactive Discord commands
-- Dynamic leverage adjustment
+### System Architecture
+The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.
 
-## Safety & Compliance
-- All API keys stored in environment variables
-- Trading disabled by default (simulation mode)
-- Testnet mode for safe testing
-- Comprehensive error logging
-- Automatic drawdown alerts
-- No withdrawal permissions on API keys
+**UI/UX Decisions:**
+- Interactive Discord Bot: Features slash commands (`/positions`, `/balance`, `/stats`, `/status`, `/config`) for real-time querying and uses Embed formats for aesthetic and clear responses. Auto-notifications are sent for trade cycles and executions.
 
-## Support
-For issues or questions:
-1. Check logs in `trading_bot.log`
-2. Review trade history in `trades.json`
-3. Monitor Discord notifications
-4. Verify API keys and permissions
+**Technical Implementations & Design Choices:**
+- **Modular Architecture**: Re-engineered with `main_v3.py` as the coordinator for various services.
+- **Asynchronous I/O**: Enhanced `binance_client.py` with async methods for non-blocking data fetching, improving scanning time from 3-4 minutes to under 2 minutes.
+- **Core Infrastructure**:
+    - `RateLimiter`: Implements Token Bucket algorithm for Binance API request limits (1200 req/min).
+    - `CircuitBreaker`: Provides fault tolerance, pausing operations after 5 failures for 60 seconds.
+    - `CacheManager`: Utilizes LRU caching with a 30-second TTL for market data.
+- **Service Layer**:
+    - `DataService`: Handles concurrent batch data fetching and intelligent caching.
+    - `StrategyEngine`: Manages multi-strategy analysis and signal ranking.
+    - `ExecutionService`: Oversees the position lifecycle, including automatic stop-loss/take-profit.
+    - `MonitoringService`: Collects system metrics and manages alerts.
+- **Trading Strategy (ICT/SMC)**: Identifies order blocks, liquidity zones, and market structure. Uses MACD and EMA for confirmation and assigns a confidence score (70-100%).
+- **Intelligent Position Selection**: Scans all 648 symbols, scores signals by confidence/expected ROI, sorts them, and opens positions only for the top 3 signals. It dynamically manages existing positions.
+- **Advanced Risk Management**:
+    - Dual position limits based on 0.3% risk and a 0.5% maximum position size.
+    - Capital is divided into 3 equal parts, with each position using 33.33% of the allocated funds.
+    - Dynamic stop-loss/take-profit based on ATR.
+    - Automatic drawdown alerts (5% triggers Discord alert).
+- **Technical Indicators**: Uses pure Python/NumPy for MACD, Bollinger Bands, EMA, and ATR to reduce dependencies.
+- **Dependency Optimization**: Significant reduction in external libraries, removing PyTorch LSTM and TA-Lib dependencies, leading to smaller Docker images and faster startup times.
+- **Trade Logging**: Optimized batch writing for performance.
+- **Security**: API keys stored in environment variables, trading disabled by default, testnet mode for testing, and no withdrawal permissions on API keys.
+
+### External Dependencies
+- **Binance API**: For real-time market data, order placement, and account information.
+- **Discord API**: For sending notifications and interactive slash commands.
+- **Python Libraries**: `numpy` for numerical operations, `asyncio` for asynchronous programming.
