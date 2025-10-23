@@ -13,7 +13,7 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - **Automatic Account Balance Loading**: Bot now automatically reads real USDT balance from both Spot and Futures accounts (especially USDT-M Futures) on startup
 - **Enhanced Balance Reporting**: Detailed logging shows Spot balance, Futures balance, and total USDT with capital allocation per position
 - **Real-time Position Notifications**: Comprehensive Discord notifications for all position events:
-  - 📈 Position opened: Entry price, stop-loss, take-profit, confidence, allocated capital, risk/reward ratio
+  - 📈 Position opened: Entry price, stop-loss, take-profit, confidence, allocated capital, risk/reward ratio, **leverage**
   - 💰 Position closed: Exit price, PnL (USDT & %), holding duration, reason (stop-loss/take-profit/manual)
   - 🔴 Live trading mode indicator vs 🟡 Simulation mode
 - **Railway Deployment Ready**: Fixed IP configured, ready for deployment on Railway EU West region
@@ -31,6 +31,11 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
   - Complete data validation for all indicators (ATR, MACD, EMA, price)
   - Exception handling for trade parameter calculations
   - Boundary checks for None, NaN, zero, and negative values
+- **Dynamic Leverage Adjustment** (NEW): Intelligent leverage calculation based on signal confidence and market volatility
+  - Confidence-based: 70-80% → 1.0-1.4x, 80-90% → 1.4-1.8x, 90-100% → 1.8-2.0x
+  - Volatility adjustment: Low volatility +0.2x, High volatility -0.3x
+  - Configurable: MIN_LEVERAGE (1.0x) to MAX_LEVERAGE (2.0x)
+  - Can be disabled via ENABLE_DYNAMIC_LEVERAGE=false
 
 ### System Architecture
 The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.

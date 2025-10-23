@@ -114,18 +114,19 @@ class ExecutionService:
             allocated_capital
         )
         
+        if not position_params:
+            logger.warning(f"Risk check failed for {signal.symbol}")
+            self.stats['trades_rejected'] += 1
+            return False
+        
         # 應用槓桿到倉位數量
-        if position_params and leverage > 1.0:
+        if leverage > 1.0:
             position_params['quantity'] = position_params['quantity'] * leverage
             position_params['leverage'] = leverage
             logger.info(f"Applied leverage {leverage:.2f}x to position size")
         else:
             position_params['leverage'] = 1.0
-        
-        if not position_params:
-            logger.warning(f"Risk check failed for {signal.symbol}")
-            self.stats['trades_rejected'] += 1
-            return False
+            logger.info(f"No leverage applied (leverage = 1.0x)")
         
         # Execute trade
         if self.enable_trading:

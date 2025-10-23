@@ -295,6 +295,12 @@ class TradingBotNotifier:
             
             embed.add_field(name="分配資金", value=f"${format_number(trade_info.get('allocated_capital', 0))}", inline=True)
             embed.add_field(name="風險金額", value=f"${format_number(trade_info.get('risk_amount', 0))}", inline=True)
+            
+            # 槓桿倍數
+            leverage = trade_info.get('leverage', 1.0)
+            leverage_emoji = "⚡" if leverage > 1.0 else "🔒"
+            embed.add_field(name="槓桿倍數", value=f"{leverage_emoji} {format_number(leverage, 2)}x", inline=True)
+            
             embed.add_field(name="策略", value=trade_info.get('strategy', 'N/A'), inline=True)
             
             # Risk/Reward ratio
