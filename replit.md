@@ -23,12 +23,12 @@ An automated cryptocurrency trading bot that monitors ALL 648 Binance USDT perpe
   - Double protection: 0.3% risk per trade + 0.5% max position
   - Capital allocation: 33.33% per position (3 equal parts)
   - Dynamic position sizing based on ATR and allocated capital
-- **Discord Notifications**: 
-  - Cycle start/end with position status
-  - Market analysis for each symbol
-  - Signal detection with confidence & ROI
-  - Trade execution details
-  - Daily performance reports
+- **Interactive Discord Bot**: 
+  - **Commands**: `!help`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
+  - Real-time position查询
+  - Account balance and performance查詢
+  - Detailed statistics on demand
+  - Auto notifications for cycles and trades
 - **Trade Logging**: Optimized batch writing for better performance
 
 ## Project Structure
@@ -154,6 +154,15 @@ The bot runs automatically via the configured workflow. It will:
 - **自動倉位管理**: 觸及目標自動平倉
 
 ## Recent Changes
+- **2025-10-23**: **Discord 互動命令系統**
+  - 新增 6 個 Discord 命令：`!help`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
+  - 實時查詢當前持倉
+  - 查看賬戶餘額和資金分配
+  - 詳細性能統計
+  - 機器人狀態和配置查詢
+  - 美觀的 Embed 格式回應
+  - 創建 DISCORD_COMMANDS_GUIDE.md 完整文檔
+
 - **2025-10-23**: **v3.0 全量監控 + 智能3倉位管理系統**
   - **全交易所監控**: 預設監控所有 648 個 USDT 永續合約
   - **3 倉位管理**: 資金拆成 3 等份，最多同時持有 3 個倉位

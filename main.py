@@ -34,8 +34,8 @@ class TradingBot:
         
         self.notifier = None
         if Config.DISCORD_BOT_TOKEN and Config.DISCORD_CHANNEL_ID:
-            self.notifier = TradingBotNotifier()
-            logger.info("Discord notifier enabled")
+            self.notifier = TradingBotNotifier(risk_manager=self.risk_manager)
+            logger.info("Discord notifier enabled with interactive commands")
         else:
             logger.info("Discord notifier disabled (no credentials)")
         

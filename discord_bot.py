@@ -8,9 +8,10 @@ from utils.helpers import setup_logger, format_number
 logger = setup_logger(__name__)
 
 class TradingBotNotifier:
-    def __init__(self):
+    def __init__(self, risk_manager=None):
         self.token = Config.DISCORD_BOT_TOKEN
         self.channel_id = int(Config.DISCORD_CHANNEL_ID) if Config.DISCORD_CHANNEL_ID else None
+        self.risk_manager = risk_manager  # 用於查詢倉位和餘額
         
         intents = discord.Intents.default()
         intents.message_content = True
@@ -18,6 +19,9 @@ class TradingBotNotifier:
         self.bot = commands.Bot(command_prefix='!', intents=intents)
         self.channel = None
         self.is_ready = False
+        
+        # 設置命令
+        self._setup_commands()
         
         @self.bot.event
         async def on_ready():
@@ -31,14 +35,239 @@ class TradingBotNotifier:
                     logger.error(f"Could not find channel with ID: {self.channel_id}")
             else:
                 logger.warning("No Discord channel ID configured")
+    
+    def set_risk_manager(self, risk_manager):
+        """設置 RiskManager 實例用於查詢"""
+        self.risk_manager = risk_manager
+    
+    def _setup_commands(self):
+        """設置所有 Discord 命令"""
         
-        @self.bot.command(name='status')
-        async def status(ctx):
-            await ctx.send("✅ Trading bot is running!")
+        @self.bot.command(name='help', help='顯示所有可用命令')
+        async def help_command(ctx):
+            embed = discord.Embed(
+                title="🤖 交易機器人命令列表",
+                description="可用的命令：",
+                color=discord.Color.blue(),
+                timestamp=datetime.utcnow()
+            )
+            
+            embed.add_field(
+                name="!positions",
+                value="查看當前持倉",
+                inline=False
+            )
+            embed.add_field(
+                name="!balance",
+                value="查看賬戶餘額和性能統計",
+                inline=False
+            )
+            embed.add_field(
+                name="!stats",
+                value="查看詳細性能統計",
+                inline=False
+            )
+            embed.add_field(
+                name="!status",
+                value="查看機器人運行狀態",
+                inline=False
+            )
+            embed.add_field(
+                name="!config",
+                value="查看當前配置",
+                inline=False
+            )
+            
+            await ctx.send(embed=embed)
         
-        @self.bot.command(name='balance')
+        @self.bot.command(name='positions', help='查看當前持倉')
+        async def positions(ctx):
+            if not self.risk_manager:
+                await ctx.send("❌ 風險管理器未初始化")
+                return
+            
+            open_positions = self.risk_manager.open_positions
+            
+            if not open_positions:
+                embed = discord.Embed(
+                    title="📊 當前持倉",
+                    description="目前沒有持倉",
+                    color=discord.Color.blue(),
+                    timestamp=datetime.utcnow()
+                )
+                embed.add_field(
+                    name="可用倉位",
+                    value=f"{self.risk_manager.max_concurrent_positions}/3",
+                    inline=True
+                )
+            else:
+                embed = discord.Embed(
+                    title="📊 當前持倉",
+                    description=f"持倉數量: {len(open_positions)}/{self.risk_manager.max_concurrent_positions}",
+                    color=discord.Color.green(),
+                    timestamp=datetime.utcnow()
+                )
+                
+                for symbol, pos in open_positions.items():
+                    pnl = ((pos['current_price'] - pos['entry_price']) / pos['entry_price']) * 100 if pos['side'] == 'LONG' else ((pos['entry_price'] - pos['current_price']) / pos['entry_price']) * 100
+                    pnl_emoji = "🟢" if pnl > 0 else "🔴"
+                    
+                    position_info = (
+                        f"**方向**: {pos['side']}\n"
+                        f"**入場**: ${format_number(pos['entry_price'])}\n"
+                        f"**當前**: ${format_number(pos['current_price'])}\n"
+                        f"**數量**: {format_number(pos['quantity'], 6)}\n"
+                        f"**止損**: ${format_number(pos['stop_loss'])}\n"
+                        f"**止盈**: ${format_number(pos['take_profit'])}\n"
+                        f"**盈虧**: {pnl_emoji} {format_number(pnl)}%"
+                    )
+                    embed.add_field(name=f"📈 {symbol}", value=position_info, inline=True)
+            
+            await ctx.send(embed=embed)
+        
+        @self.bot.command(name='balance', help='查看賬戶餘額')
         async def balance(ctx):
-            await ctx.send("Use the dashboard to check your current balance.")
+            if not self.risk_manager:
+                await ctx.send("❌ 風險管理器未初始化")
+                return
+            
+            stats = self.risk_manager.get_performance_stats()
+            
+            embed = discord.Embed(
+                title="💰 賬戶資訊",
+                color=discord.Color.gold(),
+                timestamp=datetime.utcnow()
+            )
+            
+            # 餘額資訊
+            embed.add_field(
+                name="賬戶餘額",
+                value=f"${format_number(stats['account_balance'])}",
+                inline=True
+            )
+            embed.add_field(
+                name="總盈虧",
+                value=f"${format_number(stats['total_profit'])}",
+                inline=True
+            )
+            embed.add_field(
+                name="投資回報率",
+                value=f"{format_number(stats['roi'])}%",
+                inline=True
+            )
+            
+            # 倉位資訊
+            open_positions = len(self.risk_manager.open_positions)
+            embed.add_field(
+                name="當前倉位",
+                value=f"{open_positions}/{self.risk_manager.max_concurrent_positions}",
+                inline=True
+            )
+            embed.add_field(
+                name="可用倉位",
+                value=f"{self.risk_manager.max_concurrent_positions - open_positions}",
+                inline=True
+            )
+            
+            # 資金分配
+            capital_per_position = stats['account_balance'] / 3
+            embed.add_field(
+                name="每倉位資金",
+                value=f"${format_number(capital_per_position)}",
+                inline=True
+            )
+            
+            await ctx.send(embed=embed)
+        
+        @self.bot.command(name='stats', help='查看詳細統計')
+        async def stats(ctx):
+            if not self.risk_manager:
+                await ctx.send("❌ 風險管理器未初始化")
+                return
+            
+            stats = self.risk_manager.get_performance_stats()
+            
+            embed = discord.Embed(
+                title="📊 詳細性能統計",
+                color=discord.Color.purple(),
+                timestamp=datetime.utcnow()
+            )
+            
+            # 交易統計
+            embed.add_field(name="總交易數", value=str(stats['total_trades']), inline=True)
+            embed.add_field(name="勝率", value=f"{format_number(stats['win_rate'])}%", inline=True)
+            embed.add_field(name="最大回撤", value=f"{format_number(stats['max_drawdown'])}%", inline=True)
+            
+            embed.add_field(name="贏的交易", value=str(stats['winning_trades']), inline=True)
+            embed.add_field(name="輸的交易", value=str(stats['losing_trades']), inline=True)
+            embed.add_field(name="ROI", value=f"{format_number(stats['roi'])}%", inline=True)
+            
+            # 風險管理
+            embed.add_field(
+                name="風險配置",
+                value=f"每筆風險: {Config.RISK_PER_TRADE_PERCENT}%\n"
+                      f"最大倉位: {Config.MAX_POSITION_SIZE_PERCENT}%\n"
+                      f"最大同時倉位: {Config.MAX_CONCURRENT_POSITIONS}",
+                inline=False
+            )
+            
+            await ctx.send(embed=embed)
+        
+        @self.bot.command(name='status', help='查看機器人狀態')
+        async def status(ctx):
+            embed = discord.Embed(
+                title="🤖 機器人狀態",
+                color=discord.Color.green(),
+                timestamp=datetime.utcnow()
+            )
+            
+            embed.add_field(name="狀態", value="✅ 運行中", inline=True)
+            embed.add_field(name="監控模式", value=Config.SYMBOL_MODE.upper(), inline=True)
+            embed.add_field(name="監控幣種數", value=str(Config.MAX_SYMBOLS), inline=True)
+            
+            if self.risk_manager:
+                open_pos = len(self.risk_manager.open_positions)
+                embed.add_field(name="當前倉位", value=f"{open_pos}/3", inline=True)
+            
+            embed.add_field(name="交易模式", value="✅ 已啟用" if Config.ENABLE_TRADING else "⚠️ 模擬模式", inline=True)
+            
+            await ctx.send(embed=embed)
+        
+        @self.bot.command(name='config', help='查看配置')
+        async def config(ctx):
+            embed = discord.Embed(
+                title="⚙️ 機器人配置",
+                color=discord.Color.blue(),
+                timestamp=datetime.utcnow()
+            )
+            
+            # 交易對配置
+            embed.add_field(
+                name="交易對配置",
+                value=f"模式: {Config.SYMBOL_MODE}\n"
+                      f"數量: {Config.MAX_SYMBOLS}",
+                inline=False
+            )
+            
+            # 風險管理配置
+            embed.add_field(
+                name="風險管理",
+                value=f"每筆風險: {Config.RISK_PER_TRADE_PERCENT}%\n"
+                      f"最大倉位: {Config.MAX_POSITION_SIZE_PERCENT}%\n"
+                      f"同時倉位: {Config.MAX_CONCURRENT_POSITIONS}\n"
+                      f"每倉位資金: {Config.CAPITAL_PER_POSITION_PERCENT:.2f}%",
+                inline=False
+            )
+            
+            # 止損止盈配置
+            embed.add_field(
+                name="止損止盈",
+                value=f"止損 ATR 倍數: {Config.STOP_LOSS_ATR_MULTIPLIER}\n"
+                      f"止盈 ATR 倍數: {Config.TAKE_PROFIT_ATR_MULTIPLIER}",
+                inline=False
+            )
+            
+            await ctx.send(embed=embed)
     
     async def start_bot(self):
         if not self.token:
