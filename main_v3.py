@@ -280,7 +280,7 @@ class TradingBotV3:
         
         # Start Discord bot if available
         if self.discord:
-            asyncio.create_task(self.discord.start())
+            asyncio.create_task(self.discord.start_bot())
             await asyncio.sleep(2)  # Wait for Discord to connect
         
         try:
