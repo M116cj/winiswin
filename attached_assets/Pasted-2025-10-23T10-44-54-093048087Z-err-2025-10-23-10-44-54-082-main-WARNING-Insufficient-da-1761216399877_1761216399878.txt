@@ -1,0 +1,1001 @@
+2025-10-23T10:44:54.093048087Z [err]  2025-10-23 10:44:54,082 - __main__ - WARNING - Insufficient data for SAFEUSDT
+2025-10-23T10:44:54.329732872Z [err]  2025-10-23 10:44:54,318 - binance_client - INFO - Fetched 200 klines for SANTOSUSDT
+2025-10-23T10:44:54.367702052Z [err]  2025-10-23 10:44:54,350 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 1.36 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:44:54.367707479Z [err]  2025-10-23 10:44:54,350 - risk_manager - INFO - Added pending signal for SANTOSUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:44:54.367711797Z [err]  2025-10-23 10:44:54,351 - __main__ - INFO - ✅ Signal detected for SANTOSUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:44:54.367716097Z [err]  2025-10-23 10:44:54,351 - __main__ - INFO - Analyzing PONKEUSDT...
+2025-10-23T10:44:54.449978788Z [err]  2025-10-23 10:44:54,429 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 50 seconds.
+2025-10-23T10:44:54.449982941Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:44:54.449988376Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:44:54.449995329Z [err]      asyncio.run(main())
+2025-10-23T10:44:54.449999289Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:44:54.450003147Z [err]      return runner.run(main)
+2025-10-23T10:44:54.450007025Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:44:54.450011099Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:44:54.450015514Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:44:54.450019423Z [err]      self.run_forever()
+2025-10-23T10:44:54.450023870Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:44:54.450028307Z [err]      self._run_once()
+2025-10-23T10:44:54.450032332Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:44:54.450036110Z [err]      handle._run()
+2025-10-23T10:44:54.450039972Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:44:54.450043846Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:44:54.450047482Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:44:54.450051394Z [err]      await bot.run()
+2025-10-23T10:44:54.450055269Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:44:54.450060071Z [err]      await self.run_cycle()
+2025-10-23T10:44:54.450064884Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:44:54.450068388Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:44:54.450599812Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:44:54.450604741Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:44:54.450610911Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:44:54.450611215Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:44:54.450619759Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:44:54.450621365Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:44:54.450629221Z [err]      klines = self.client.get_klines(
+2025-10-23T10:44:54.450629222Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:44:54.450634468Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:44:54.450638982Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:44:54.450640643Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:44:54.450646113Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:44:54.450648058Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:44:54.450651359Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:44:54.450657268Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:44:54.450657968Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:44:54.450662544Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:44:54.450666636Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:44:54.450670896Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:44:54.451193351Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:44:54.451195886Z [err]      resp = conn.urlopen(
+2025-10-23T10:44:54.451202191Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:44:54.451205215Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:44:54.451208963Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:44:54.451212789Z [err]      response = self._make_request(
+2025-10-23T10:44:54.451215501Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:44:54.451219153Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:44:54.451221521Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:44:54.451225232Z [err]      response = conn.getresponse()
+2025-10-23T10:44:54.451227936Z [err]  
+2025-10-23T10:44:54.451230558Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:44:54.451234687Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:44:54.451238765Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:44:54.451243304Z [err]      response.begin()
+2025-10-23T10:44:54.451250892Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:44:54.451256023Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:44:54.451260032Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:44:54.451264673Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:44:54.451268981Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:44:54.586158195Z [err]  2025-10-23 10:44:54,581 - binance_client - ERROR - Error fetching klines for PONKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:54.586164343Z [err]  2025-10-23 10:44:54,582 - __main__ - WARNING - Insufficient data for PONKEUSDT
+2025-10-23T10:44:54.586170300Z [err]  2025-10-23 10:44:54,582 - __main__ - INFO - Analyzing CETUSUSDT...
+2025-10-23T10:44:54.827449619Z [err]  2025-10-23 10:44:54,817 - binance_client - INFO - Fetched 200 klines for CETUSUSDT
+2025-10-23T10:44:54.865492122Z [err]  2025-10-23 10:44:54,850 - __main__ - INFO - Analyzing COWUSDT...
+2025-10-23T10:44:55.093909762Z [err]  2025-10-23 10:44:55,083 - binance_client - INFO - Fetched 200 klines for COWUSDT
+2025-10-23T10:44:55.117577245Z [err]  2025-10-23 10:44:55,116 - __main__ - INFO - Analyzing 1000000MOGUSDT...
+2025-10-23T10:44:55.352604277Z [err]  2025-10-23 10:44:55,343 - binance_client - ERROR - Error fetching klines for 1000000MOGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:55.352608769Z [err]  2025-10-23 10:44:55,343 - __main__ - WARNING - Insufficient data for 1000000MOGUSDT
+2025-10-23T10:44:55.352613093Z [err]  2025-10-23 10:44:55,343 - __main__ - INFO - Analyzing GRASSUSDT...
+2025-10-23T10:44:55.579587313Z [err]  2025-10-23 10:44:55,575 - binance_client - ERROR - Error fetching klines for GRASSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:55.579593422Z [err]  2025-10-23 10:44:55,575 - __main__ - WARNING - Insufficient data for GRASSUSDT
+2025-10-23T10:44:55.579600264Z [err]  2025-10-23 10:44:55,575 - __main__ - INFO - Analyzing DRIFTUSDT...
+2025-10-23T10:44:55.829481519Z [err]  2025-10-23 10:44:55,806 - binance_client - ERROR - Error fetching klines for DRIFTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:55.829487673Z [err]  2025-10-23 10:44:55,806 - __main__ - WARNING - Insufficient data for DRIFTUSDT
+2025-10-23T10:44:55.829494257Z [err]  2025-10-23 10:44:55,806 - __main__ - INFO - Analyzing SWELLUSDT...
+2025-10-23T10:44:56.102341937Z [err]  2025-10-23 10:44:56,037 - binance_client - ERROR - Error fetching klines for SWELLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:56.102345969Z [err]  2025-10-23 10:44:56,037 - __main__ - WARNING - Insufficient data for SWELLUSDT
+2025-10-23T10:44:56.102349745Z [err]  2025-10-23 10:44:56,037 - __main__ - INFO - Analyzing PNUTUSDT...
+2025-10-23T10:44:56.286033911Z [err]  2025-10-23 10:44:56,272 - binance_client - INFO - Fetched 200 klines for PNUTUSDT
+2025-10-23T10:44:56.307111807Z [err]  2025-10-23 10:44:56,306 - __main__ - INFO - Analyzing ACTUSDT...
+2025-10-23T10:44:56.544299391Z [err]  2025-10-23 10:44:56,539 - binance_client - INFO - Fetched 200 klines for ACTUSDT
+2025-10-23T10:44:56.573440576Z [err]  2025-10-23 10:44:56,571 - __main__ - INFO - Analyzing HIPPOUSDT...
+2025-10-23T10:44:56.821370504Z [err]  2025-10-23 10:44:56,799 - binance_client - ERROR - Error fetching klines for HIPPOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:56.821374883Z [err]  2025-10-23 10:44:56,799 - __main__ - WARNING - Insufficient data for HIPPOUSDT
+2025-10-23T10:44:56.821380064Z [err]  2025-10-23 10:44:56,799 - __main__ - INFO - Analyzing 1000XUSDT...
+2025-10-23T10:44:57.118236364Z [err]  2025-10-23 10:44:57,025 - binance_client - ERROR - Error fetching klines for 1000XUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:57.118240401Z [err]  2025-10-23 10:44:57,025 - __main__ - WARNING - Insufficient data for 1000XUSDT
+2025-10-23T10:44:57.118245374Z [err]  2025-10-23 10:44:57,025 - __main__ - INFO - Analyzing DEGENUSDT...
+2025-10-23T10:44:57.277196889Z [err]  2025-10-23 10:44:57,256 - binance_client - ERROR - Error fetching klines for DEGENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:57.277202679Z [err]  2025-10-23 10:44:57,256 - __main__ - WARNING - Insufficient data for DEGENUSDT
+2025-10-23T10:44:57.277206880Z [err]  2025-10-23 10:44:57,256 - __main__ - INFO - Analyzing BANUSDT...
+2025-10-23T10:44:57.485131908Z [err]  2025-10-23 10:44:57,483 - binance_client - ERROR - Error fetching klines for BANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:57.485138661Z [err]  2025-10-23 10:44:57,483 - __main__ - WARNING - Insufficient data for BANUSDT
+2025-10-23T10:44:57.485145410Z [err]  2025-10-23 10:44:57,483 - __main__ - INFO - Analyzing AKTUSDT...
+2025-10-23T10:44:57.713535971Z [err]  2025-10-23 10:44:57,709 - binance_client - ERROR - Error fetching klines for AKTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:57.713542104Z [err]  2025-10-23 10:44:57,709 - __main__ - WARNING - Insufficient data for AKTUSDT
+2025-10-23T10:44:57.713546769Z [err]  2025-10-23 10:44:57,709 - __main__ - INFO - Analyzing SLERFUSDT...
+2025-10-23T10:44:57.954185685Z [err]  2025-10-23 10:44:57,935 - binance_client - ERROR - Error fetching klines for SLERFUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:57.954189399Z [err]  2025-10-23 10:44:57,936 - __main__ - WARNING - Insufficient data for SLERFUSDT
+2025-10-23T10:44:57.954193202Z [err]  2025-10-23 10:44:57,936 - __main__ - INFO - Analyzing SCRTUSDT...
+2025-10-23T10:44:58.169879733Z [err]  2025-10-23 10:44:58,167 - binance_client - INFO - Fetched 200 klines for SCRTUSDT
+2025-10-23T10:44:58.209420286Z [err]  2025-10-23 10:44:58,200 - __main__ - INFO - Analyzing 1000WHYUSDT...
+2025-10-23T10:44:58.432597460Z [err]  2025-10-23 10:44:58,430 - binance_client - ERROR - Error fetching klines for 1000WHYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:58.432601698Z [err]  2025-10-23 10:44:58,431 - __main__ - WARNING - Insufficient data for 1000WHYUSDT
+2025-10-23T10:44:58.432606197Z [err]  2025-10-23 10:44:58,431 - __main__ - INFO - Analyzing 1000CHEEMSUSDT...
+2025-10-23T10:44:58.688314642Z [err]  2025-10-23 10:44:58,667 - binance_client - INFO - Fetched 200 klines for 1000CHEEMSUSDT
+2025-10-23T10:44:58.703889457Z [err]  2025-10-23 10:44:58,699 - __main__ - INFO - Analyzing THEUSDT...
+2025-10-23T10:44:58.949666601Z [err]  2025-10-23 10:44:58,934 - binance_client - INFO - Fetched 200 klines for THEUSDT
+2025-10-23T10:44:58.976622835Z [err]  2025-10-23 10:44:58,967 - __main__ - INFO - Analyzing MORPHOUSDT...
+2025-10-23T10:44:59.220934280Z [err]  2025-10-23 10:44:59,194 - binance_client - ERROR - Error fetching klines for MORPHOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:59.220938399Z [err]  2025-10-23 10:44:59,194 - __main__ - WARNING - Insufficient data for MORPHOUSDT
+2025-10-23T10:44:59.220942127Z [err]  2025-10-23 10:44:59,194 - __main__ - INFO - Analyzing CHILLGUYUSDT...
+2025-10-23T10:44:59.439790051Z [err]  2025-10-23 10:44:59,426 - binance_client - ERROR - Error fetching klines for CHILLGUYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:59.439794708Z [err]  2025-10-23 10:44:59,426 - __main__ - WARNING - Insufficient data for CHILLGUYUSDT
+2025-10-23T10:44:59.439805532Z [err]  2025-10-23 10:44:59,426 - __main__ - INFO - Analyzing KAIAUSDT...
+2025-10-23T10:44:59.675430974Z [err]  2025-10-23 10:44:59,657 - binance_client - INFO - Fetched 200 klines for KAIAUSDT
+2025-10-23T10:44:59.695646397Z [err]  2025-10-23 10:44:59,691 - __main__ - INFO - Analyzing AEROUSDT...
+2025-10-23T10:44:59.935980479Z [err]  2025-10-23 10:44:59,921 - binance_client - ERROR - Error fetching klines for AEROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:44:59.935984658Z [err]  2025-10-23 10:44:59,921 - __main__ - WARNING - Insufficient data for AEROUSDT
+2025-10-23T10:44:59.935988213Z [err]  2025-10-23 10:44:59,922 - __main__ - INFO - Analyzing ACXUSDT...
+2025-10-23T10:45:00.154721806Z [err]  2025-10-23 10:45:00,153 - binance_client - INFO - Fetched 200 klines for ACXUSDT
+2025-10-23T10:45:00.196851069Z [err]  2025-10-23 10:45:00,191 - __main__ - INFO - Analyzing ORCAUSDT...
+2025-10-23T10:45:00.423720493Z [err]  2025-10-23 10:45:00,422 - binance_client - INFO - Fetched 200 klines for ORCAUSDT
+2025-10-23T10:45:00.470945355Z [err]  2025-10-23 10:45:00,456 - __main__ - INFO - Analyzing MOVEUSDT...
+2025-10-23T10:45:00.700017823Z [err]  2025-10-23 10:45:00,693 - binance_client - INFO - Fetched 200 klines for MOVEUSDT
+2025-10-23T10:45:00.739136103Z [err]  2025-10-23 10:45:00,726 - __main__ - INFO - Analyzing RAYSOLUSDT...
+2025-10-23T10:45:01.018474062Z [err]  2025-10-23 10:45:00,952 - binance_client - ERROR - Error fetching klines for RAYSOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:01.018480155Z [err]  2025-10-23 10:45:00,952 - __main__ - WARNING - Insufficient data for RAYSOLUSDT
+2025-10-23T10:45:01.018486309Z [err]  2025-10-23 10:45:00,952 - __main__ - INFO - Analyzing VIRTUALUSDT...
+2025-10-23T10:45:01.191701353Z [err]  2025-10-23 10:45:01,184 - binance_client - INFO - Fetched 200 klines for VIRTUALUSDT
+2025-10-23T10:45:01.224331110Z [err]  2025-10-23 10:45:01,220 - __main__ - INFO - Analyzing SPXUSDT...
+2025-10-23T10:45:01.476030578Z [err]  2025-10-23 10:45:01,453 - binance_client - ERROR - Error fetching klines for SPXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:01.476036172Z [err]  2025-10-23 10:45:01,453 - __main__ - WARNING - Insufficient data for SPXUSDT
+2025-10-23T10:45:01.476040211Z [err]  2025-10-23 10:45:01,453 - __main__ - INFO - Analyzing KOMAUSDT...
+2025-10-23T10:45:01.687594514Z [err]  2025-10-23 10:45:01,680 - binance_client - ERROR - Error fetching klines for KOMAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:01.687601169Z [err]  2025-10-23 10:45:01,680 - __main__ - WARNING - Insufficient data for KOMAUSDT
+2025-10-23T10:45:01.687605865Z [err]  2025-10-23 10:45:01,680 - __main__ - INFO - Analyzing MEUSDT...
+2025-10-23T10:45:01.918883284Z [err]  2025-10-23 10:45:01,916 - binance_client - INFO - Fetched 200 klines for MEUSDT
+2025-10-23T10:45:01.960262860Z [err]  2025-10-23 10:45:01,949 - __main__ - INFO - Analyzing AVAUSDT...
+2025-10-23T10:45:02.186442080Z [err]  2025-10-23 10:45:02,184 - binance_client - INFO - Fetched 200 klines for AVAUSDT
+2025-10-23T10:45:02.254731636Z [err]  2025-10-23 10:45:02,249 - __main__ - INFO - Analyzing DEGOUSDT...
+2025-10-23T10:45:02.543626448Z [err]  2025-10-23 10:45:02,488 - binance_client - INFO - Fetched 200 klines for DEGOUSDT
+2025-10-23T10:45:02.543638428Z [err]  2025-10-23 10:45:02,536 - __main__ - INFO - Analyzing VELODROMEUSDT...
+2025-10-23T10:45:02.780131137Z [err]  2025-10-23 10:45:02,771 - binance_client - INFO - Fetched 200 klines for VELODROMEUSDT
+2025-10-23T10:45:02.806047099Z [err]  2025-10-23 10:45:02,803 - __main__ - INFO - Analyzing MOCAUSDT...
+2025-10-23T10:45:03.182273408Z [err]  2025-10-23 10:45:03,030 - binance_client - ERROR - Error fetching klines for MOCAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:03.182277681Z [err]  2025-10-23 10:45:03,030 - __main__ - WARNING - Insufficient data for MOCAUSDT
+2025-10-23T10:45:03.182281784Z [err]  2025-10-23 10:45:03,030 - __main__ - INFO - Analyzing VANAUSDT...
+2025-10-23T10:45:03.296071704Z [err]  2025-10-23 10:45:03,262 - binance_client - INFO - Fetched 200 klines for VANAUSDT
+2025-10-23T10:45:03.296077637Z [err]  2025-10-23 10:45:03,295 - __main__ - INFO - Analyzing PENGUUSDT...
+2025-10-23T10:45:03.551207683Z [err]  2025-10-23 10:45:03,532 - binance_client - INFO - Fetched 200 klines for PENGUUSDT
+2025-10-23T10:45:03.569312761Z [err]  2025-10-23 10:45:03,566 - __main__ - INFO - Analyzing LUMIAUSDT...
+2025-10-23T10:45:03.832020143Z [err]  2025-10-23 10:45:03,803 - binance_client - INFO - Fetched 200 klines for LUMIAUSDT
+2025-10-23T10:45:03.843260151Z [err]  2025-10-23 10:45:03,836 - __main__ - INFO - Analyzing USUALUSDT...
+2025-10-23T10:45:04.211506750Z [err]  2025-10-23 10:45:04,107 - __main__ - INFO - Analyzing KMNOUSDT...
+2025-10-23T10:45:04.211591793Z [err]  2025-10-23 10:45:04,068 - binance_client - INFO - Fetched 200 klines for USUALUSDT
+2025-10-23T10:45:04.375174268Z [err]  2025-10-23 10:45:04,338 - binance_client - INFO - Fetched 200 klines for KMNOUSDT
+2025-10-23T10:45:04.375178831Z [err]  2025-10-23 10:45:04,371 - __main__ - INFO - Analyzing CGPTUSDT...
+2025-10-23T10:45:04.436353244Z [err]      await bot.run()
+2025-10-23T10:45:04.436353348Z [err]      self.run_forever()
+2025-10-23T10:45:04.436356259Z [err]  2025-10-23 10:45:04,430 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 60 seconds.
+2025-10-23T10:45:04.436362511Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:45:04.436364869Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:45:04.436367765Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:45:04.436369313Z [err]      await self.run_cycle()
+2025-10-23T10:45:04.436375254Z [err]      self._run_once()
+2025-10-23T10:45:04.436375675Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:45:04.436376253Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:45:04.436382956Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:45:04.436383169Z [err]      asyncio.run(main())
+2025-10-23T10:45:04.436385017Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:45:04.436390093Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:45:04.436393902Z [err]      handle._run()
+2025-10-23T10:45:04.436396590Z [err]      return runner.run(main)
+2025-10-23T10:45:04.436402645Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:45:04.436403090Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:45:04.436408006Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:45:04.436413367Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:45:04.436413415Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:45:04.436421223Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:45:04.437265041Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:45:04.437271445Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:45:04.437273346Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:45:04.437273858Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:45:04.437274260Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:45:04.437285699Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:45:04.437290373Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:45:04.437293769Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:45:04.437299239Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:45:04.437299468Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:45:04.437307874Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:45:04.437309099Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:45:04.437312392Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:45:04.437313087Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:45:04.437322191Z [err]      klines = self.client.get_klines(
+2025-10-23T10:45:04.437326094Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:45:04.437330132Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:45:04.437333844Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:45:04.437339373Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:45:04.438290668Z [err]      resp = conn.urlopen(
+2025-10-23T10:45:04.438298502Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:45:04.438305112Z [err]      response = self._make_request(
+2025-10-23T10:45:04.438311573Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:45:04.438318807Z [err]      response = conn.getresponse()
+2025-10-23T10:45:04.438327624Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:45:04.438334123Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:45:04.438340741Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:45:04.438346901Z [err]      response.begin()
+2025-10-23T10:45:04.438352069Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:45:04.438356198Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:45:04.438360068Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:45:04.438364210Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:45:04.438368216Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:45:04.438373395Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:45:04.438377335Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:45:04.438381448Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:45:04.438385625Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:45:04.438389510Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:45:04.438405436Z [err]  
+2025-10-23T10:45:04.611278523Z [err]  2025-10-23 10:45:04,605 - binance_client - INFO - Fetched 200 klines for CGPTUSDT
+2025-10-23T10:45:04.651546630Z [err]  2025-10-23 10:45:04,638 - __main__ - INFO - Analyzing AIXBTUSDT...
+2025-10-23T10:45:04.904048565Z [err]  2025-10-23 10:45:04,869 - binance_client - INFO - Fetched 200 klines for AIXBTUSDT
+2025-10-23T10:45:04.904054554Z [err]  2025-10-23 10:45:04,902 - __main__ - INFO - Analyzing FARTCOINUSDT...
+2025-10-23T10:45:05.272455406Z [err]  2025-10-23 10:45:05,133 - binance_client - ERROR - Error fetching klines for FARTCOINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:05.272459992Z [err]  2025-10-23 10:45:05,133 - __main__ - WARNING - Insufficient data for FARTCOINUSDT
+2025-10-23T10:45:05.272465101Z [err]  2025-10-23 10:45:05,133 - __main__ - INFO - Analyzing HIVEUSDT...
+2025-10-23T10:45:05.369015845Z [err]  2025-10-23 10:45:05,363 - binance_client - INFO - Fetched 200 klines for HIVEUSDT
+2025-10-23T10:45:05.407434628Z [err]  2025-10-23 10:45:05,395 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.136 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:45:05.407443334Z [err]  2025-10-23 10:45:05,395 - risk_manager - INFO - Added pending signal for HIVEUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:05.407450707Z [err]  2025-10-23 10:45:05,396 - __main__ - INFO - ✅ Signal detected for HIVEUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:05.407463857Z [err]  2025-10-23 10:45:05,396 - __main__ - INFO - Analyzing DEXEUSDT...
+2025-10-23T10:45:05.628827584Z [err]  2025-10-23 10:45:05,627 - binance_client - INFO - Fetched 200 klines for DEXEUSDT
+2025-10-23T10:45:05.669951087Z [err]  2025-10-23 10:45:05,661 - __main__ - INFO - Analyzing PHAUSDT...
+2025-10-23T10:45:05.910157239Z [err]  2025-10-23 10:45:05,891 - binance_client - INFO - Fetched 200 klines for PHAUSDT
+2025-10-23T10:45:05.933104467Z [err]  2025-10-23 10:45:05,926 - __main__ - INFO - Analyzing DFUSDT...
+2025-10-23T10:45:06.163123589Z [err]  2025-10-23 10:45:06,158 - binance_client - INFO - Fetched 200 klines for DFUSDT
+2025-10-23T10:45:06.330281326Z [err]  2025-10-23 10:45:06,192 - __main__ - INFO - Analyzing GRIFFAINUSDT...
+2025-10-23T10:45:06.484256227Z [err]  2025-10-23 10:45:06,422 - binance_client - ERROR - Error fetching klines for GRIFFAINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:06.484262116Z [err]  2025-10-23 10:45:06,422 - __main__ - WARNING - Insufficient data for GRIFFAINUSDT
+2025-10-23T10:45:06.484267460Z [err]  2025-10-23 10:45:06,422 - __main__ - INFO - Analyzing AI16ZUSDT...
+2025-10-23T10:45:06.663714098Z [err]  2025-10-23 10:45:06,654 - binance_client - ERROR - Error fetching klines for AI16ZUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:06.663719578Z [err]  2025-10-23 10:45:06,654 - __main__ - WARNING - Insufficient data for AI16ZUSDT
+2025-10-23T10:45:06.663725202Z [err]  2025-10-23 10:45:06,654 - __main__ - INFO - Analyzing ZEREBROUSDT...
+2025-10-23T10:45:06.883399080Z [err]  2025-10-23 10:45:06,880 - binance_client - ERROR - Error fetching klines for ZEREBROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:06.883404338Z [err]  2025-10-23 10:45:06,880 - __main__ - WARNING - Insufficient data for ZEREBROUSDT
+2025-10-23T10:45:06.883408587Z [err]  2025-10-23 10:45:06,880 - __main__ - INFO - Analyzing BIOUSDT...
+2025-10-23T10:45:07.115269715Z [err]  2025-10-23 10:45:07,111 - binance_client - INFO - Fetched 200 klines for BIOUSDT
+2025-10-23T10:45:07.152500250Z [err]  2025-10-23 10:45:07,148 - __main__ - INFO - Analyzing COOKIEUSDT...
+2025-10-23T10:45:07.393263153Z [err]  2025-10-23 10:45:07,383 - binance_client - INFO - Fetched 200 klines for COOKIEUSDT
+2025-10-23T10:45:07.422033410Z [err]  2025-10-23 10:45:07,417 - __main__ - INFO - Analyzing ALCHUSDT...
+2025-10-23T10:45:07.667357320Z [err]  2025-10-23 10:45:07,647 - binance_client - ERROR - Error fetching klines for ALCHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:07.667364204Z [err]  2025-10-23 10:45:07,648 - __main__ - WARNING - Insufficient data for ALCHUSDT
+2025-10-23T10:45:07.667370892Z [err]  2025-10-23 10:45:07,648 - __main__ - INFO - Analyzing SWARMSUSDT...
+2025-10-23T10:45:07.880955059Z [err]  2025-10-23 10:45:07,874 - binance_client - ERROR - Error fetching klines for SWARMSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:07.880959643Z [err]  2025-10-23 10:45:07,874 - __main__ - WARNING - Insufficient data for SWARMSUSDT
+2025-10-23T10:45:07.880965023Z [err]  2025-10-23 10:45:07,874 - __main__ - INFO - Analyzing SONICUSDT...
+2025-10-23T10:45:08.110468411Z [err]  2025-10-23 10:45:08,100 - binance_client - ERROR - Error fetching klines for SONICUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:08.110475670Z [err]  2025-10-23 10:45:08,100 - __main__ - WARNING - Insufficient data for SONICUSDT
+2025-10-23T10:45:08.110480538Z [err]  2025-10-23 10:45:08,100 - __main__ - INFO - Analyzing DUSDT...
+2025-10-23T10:45:08.350453403Z [err]  2025-10-23 10:45:08,334 - binance_client - INFO - Fetched 200 klines for DUSDT
+2025-10-23T10:45:08.391987035Z [err]  2025-10-23 10:45:08,374 - __main__ - INFO - Analyzing PROMUSDT...
+2025-10-23T10:45:08.616376729Z [err]  2025-10-23 10:45:08,609 - binance_client - INFO - Fetched 200 klines for PROMUSDT
+2025-10-23T10:45:08.658218586Z [err]  2025-10-23 10:45:08,639 - __main__ - INFO - Analyzing SUSDT...
+2025-10-23T10:45:08.886567124Z [err]  2025-10-23 10:45:08,875 - binance_client - INFO - Fetched 200 klines for SUSDT
+2025-10-23T10:45:08.910464596Z [err]  2025-10-23 10:45:08,908 - __main__ - INFO - Analyzing SOLVUSDT...
+2025-10-23T10:45:09.147321871Z [err]  2025-10-23 10:45:09,145 - binance_client - INFO - Fetched 200 klines for SOLVUSDT
+2025-10-23T10:45:09.190121504Z [err]  2025-10-23 10:45:09,180 - __main__ - INFO - Analyzing ARCUSDT...
+2025-10-23T10:45:09.410931201Z [err]  2025-10-23 10:45:09,406 - binance_client - ERROR - Error fetching klines for ARCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:09.410937125Z [err]  2025-10-23 10:45:09,407 - __main__ - WARNING - Insufficient data for ARCUSDT
+2025-10-23T10:45:09.410941751Z [err]  2025-10-23 10:45:09,407 - __main__ - INFO - Analyzing AVAAIUSDT...
+2025-10-23T10:45:09.658592055Z [err]  2025-10-23 10:45:09,637 - binance_client - ERROR - Error fetching klines for AVAAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:09.658599225Z [err]  2025-10-23 10:45:09,637 - __main__ - WARNING - Insufficient data for AVAAIUSDT
+2025-10-23T10:45:09.658605835Z [err]  2025-10-23 10:45:09,637 - __main__ - INFO - Analyzing TRUMPUSDT...
+2025-10-23T10:45:09.878628316Z [err]  2025-10-23 10:45:09,870 - binance_client - INFO - Fetched 200 klines for TRUMPUSDT
+2025-10-23T10:45:09.912505093Z [err]  2025-10-23 10:45:09,902 - __main__ - INFO - Analyzing MELANIAUSDT...
+2025-10-23T10:45:10.198038547Z [err]  2025-10-23 10:45:10,132 - binance_client - ERROR - Error fetching klines for MELANIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:10.198042301Z [err]  2025-10-23 10:45:10,132 - __main__ - WARNING - Insufficient data for MELANIAUSDT
+2025-10-23T10:45:10.198046545Z [err]  2025-10-23 10:45:10,132 - __main__ - INFO - Analyzing VTHOUSDT...
+2025-10-23T10:45:10.371706082Z [err]  2025-10-23 10:45:10,368 - binance_client - INFO - Fetched 200 klines for VTHOUSDT
+2025-10-23T10:45:10.412339408Z [err]  2025-10-23 10:45:10,403 - __main__ - INFO - Analyzing ANIMEUSDT...
+2025-10-23T10:45:10.670642824Z [err]  2025-10-23 10:45:10,633 - binance_client - INFO - Fetched 200 klines for ANIMEUSDT
+2025-10-23T10:45:10.670646993Z [err]  2025-10-23 10:45:10,665 - __main__ - INFO - Analyzing PIPPINUSDT...
+2025-10-23T10:45:10.893567724Z [err]  2025-10-23 10:45:10,891 - binance_client - ERROR - Error fetching klines for PIPPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:10.893573738Z [err]  2025-10-23 10:45:10,891 - __main__ - WARNING - Insufficient data for PIPPINUSDT
+2025-10-23T10:45:10.893579112Z [err]  2025-10-23 10:45:10,891 - __main__ - INFO - Analyzing VINEUSDT...
+2025-10-23T10:45:11.121817779Z [err]  2025-10-23 10:45:11,119 - binance_client - ERROR - Error fetching klines for VINEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:11.121823354Z [err]  2025-10-23 10:45:11,119 - __main__ - WARNING - Insufficient data for VINEUSDT
+2025-10-23T10:45:11.121827988Z [err]  2025-10-23 10:45:11,119 - __main__ - INFO - Analyzing VVVUSDT...
+2025-10-23T10:45:11.358276557Z [err]  2025-10-23 10:45:11,349 - binance_client - ERROR - Error fetching klines for VVVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:11.358282220Z [err]  2025-10-23 10:45:11,349 - __main__ - WARNING - Insufficient data for VVVUSDT
+2025-10-23T10:45:11.358288116Z [err]  2025-10-23 10:45:11,349 - __main__ - INFO - Analyzing BERAUSDT...
+2025-10-23T10:45:11.588326626Z [err]  2025-10-23 10:45:11,586 - binance_client - INFO - Fetched 200 klines for BERAUSDT
+2025-10-23T10:45:11.629889715Z [err]  2025-10-23 10:45:11,621 - __main__ - INFO - Analyzing TSTUSDT...
+2025-10-23T10:45:11.854505257Z [err]  2025-10-23 10:45:11,852 - binance_client - INFO - Fetched 200 klines for TSTUSDT
+2025-10-23T10:45:11.895783385Z [err]  2025-10-23 10:45:11,888 - __main__ - INFO - Analyzing LAYERUSDT...
+2025-10-23T10:45:12.124839328Z [err]  2025-10-23 10:45:12,123 - binance_client - INFO - Fetched 200 klines for LAYERUSDT
+2025-10-23T10:45:12.179611403Z [err]  2025-10-23 10:45:12,167 - __main__ - INFO - Analyzing HEIUSDT...
+2025-10-23T10:45:12.407860433Z [err]  2025-10-23 10:45:12,403 - binance_client - INFO - Fetched 200 klines for HEIUSDT
+2025-10-23T10:45:12.448638209Z [err]  2025-10-23 10:45:12,437 - __main__ - INFO - Analyzing B3USDT...
+2025-10-23T10:45:12.670481261Z [err]  2025-10-23 10:45:12,668 - binance_client - ERROR - Error fetching klines for B3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:12.670493808Z [err]  2025-10-23 10:45:12,668 - __main__ - WARNING - Insufficient data for B3USDT
+2025-10-23T10:45:12.670500338Z [err]  2025-10-23 10:45:12,668 - __main__ - INFO - Analyzing IPUSDT...
+2025-10-23T10:45:12.913113931Z [err]  2025-10-23 10:45:12,899 - binance_client - ERROR - Error fetching klines for IPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:12.913117854Z [err]  2025-10-23 10:45:12,899 - __main__ - WARNING - Insufficient data for IPUSDT
+2025-10-23T10:45:12.913123659Z [err]  2025-10-23 10:45:12,899 - __main__ - INFO - Analyzing GPSUSDT...
+2025-10-23T10:45:13.129820020Z [err]  2025-10-23 10:45:13,129 - binance_client - INFO - Fetched 200 klines for GPSUSDT
+2025-10-23T10:45:13.163816272Z [err]  2025-10-23 10:45:13,163 - __main__ - INFO - Analyzing SHELLUSDT...
+2025-10-23T10:45:13.404394923Z [err]  2025-10-23 10:45:13,394 - binance_client - INFO - Fetched 200 klines for SHELLUSDT
+2025-10-23T10:45:13.445860698Z [err]  2025-10-23 10:45:13,427 - __main__ - INFO - Analyzing KAITOUSDT...
+2025-10-23T10:45:13.660319516Z [err]  2025-10-23 10:45:13,659 - binance_client - INFO - Fetched 200 klines for KAITOUSDT
+2025-10-23T10:45:13.701683776Z [err]  2025-10-23 10:45:13,691 - __main__ - INFO - Analyzing REDUSDT...
+2025-10-23T10:45:13.932553482Z [err]  2025-10-23 10:45:13,922 - binance_client - INFO - Fetched 200 klines for REDUSDT
+2025-10-23T10:45:13.959265909Z [err]  2025-10-23 10:45:13,956 - __main__ - INFO - Analyzing VICUSDT...
+2025-10-23T10:45:14.188595238Z [err]  2025-10-23 10:45:14,187 - binance_client - INFO - Fetched 200 klines for VICUSDT
+2025-10-23T10:45:14.223486412Z [err]  2025-10-23 10:45:14,220 - __main__ - INFO - Analyzing EPICUSDT...
+2025-10-23T10:45:14.443904830Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:45:14.443910703Z [err]  2025-10-23 10:45:14,430 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 70 seconds.
+2025-10-23T10:45:14.443916205Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:45:14.443916230Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:45:14.443923007Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:45:14.443925610Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:45:14.443928726Z [err]      asyncio.run(main())
+2025-10-23T10:45:14.443933900Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:45:14.443935368Z [err]      await bot.run()
+2025-10-23T10:45:14.443938568Z [err]      return runner.run(main)
+2025-10-23T10:45:14.443942012Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:45:14.443945412Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:45:14.443947886Z [err]      await self.run_cycle()
+2025-10-23T10:45:14.443951698Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:45:14.443953618Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:45:14.443957211Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:45:14.443959653Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:45:14.443964188Z [err]      self.run_forever()
+2025-10-23T10:45:14.443967877Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:45:14.443971776Z [err]      self._run_once()
+2025-10-23T10:45:14.443976029Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:45:14.443979750Z [err]      handle._run()
+2025-10-23T10:45:14.444766771Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:45:14.444772681Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:45:14.444775189Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:45:14.444777768Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:45:14.444782162Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:45:14.444783184Z [err]      klines = self.client.get_klines(
+2025-10-23T10:45:14.444787968Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:45:14.444792341Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:45:14.444794739Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:45:14.444797604Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:45:14.444800944Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:45:14.444803406Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:45:14.444807715Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:45:14.444809936Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:45:14.444812901Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:45:14.444818694Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:45:14.444819165Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:45:14.444826642Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:45:14.444828138Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:45:14.446014843Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:45:14.446023679Z [err]  
+2025-10-23T10:45:14.446025509Z [err]      resp = conn.urlopen(
+2025-10-23T10:45:14.446031651Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:45:14.446036799Z [err]      response = self._make_request(
+2025-10-23T10:45:14.446040848Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:45:14.446044698Z [err]      response = conn.getresponse()
+2025-10-23T10:45:14.446050155Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:45:14.446054691Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:45:14.446058304Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:45:14.446062493Z [err]      response.begin()
+2025-10-23T10:45:14.446066180Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:45:14.446070308Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:45:14.446073881Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:45:14.446077633Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:45:14.446081934Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:45:14.446086079Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:45:14.446089874Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:45:14.446093512Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:45:14.446097248Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:45:14.456635104Z [err]  2025-10-23 10:45:14,451 - binance_client - INFO - Fetched 200 klines for EPICUSDT
+2025-10-23T10:45:14.497588230Z [err]  2025-10-23 10:45:14,484 - __main__ - INFO - Analyzing BMTUSDT...
+2025-10-23T10:45:14.722038668Z [err]  2025-10-23 10:45:14,716 - binance_client - INFO - Fetched 200 klines for BMTUSDT
+2025-10-23T10:45:14.750952953Z [err]  2025-10-23 10:45:14,748 - __main__ - INFO - Analyzing MUBARAKUSDT...
+2025-10-23T10:45:14.993390699Z [err]  2025-10-23 10:45:14,984 - binance_client - INFO - Fetched 200 klines for MUBARAKUSDT
+2025-10-23T10:45:15.034158393Z [err]  2025-10-23 10:45:15,018 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.02337 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:45:15.034164829Z [err]  2025-10-23 10:45:15,018 - risk_manager - INFO - Added pending signal for MUBARAKUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:15.034169706Z [err]  2025-10-23 10:45:15,018 - __main__ - INFO - ✅ Signal detected for MUBARAKUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:15.034173610Z [err]  2025-10-23 10:45:15,018 - __main__ - INFO - Analyzing FORMUSDT...
+2025-10-23T10:45:15.252742597Z [err]  2025-10-23 10:45:15,249 - binance_client - INFO - Fetched 200 klines for FORMUSDT
+2025-10-23T10:45:15.397975047Z [err]  2025-10-23 10:45:15,285 - __main__ - INFO - Analyzing TUTUSDT...
+2025-10-23T10:45:15.582077033Z [err]  2025-10-23 10:45:15,520 - binance_client - INFO - Fetched 200 klines for TUTUSDT
+2025-10-23T10:45:15.582081274Z [err]  2025-10-23 10:45:15,553 - __main__ - INFO - Analyzing BIDUSDT...
+2025-10-23T10:45:15.799034403Z [err]  2025-10-23 10:45:15,783 - binance_client - ERROR - Error fetching klines for BIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:15.799039246Z [err]  2025-10-23 10:45:15,783 - __main__ - WARNING - Insufficient data for BIDUSDT
+2025-10-23T10:45:15.799044212Z [err]  2025-10-23 10:45:15,783 - __main__ - INFO - Analyzing BROCCOLI714USDT...
+2025-10-23T10:45:16.017547633Z [err]  2025-10-23 10:45:16,013 - binance_client - INFO - Fetched 200 klines for BROCCOLI714USDT
+2025-10-23T10:45:16.051380265Z [err]  2025-10-23 10:45:16,046 - __main__ - INFO - Analyzing BROCCOLIF3BUSDT...
+2025-10-23T10:45:16.392045093Z [err]  2025-10-23 10:45:16,271 - binance_client - ERROR - Error fetching klines for BROCCOLIF3BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:16.392049529Z [err]  2025-10-23 10:45:16,271 - __main__ - WARNING - Insufficient data for BROCCOLIF3BUSDT
+2025-10-23T10:45:16.392053273Z [err]  2025-10-23 10:45:16,271 - __main__ - INFO - Analyzing BANANAS31USDT...
+2025-10-23T10:45:16.549938945Z [err]  2025-10-23 10:45:16,507 - binance_client - INFO - Fetched 200 klines for BANANAS31USDT
+2025-10-23T10:45:16.549945281Z [err]  2025-10-23 10:45:16,539 - __main__ - INFO - Analyzing SIRENUSDT...
+2025-10-23T10:45:16.771355995Z [err]  2025-10-23 10:45:16,769 - binance_client - ERROR - Error fetching klines for SIRENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:16.771363589Z [err]  2025-10-23 10:45:16,769 - __main__ - WARNING - Insufficient data for SIRENUSDT
+2025-10-23T10:45:16.771367913Z [err]  2025-10-23 10:45:16,769 - __main__ - INFO - Analyzing BRUSDT...
+2025-10-23T10:45:17.055300636Z [err]  2025-10-23 10:45:17,000 - binance_client - ERROR - Error fetching klines for BRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:17.055309536Z [err]  2025-10-23 10:45:17,000 - __main__ - WARNING - Insufficient data for BRUSDT
+2025-10-23T10:45:17.055316555Z [err]  2025-10-23 10:45:17,000 - __main__ - INFO - Analyzing PLUMEUSDT...
+2025-10-23T10:45:17.239964988Z [err]  2025-10-23 10:45:17,236 - binance_client - INFO - Fetched 200 klines for PLUMEUSDT
+2025-10-23T10:45:17.428726439Z [err]  2025-10-23 10:45:17,271 - __main__ - INFO - Analyzing JELLYJELLYUSDT...
+2025-10-23T10:45:17.503944206Z [err]  2025-10-23 10:45:17,497 - binance_client - ERROR - Error fetching klines for JELLYJELLYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:17.503951321Z [err]  2025-10-23 10:45:17,498 - __main__ - WARNING - Insufficient data for JELLYJELLYUSDT
+2025-10-23T10:45:17.503957434Z [err]  2025-10-23 10:45:17,498 - __main__ - INFO - Analyzing PAXGUSDT...
+2025-10-23T10:45:17.740488366Z [err]  2025-10-23 10:45:17,733 - binance_client - INFO - Fetched 200 klines for PAXGUSDT
+2025-10-23T10:45:17.783135663Z [err]  2025-10-23 10:45:17,767 - __main__ - INFO - Analyzing WALUSDT...
+2025-10-23T10:45:17.996654544Z [err]  2025-10-23 10:45:17,992 - binance_client - ERROR - Error fetching klines for WALUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:17.996661675Z [err]  2025-10-23 10:45:17,992 - __main__ - WARNING - Insufficient data for WALUSDT
+2025-10-23T10:45:17.996669900Z [err]  2025-10-23 10:45:17,992 - __main__ - INFO - Analyzing FUNUSDT...
+2025-10-23T10:45:18.224202893Z [err]  2025-10-23 10:45:18,223 - binance_client - INFO - Fetched 200 klines for FUNUSDT
+2025-10-23T10:45:18.266250388Z [err]  2025-10-23 10:45:18,256 - __main__ - INFO - Analyzing MLNUSDT...
+2025-10-23T10:45:18.495668838Z [err]  2025-10-23 10:45:18,492 - binance_client - INFO - Fetched 200 klines for MLNUSDT
+2025-10-23T10:45:18.539638887Z [err]  2025-10-23 10:45:18,536 - __main__ - INFO - Analyzing ATHUSDT...
+2025-10-23T10:45:18.772718548Z [err]  2025-10-23 10:45:18,767 - binance_client - ERROR - Error fetching klines for ATHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:18.772724313Z [err]  2025-10-23 10:45:18,767 - __main__ - WARNING - Insufficient data for ATHUSDT
+2025-10-23T10:45:18.772728336Z [err]  2025-10-23 10:45:18,767 - __main__ - INFO - Analyzing BABYUSDT...
+2025-10-23T10:45:19.024222356Z [err]  2025-10-23 10:45:19,002 - binance_client - INFO - Fetched 200 klines for BABYUSDT
+2025-10-23T10:45:19.045203051Z [err]  2025-10-23 10:45:19,041 - __main__ - INFO - Analyzing FORTHUSDT...
+2025-10-23T10:45:19.276493164Z [err]  2025-10-23 10:45:19,272 - binance_client - INFO - Fetched 200 klines for FORTHUSDT
+2025-10-23T10:45:19.423062120Z [err]  2025-10-23 10:45:19,309 - __main__ - INFO - Analyzing PROMPTUSDT...
+2025-10-23T10:45:19.544804517Z [err]  2025-10-23 10:45:19,535 - binance_client - ERROR - Error fetching klines for PROMPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:19.544817197Z [err]  2025-10-23 10:45:19,535 - __main__ - WARNING - Insufficient data for PROMPTUSDT
+2025-10-23T10:45:19.544822090Z [err]  2025-10-23 10:45:19,535 - __main__ - INFO - Analyzing XCNUSDT...
+2025-10-23T10:45:19.791321286Z [err]  2025-10-23 10:45:19,761 - binance_client - ERROR - Error fetching klines for XCNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:19.791329795Z [err]  2025-10-23 10:45:19,761 - __main__ - WARNING - Insufficient data for XCNUSDT
+2025-10-23T10:45:19.791335588Z [err]  2025-10-23 10:45:19,761 - __main__ - INFO - Analyzing STOUSDT...
+2025-10-23T10:45:20.063947188Z [err]  2025-10-23 10:45:19,998 - binance_client - INFO - Fetched 200 klines for STOUSDT
+2025-10-23T10:45:20.063960388Z [err]  2025-10-23 10:45:20,032 - __main__ - INFO - Analyzing FHEUSDT...
+2025-10-23T10:45:20.276883034Z [err]  2025-10-23 10:45:20,259 - binance_client - ERROR - Error fetching klines for FHEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:20.276891420Z [err]  2025-10-23 10:45:20,259 - __main__ - WARNING - Insufficient data for FHEUSDT
+2025-10-23T10:45:20.276898527Z [err]  2025-10-23 10:45:20,259 - __main__ - INFO - Analyzing KERNELUSDT...
+2025-10-23T10:45:20.523849088Z [err]  2025-10-23 10:45:20,496 - binance_client - INFO - Fetched 200 klines for KERNELUSDT
+2025-10-23T10:45:20.535535411Z [err]  2025-10-23 10:45:20,531 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.1677 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:45:20.535544914Z [err]  2025-10-23 10:45:20,532 - risk_manager - INFO - Added pending signal for KERNELUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:20.535551952Z [err]  2025-10-23 10:45:20,532 - __main__ - INFO - ✅ Signal detected for KERNELUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:20.535556902Z [err]  2025-10-23 10:45:20,532 - __main__ - INFO - Analyzing INITUSDT...
+2025-10-23T10:45:20.768166287Z [err]  2025-10-23 10:45:20,763 - binance_client - INFO - Fetched 200 klines for INITUSDT
+2025-10-23T10:45:20.807732162Z [err]  2025-10-23 10:45:20,796 - __main__ - INFO - Analyzing BANKUSDT...
+2025-10-23T10:45:21.033590023Z [err]  2025-10-23 10:45:21,029 - binance_client - ERROR - Error fetching klines for BANKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:21.033596122Z [err]  2025-10-23 10:45:21,030 - __main__ - WARNING - Insufficient data for BANKUSDT
+2025-10-23T10:45:21.033600063Z [err]  2025-10-23 10:45:21,030 - __main__ - INFO - Analyzing EPTUSDT...
+2025-10-23T10:45:21.263606181Z [err]  2025-10-23 10:45:21,255 - binance_client - ERROR - Error fetching klines for EPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:21.263611288Z [err]  2025-10-23 10:45:21,255 - __main__ - WARNING - Insufficient data for EPTUSDT
+2025-10-23T10:45:21.263615394Z [err]  2025-10-23 10:45:21,255 - __main__ - INFO - Analyzing DEEPUSDT...
+2025-10-23T10:45:21.496659821Z [err]  2025-10-23 10:45:21,486 - binance_client - ERROR - Error fetching klines for DEEPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:21.496672732Z [err]  2025-10-23 10:45:21,486 - __main__ - WARNING - Insufficient data for DEEPUSDT
+2025-10-23T10:45:21.496678193Z [err]  2025-10-23 10:45:21,486 - __main__ - INFO - Analyzing HYPERUSDT...
+2025-10-23T10:45:21.739965640Z [err]  2025-10-23 10:45:21,717 - binance_client - INFO - Fetched 200 klines for HYPERUSDT
+2025-10-23T10:45:21.761265300Z [err]  2025-10-23 10:45:21,752 - __main__ - INFO - Analyzing FISUSDT...
+2025-10-23T10:45:21.992647680Z [err]  2025-10-23 10:45:21,983 - binance_client - INFO - Fetched 200 klines for FISUSDT
+2025-10-23T10:45:22.019920955Z [err]  2025-10-23 10:45:22,017 - __main__ - INFO - Analyzing JSTUSDT...
+2025-10-23T10:45:22.255808880Z [err]  2025-10-23 10:45:22,247 - binance_client - INFO - Fetched 200 klines for JSTUSDT
+2025-10-23T10:45:22.296073254Z [err]  2025-10-23 10:45:22,279 - __main__ - INFO - Analyzing SIGNUSDT...
+2025-10-23T10:45:22.541696061Z [err]  2025-10-23 10:45:22,510 - binance_client - INFO - Fetched 200 klines for SIGNUSDT
+2025-10-23T10:45:22.544701636Z [err]  2025-10-23 10:45:22,542 - __main__ - INFO - Analyzing WCTUSDT...
+2025-10-23T10:45:22.807878296Z [err]  2025-10-23 10:45:22,779 - binance_client - INFO - Fetched 200 klines for WCTUSDT
+2025-10-23T10:45:22.812591099Z [err]  2025-10-23 10:45:22,811 - __main__ - INFO - Analyzing GUNUSDT...
+2025-10-23T10:45:23.047978899Z [err]  2025-10-23 10:45:23,046 - binance_client - INFO - Fetched 200 klines for GUNUSDT
+2025-10-23T10:45:23.087297256Z [err]  2025-10-23 10:45:23,077 - __main__ - INFO - Analyzing PARTIUSDT...
+2025-10-23T10:45:23.441021739Z [err]  2025-10-23 10:45:23,314 - binance_client - INFO - Fetched 200 klines for PARTIUSDT
+2025-10-23T10:45:23.441026005Z [err]  2025-10-23 10:45:23,351 - __main__ - INFO - Analyzing NILUSDT...
+2025-10-23T10:45:23.600464334Z [err]  2025-10-23 10:45:23,583 - binance_client - INFO - Fetched 200 klines for NILUSDT
+2025-10-23T10:45:23.621763396Z [err]  2025-10-23 10:45:23,617 - __main__ - INFO - Analyzing PUNDIXUSDT...
+2025-10-23T10:45:23.850071833Z [err]  2025-10-23 10:45:23,848 - binance_client - INFO - Fetched 200 klines for PUNDIXUSDT
+2025-10-23T10:45:23.890557481Z [err]  2025-10-23 10:45:23,881 - __main__ - INFO - Analyzing AIOTUSDT...
+2025-10-23T10:45:24.108383482Z [err]  2025-10-23 10:45:24,107 - binance_client - ERROR - Error fetching klines for AIOTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:24.108389446Z [err]  2025-10-23 10:45:24,107 - __main__ - WARNING - Insufficient data for AIOTUSDT
+2025-10-23T10:45:24.108393337Z [err]  2025-10-23 10:45:24,107 - __main__ - INFO - Analyzing DOLOUSDT...
+2025-10-23T10:45:24.502275743Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:45:24.502284742Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:45:24.502291552Z [err]      self.run_forever()
+2025-10-23T10:45:24.502297424Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:45:24.502303845Z [err]      self._run_once()
+2025-10-23T10:45:24.502310172Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:45:24.502316046Z [err]      handle._run()
+2025-10-23T10:45:24.502321588Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:45:24.502326209Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:45:24.502331240Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:45:24.502336123Z [err]      await bot.run()
+2025-10-23T10:45:24.502341104Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:45:24.502358938Z [err]  2025-10-23 10:45:24,343 - binance_client - INFO - Fetched 200 klines for DOLOUSDT
+2025-10-23T10:45:24.502364868Z [err]  2025-10-23 10:45:24,378 - __main__ - INFO - Analyzing HAEDALUSDT...
+2025-10-23T10:45:24.502370721Z [err]  2025-10-23 10:45:24,431 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 80 seconds.
+2025-10-23T10:45:24.502376276Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:45:24.502381925Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:45:24.502387403Z [err]      asyncio.run(main())
+2025-10-23T10:45:24.502393098Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:45:24.502417686Z [err]      return runner.run(main)
+2025-10-23T10:45:24.502423210Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:45:24.502775614Z [err]      await self.run_cycle()
+2025-10-23T10:45:24.502782149Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:45:24.502786738Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:45:24.502792022Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:45:24.502796262Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:45:24.502800427Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:45:24.502804808Z [err]      klines = self.client.get_klines(
+2025-10-23T10:45:24.502809643Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:45:24.502814479Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:45:24.502819105Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:45:24.502823494Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:45:24.502828034Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:45:24.502833756Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:45:24.502837859Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:45:24.502842150Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:45:24.502845742Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:45:24.502850111Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:45:24.502854286Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:45:24.502857960Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:45:24.503534113Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:45:24.503544935Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:45:24.503552165Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:45:24.503558182Z [err]      resp = conn.urlopen(
+2025-10-23T10:45:24.503564804Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:45:24.503572861Z [err]      response = self._make_request(
+2025-10-23T10:45:24.503581285Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:45:24.503587686Z [err]      response = conn.getresponse()
+2025-10-23T10:45:24.503595480Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:45:24.503602730Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:45:24.503608810Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:45:24.503614980Z [err]      response.begin()
+2025-10-23T10:45:24.503620802Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:45:24.503626968Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:45:24.503632870Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:45:24.503638609Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:45:24.503644478Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:45:24.503651210Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:45:24.503657377Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:45:24.504000000Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:45:24.504004979Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:45:24.504008940Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:45:24.504013210Z [err]  
+2025-10-23T10:45:24.622741603Z [err]  2025-10-23 10:45:24,608 - binance_client - INFO - Fetched 200 klines for HAEDALUSDT
+2025-10-23T10:45:24.643988765Z [err]  2025-10-23 10:45:24,640 - __main__ - INFO - Analyzing SXTUSDT...
+2025-10-23T10:45:24.896253199Z [err]  2025-10-23 10:45:24,875 - binance_client - INFO - Fetched 200 klines for SXTUSDT
+2025-10-23T10:45:24.917669414Z [err]  2025-10-23 10:45:24,909 - __main__ - INFO - Analyzing ALPINEUSDT...
+2025-10-23T10:45:25.148336967Z [err]  2025-10-23 10:45:25,140 - binance_client - INFO - Fetched 200 klines for ALPINEUSDT
+2025-10-23T10:45:25.180313364Z [err]  2025-10-23 10:45:25,177 - __main__ - INFO - Analyzing ASRUSDT...
+2025-10-23T10:45:25.506135915Z [err]  2025-10-23 10:45:25,407 - binance_client - INFO - Fetched 200 klines for ASRUSDT
+2025-10-23T10:45:25.506141530Z [err]  2025-10-23 10:45:25,441 - __main__ - INFO - Analyzing B2USDT...
+2025-10-23T10:45:25.678697302Z [err]  2025-10-23 10:45:25,667 - binance_client - ERROR - Error fetching klines for B2USDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:25.678703899Z [err]  2025-10-23 10:45:25,667 - __main__ - WARNING - Insufficient data for B2USDT
+2025-10-23T10:45:25.678708525Z [err]  2025-10-23 10:45:25,667 - __main__ - INFO - Analyzing MILKUSDT...
+2025-10-23T10:45:25.957729798Z [err]  2025-10-23 10:45:25,898 - binance_client - ERROR - Error fetching klines for MILKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:25.957733515Z [err]  2025-10-23 10:45:25,899 - __main__ - WARNING - Insufficient data for MILKUSDT
+2025-10-23T10:45:25.957737387Z [err]  2025-10-23 10:45:25,899 - __main__ - INFO - Analyzing SYRUPUSDT...
+2025-10-23T10:45:26.131805567Z [err]  2025-10-23 10:45:26,129 - binance_client - INFO - Fetched 200 klines for SYRUPUSDT
+2025-10-23T10:45:26.170867903Z [err]  2025-10-23 10:45:26,162 - __main__ - INFO - Analyzing OBOLUSDT...
+2025-10-23T10:45:26.506054872Z [err]  2025-10-23 10:45:26,388 - __main__ - INFO - Analyzing DOODUSDT...
+2025-10-23T10:45:26.506167806Z [err]  2025-10-23 10:45:26,387 - binance_client - ERROR - Error fetching klines for OBOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:26.506174462Z [err]  2025-10-23 10:45:26,388 - __main__ - WARNING - Insufficient data for OBOLUSDT
+2025-10-23T10:45:26.631246089Z [err]  2025-10-23 10:45:26,614 - binance_client - ERROR - Error fetching klines for DOODUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:26.631254291Z [err]  2025-10-23 10:45:26,614 - __main__ - WARNING - Insufficient data for DOODUSDT
+2025-10-23T10:45:26.631260266Z [err]  2025-10-23 10:45:26,614 - __main__ - INFO - Analyzing OGUSDT...
+2025-10-23T10:45:26.854012034Z [err]  2025-10-23 10:45:26,849 - binance_client - INFO - Fetched 200 klines for OGUSDT
+2025-10-23T10:45:26.880650504Z [err]  2025-10-23 10:45:26,879 - __main__ - INFO - Analyzing ZKJUSDT...
+2025-10-23T10:45:27.137254299Z [err]  2025-10-23 10:45:27,109 - binance_client - ERROR - Error fetching klines for ZKJUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:27.137261045Z [err]  2025-10-23 10:45:27,109 - __main__ - WARNING - Insufficient data for ZKJUSDT
+2025-10-23T10:45:27.137265313Z [err]  2025-10-23 10:45:27,109 - __main__ - INFO - Analyzing SKYAIUSDT...
+2025-10-23T10:45:27.355613962Z [err]  2025-10-23 10:45:27,340 - __main__ - WARNING - Insufficient data for SKYAIUSDT
+2025-10-23T10:45:27.355635307Z [err]  2025-10-23 10:45:27,340 - __main__ - INFO - Analyzing NXPCUSDT...
+2025-10-23T10:45:27.355690262Z [err]  2025-10-23 10:45:27,340 - binance_client - ERROR - Error fetching klines for SKYAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:27.578798698Z [err]  2025-10-23 10:45:27,571 - binance_client - INFO - Fetched 200 klines for NXPCUSDT
+2025-10-23T10:45:27.610719778Z [err]  2025-10-23 10:45:27,606 - __main__ - INFO - Analyzing AGTUSDT...
+2025-10-23T10:45:27.849947463Z [err]  2025-10-23 10:45:27,832 - binance_client - ERROR - Error fetching klines for AGTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:27.849953650Z [err]  2025-10-23 10:45:27,833 - __main__ - WARNING - Insufficient data for AGTUSDT
+2025-10-23T10:45:27.849958322Z [err]  2025-10-23 10:45:27,833 - __main__ - INFO - Analyzing BUSDT...
+2025-10-23T10:45:28.062504229Z [err]  2025-10-23 10:45:28,059 - binance_client - ERROR - Error fetching klines for BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:28.062509903Z [err]  2025-10-23 10:45:28,059 - __main__ - WARNING - Insufficient data for BUSDT
+2025-10-23T10:45:28.062513921Z [err]  2025-10-23 10:45:28,059 - __main__ - INFO - Analyzing AUSDT...
+2025-10-23T10:45:28.315783425Z [err]  2025-10-23 10:45:28,293 - binance_client - INFO - Fetched 200 klines for AUSDT
+2025-10-23T10:45:28.334342762Z [err]  2025-10-23 10:45:28,325 - __main__ - INFO - Analyzing SOPHUSDT...
+2025-10-23T10:45:28.568781938Z [err]  2025-10-23 10:45:28,556 - binance_client - INFO - Fetched 200 klines for SOPHUSDT
+2025-10-23T10:45:28.608234011Z [err]  2025-10-23 10:45:28,593 - __main__ - INFO - Analyzing MERLUSDT...
+2025-10-23T10:45:28.827434090Z [err]  2025-10-23 10:45:28,820 - binance_client - ERROR - Error fetching klines for MERLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:28.827442816Z [err]  2025-10-23 10:45:28,820 - __main__ - WARNING - Insufficient data for MERLUSDT
+2025-10-23T10:45:28.827449856Z [err]  2025-10-23 10:45:28,820 - __main__ - INFO - Analyzing HYPEUSDT...
+2025-10-23T10:45:29.108295203Z [err]  2025-10-23 10:45:29,047 - binance_client - ERROR - Error fetching klines for HYPEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:29.108300328Z [err]  2025-10-23 10:45:29,047 - __main__ - WARNING - Insufficient data for HYPEUSDT
+2025-10-23T10:45:29.108305515Z [err]  2025-10-23 10:45:29,047 - __main__ - INFO - Analyzing TAIKOUSDT...
+2025-10-23T10:45:29.288356571Z [err]  2025-10-23 10:45:29,279 - binance_client - ERROR - Error fetching klines for TAIKOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:29.288362121Z [err]  2025-10-23 10:45:29,280 - __main__ - WARNING - Insufficient data for TAIKOUSDT
+2025-10-23T10:45:29.288368160Z [err]  2025-10-23 10:45:29,280 - __main__ - INFO - Analyzing SQDUSDT...
+2025-10-23T10:45:29.529647615Z [err]  2025-10-23 10:45:29,520 - binance_client - ERROR - Error fetching klines for SQDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:29.529651826Z [err]  2025-10-23 10:45:29,520 - __main__ - WARNING - Insufficient data for SQDUSDT
+2025-10-23T10:45:29.529655958Z [err]  2025-10-23 10:45:29,520 - __main__ - INFO - Analyzing PUMPBTCUSDT...
+2025-10-23T10:45:29.747178809Z [err]  2025-10-23 10:45:29,746 - binance_client - ERROR - Error fetching klines for PUMPBTCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:29.747190575Z [err]  2025-10-23 10:45:29,746 - __main__ - WARNING - Insufficient data for PUMPBTCUSDT
+2025-10-23T10:45:29.747197630Z [err]  2025-10-23 10:45:29,746 - __main__ - INFO - Analyzing MYXUSDT...
+2025-10-23T10:45:30.003907397Z [err]  2025-10-23 10:45:29,972 - binance_client - ERROR - Error fetching klines for MYXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:30.003911984Z [err]  2025-10-23 10:45:29,972 - __main__ - WARNING - Insufficient data for MYXUSDT
+2025-10-23T10:45:30.003921807Z [err]  2025-10-23 10:45:29,972 - __main__ - INFO - Analyzing FUSDT...
+2025-10-23T10:45:30.202359415Z [err]  2025-10-23 10:45:30,199 - binance_client - ERROR - Error fetching klines for FUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:30.202365603Z [err]  2025-10-23 10:45:30,199 - __main__ - WARNING - Insufficient data for FUSDT
+2025-10-23T10:45:30.202369778Z [err]  2025-10-23 10:45:30,199 - __main__ - INFO - Analyzing NEWTUSDT...
+2025-10-23T10:45:30.533210933Z [err]  2025-10-23 10:45:30,434 - binance_client - INFO - Fetched 200 klines for NEWTUSDT
+2025-10-23T10:45:30.533217282Z [err]  2025-10-23 10:45:30,468 - __main__ - INFO - Analyzing DMCUSDT...
+2025-10-23T10:45:30.711472071Z [err]  2025-10-23 10:45:30,694 - binance_client - ERROR - Error fetching klines for DMCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:30.711478206Z [err]  2025-10-23 10:45:30,694 - __main__ - WARNING - Insufficient data for DMCUSDT
+2025-10-23T10:45:30.711482736Z [err]  2025-10-23 10:45:30,694 - __main__ - INFO - Analyzing HUSDT...
+2025-10-23T10:45:30.939575936Z [err]  2025-10-23 10:45:30,924 - binance_client - ERROR - Error fetching klines for HUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:30.939580514Z [err]  2025-10-23 10:45:30,925 - __main__ - WARNING - Insufficient data for HUSDT
+2025-10-23T10:45:30.939584691Z [err]  2025-10-23 10:45:30,925 - __main__ - INFO - Analyzing OLUSDT...
+2025-10-23T10:45:31.168067754Z [err]  2025-10-23 10:45:31,150 - binance_client - ERROR - Error fetching klines for OLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:31.168071786Z [err]  2025-10-23 10:45:31,150 - __main__ - WARNING - Insufficient data for OLUSDT
+2025-10-23T10:45:31.168075505Z [err]  2025-10-23 10:45:31,150 - __main__ - INFO - Analyzing SAHARAUSDT...
+2025-10-23T10:45:31.396129304Z [err]  2025-10-23 10:45:31,385 - binance_client - INFO - Fetched 200 klines for SAHARAUSDT
+2025-10-23T10:45:31.550327951Z [err]  2025-10-23 10:45:31,418 - __main__ - INFO - Analyzing ICNTUSDT...
+2025-10-23T10:45:31.652819824Z [err]  2025-10-23 10:45:31,649 - binance_client - ERROR - Error fetching klines for ICNTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:31.652827067Z [err]  2025-10-23 10:45:31,649 - __main__ - WARNING - Insufficient data for ICNTUSDT
+2025-10-23T10:45:31.652833285Z [err]  2025-10-23 10:45:31,649 - __main__ - INFO - Analyzing BULLAUSDT...
+2025-10-23T10:45:31.905479357Z [err]  2025-10-23 10:45:31,875 - binance_client - ERROR - Error fetching klines for BULLAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:31.905484910Z [err]  2025-10-23 10:45:31,875 - __main__ - WARNING - Insufficient data for BULLAUSDT
+2025-10-23T10:45:31.905489341Z [err]  2025-10-23 10:45:31,875 - __main__ - INFO - Analyzing IDOLUSDT...
+2025-10-23T10:45:32.117737254Z [err]  2025-10-23 10:45:32,105 - binance_client - ERROR - Error fetching klines for IDOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:32.117743265Z [err]  2025-10-23 10:45:32,105 - __main__ - WARNING - Insufficient data for IDOLUSDT
+2025-10-23T10:45:32.117747660Z [err]  2025-10-23 10:45:32,105 - __main__ - INFO - Analyzing MUSDT...
+2025-10-23T10:45:32.344012681Z [err]  2025-10-23 10:45:32,337 - binance_client - ERROR - Error fetching klines for MUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:32.344018651Z [err]  2025-10-23 10:45:32,337 - __main__ - WARNING - Insufficient data for MUSDT
+2025-10-23T10:45:32.344024330Z [err]  2025-10-23 10:45:32,337 - __main__ - INFO - Analyzing TANSSIUSDT...
+2025-10-23T10:45:32.574577289Z [err]  2025-10-23 10:45:32,570 - binance_client - ERROR - Error fetching klines for TANSSIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:32.574581101Z [err]  2025-10-23 10:45:32,570 - __main__ - WARNING - Insufficient data for TANSSIUSDT
+2025-10-23T10:45:32.574584829Z [err]  2025-10-23 10:45:32,570 - __main__ - INFO - Analyzing CROSSUSDT...
+2025-10-23T10:45:32.801486403Z [err]  2025-10-23 10:45:32,796 - binance_client - ERROR - Error fetching klines for CROSSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:32.801492623Z [err]  2025-10-23 10:45:32,796 - __main__ - WARNING - Insufficient data for CROSSUSDT
+2025-10-23T10:45:32.801497676Z [err]  2025-10-23 10:45:32,796 - __main__ - INFO - Analyzing AINUSDT...
+2025-10-23T10:45:33.055407608Z [err]  2025-10-23 10:45:33,027 - binance_client - ERROR - Error fetching klines for AINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:33.055412074Z [err]  2025-10-23 10:45:33,027 - __main__ - WARNING - Insufficient data for AINUSDT
+2025-10-23T10:45:33.055416433Z [err]  2025-10-23 10:45:33,027 - __main__ - INFO - Analyzing CUSDT...
+2025-10-23T10:45:33.262904788Z [err]  2025-10-23 10:45:33,258 - binance_client - INFO - Fetched 200 klines for CUSDT
+2025-10-23T10:45:33.297148670Z [err]  2025-10-23 10:45:33,295 - __main__ - INFO - Analyzing VELVETUSDT...
+2025-10-23T10:45:33.602516511Z [err]  2025-10-23 10:45:33,521 - binance_client - ERROR - Error fetching klines for VELVETUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:33.602523414Z [err]  2025-10-23 10:45:33,521 - __main__ - WARNING - Insufficient data for VELVETUSDT
+2025-10-23T10:45:33.602529502Z [err]  2025-10-23 10:45:33,521 - __main__ - INFO - Analyzing TACUSDT...
+2025-10-23T10:45:33.758189553Z [err]  2025-10-23 10:45:33,752 - binance_client - ERROR - Error fetching klines for TACUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:33.758193942Z [err]  2025-10-23 10:45:33,753 - __main__ - WARNING - Insufficient data for TACUSDT
+2025-10-23T10:45:33.758199009Z [err]  2025-10-23 10:45:33,753 - __main__ - INFO - Analyzing ERAUSDT...
+2025-10-23T10:45:33.991359632Z [err]  2025-10-23 10:45:33,988 - binance_client - INFO - Fetched 200 klines for ERAUSDT
+2025-10-23T10:45:34.022612803Z [err]  2025-10-23 10:45:34,021 - __main__ - INFO - Analyzing TAUSDT...
+2025-10-23T10:45:34.276120927Z [err]  2025-10-23 10:45:34,247 - binance_client - ERROR - Error fetching klines for TAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:34.276127457Z [err]  2025-10-23 10:45:34,247 - __main__ - WARNING - Insufficient data for TAUSDT
+2025-10-23T10:45:34.276132604Z [err]  2025-10-23 10:45:34,247 - __main__ - INFO - Analyzing SLPUSDT...
+2025-10-23T10:45:34.435564087Z [err]  2025-10-23 10:45:34,432 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 90 seconds.
+2025-10-23T10:45:34.435577042Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:45:34.435587238Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:45:34.435594569Z [err]      asyncio.run(main())
+2025-10-23T10:45:34.435603852Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:45:34.435609946Z [err]      return runner.run(main)
+2025-10-23T10:45:34.435615622Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:45:34.435620670Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:45:34.435625757Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:45:34.435643769Z [err]      self.run_forever()
+2025-10-23T10:45:34.435649261Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:45:34.435653987Z [err]      self._run_once()
+2025-10-23T10:45:34.435658972Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:45:34.435665144Z [err]      handle._run()
+2025-10-23T10:45:34.435671544Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:45:34.435676969Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:45:34.435681388Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:45:34.435686277Z [err]      await bot.run()
+2025-10-23T10:45:34.435690894Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:45:34.435695376Z [err]      await self.run_cycle()
+2025-10-23T10:45:34.435699993Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:45:34.435705483Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:45:34.436215422Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:45:34.436227459Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:45:34.436234457Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:45:34.436240439Z [err]      klines = self.client.get_klines(
+2025-10-23T10:45:34.436246402Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:45:34.436252319Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:45:34.436257776Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:45:34.436263509Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:45:34.436268122Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:45:34.436273555Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:45:34.436278263Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:45:34.436282457Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:45:34.436286759Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:45:34.436292094Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:45:34.436296819Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:45:34.436302142Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:45:34.436306812Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:45:34.436311987Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:45:34.436317465Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:45:34.437302914Z [err]      resp = conn.urlopen(
+2025-10-23T10:45:34.437303203Z [err]  
+2025-10-23T10:45:34.437311153Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:45:34.437318954Z [err]      response = self._make_request(
+2025-10-23T10:45:34.437326267Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:45:34.437335220Z [err]      response = conn.getresponse()
+2025-10-23T10:45:34.437342047Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:45:34.437348477Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:45:34.437355097Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:45:34.437361958Z [err]      response.begin()
+2025-10-23T10:45:34.437368760Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:45:34.437374863Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:45:34.437380758Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:45:34.437386134Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:45:34.437389869Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:45:34.437394422Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:45:34.437398830Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:45:34.437402930Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:45:34.437407001Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:45:34.437411124Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:45:34.592806602Z [err]  2025-10-23 10:45:34,482 - binance_client - INFO - Fetched 200 klines for SLPUSDT
+2025-10-23T10:45:34.592810935Z [err]  2025-10-23 10:45:34,516 - __main__ - INFO - Analyzing ZORAUSDT...
+2025-10-23T10:45:34.808200225Z [err]  2025-10-23 10:45:34,747 - binance_client - ERROR - Error fetching klines for ZORAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:34.808204770Z [err]  2025-10-23 10:45:34,747 - __main__ - WARNING - Insufficient data for ZORAUSDT
+2025-10-23T10:45:34.808208555Z [err]  2025-10-23 10:45:34,747 - __main__ - INFO - Analyzing TAGUSDT...
+2025-10-23T10:45:34.980847418Z [err]  2025-10-23 10:45:34,973 - binance_client - ERROR - Error fetching klines for TAGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:34.980854238Z [err]  2025-10-23 10:45:34,973 - __main__ - WARNING - Insufficient data for TAGUSDT
+2025-10-23T10:45:34.980860486Z [err]  2025-10-23 10:45:34,973 - __main__ - INFO - Analyzing ZRCUSDT...
+2025-10-23T10:45:35.208609792Z [err]  2025-10-23 10:45:35,203 - binance_client - ERROR - Error fetching klines for ZRCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:35.208617179Z [err]  2025-10-23 10:45:35,203 - __main__ - WARNING - Insufficient data for ZRCUSDT
+2025-10-23T10:45:35.208622034Z [err]  2025-10-23 10:45:35,203 - __main__ - INFO - Analyzing ESPORTSUSDT...
+2025-10-23T10:45:35.441831903Z [err]  2025-10-23 10:45:35,428 - binance_client - ERROR - Error fetching klines for ESPORTSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:35.441840057Z [err]  2025-10-23 10:45:35,429 - __main__ - WARNING - Insufficient data for ESPORTSUSDT
+2025-10-23T10:45:35.441845871Z [err]  2025-10-23 10:45:35,429 - __main__ - INFO - Analyzing TREEUSDT...
+2025-10-23T10:45:35.666562614Z [err]  2025-10-23 10:45:35,665 - binance_client - INFO - Fetched 200 klines for TREEUSDT
+2025-10-23T10:45:35.703535626Z [err]  2025-10-23 10:45:35,701 - __main__ - INFO - Analyzing A2ZUSDT...
+2025-10-23T10:45:35.972634058Z [err]  2025-10-23 10:45:35,937 - binance_client - INFO - Fetched 200 klines for A2ZUSDT
+2025-10-23T10:45:35.972643641Z [err]  2025-10-23 10:45:35,967 - __main__ - INFO - Analyzing PLAYUSDT...
+2025-10-23T10:45:36.200087892Z [err]  2025-10-23 10:45:36,198 - binance_client - ERROR - Error fetching klines for PLAYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:36.200092151Z [err]  2025-10-23 10:45:36,198 - __main__ - WARNING - Insufficient data for PLAYUSDT
+2025-10-23T10:45:36.200096069Z [err]  2025-10-23 10:45:36,198 - __main__ - INFO - Analyzing NAORISUSDT...
+2025-10-23T10:45:36.435178294Z [err]  2025-10-23 10:45:36,428 - binance_client - ERROR - Error fetching klines for NAORISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:36.435184519Z [err]  2025-10-23 10:45:36,428 - __main__ - WARNING - Insufficient data for NAORISUSDT
+2025-10-23T10:45:36.435190425Z [err]  2025-10-23 10:45:36,428 - __main__ - INFO - Analyzing TOWNSUSDT...
+2025-10-23T10:45:36.687947040Z [err]  2025-10-23 10:45:36,661 - binance_client - INFO - Fetched 200 klines for TOWNSUSDT
+2025-10-23T10:45:36.699863630Z [err]  2025-10-23 10:45:36,698 - __main__ - INFO - Analyzing PROVEUSDT...
+2025-10-23T10:45:36.948052324Z [err]  2025-10-23 10:45:36,930 - binance_client - INFO - Fetched 200 klines for PROVEUSDT
+2025-10-23T10:45:36.969289228Z [err]  2025-10-23 10:45:36,968 - __main__ - INFO - Analyzing ALLUSDT...
+2025-10-23T10:45:37.226128174Z [err]  2025-10-23 10:45:37,195 - binance_client - ERROR - Error fetching klines for ALLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:37.226133544Z [err]  2025-10-23 10:45:37,195 - __main__ - WARNING - Insufficient data for ALLUSDT
+2025-10-23T10:45:37.226138521Z [err]  2025-10-23 10:45:37,195 - __main__ - INFO - Analyzing INUSDT...
+2025-10-23T10:45:37.427058222Z [err]  2025-10-23 10:45:37,421 - binance_client - ERROR - Error fetching klines for INUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:37.427063180Z [err]  2025-10-23 10:45:37,421 - __main__ - WARNING - Insufficient data for INUSDT
+2025-10-23T10:45:37.427067764Z [err]  2025-10-23 10:45:37,421 - __main__ - INFO - Analyzing YALAUSDT...
+2025-10-23T10:45:37.657095488Z [err]  2025-10-23 10:45:37,646 - binance_client - ERROR - Error fetching klines for YALAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:37.657103526Z [err]  2025-10-23 10:45:37,646 - __main__ - WARNING - Insufficient data for YALAUSDT
+2025-10-23T10:45:37.657109515Z [err]  2025-10-23 10:45:37,646 - __main__ - INFO - Analyzing CARVUSDT...
+2025-10-23T10:45:37.899843639Z [err]  2025-10-23 10:45:37,872 - binance_client - ERROR - Error fetching klines for CARVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:37.899850066Z [err]  2025-10-23 10:45:37,873 - __main__ - WARNING - Insufficient data for CARVUSDT
+2025-10-23T10:45:37.899854386Z [err]  2025-10-23 10:45:37,873 - __main__ - INFO - Analyzing AIOUSDT...
+2025-10-23T10:45:38.115726123Z [err]  2025-10-23 10:45:38,099 - binance_client - ERROR - Error fetching klines for AIOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:38.115733697Z [err]  2025-10-23 10:45:38,099 - __main__ - WARNING - Insufficient data for AIOUSDT
+2025-10-23T10:45:38.115739319Z [err]  2025-10-23 10:45:38,099 - __main__ - INFO - Analyzing XNYUSDT...
+2025-10-23T10:45:38.334063232Z [err]  2025-10-23 10:45:38,329 - binance_client - ERROR - Error fetching klines for XNYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:38.334069202Z [err]  2025-10-23 10:45:38,329 - __main__ - WARNING - Insufficient data for XNYUSDT
+2025-10-23T10:45:38.334073292Z [err]  2025-10-23 10:45:38,329 - __main__ - INFO - Analyzing USELESSUSDT...
+2025-10-23T10:45:38.678537311Z [err]  2025-10-23 10:45:38,559 - binance_client - ERROR - Error fetching klines for USELESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:38.678544952Z [err]  2025-10-23 10:45:38,559 - __main__ - WARNING - Insufficient data for USELESSUSDT
+2025-10-23T10:45:38.678551970Z [err]  2025-10-23 10:45:38,559 - __main__ - INFO - Analyzing DAMUSDT...
+2025-10-23T10:45:38.790331399Z [err]  2025-10-23 10:45:38,785 - binance_client - ERROR - Error fetching klines for DAMUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:38.790337290Z [err]  2025-10-23 10:45:38,785 - __main__ - WARNING - Insufficient data for DAMUSDT
+2025-10-23T10:45:38.790344501Z [err]  2025-10-23 10:45:38,785 - __main__ - INFO - Analyzing SAPIENUSDT...
+2025-10-23T10:45:39.021523677Z [err]  2025-10-23 10:45:39,011 - binance_client - ERROR - Error fetching klines for SAPIENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:39.021532275Z [err]  2025-10-23 10:45:39,011 - __main__ - WARNING - Insufficient data for SAPIENUSDT
+2025-10-23T10:45:39.021539134Z [err]  2025-10-23 10:45:39,011 - __main__ - INFO - Analyzing CUDISUSDT...
+2025-10-23T10:45:39.242494249Z [err]  2025-10-23 10:45:39,237 - binance_client - ERROR - Error fetching klines for CUDISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:39.242504647Z [err]  2025-10-23 10:45:39,237 - __main__ - WARNING - Insufficient data for CUDISUSDT
+2025-10-23T10:45:39.242513948Z [err]  2025-10-23 10:45:39,237 - __main__ - INFO - Analyzing AWEUSDT...
+2025-10-23T10:45:39.474349879Z [err]  2025-10-23 10:45:39,468 - binance_client - INFO - Fetched 200 klines for AWEUSDT
+2025-10-23T10:45:39.659733152Z [err]  2025-10-23 10:45:39,503 - __main__ - INFO - Analyzing SOONUSDT...
+2025-10-23T10:45:39.734544116Z [err]  2025-10-23 10:45:39,729 - binance_client - ERROR - Error fetching klines for SOONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:39.734551267Z [err]  2025-10-23 10:45:39,729 - __main__ - WARNING - Insufficient data for SOONUSDT
+2025-10-23T10:45:39.734555850Z [err]  2025-10-23 10:45:39,729 - __main__ - INFO - Analyzing HUMAUSDT...
+2025-10-23T10:45:39.981389372Z [err]  2025-10-23 10:45:39,965 - binance_client - INFO - Fetched 200 klines for HUMAUSDT
+2025-10-23T10:45:40.003056705Z [err]  2025-10-23 10:45:39,998 - __main__ - INFO - Analyzing LAUSDT...
+2025-10-23T10:45:40.232008932Z [err]  2025-10-23 10:45:40,230 - binance_client - INFO - Fetched 200 klines for LAUSDT
+2025-10-23T10:45:40.285452743Z [err]  2025-10-23 10:45:40,281 - __main__ - INFO - Analyzing RESOLVUSDT...
+2025-10-23T10:45:40.652955247Z [err]  2025-10-23 10:45:40,512 - binance_client - INFO - Fetched 200 klines for RESOLVUSDT
+2025-10-23T10:45:40.652961924Z [err]  2025-10-23 10:45:40,551 - __main__ - INFO - Analyzing SPKUSDT...
+2025-10-23T10:45:40.797186400Z [err]  2025-10-23 10:45:40,787 - binance_client - INFO - Fetched 200 klines for SPKUSDT
+2025-10-23T10:45:40.827876809Z [err]  2025-10-23 10:45:40,822 - __main__ - INFO - Analyzing XPLUSDT...
+2025-10-23T10:45:41.056020404Z [err]  2025-10-23 10:45:41,055 - binance_client - INFO - Fetched 200 klines for XPLUSDT
+2025-10-23T10:45:41.097226156Z [err]  2025-10-23 10:45:41,092 - __main__ - INFO - Analyzing WLFIUSDT...
+2025-10-23T10:45:41.333518028Z [err]  2025-10-23 10:45:41,323 - binance_client - INFO - Fetched 200 klines for WLFIUSDT
+2025-10-23T10:45:41.363373119Z [err]  2025-10-23 10:45:41,357 - __main__ - INFO - Analyzing BASUSDT...
+2025-10-23T10:45:41.657141379Z [err]  2025-10-23 10:45:41,587 - binance_client - ERROR - Error fetching klines for BASUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:41.657148814Z [err]  2025-10-23 10:45:41,587 - __main__ - WARNING - Insufficient data for BASUSDT
+2025-10-23T10:45:41.657156419Z [err]  2025-10-23 10:45:41,588 - __main__ - INFO - Analyzing BTRUSDT...
+2025-10-23T10:45:41.821800784Z [err]  2025-10-23 10:45:41,817 - binance_client - ERROR - Error fetching klines for BTRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:41.821813435Z [err]  2025-10-23 10:45:41,818 - __main__ - WARNING - Insufficient data for BTRUSDT
+2025-10-23T10:45:41.821820754Z [err]  2025-10-23 10:45:41,818 - __main__ - INFO - Analyzing MITOUSDT...
+2025-10-23T10:45:42.051242155Z [err]  2025-10-23 10:45:42,050 - binance_client - INFO - Fetched 200 klines for MITOUSDT
+2025-10-23T10:45:42.118256001Z [err]  2025-10-23 10:45:42,113 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.1113 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:45:42.118260482Z [err]  2025-10-23 10:45:42,113 - risk_manager - INFO - Added pending signal for MITOUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:42.118265047Z [err]  2025-10-23 10:45:42,113 - __main__ - INFO - ✅ Signal detected for MITOUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:42.118268857Z [err]  2025-10-23 10:45:42,113 - __main__ - INFO - Analyzing HEMIUSDT...
+2025-10-23T10:45:42.349335799Z [err]  2025-10-23 10:45:42,344 - binance_client - INFO - Fetched 200 klines for HEMIUSDT
+2025-10-23T10:45:42.384750254Z [err]  2025-10-23 10:45:42,381 - __main__ - INFO - Analyzing LINEAUSDT...
+2025-10-23T10:45:42.670961445Z [err]  2025-10-23 10:45:42,612 - binance_client - INFO - Fetched 200 klines for LINEAUSDT
+2025-10-23T10:45:42.670968912Z [err]  2025-10-23 10:45:42,646 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.01583 - Bullish structure + MACD crossover + price at support
+2025-10-23T10:45:42.670976530Z [err]  2025-10-23 10:45:42,647 - risk_manager - INFO - Added pending signal for LINEAUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:42.670984027Z [err]  2025-10-23 10:45:42,647 - __main__ - INFO - ✅ Signal detected for LINEAUSDT: BUY (confidence: 100.0%, roi: 3.00%)
+2025-10-23T10:45:42.670992009Z [err]  2025-10-23 10:45:42,647 - __main__ - INFO - Analyzing QUSDT...
+2025-10-23T10:45:42.887737236Z [err]  2025-10-23 10:45:42,879 - binance_client - ERROR - Error fetching klines for QUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:42.887752329Z [err]  2025-10-23 10:45:42,879 - __main__ - WARNING - Insufficient data for QUSDT
+2025-10-23T10:45:42.887762869Z [err]  2025-10-23 10:45:42,879 - __main__ - INFO - Analyzing PTBUSDT...
+2025-10-23T10:45:43.116578847Z [err]  2025-10-23 10:45:43,108 - binance_client - ERROR - Error fetching klines for PTBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:43.116590750Z [err]  2025-10-23 10:45:43,109 - __main__ - WARNING - Insufficient data for PTBUSDT
+2025-10-23T10:45:43.116599177Z [err]  2025-10-23 10:45:43,109 - __main__ - INFO - Analyzing ARIAUSDT...
+2025-10-23T10:45:43.341385641Z [err]  2025-10-23 10:45:43,339 - binance_client - ERROR - Error fetching klines for ARIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:43.341392068Z [err]  2025-10-23 10:45:43,339 - __main__ - WARNING - Insufficient data for ARIAUSDT
+2025-10-23T10:45:43.341396377Z [err]  2025-10-23 10:45:43,339 - __main__ - INFO - Analyzing TAKEUSDT...
+2025-10-23T10:45:43.676235130Z [err]  2025-10-23 10:45:43,570 - binance_client - ERROR - Error fetching klines for TAKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:43.676239677Z [err]  2025-10-23 10:45:43,570 - __main__ - WARNING - Insufficient data for TAKEUSDT
+2025-10-23T10:45:43.676243919Z [err]  2025-10-23 10:45:43,570 - __main__ - INFO - Analyzing BDXNUSDT...
+2025-10-23T10:45:43.824930269Z [err]  2025-10-23 10:45:43,797 - binance_client - ERROR - Error fetching klines for BDXNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:43.824937044Z [err]  2025-10-23 10:45:43,797 - __main__ - WARNING - Insufficient data for BDXNUSDT
+2025-10-23T10:45:43.824943683Z [err]  2025-10-23 10:45:43,797 - __main__ - INFO - Analyzing PUFFERUSDT...
+2025-10-23T10:45:44.048954266Z [err]  2025-10-23 10:45:44,028 - binance_client - ERROR - Error fetching klines for PUFFERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:44.048960198Z [err]  2025-10-23 10:45:44,028 - __main__ - WARNING - Insufficient data for PUFFERUSDT
+2025-10-23T10:45:44.048966279Z [err]  2025-10-23 10:45:44,028 - __main__ - INFO - Analyzing PORT3USDT...
+2025-10-23T10:45:44.259205166Z [err]  2025-10-23 10:45:44,258 - binance_client - ERROR - Error fetching klines for PORT3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:44.259212081Z [err]  2025-10-23 10:45:44,258 - __main__ - WARNING - Insufficient data for PORT3USDT
+2025-10-23T10:45:44.259218755Z [err]  2025-10-23 10:45:44,258 - __main__ - INFO - Analyzing 1000000BOBUSDT...
+2025-10-23T10:45:44.485873966Z [err]    File "/app/main.py", line 248, in run_cycle
+2025-10-23T10:45:44.485875775Z [err]  2025-10-23 10:45:44,433 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 100 seconds.
+2025-10-23T10:45:44.485879993Z [err]      self.run_forever()
+2025-10-23T10:45:44.485884445Z [err]  Loop thread traceback (most recent call last):
+2025-10-23T10:45:44.485888118Z [err]      analysis = await self.analyze_market(symbol)
+2025-10-23T10:45:44.485893284Z [err]    File "/app/main.py", line 396, in <module>
+2025-10-23T10:45:44.485894441Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-23T10:45:44.485901318Z [err]      asyncio.run(main())
+2025-10-23T10:45:44.485907115Z [err]      self._run_once()
+2025-10-23T10:45:44.485910075Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-23T10:45:44.485917148Z [err]      return runner.run(main)
+2025-10-23T10:45:44.485917313Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-23T10:45:44.485922407Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-23T10:45:44.485925003Z [err]      handle._run()
+2025-10-23T10:45:44.485927801Z [err]      return self._loop.run_until_complete(task)
+2025-10-23T10:45:44.485932921Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-23T10:45:44.485933113Z [err]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-23T10:45:44.485939564Z [err]      self._context.run(self._callback, *self._args)
+2025-10-23T10:45:44.485945412Z [err]    File "/app/main.py", line 387, in main
+2025-10-23T10:45:44.485951283Z [err]      await bot.run()
+2025-10-23T10:45:44.485959240Z [err]    File "/app/main.py", line 349, in run
+2025-10-23T10:45:44.485965060Z [err]      await self.run_cycle()
+2025-10-23T10:45:44.486748308Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-23T10:45:44.486756433Z [err]    File "/app/main.py", line 88, in analyze_market
+2025-10-23T10:45:44.486760979Z [err]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-23T10:45:44.486765964Z [err]      df = self.binance.get_klines(symbol, self.timeframe, limit=200)
+2025-10-23T10:45:44.486771185Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-23T10:45:44.486772069Z [err]    File "/app/binance_client.py", line 61, in get_klines
+2025-10-23T10:45:44.486778066Z [err]      klines = self.client.get_klines(
+2025-10-23T10:45:44.486781141Z [err]      return self.request("GET", url, **kwargs)
+2025-10-23T10:45:44.486784059Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-23T10:45:44.486790960Z [err]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-23T10:45:44.486791383Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-23T10:45:44.486800197Z [err]      resp = self.send(prep, **send_kwargs)
+2025-10-23T10:45:44.486803147Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-23T10:45:44.486808811Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-23T10:45:44.486809255Z [err]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-23T10:45:44.486815986Z [err]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-23T10:45:44.486818507Z [err]      r = adapter.send(request, **kwargs)
+2025-10-23T10:45:44.486821751Z [err]      return self._request(method, uri, signed, **kwargs)
+2025-10-23T10:45:44.486826039Z [err]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-23T10:45:44.487589848Z [err]      resp = conn.urlopen(
+2025-10-23T10:45:44.487595368Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-23T10:45:44.487599726Z [err]      response = self._make_request(
+2025-10-23T10:45:44.487604131Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-23T10:45:44.487608430Z [err]      response = conn.getresponse()
+2025-10-23T10:45:44.487614508Z [err]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-23T10:45:44.487615247Z [err]      version, status, reason = self._read_status()
+2025-10-23T10:45:44.487615964Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-23T10:45:44.487622705Z [err]      httplib_response = super().getresponse()
+2025-10-23T10:45:44.487625655Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-23T10:45:44.487628298Z [err]      return self._sslobj.read(len, buffer)
+2025-10-23T10:45:44.487631150Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-23T10:45:44.487633054Z [err]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-23T10:45:44.487638181Z [err]  
+2025-10-23T10:45:44.487639948Z [err]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-23T10:45:44.487640193Z [err]      response.begin()
+2025-10-23T10:45:44.487647109Z [err]      return self._sock.recv_into(b)
+2025-10-23T10:45:44.487648292Z [err]  2025-10-23 10:45:44,484 - binance_client - ERROR - Error fetching klines for 1000000BOBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:44.487649538Z [err]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-23T10:45:44.487653091Z [err]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-23T10:45:44.487661953Z [err]      return self.read(nbytes, buffer)
+2025-10-23T10:45:44.488208014Z [err]  2025-10-23 10:45:44,484 - __main__ - WARNING - Insufficient data for 1000000BOBUSDT
+2025-10-23T10:45:44.488213330Z [err]  2025-10-23 10:45:44,484 - __main__ - INFO - Analyzing SKATEUSDT...
+2025-10-23T10:45:44.720147968Z [err]  2025-10-23 10:45:44,715 - binance_client - ERROR - Error fetching klines for SKATEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:44.720156995Z [err]  2025-10-23 10:45:44,715 - __main__ - WARNING - Insufficient data for SKATEUSDT
+2025-10-23T10:45:44.720163134Z [err]  2025-10-23 10:45:44,715 - __main__ - INFO - Analyzing HOMEUSDT...
+2025-10-23T10:45:44.952642019Z [err]  2025-10-23 10:45:44,949 - binance_client - INFO - Fetched 200 klines for HOMEUSDT
+2025-10-23T10:45:44.993560125Z [err]  2025-10-23 10:45:44,984 - __main__ - INFO - Analyzing FLOCKUSDT...
+2025-10-23T10:45:45.239887767Z [err]  2025-10-23 10:45:45,229 - binance_client - ERROR - Error fetching klines for FLOCKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:45.239893353Z [err]  2025-10-23 10:45:45,229 - __main__ - WARNING - Insufficient data for FLOCKUSDT
+2025-10-23T10:45:45.239898515Z [err]  2025-10-23 10:45:45,229 - __main__ - INFO - Analyzing SKYUSDT...
+2025-10-23T10:45:45.476809725Z [err]  2025-10-23 10:45:45,465 - binance_client - INFO - Fetched 200 klines for SKYUSDT
+2025-10-23T10:45:45.498649937Z [err]  2025-10-23 10:45:45,496 - __main__ - INFO - Analyzing AVNTUSDT...
+2025-10-23T10:45:45.732096303Z [err]  2025-10-23 10:45:45,727 - binance_client - INFO - Fetched 200 klines for AVNTUSDT
+2025-10-23T10:45:45.771066755Z [err]  2025-10-23 10:45:45,767 - __main__ - INFO - Analyzing HOLOUSDT...
+2025-10-23T10:45:46.003871894Z [err]  2025-10-23 10:45:45,998 - binance_client - INFO - Fetched 200 klines for HOLOUSDT
+2025-10-23T10:45:46.044208464Z [err]  2025-10-23 10:45:46,032 - __main__ - INFO - Analyzing XPINUSDT...
+2025-10-23T10:45:46.264540741Z [err]  2025-10-23 10:45:46,263 - binance_client - ERROR - Error fetching klines for XPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:46.264547915Z [err]  2025-10-23 10:45:46,263 - __main__ - WARNING - Insufficient data for XPINUSDT
+2025-10-23T10:45:46.264556347Z [err]  2025-10-23 10:45:46,263 - __main__ - INFO - Analyzing UBUSDT...
+2025-10-23T10:45:46.500315051Z [err]  2025-10-23 10:45:46,489 - binance_client - ERROR - Error fetching klines for UBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:46.500320621Z [err]  2025-10-23 10:45:46,489 - __main__ - WARNING - Insufficient data for UBUSDT
+2025-10-23T10:45:46.500324882Z [err]  2025-10-23 10:45:46,489 - __main__ - INFO - Analyzing TOSHIUSDT...
+2025-10-23T10:45:46.728174460Z [err]  2025-10-23 10:45:46,720 - binance_client - ERROR - Error fetching klines for TOSHIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:46.728181775Z [err]  2025-10-23 10:45:46,720 - __main__ - WARNING - Insufficient data for TOSHIUSDT
+2025-10-23T10:45:46.728187698Z [err]  2025-10-23 10:45:46,720 - __main__ - INFO - Analyzing STBLUSDT...
+2025-10-23T10:45:46.968536157Z [err]  2025-10-23 10:45:46,950 - binance_client - ERROR - Error fetching klines for STBLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:46.968542780Z [err]  2025-10-23 10:45:46,950 - __main__ - WARNING - Insufficient data for STBLUSDT
+2025-10-23T10:45:46.968547342Z [err]  2025-10-23 10:45:46,950 - __main__ - INFO - Analyzing 0GUSDT...
+2025-10-23T10:45:47.205223998Z [err]  2025-10-23 10:45:47,188 - binance_client - INFO - Fetched 200 klines for 0GUSDT
+2025-10-23T10:45:47.228206183Z [err]  2025-10-23 10:45:47,227 - __main__ - INFO - Analyzing AIAUSDT...
+2025-10-23T10:45:47.463629131Z [err]  2025-10-23 10:45:47,458 - binance_client - ERROR - Error fetching klines for AIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:47.463633808Z [err]  2025-10-23 10:45:47,458 - __main__ - WARNING - Insufficient data for AIAUSDT
+2025-10-23T10:45:47.463637638Z [err]  2025-10-23 10:45:47,458 - __main__ - INFO - Analyzing BARDUSDT...
+2025-10-23T10:45:47.754971955Z [err]  2025-10-23 10:45:47,714 - binance_client - INFO - Fetched 200 klines for BARDUSDT
+2025-10-23T10:45:47.754976863Z [err]  2025-10-23 10:45:47,746 - __main__ - INFO - Analyzing ASTERUSDT...
+2025-10-23T10:45:48.010100262Z [err]  2025-10-23 10:45:47,991 - binance_client - ERROR - Error fetching klines for ASTERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:48.010107293Z [err]  2025-10-23 10:45:47,991 - __main__ - WARNING - Insufficient data for ASTERUSDT
+2025-10-23T10:45:48.010111017Z [err]  2025-10-23 10:45:47,991 - __main__ - INFO - Analyzing TRADOORUSDT...
+2025-10-23T10:45:48.225989842Z [err]  2025-10-23 10:45:48,218 - binance_client - ERROR - Error fetching klines for TRADOORUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:48.225997392Z [err]  2025-10-23 10:45:48,218 - __main__ - WARNING - Insufficient data for TRADOORUSDT
+2025-10-23T10:45:48.226004263Z [err]  2025-10-23 10:45:48,218 - __main__ - INFO - Analyzing BLESSUSDT...
+2025-10-23T10:45:48.466719928Z [err]  2025-10-23 10:45:48,449 - binance_client - ERROR - Error fetching klines for BLESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:48.466725538Z [err]  2025-10-23 10:45:48,449 - __main__ - WARNING - Insufficient data for BLESSUSDT
+2025-10-23T10:45:48.466729940Z [err]  2025-10-23 10:45:48,449 - __main__ - INFO - Analyzing FLUIDUSDT...
+2025-10-23T10:45:48.770145666Z [err]  2025-10-23 10:45:48,717 - binance_client - ERROR - Error fetching klines for FLUIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:48.770149618Z [err]  2025-10-23 10:45:48,717 - __main__ - WARNING - Insufficient data for FLUIDUSDT
+2025-10-23T10:45:48.770153562Z [err]  2025-10-23 10:45:48,717 - __main__ - INFO - Analyzing COAIUSDT...
+2025-10-23T10:45:48.962258313Z [err]  2025-10-23 10:45:48,943 - binance_client - ERROR - Error fetching klines for COAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:48.962266306Z [err]  2025-10-23 10:45:48,943 - __main__ - WARNING - Insufficient data for COAIUSDT
+2025-10-23T10:45:48.962274180Z [err]  2025-10-23 10:45:48,943 - __main__ - INFO - Analyzing HANAUSDT...
+2025-10-23T10:45:49.205740335Z [err]  2025-10-23 10:45:49,174 - binance_client - ERROR - Error fetching klines for HANAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:49.205746028Z [err]  2025-10-23 10:45:49,174 - __main__ - WARNING - Insufficient data for HANAUSDT
+2025-10-23T10:45:49.205750503Z [err]  2025-10-23 10:45:49,174 - __main__ - INFO - Analyzing MIRAUSDT...
+2025-10-23T10:45:49.413843153Z [err]  2025-10-23 10:45:49,409 - binance_client - INFO - Fetched 200 klines for MIRAUSDT
+2025-10-23T10:45:49.444702994Z [err]  2025-10-23 10:45:49,443 - __main__ - INFO - Analyzing AKEUSDT...
+2025-10-23T10:45:49.813275015Z [err]  2025-10-23 10:45:49,672 - binance_client - ERROR - Error fetching klines for AKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:49.813279539Z [err]  2025-10-23 10:45:49,672 - __main__ - WARNING - Insufficient data for AKEUSDT
+2025-10-23T10:45:49.813284091Z [err]  2025-10-23 10:45:49,673 - __main__ - INFO - Analyzing ORDERUSDT...
+2025-10-23T10:45:49.910081206Z [err]  2025-10-23 10:45:49,899 - binance_client - ERROR - Error fetching klines for ORDERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:49.910085152Z [err]  2025-10-23 10:45:49,899 - __main__ - WARNING - Insufficient data for ORDERUSDT
+2025-10-23T10:45:49.910089005Z [err]  2025-10-23 10:45:49,899 - __main__ - INFO - Analyzing LIGHTUSDT...
+2025-10-23T10:45:50.151206872Z [err]  2025-10-23 10:45:50,129 - binance_client - ERROR - Error fetching klines for LIGHTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:50.151213921Z [err]  2025-10-23 10:45:50,129 - __main__ - WARNING - Insufficient data for LIGHTUSDT
+2025-10-23T10:45:50.151217942Z [err]  2025-10-23 10:45:50,129 - __main__ - INFO - Analyzing XANUSDT...
+2025-10-23T10:45:50.401788241Z [err]  2025-10-23 10:45:50,359 - binance_client - ERROR - Error fetching klines for XANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:50.401792624Z [err]  2025-10-23 10:45:50,360 - __main__ - WARNING - Insufficient data for XANUSDT
+2025-10-23T10:45:50.401796815Z [err]  2025-10-23 10:45:50,360 - __main__ - INFO - Analyzing 4USDT...
+2025-10-23T10:45:50.617075563Z [err]  2025-10-23 10:45:50,589 - binance_client - ERROR - Error fetching klines for 4USDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:50.617080270Z [err]  2025-10-23 10:45:50,589 - __main__ - WARNING - Insufficient data for 4USDT
+2025-10-23T10:45:50.617084910Z [err]  2025-10-23 10:45:50,589 - __main__ - INFO - Analyzing GIGGLEUSDT...
+2025-10-23T10:45:50.846748441Z [err]  2025-10-23 10:45:50,820 - binance_client - ERROR - Error fetching klines for GIGGLEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:50.846752829Z [err]  2025-10-23 10:45:50,820 - __main__ - WARNING - Insufficient data for GIGGLEUSDT
+2025-10-23T10:45:50.846756966Z [err]  2025-10-23 10:45:50,820 - __main__ - INFO - Analyzing MONUSDT...
+2025-10-23T10:45:51.059075038Z [err]  2025-10-23 10:45:51,046 - binance_client - ERROR - Error fetching klines for MONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:51.059083326Z [err]  2025-10-23 10:45:51,046 - __main__ - WARNING - Insufficient data for MONUSDT
+2025-10-23T10:45:51.059091411Z [err]  2025-10-23 10:45:51,046 - __main__ - INFO - Analyzing YBUSDT...
+2025-10-23T10:45:51.280371410Z [err]  2025-10-23 10:45:51,276 - binance_client - ERROR - Error fetching klines for YBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:51.280376089Z [err]  2025-10-23 10:45:51,276 - __main__ - WARNING - Insufficient data for YBUSDT
+2025-10-23T10:45:51.280380223Z [err]  2025-10-23 10:45:51,276 - __main__ - INFO - Analyzing METUSDT...
+2025-10-23T10:45:51.518104938Z [err]  2025-10-23 10:45:51,507 - binance_client - ERROR - Error fetching klines for METUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:51.518110358Z [err]  2025-10-23 10:45:51,507 - __main__ - WARNING - Insufficient data for METUSDT
+2025-10-23T10:45:51.518114379Z [err]  2025-10-23 10:45:51,507 - __main__ - INFO - Analyzing EULUSDT...
+2025-10-23T10:45:51.887981878Z [err]  2025-10-23 10:45:51,733 - binance_client - ERROR - Error fetching klines for EULUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:51.887985911Z [err]  2025-10-23 10:45:51,733 - __main__ - WARNING - Insufficient data for EULUSDT
+2025-10-23T10:45:51.887990382Z [err]  2025-10-23 10:45:51,733 - __main__ - INFO - Analyzing 测试测试USDT...
+2025-10-23T10:45:51.965078795Z [err]  2025-10-23 10:45:51,963 - binance_client - ERROR - Error fetching klines for 测试测试USDT: APIError(code=-1100): Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'.
+2025-10-23T10:45:51.965084965Z [err]  2025-10-23 10:45:51,964 - __main__ - WARNING - Insufficient data for 测试测试USDT
+2025-10-23T10:45:51.965089594Z [err]  2025-10-23 10:45:51,964 - __main__ - INFO - Analyzing LABUSDT...
+2025-10-23T10:45:52.197069183Z [err]  2025-10-23 10:45:52,195 - binance_client - ERROR - Error fetching klines for LABUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:52.197075298Z [err]  2025-10-23 10:45:52,195 - __main__ - WARNING - Insufficient data for LABUSDT
+2025-10-23T10:45:52.197079474Z [err]  2025-10-23 10:45:52,195 - __main__ - INFO - Analyzing RIVERUSDT...
+2025-10-23T10:45:52.425394516Z [err]  2025-10-23 10:45:52,421 - binance_client - ERROR - Error fetching klines for RIVERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:52.425399513Z [err]  2025-10-23 10:45:52,421 - __main__ - WARNING - Insufficient data for RIVERUSDT
+2025-10-23T10:45:52.425403337Z [err]  2025-10-23 10:45:52,421 - __main__ - INFO - Analyzing 币安人生USDT...
+2025-10-23T10:45:52.656776086Z [err]  2025-10-23 10:45:52,651 - binance_client - ERROR - Error fetching klines for 币安人生USDT: APIError(code=-1100): Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'.
+2025-10-23T10:45:52.656782480Z [err]  2025-10-23 10:45:52,651 - __main__ - WARNING - Insufficient data for 币安人生USDT
+2025-10-23T10:45:52.656786667Z [err]  2025-10-23 10:45:52,651 - __main__ - INFO - Analyzing APRUSDT...
+2025-10-23T10:45:52.882242133Z [err]  2025-10-23 10:45:52,877 - binance_client - ERROR - Error fetching klines for APRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-23T10:45:52.882251265Z [err]  2025-10-23 10:45:52,877 - __main__ - WARNING - Insufficient data for APRUSDT
+2025-10-23T10:45:52.882256650Z [err]  2025-10-23 10:45:52,877 - risk_manager - INFO - No available position slots
+2025-10-23T10:45:53.567299988Z [err]  2025-10-23 10:45:53,559 - __main__ - INFO - 📊 Performance: Balance=$10000.00, Trades=0, Win Rate=0.0%
+2025-10-23T10:45:53.567305687Z [err]  2025-10-23 10:45:53,559 - __main__ - INFO - 📈 Signals found: 14, Executed: 0, Open positions: 3
+2025-10-23T10:45:53.567310011Z [err]  2025-10-23 10:45:53,559 - __main__ - INFO - Waiting 60 seconds before next cycle...
+2025-10-23T10:45:53.882887034Z [err]  2025-10-23 10:45:53,809 - discord.gateway - INFO - Shard ID None session has been invalidated.
+2025-10-23T10:45:59.300500634Z [err]  2025-10-23 10:45:59,284 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 8d13b2fb8fba79d3c3075c17fd7802a6).
+2025-10-23T10:46:01.292447262Z [err]  2025-10-23 10:46:01,287 - discord_bot - INFO - Discord bot logged in as winiswin#6842
+2025-10-23T10:46:01.575621595Z [err]  2025-10-23 10:46:01,564 - discord_bot - INFO - Synced 5 slash commands
+2025-10-23T10:46:01.575638256Z [err]  2025-10-23 10:46:01,564 - discord_bot - ERROR - Could not find channel with ID: 1430538906629050500
+2025-10-23T10:46:05.000000000Z [inf]  Stopping Container
