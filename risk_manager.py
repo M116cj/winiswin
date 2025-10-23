@@ -9,13 +9,19 @@ class RiskManager:
         self.account_balance = account_balance
         self.risk_per_trade = Config.RISK_PER_TRADE_PERCENT
         self.max_position_size = Config.MAX_POSITION_SIZE_PERCENT
+        self.max_concurrent_positions = Config.MAX_CONCURRENT_POSITIONS
+        self.capital_per_position = Config.CAPITAL_PER_POSITION_PERCENT
         self.open_positions = {}
+        self.pending_signals = {}  # 儲存所有候選信號
         self.total_trades = 0
         self.winning_trades = 0
         self.losing_trades = 0
         self.total_profit = 0
         self.max_drawdown = 0
         self.peak_balance = account_balance
+        
+        logger.info(f"RiskManager initialized - Max concurrent positions: {self.max_concurrent_positions}, "
+                   f"Capital per position: {self.capital_per_position:.2f}%")
     
     def update_balance(self, new_balance):
         self.account_balance = new_balance
@@ -35,8 +41,11 @@ class RiskManager:
             logger.error("Cannot calculate position size: NaN values detected")
             return 0
         
+        # 使用每個倉位分配的資金（賬戶的1/3）
+        position_capital = self.account_balance * (self.capital_per_position / 100)
+        
         position_size = calculate_position_size(
-            self.account_balance,
+            position_capital,  # 使用分配的資金，而非全部賬戶
             self.risk_per_trade,
             entry_price,
             stop_loss_price
@@ -46,12 +55,15 @@ class RiskManager:
             logger.error(f"Invalid position size calculated: {position_size}")
             return 0
         
-        max_position_value = self.account_balance * (self.max_position_size / 100)
+        # 最大倉位限制（基於分配的資金）
+        max_position_value = position_capital * (self.max_position_size / 100)
         max_quantity = max_position_value / entry_price
         
         final_position_size = min(position_size, max_quantity)
         
-        logger.info(f"Calculated position size: {final_position_size:.6f} (Entry: {entry_price}, SL: {stop_loss_price})")
+        logger.info(f"Calculated position size: {final_position_size:.6f} "
+                   f"(Entry: {entry_price}, SL: {stop_loss_price}, "
+                   f"Capital allocated: ${position_capital:.2f})")
         return final_position_size
     
     def calculate_stop_loss(self, entry_price, atr, direction='LONG'):
@@ -95,7 +107,69 @@ class RiskManager:
             logger.warning(f"Position already open for {symbol}")
             return False
         
+        if len(self.open_positions) >= self.max_concurrent_positions:
+            logger.warning(f"Maximum concurrent positions reached ({self.max_concurrent_positions})")
+            return False
+        
         return True
+    
+    def add_pending_signal(self, symbol, signal_info):
+        """添加候選信號到待處理隊列"""
+        self.pending_signals[symbol] = signal_info
+        logger.info(f"Added pending signal for {symbol}: {signal_info.get('type')} "
+                   f"(confidence: {signal_info.get('confidence', 0):.1f}%, "
+                   f"roi: {signal_info.get('expected_roi', 0):.2f}%)")
+    
+    def get_top_signals(self, sort_by='confidence'):
+        """
+        獲取最優的信號
+        
+        Args:
+            sort_by: 'confidence' (信心度) 或 'roi' (投報率)
+        
+        Returns:
+            排序後的信號列表
+        """
+        if not self.pending_signals:
+            return []
+        
+        available_slots = self.max_concurrent_positions - len(self.open_positions)
+        if available_slots <= 0:
+            logger.info("No available position slots")
+            return []
+        
+        # 排序信號
+        sorted_signals = []
+        for symbol, signal in self.pending_signals.items():
+            if symbol not in self.open_positions:  # 排除已開倉的
+                sorted_signals.append((symbol, signal))
+        
+        if sort_by == 'roi':
+            # 按預期投報率排序（高到低）
+            sorted_signals.sort(key=lambda x: x[1].get('expected_roi', 0), reverse=True)
+            logger.info(f"Sorted {len(sorted_signals)} signals by ROI")
+        else:
+            # 按信心度排序（高到低）
+            sorted_signals.sort(key=lambda x: x[1].get('confidence', 0), reverse=True)
+            logger.info(f"Sorted {len(sorted_signals)} signals by confidence")
+        
+        # 返回前 N 個（可用倉位數）
+        top_signals = sorted_signals[:available_slots]
+        
+        if top_signals:
+            logger.info(f"Selected top {len(top_signals)} signals:")
+            for symbol, signal in top_signals:
+                logger.info(f"  - {symbol}: {signal.get('type')} "
+                          f"(confidence: {signal.get('confidence', 0):.1f}%, "
+                          f"roi: {signal.get('expected_roi', 0):.2f}%)")
+        
+        return top_signals
+    
+    def clear_pending_signals(self):
+        """清空待處理信號"""
+        count = len(self.pending_signals)
+        self.pending_signals = {}
+        logger.info(f"Cleared {count} pending signals")
     
     def open_position(self, symbol, side, entry_price, quantity, stop_loss, take_profit):
         if not self.can_open_position(symbol):

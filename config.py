@@ -16,9 +16,13 @@ class Config:
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
-    # 交易對選擇模式
-    SYMBOL_MODE = os.getenv('SYMBOL_MODE', 'auto').lower()
-    MAX_SYMBOLS = int(os.getenv('MAX_SYMBOLS', '50'))
+    # 交易對選擇模式（預設：全量648個）
+    SYMBOL_MODE = os.getenv('SYMBOL_MODE', 'all').lower()
+    MAX_SYMBOLS = int(os.getenv('MAX_SYMBOLS', '648'))
+    
+    # 倉位管理（資金拆成3等份，最多同時持有3個倉位）
+    MAX_CONCURRENT_POSITIONS = int(os.getenv('MAX_CONCURRENT_POSITIONS', '3'))
+    CAPITAL_PER_POSITION_PERCENT = 100.0 / MAX_CONCURRENT_POSITIONS  # 33.33% per position
     
     # 靜態交易對列表（備用）
     STATIC_SYMBOLS = [
