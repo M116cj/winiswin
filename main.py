@@ -115,10 +115,11 @@ class TradingBot:
         return analysis
     
     async def execute_trade(self, signal, analysis):
-        """執行交易"""
+        """執行交易（含詳細 Discord 通知）"""
         symbol = analysis['symbol']
         
         if not self.risk_manager.can_open_position(symbol):
+            logger.warning(f"Cannot open position for {symbol} - position already exists")
             return
         
         entry_price = signal['price']
@@ -221,8 +222,15 @@ class TradingBot:
         1. 移除 LSTM 模型訓練（節省大量時間）
         2. 並行分析多個交易對（提升速度）
         3. 簡化決策邏輯（純技術指標）
+        4. 完整的 Discord 通知
         """
+        start_time = time.time()
+        signals_found = 0
+        
         logger.info(f"Starting analysis cycle for {len(self.symbols)} symbols...")
+        
+        if self.notifier:
+            await self.notifier.send_cycle_start(len(self.symbols))
         
         for symbol in self.symbols:
             logger.info(f"Analyzing {symbol}...")
@@ -232,10 +240,27 @@ class TradingBot:
                 continue
             
             if analysis['ict_signal']:
+                signals_found += 1
                 logger.info(f"Signal detected for {symbol}: {analysis['ict_signal']}")
+                
+                if self.notifier:
+                    signal_info = {
+                        'type': analysis['ict_signal']['type'],
+                        'entry_price': analysis['ict_signal']['price'],
+                        'stop_loss': analysis['ict_signal'].get('stop_loss'),
+                        'take_profit': analysis['ict_signal'].get('take_profit'),
+                        'reason': f"ICT/SMC 策略: {analysis['ict_signal'].get('reason', 'N/A')}"
+                    }
+                    await self.notifier.send_signal(symbol, signal_info)
+                
                 await self.execute_trade(analysis['ict_signal'], analysis)
         
         await self.check_open_positions()
+        
+        duration = time.time() - start_time
+        
+        if self.notifier:
+            await self.notifier.send_cycle_complete(duration, signals_found)
         
         stats = self.risk_manager.get_performance_stats()
         logger.info(f"Performance: Balance=${stats['account_balance']:.2f}, "

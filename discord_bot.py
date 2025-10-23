@@ -129,6 +129,83 @@ class TradingBotNotifier:
         except Exception as e:
             logger.error(f"Error sending performance report: {e}")
     
+    async def send_market_analysis(self, symbol, analysis):
+        if not self.is_ready:
+            return
+        
+        embed = discord.Embed(
+            title=f"🔍 市場分析: {symbol}",
+            color=discord.Color.purple(),
+            timestamp=datetime.utcnow()
+        )
+        
+        embed.add_field(name="當前價格", value=f"${format_number(analysis.get('price', 0))}", inline=True)
+        embed.add_field(name="ATR", value=f"${format_number(analysis.get('atr', 0))}", inline=True)
+        embed.add_field(name="市場結構", value=analysis.get('market_structure', 'N/A'), inline=True)
+        
+        if 'rsi' in analysis:
+            embed.add_field(name="RSI", value=format_number(analysis['rsi']), inline=True)
+        if 'macd_signal' in analysis:
+            signal = "🟢 看漲" if analysis['macd_signal'] == 'bullish' else "🔴 看跌" if analysis['macd_signal'] == 'bearish' else "⚪ 中性"
+            embed.add_field(name="MACD 信號", value=signal, inline=True)
+        
+        try:
+            await self.channel.send(embed=embed)
+        except Exception as e:
+            logger.error(f"Error sending market analysis: {e}")
+    
+    async def send_signal(self, symbol, signal_info):
+        if not self.is_ready:
+            return
+        
+        signal_type = signal_info.get('type', 'UNKNOWN')
+        color = discord.Color.green() if signal_type == 'BUY' else discord.Color.red() if signal_type == 'SELL' else discord.Color.blue()
+        
+        embed = discord.Embed(
+            title=f"📡 交易信號: {symbol}",
+            description=f"**{signal_type}** 信號檢測",
+            color=color,
+            timestamp=datetime.utcnow()
+        )
+        
+        embed.add_field(name="入場價格", value=f"${format_number(signal_info.get('entry_price', 0))}", inline=True)
+        embed.add_field(name="止損", value=f"${format_number(signal_info.get('stop_loss', 0))}", inline=True)
+        embed.add_field(name="止盈", value=f"${format_number(signal_info.get('take_profit', 0))}", inline=True)
+        
+        if 'position_size' in signal_info:
+            embed.add_field(name="建議倉位", value=format_number(signal_info['position_size'], 6), inline=True)
+        
+        if 'confidence' in signal_info:
+            embed.add_field(name="信心度", value=f"{format_number(signal_info['confidence'])}%", inline=True)
+        
+        if 'reason' in signal_info:
+            embed.add_field(name="原因", value=signal_info['reason'], inline=False)
+        
+        try:
+            await self.channel.send(embed=embed)
+        except Exception as e:
+            logger.error(f"Error sending signal: {e}")
+    
+    async def send_cycle_start(self, symbols_count):
+        if not self.is_ready:
+            return
+        
+        message = f"🔄 開始新的分析週期 - 監控 {symbols_count} 個交易對..."
+        try:
+            await self.channel.send(message)
+        except Exception as e:
+            logger.error(f"Error sending cycle start: {e}")
+    
+    async def send_cycle_complete(self, duration, signals_found):
+        if not self.is_ready:
+            return
+        
+        message = f"✅ 分析週期完成（用時 {duration:.1f}秒）- 發現 {signals_found} 個信號"
+        try:
+            await self.channel.send(message)
+        except Exception as e:
+            logger.error(f"Error sending cycle complete: {e}")
+    
     async def close(self):
         if self.bot:
             await self.bot.close()
