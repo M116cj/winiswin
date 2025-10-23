@@ -155,6 +155,13 @@ The bot runs automatically via the configured workflow. It will:
 - **自動倉位管理**: 觸及目標自動平倉
 
 ## Recent Changes
+- **2025-10-23**: **🚨 關鍵發現：新加坡被 Binance 限制**
+  - 新加坡是 Binance 封鎖的地區之一（MAS 監管限制）
+  - **解決方案**：改用 Railway 歐洲區域（EU West）
+  - 更新 railway.json 預設為歐洲部署
+  - 延遲影響：50-150ms，對 60 秒週期完全可接受
+  - 創建 BINANCE_REGION_FIX.md 完整修復指南
+
 - **2025-10-23**: **Discord 斜線命令系統（Application Commands）**
   - 使用 Discord 官方規範的斜線命令（Slash Commands）
   - 5 個互動命令：`/positions`, `/balance`, `/stats`, `/status`, `/config`
