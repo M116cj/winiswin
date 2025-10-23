@@ -18,6 +18,13 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
   - 🔴 Live trading mode indicator vs 🟡 Simulation mode
 - **Railway Deployment Ready**: Fixed IP configured, ready for deployment on Railway EU West region
 - **Discord Integration**: `/balance` command displays real-time account balance, slash commands for monitoring and control
+- **Optimized Timeframe**: Changed from 1h to 15m K-lines for faster signal generation
+- **Intelligent Confidence System**: Multi-weighted scoring (70% minimum threshold) - no longer requires 100% confidence to enter trades
+  - Market Structure: 40%
+  - MACD Confirmation: 20%
+  - EMA Confirmation: 20%
+  - Price Position: 10%
+  - Liquidity Zone: 10%
 
 ### System Architecture
 The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.

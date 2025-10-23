@@ -124,24 +124,32 @@ class ICTSMCStrategy:
             # bullish_structure = 0分
         
         # 2. MACD 確認配重 (20%)
+        # 防止除以零錯誤
+        macd_denominator = max(abs(macd_signal), 1e-6)
+        
         if signal_type == 'BUY':
             if macd > macd_signal:
-                macd_strength = min((macd - macd_signal) / abs(macd_signal) * 100, 1.0)
+                macd_diff = macd - macd_signal
+                macd_strength = min(abs(macd_diff) / macd_denominator * 100, 1.0)
                 confidence += 20.0 * macd_strength
         else:  # SELL
             if macd < macd_signal:
-                macd_strength = min((macd_signal - macd) / abs(macd_signal) * 100, 1.0)
+                macd_diff = macd_signal - macd
+                macd_strength = min(abs(macd_diff) / macd_denominator * 100, 1.0)
                 confidence += 20.0 * macd_strength
         
         # 3. EMA 確認配重 (20%)
+        # 防止除以零錯誤
+        ema_denominator = max(abs(ema_21), 1e-6)
+        
         if signal_type == 'BUY':
             if ema_9 > ema_21:
-                ema_gap = (ema_9 - ema_21) / ema_21
+                ema_gap = (ema_9 - ema_21) / ema_denominator
                 ema_strength = min(ema_gap * 100, 1.0)
                 confidence += 20.0 * max(ema_strength, 0.5)  # 至少給 10%
         else:  # SELL
             if ema_9 < ema_21:
-                ema_gap = (ema_21 - ema_9) / ema_21
+                ema_gap = (ema_21 - ema_9) / ema_denominator
                 ema_strength = min(ema_gap * 100, 1.0)
                 confidence += 20.0 * max(ema_strength, 0.5)  # 至少給 10%
         
