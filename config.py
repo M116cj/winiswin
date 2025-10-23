@@ -13,17 +13,18 @@ class Config:
     
     MAX_POSITION_SIZE_PERCENT = float(os.getenv('MAX_POSITION_SIZE_PERCENT', '0.5'))
     RISK_PER_TRADE_PERCENT = float(os.getenv('RISK_PER_TRADE_PERCENT', '0.3'))
-    DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
+    DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '3.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
     # 智能槓桿調整機制
     ENABLE_DYNAMIC_LEVERAGE = os.getenv('ENABLE_DYNAMIC_LEVERAGE', 'true').lower() == 'true'
-    MIN_LEVERAGE = float(os.getenv('MIN_LEVERAGE', '1.0'))  # 最小槓桿
-    MAX_LEVERAGE = float(os.getenv('MAX_LEVERAGE', '2.0'))  # 最大槓桿
+    MIN_LEVERAGE = float(os.getenv('MIN_LEVERAGE', '3.0'))  # 最小槓桿
+    MAX_LEVERAGE = float(os.getenv('MAX_LEVERAGE', '20.0'))  # 最大槓桿
     
     # 槓桿調整參數
     HIGH_CONFIDENCE_THRESHOLD = 90.0  # 高信心度門檻
     MEDIUM_CONFIDENCE_THRESHOLD = 80.0  # 中信心度門檻
+    ULTRA_HIGH_CONFIDENCE_THRESHOLD = 100.0  # 超高信心度門檻
     LOW_VOLATILITY_ATR_THRESHOLD = 0.02  # 低波動性門檻（2%）
     HIGH_VOLATILITY_ATR_THRESHOLD = 0.05  # 高波動性門檻（5%）
     

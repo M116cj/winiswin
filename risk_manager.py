@@ -67,28 +67,33 @@ class RiskManager:
         
         try:
             # === 第一步：根據信心度計算基礎槓桿 ===
+            # 100-90%: 20x (線性從 90% = 10x 到 100% = 20x)
+            # 90-80%: 10x (線性從 80% = 3x 到 90% = 10x)
+            # 80-70%: 3x (固定 3x)
+            
             if confidence >= Config.HIGH_CONFIDENCE_THRESHOLD:
-                # 90-100% 信心度：1.8-2.0x
-                base_leverage = 1.8 + (confidence - Config.HIGH_CONFIDENCE_THRESHOLD) / 50.0
+                # 90-100% 信心度：10x-20x
+                confidence_range = 10.0  # 100 - 90
+                base_leverage = 10.0 + (confidence - Config.HIGH_CONFIDENCE_THRESHOLD) * (10.0 / confidence_range)
             elif confidence >= Config.MEDIUM_CONFIDENCE_THRESHOLD:
-                # 80-90% 信心度：1.4-1.8x
+                # 80-90% 信心度：3x-10x
                 confidence_range = Config.HIGH_CONFIDENCE_THRESHOLD - Config.MEDIUM_CONFIDENCE_THRESHOLD
-                base_leverage = 1.4 + (confidence - Config.MEDIUM_CONFIDENCE_THRESHOLD) / confidence_range * 0.4
+                base_leverage = 3.0 + (confidence - Config.MEDIUM_CONFIDENCE_THRESHOLD) * (7.0 / confidence_range)
             else:
-                # 70-80% 信心度：1.0-1.4x
-                base_leverage = 1.0 + (confidence - 70.0) / 10.0 * 0.4
+                # 70-80% 信心度：3x (固定)
+                base_leverage = 3.0
             
             # === 第二步：根據波動性調整 ===
             atr_percent = (atr / current_price) * 100  # ATR 佔價格百分比
             
             volatility_adjustment = 0.0
             if atr_percent < Config.LOW_VOLATILITY_ATR_THRESHOLD * 100:
-                # 低波動：可以增加槓桿
-                volatility_adjustment = 0.2
+                # 低波動：可以增加槓桿（最多+20%）
+                volatility_adjustment = base_leverage * 0.2
                 volatility_level = "低"
             elif atr_percent > Config.HIGH_VOLATILITY_ATR_THRESHOLD * 100:
-                # 高波動：降低槓桿以控制風險
-                volatility_adjustment = -0.3
+                # 高波動：降低槓桿以控制風險（最多-30%）
+                volatility_adjustment = -base_leverage * 0.3
                 volatility_level = "高"
             else:
                 # 正常波動：不調整

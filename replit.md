@@ -32,9 +32,9 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
   - Exception handling for trade parameter calculations
   - Boundary checks for None, NaN, zero, and negative values
 - **Dynamic Leverage Adjustment** (NEW): Intelligent leverage calculation based on signal confidence and market volatility
-  - Confidence-based: 70-80% → 1.0-1.4x, 80-90% → 1.4-1.8x, 90-100% → 1.8-2.0x
-  - Volatility adjustment: Low volatility +0.2x, High volatility -0.3x
-  - Configurable: MIN_LEVERAGE (1.0x) to MAX_LEVERAGE (2.0x)
+  - Confidence-based: 70-80% → 3x, 80-90% → 3-10x (linear), 90-100% → 10-20x (linear)
+  - Volatility adjustment: Low volatility +20%, High volatility -30%
+  - Configurable: MIN_LEVERAGE (3.0x) to MAX_LEVERAGE (20.0x)
   - Can be disabled via ENABLE_DYNAMIC_LEVERAGE=false
 
 ### System Architecture
