@@ -1,6 +1,8 @@
-# Environment
+# Environment Variables (NEVER commit these)
 .env
 .env.local
+.env.production
+.env.*.local
 
 # Python
 .pythonlibs/
@@ -8,6 +10,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.py[cod]
+*$py.class
 .Python
 *.so
 *.egg
@@ -17,9 +21,11 @@ build/
 venv/
 ENV/
 env/
+.venv/
 
 # Logs
 *.log
+logs/
 trading_bot.log
 
 # Database
@@ -32,21 +38,47 @@ checkpoints/
 models/saved/
 data/cache/
 
+# Model files (too large)
+*.pth
+*.h5
+*.pkl
+*.model
+
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.classpath
+.settings/
 
 # OS
 .DS_Store
 Thumbs.db
+.Spotlight-V100
+.Trashes
 
 # Temporary
 /tmp/
 *.tmp
 *.bak
+.cache/
 
 # UV
 uv.lock
+
+# Replit specific (don't sync to GitHub)
+.replit
+.upm
+replit.nix
+.config/
+
+# Keep important deployment configs
+!nixpacks.toml
+!railway.json
+!Procfile
+!requirements.txt
+!runtime.txt
+!.github/

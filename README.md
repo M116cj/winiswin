@@ -48,12 +48,16 @@ Railway 新加坡節點可以避免 Binance 地區限制。
 3. 選擇部署區域：**Singapore**
 4. 添加環境變數（同上）
 
-#### 方式 B：GitHub Actions 自動部署
+#### 方式 B：GitHub Actions 自動部署（已配置✅）
 1. 獲取 Railway Token：Railway → Account Settings → Tokens
 2. 添加到 GitHub Secrets：`RAILWAY_TOKEN`
 3. 推送代碼到 `main` 分支自動部署
 
-詳細步驟請參考：[README_DEPLOYMENT.md](README_DEPLOYMENT.md)
+**往後所有更新都會自動部署！** 🚀
+
+詳細步驟請參考：
+- **[GITHUB_AUTO_DEPLOY_SETUP.md](GITHUB_AUTO_DEPLOY_SETUP.md)** - GitHub 自動部署完整指南
+- **[DEPLOY_NOW.md](DEPLOY_NOW.md)** - 手動部署指南
 
 ## ⚙️ 配置參數
 
