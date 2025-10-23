@@ -16,6 +16,17 @@ class Config:
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '1.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
+    # 智能槓桿調整機制
+    ENABLE_DYNAMIC_LEVERAGE = os.getenv('ENABLE_DYNAMIC_LEVERAGE', 'true').lower() == 'true'
+    MIN_LEVERAGE = float(os.getenv('MIN_LEVERAGE', '1.0'))  # 最小槓桿
+    MAX_LEVERAGE = float(os.getenv('MAX_LEVERAGE', '2.0'))  # 最大槓桿
+    
+    # 槓桿調整參數
+    HIGH_CONFIDENCE_THRESHOLD = 90.0  # 高信心度門檻
+    MEDIUM_CONFIDENCE_THRESHOLD = 80.0  # 中信心度門檻
+    LOW_VOLATILITY_ATR_THRESHOLD = 0.02  # 低波動性門檻（2%）
+    HIGH_VOLATILITY_ATR_THRESHOLD = 0.05  # 高波動性門檻（5%）
+    
     # 交易對選擇模式（預設：全量648個）
     SYMBOL_MODE = os.getenv('SYMBOL_MODE', 'all').lower()
     MAX_SYMBOLS = int(os.getenv('MAX_SYMBOLS', '648'))
