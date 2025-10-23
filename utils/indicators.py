@@ -20,7 +20,8 @@ class TechnicalIndicators:
             return close.rolling(window=period).mean()
         else:
             close_series = pd.Series(close)
-            return close_series.rolling(window=period).mean().values
+            result = close_series.rolling(window=period).mean()
+            return result.to_numpy()
     
     @staticmethod
     def calculate_macd(close, fast_period=12, slow_period=26, signal_period=9):
@@ -34,7 +35,7 @@ class TechnicalIndicators:
         signal = macd.ewm(span=signal_period, adjust=False).mean()
         hist = macd - signal
         
-        return macd.values, signal.values, hist.values
+        return macd.to_numpy(), signal.to_numpy(), hist.to_numpy()
     
     @staticmethod
     def calculate_rsi(close, period=14):
@@ -49,7 +50,7 @@ class TechnicalIndicators:
         rs = gain / loss
         rsi = 100 - (100 / (1 + rs))
         
-        return rsi.values
+        return rsi.to_numpy()
     
     @staticmethod
     def calculate_atr(high, low, close, period=14):
@@ -66,7 +67,7 @@ class TechnicalIndicators:
         tr = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
         atr = tr.rolling(window=period).mean()
         
-        return atr.values
+        return atr.to_numpy()
     
     @staticmethod
     def calculate_bollinger_bands(close, period=20, std_dev=2):
@@ -80,7 +81,7 @@ class TechnicalIndicators:
         upper = middle + (std * std_dev)
         lower = middle - (std * std_dev)
         
-        return upper.values, middle.values, lower.values
+        return upper.to_numpy(), middle.to_numpy(), lower.to_numpy()
     
     @staticmethod
     def calculate_all_indicators(df):

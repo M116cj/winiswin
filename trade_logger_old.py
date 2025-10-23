@@ -6,22 +6,11 @@ from utils.helpers import setup_logger
 logger = setup_logger(__name__)
 
 class TradeLogger:
-    """
-    優化後的交易日誌記錄器
-    
-    改進：
-    1. 批量緩衝寫入（減少 I/O 操作）
-    2. 定期自動保存
-    3. 關閉時確保保存
-    """
-    def __init__(self, log_file='trades.json', buffer_size=10):
+    def __init__(self, log_file='trades.json'):
         self.log_file = log_file
-        self.buffer_size = buffer_size
-        self.unsaved_count = 0
         self.trades = self.load_trades()
     
     def load_trades(self):
-        """加載現有交易記錄"""
         if os.path.exists(self.log_file):
             try:
                 with open(self.log_file, 'r') as f:
@@ -32,21 +21,14 @@ class TradeLogger:
         return []
     
     def save_trades(self):
-        """保存交易記錄到文件"""
         try:
             with open(self.log_file, 'w') as f:
                 json.dump(self.trades, f, indent=2)
             logger.info(f"Saved {len(self.trades)} trades to {self.log_file}")
-            self.unsaved_count = 0
         except Exception as e:
             logger.error(f"Error saving trades: {e}")
     
     def log_trade(self, trade_data):
-        """
-        記錄交易
-        
-        優化：只在緩衝區滿或重要交易時立即保存
-        """
         trade_entry = {
             'timestamp': datetime.utcnow().isoformat(),
             'symbol': trade_data.get('symbol'),
@@ -64,28 +46,16 @@ class TradeLogger:
         }
         
         self.trades.append(trade_entry)
-        self.unsaved_count += 1
-        
-        if self.unsaved_count >= self.buffer_size or trade_data.get('type') == 'CLOSE':
-            self.save_trades()
-        
+        self.save_trades()
         logger.info(f"Logged trade: {trade_data.get('symbol')} {trade_data.get('type')}")
     
-    def flush(self):
-        """強制保存所有未保存的交易"""
-        if self.unsaved_count > 0:
-            self.save_trades()
-    
     def get_recent_trades(self, limit=10):
-        """獲取最近的交易"""
         return self.trades[-limit:]
     
     def get_trades_by_symbol(self, symbol):
-        """獲取特定交易對的交易記錄"""
         return [trade for trade in self.trades if trade['symbol'] == symbol]
     
     def calculate_statistics(self):
-        """計算交易統計數據"""
         if not self.trades:
             return {
                 'total_trades': 0,

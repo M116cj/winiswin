@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python311", "gcc", "ta-lib"]
+nixPkgs = ["python311"]
 
 [start]
 cmd = "python main.py"
