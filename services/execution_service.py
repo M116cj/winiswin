@@ -30,6 +30,7 @@ class Position:
     strategy: str
     confidence: float
     allocated_capital: float
+    leverage: float = 1.0
 
 
 class ExecutionService:
@@ -96,6 +97,15 @@ class ExecutionService:
         # Get allocated capital for this position
         allocated_capital = self.risk_manager.get_allocated_capital()
         
+        # 計算動態槓桿
+        atr = signal.metadata.get('atr', 0)
+        current_price = signal.metadata.get('current_price', signal.price)
+        leverage = self.risk_manager.calculate_dynamic_leverage(
+            confidence=signal.confidence,
+            atr=atr,
+            current_price=current_price
+        )
+        
         # Calculate position size with risk management
         position_params = self.risk_manager.calculate_position_size(
             signal.symbol,
@@ -103,6 +113,14 @@ class ExecutionService:
             signal.stop_loss,
             allocated_capital
         )
+        
+        # 應用槓桿到倉位數量
+        if position_params and leverage > 1.0:
+            position_params['quantity'] = position_params['quantity'] * leverage
+            position_params['leverage'] = leverage
+            logger.info(f"Applied leverage {leverage:.2f}x to position size")
+        else:
+            position_params['leverage'] = 1.0
         
         if not position_params:
             logger.warning(f"Risk check failed for {signal.symbol}")
@@ -139,7 +157,8 @@ class ExecutionService:
             opened_at=datetime.now(),
             strategy=signal.strategy,
             confidence=signal.confidence,
-            allocated_capital=allocated_capital
+            allocated_capital=allocated_capital,
+            leverage=position_params.get('leverage', 1.0)
         )
         
         # Add to risk manager
@@ -184,6 +203,7 @@ class ExecutionService:
                 'strategy': position.strategy,
                 'allocated_capital': position.allocated_capital,
                 'risk_amount': position_params.get('risk_amount', 0),
+                'leverage': position.leverage,
                 'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
             }
             await self.discord.send_trade_notification(trade_info)

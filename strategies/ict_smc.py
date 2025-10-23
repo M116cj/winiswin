@@ -273,7 +273,9 @@ class ICTSMCStrategy:
                         'macd': macd,
                         'macd_signal': macd_signal,
                         'ema_9': ema_9,
-                        'ema_21': ema_21
+                        'ema_21': ema_21,
+                        'atr': atr,
+                        'current_price': current_price
                     }
                 }
         
@@ -340,7 +342,9 @@ class ICTSMCStrategy:
                         'macd': macd,
                         'macd_signal': macd_signal,
                         'ema_9': ema_9,
-                        'ema_21': ema_21
+                        'ema_21': ema_21,
+                        'atr': atr,
+                        'current_price': current_price
                     }
                 }
         
