@@ -26,7 +26,7 @@ from config import Config
 # Import services
 from services import DataService, StrategyEngine, ExecutionService, MonitoringService
 from binance_client import BinanceClient
-from discord_bot import DiscordBot
+from discord_bot import TradingBotNotifier as DiscordBot
 from risk_manager import RiskManager
 from trade_logger import TradeLogger
 
