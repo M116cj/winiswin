@@ -43,8 +43,8 @@ class TradingBotNotifier:
     def _setup_commands(self):
         """設置所有 Discord 命令"""
         
-        @self.bot.command(name='help', help='顯示所有可用命令')
-        async def help_command(ctx):
+        @self.bot.command(name='commands', help='顯示所有可用命令')
+        async def commands_list(ctx):
             embed = discord.Embed(
                 title="🤖 交易機器人命令列表",
                 description="可用的命令：",
@@ -52,6 +52,11 @@ class TradingBotNotifier:
                 timestamp=datetime.utcnow()
             )
             
+            embed.add_field(
+                name="!commands",
+                value="顯示此命令列表",
+                inline=False
+            )
             embed.add_field(
                 name="!positions",
                 value="查看當前持倉",

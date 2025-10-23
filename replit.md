@@ -24,7 +24,7 @@ An automated cryptocurrency trading bot that monitors ALL 648 Binance USDT perpe
   - Capital allocation: 33.33% per position (3 equal parts)
   - Dynamic position sizing based on ATR and allocated capital
 - **Interactive Discord Bot**: 
-  - **Commands**: `!help`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
+  - **Commands**: `!commands`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
   - Real-time position查询
   - Account balance and performance查詢
   - Detailed statistics on demand
@@ -155,7 +155,7 @@ The bot runs automatically via the configured workflow. It will:
 
 ## Recent Changes
 - **2025-10-23**: **Discord 互動命令系統**
-  - 新增 6 個 Discord 命令：`!help`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
+  - 新增 6 個 Discord 命令：`!commands`, `!positions`, `!balance`, `!stats`, `!status`, `!config`
   - 實時查詢當前持倉
   - 查看賬戶餘額和資金分配
   - 詳細性能統計
