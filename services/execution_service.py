@@ -35,17 +35,19 @@ class Position:
 class ExecutionService:
     """Service for executing and managing trades."""
     
-    def __init__(self, binance_client, risk_manager, enable_trading: bool = False):
+    def __init__(self, binance_client, risk_manager, discord_bot=None, enable_trading: bool = False):
         """
         Initialize execution service.
         
         Args:
             binance_client: Binance API client
             risk_manager: Risk management instance
+            discord_bot: Discord bot for notifications
             enable_trading: Enable live trading
         """
         self.binance = binance_client
         self.risk_manager = risk_manager
+        self.discord = discord_bot
         self.enable_trading = enable_trading
         
         self.positions: Dict[str, Position] = {}
@@ -161,7 +163,32 @@ class ExecutionService:
             f"(confidence: {signal.confidence:.1f}%)"
         )
         
+        # Send Discord notification for new position
+        if self.discord:
+            await self._notify_position_opened(position, position_params)
+        
         return True
+    
+    async def _notify_position_opened(self, position: Position, position_params: Dict):
+        """Send Discord notification when position is opened."""
+        try:
+            trade_info = {
+                'type': 'OPEN',
+                'symbol': position.symbol,
+                'action': position.action,
+                'price': position.entry_price,
+                'quantity': position.quantity,
+                'stop_loss': position.stop_loss,
+                'take_profit': position.take_profit,
+                'confidence': position.confidence,
+                'strategy': position.strategy,
+                'allocated_capital': position.allocated_capital,
+                'risk_amount': position_params.get('risk_amount', 0),
+                'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
+            }
+            await self.discord.send_trade_notification(trade_info)
+        except Exception as e:
+            logger.error(f"Failed to send Discord notification: {e}")
     
     async def _place_order(self, symbol: str, action: str, quantity: float) -> Optional[Dict]:
         """
@@ -293,7 +320,33 @@ class ExecutionService:
             f"PnL = {pnl:.2f} USDT ({pnl_pct:+.2f}%)"
         )
         
+        # Send Discord notification for closed position
+        if self.discord:
+            await self._notify_position_closed(position, price, pnl, pnl_pct, reason)
+        
         return True
+    
+    async def _notify_position_closed(self, position: Position, exit_price: float, 
+                                     pnl: float, pnl_pct: float, reason: str):
+        """Send Discord notification when position is closed."""
+        try:
+            trade_info = {
+                'type': 'CLOSE',
+                'symbol': position.symbol,
+                'action': position.action,
+                'entry_price': position.entry_price,
+                'exit_price': exit_price,
+                'quantity': position.quantity,
+                'pnl': pnl,
+                'pnl_percent': pnl_pct,
+                'reason': reason.upper(),
+                'strategy': position.strategy,
+                'duration': (datetime.now() - position.opened_at).total_seconds() / 3600,
+                'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
+            }
+            await self.discord.send_trade_notification(trade_info)
+        except Exception as e:
+            logger.error(f"Failed to send Discord notification: {e}")
     
     def get_active_positions(self) -> List[Dict[str, Any]]:
         """Get list of active positions."""
