@@ -76,6 +76,7 @@ class TradingBotV3:
         self.execution_service = ExecutionService(
             binance_client=self.binance,
             risk_manager=self.risk_manager,
+            discord_bot=self.discord,
             enable_trading=Config.ENABLE_TRADING
         )
         
