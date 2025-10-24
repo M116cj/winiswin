@@ -29,7 +29,8 @@ class ICTSMCStrategy:
         驗證 2：突破 K 棒幅度 > 1.2x OB 本體
         驗證 3：5 根 K 棒不回測 OB 低點/高點
         """
-        if idx + 1 >= len(df):
+        # 修復：更嚴格的邊界檢查，確保 idx 和後續至少 6 根 K 棒都在範圍內
+        if idx < 0 or idx >= len(df) or idx + 6 >= len(df):
             return False
         
         if direction == 'bullish':
