@@ -10,7 +10,14 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **🔧 CRITICAL FIX - MIN_NOTIONAL 驗證** (LATEST): 修復低價幣訂單被拒絕問題
+- **🔧 CRITICAL FIX - 槓桿計算邏輯修復** (LATEST): 修復槓桿倉位計算錯誤
+  - **問題**：槓桿計算邏輯錯誤，導致實際倉位遠小於預期
+  - **舊邏輯**：基於風險計算數量後簡單乘以槓桿（錯誤）
+  - **新邏輯**：保證金 × 槓桿 = 倉位價值，再除以價格 = 數量（正確）
+  - **範例**：保證金 $14.85，槓桿 12x → 倉位價值 $178.2 → 數量 7444 個（vs 舊的 37 個）
+  - **影響**：現在槓桿倉位的實際價值符合預期，充分利用分配資金
+  - **部署**：2025-10-24 17:00 UTC 已部署到 Railway EU
+- **🔧 CRITICAL FIX - MIN_NOTIONAL 驗證**: 修復低價幣訂單被拒絕問題
   - **問題**：低價幣（如 TUTUSDT $0.024）的訂單名義價值不足 $5，被 Binance API 拒絕
   - **症狀**：`APIError(code=-1013): Filter failure: NOTIONAL`
   - **修復**：添加 `get_min_notional()` 和智能數量調整邏輯

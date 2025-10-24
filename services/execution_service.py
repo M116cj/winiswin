@@ -129,11 +129,33 @@ class ExecutionService:
             self.stats['trades_rejected'] += 1
             return False
         
-        # 應用槓桿到倉位數量
+        # 🔧 正確的槓桿邏輯：槓桿影響倉位價值，而不是簡單乘以數量
+        # allocated_capital = 保證金（如 14.85 USDT）
+        # 倉位價值 = 保證金 * 槓桿（如 14.85 * 12 = 178.2 USDT）
+        # 數量 = 倉位價值 / 價格
+        
         if leverage > 1.0:
-            position_params['quantity'] = position_params['quantity'] * leverage
+            # 計算正確的槓桿倉位
+            # 當前的 quantity 是基於 0.3% 風險計算的（太小）
+            # 我們需要基於分配資金和槓桿重新計算
+            
+            position_value = allocated_capital * leverage
+            correct_quantity = position_value / signal.price
+            
+            # 限制：確保不超過最大倉位大小（0.5% 總資金）
+            max_position_value = allocated_capital * (self.risk_manager.max_position_size / self.risk_manager.capital_per_position)
+            max_quantity = max_position_value * leverage / signal.price
+            
+            final_quantity = min(correct_quantity, max_quantity)
+            
+            position_params['quantity'] = final_quantity
             position_params['leverage'] = leverage
-            logger.info(f"Applied leverage {leverage:.2f}x to position size")
+            
+            logger.info(
+                f"📊 槓桿倉位計算: 保證金=${allocated_capital:.2f}, "
+                f"槓桿={leverage:.2f}x, 倉位價值=${position_value:.2f}, "
+                f"數量={final_quantity:.6f}"
+            )
         else:
             position_params['leverage'] = 1.0
             logger.info(f"No leverage applied (leverage = 1.0x)")
