@@ -1,16 +1,32 @@
-# Cryptocurrency Trading Bot v3.0
+# Cryptocurrency Trading Bot v3.2
 
 ### Overview
-This project is an automated cryptocurrency trading bot designed to monitor all 648 Binance USDT perpetual contracts. It employs ICT/SMC trading strategies combined with an intelligent 3-position management system to identify and execute trades. The bot provides comprehensive real-time notifications via Discord, keeping users informed of market activities and bot performance. Key features include full market coverage, advanced risk management (0.3% per trade, 0.5% max position, 33.33% capital per position), and dynamic signal selection based on confidence or ROI. The business vision is to provide a robust, automated trading solution with advanced risk management and real-time insights for cryptocurrency traders.
+This project is an automated cryptocurrency trading bot designed to monitor all 648 Binance USDT perpetual contracts. It employs ICT/SMC trading strategies combined with an intelligent 3-position management system to identify and execute trades. The bot provides comprehensive real-time notifications via Discord, keeping users informed of market activities and bot performance. Key features include full market coverage, advanced risk management with dynamic margin sizing (3%-13%) and win-rate based leverage (3-20x), exchange-level stop-loss/take-profit protection, and comprehensive trade logging for XGBoost machine learning. The business vision is to provide a robust, automated trading solution with advanced risk management and real-time insights for cryptocurrency traders.
 
 ### User Preferences
 - Language: Traditional Chinese (繁體中文)
-- Trading mode: Conservative (low risk per trade)
+- Trading mode: Conservative with dynamic margin based on signal confidence
 - Focus on: ICT/SMC strategy with ML confirmation
 - Notifications: Discord alerts for all trades and warnings
 
+### Recent Updates (v3.2 - 2025-10-24)
+**Critical Bug Fixes:**
+1. **Fixed Margin Calculation (v3.0 → v3.2)**
+   - **Issue**: RiskManager was importing old `calculate_position_size` from utils/helpers, causing fixed $0.4-0.6 margins
+   - **Fix**: Removed legacy import, now correctly uses dynamic margin sizing (3%-13% based on signal confidence)
+   - **Impact**: Positions now use proper margin allocation ($30-130 per position instead of $0.4-0.6)
+
+2. **Fixed Stop-Loss/Take-Profit Orders**
+   - **Issue**: `_set_stop_loss_take_profit` was calling synchronous Binance methods without async execution
+   - **Fix**: Implemented `loop.run_in_executor` for proper async order placement
+   - **Impact**: Exchange-level protection orders now correctly placed on Binance
+
+3. **Version Tracking**
+   - **Updated**: main_v3.py now displays "v3.2" with feature list on startup
+   - **Verification**: Added `verify_v32_fixes.py` script to validate all fixes
+
 ### System Architecture
-The bot has undergone a significant architectural overhaul to v3.0, transitioning from a monolithic application to a modular, service-oriented design.
+The bot has undergone a significant architectural overhaul to v3.2, transitioning from a monolithic application to a modular, service-oriented design with production-ready risk management.
 
 **UI/UX Decisions:**
 - **Interactive Discord Bot**: Features slash commands (`/positions`, `/balance`, `/stats`, `/status`, `/config`) for real-time querying and uses Embed formats for aesthetic and clear responses. Auto-notifications are sent for trade cycles and executions.
