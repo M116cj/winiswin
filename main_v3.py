@@ -54,6 +54,11 @@ class TradingBotV3:
         self.risk_manager = RiskManager()
         self.trade_logger = TradeLogger(Config.TRADES_FILE)
         
+        # Trading configuration（先定義，因為後面 ExecutionService 需要用）
+        self.symbols = []
+        self.timeframe = Config.TIMEFRAME
+        self.cycle_interval = 60  # seconds
+        
         # Initialize Discord bot (will be started separately)
         self.discord = None
         if Config.DISCORD_BOT_TOKEN:
@@ -84,14 +89,15 @@ class TradingBotV3:
         self.execution_service.on_position_closed_callback = self.rescan_symbol_immediately
         logger.info("Registered position closed callback for immediate rescan")
         
+        # 設置信號驗證所需的引用
+        self.execution_service.strategy_engine = self.strategy_engine
+        self.execution_service.data_service = self.data_service
+        self.execution_service.timeframe = self.timeframe  # 傳遞時間框架配置
+        logger.info(f"Configured dynamic position validation (timeframe: {self.timeframe})")
+        
         self.monitoring_service = MonitoringService(
             discord_bot=self.discord
         )
-        
-        # Trading symbols
-        self.symbols = []
-        self.timeframe = Config.TIMEFRAME
-        self.cycle_interval = 60  # seconds
         
         # State
         self.is_running = False

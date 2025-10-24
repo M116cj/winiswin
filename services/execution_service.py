@@ -57,6 +57,11 @@ class ExecutionService:
         # Callback for position closed event (平倉後立即重新掃描)
         self.on_position_closed_callback = None
         
+        # Strategy engine reference (will be set externally for signal validation)
+        self.strategy_engine = None
+        self.data_service = None
+        self.timeframe = '15m'  # Will be set from Config.TIMEFRAME
+        
         # Statistics
         self.stats = {
             'total_signals_received': 0,
@@ -64,7 +69,9 @@ class ExecutionService:
             'trades_rejected': 0,
             'positions_closed': 0,
             'stop_losses_hit': 0,
-            'take_profits_hit': 0
+            'take_profits_hit': 0,
+            'signal_invalidation_exits': 0,
+            'dynamic_adjustments': 0
         }
         
         logger.info(
@@ -244,7 +251,13 @@ class ExecutionService:
     
     async def monitor_positions(self) -> List[str]:
         """
-        Monitor open positions and close if stop-loss or take-profit hit.
+        Monitor open positions and close if stop-loss, take-profit, or signal invalidation.
+        
+        動態監控機制：
+        1. 檢查止損/止盈價格觸發
+        2. 重新驗證開倉時的市場條件
+        3. 如果信號失效，提前平倉
+        4. 如果市場條件改善，調整止損/止盈
         
         Returns:
             List of closed position symbols
@@ -268,6 +281,7 @@ class ExecutionService:
                 should_close = False
                 reason = ""
                 
+                # === 第一步：檢查傳統止損/止盈 ===
                 # Check stop-loss
                 if position.action == 'BUY' and current_price <= position.stop_loss:
                     should_close = True
@@ -288,6 +302,32 @@ class ExecutionService:
                     reason = "take-profit"
                     self.stats['take_profits_hit'] += 1
                 
+                # === 第二步：如果未觸發止損/止盈，驗證信號是否仍然有效 ===
+                if not should_close and self.strategy_engine and self.data_service:
+                    validation_result = await self.validate_position_signal(symbol, position, current_price)
+                    
+                    if validation_result['action'] == 'CLOSE':
+                        should_close = True
+                        reason = validation_result['reason']
+                        self.stats['signal_invalidation_exits'] += 1
+                        logger.warning(
+                            f"⚠️  {symbol} 信號失效: {validation_result['details']}"
+                        )
+                    elif validation_result['action'] == 'ADJUST':
+                        # 動態調整止損/止盈
+                        await self.adjust_position_levels(symbol, position, validation_result)
+                        self.stats['dynamic_adjustments'] += 1
+                    elif validation_result['action'] == 'WARN':
+                        # 發送警告但不平倉
+                        if self.discord:
+                            await self.discord.send_notification(
+                                f"⚠️ **倉位警告** - {symbol}\n"
+                                f"方向: {position.action}\n"
+                                f"當前價格: {current_price:.4f}\n"
+                                f"警告: {validation_result['details']}\n"
+                                f"建議: 密切關注市場變化"
+                            )
+                
                 if should_close:
                     await self.close_position(symbol, current_price, reason)
                     closed_symbols.append(symbol)
@@ -296,6 +336,224 @@ class ExecutionService:
                 logger.error(f"Error monitoring {symbol}: {e}")
         
         return closed_symbols
+    
+    async def validate_position_signal(self, symbol: str, position: Position, current_price: float) -> Dict[str, Any]:
+        """
+        驗證持倉信號是否仍然有效。
+        
+        檢查項目：
+        1. 市場結構是否反轉
+        2. 當前信號方向是否與開倉方向一致
+        3. 信心度是否大幅下降
+        4. 關鍵指標是否反轉
+        
+        Args:
+            symbol: Trading symbol
+            position: Current position
+            current_price: Current market price
+            
+        Returns:
+            {
+                'action': 'HOLD' | 'CLOSE' | 'ADJUST' | 'WARN',
+                'reason': str,
+                'details': str,
+                'new_stop_loss': float (optional),
+                'new_take_profit': float (optional)
+            }
+        """
+        try:
+            # 獲取最新市場數據（使用配置的時間框架）
+            klines = await self.data_service.fetch_klines(
+                symbol=symbol,
+                timeframe=self.timeframe,  # 使用與開倉一致的時間框架
+                limit=200,
+                force_refresh=False  # 使用緩存以減少 API 壓力
+            )
+            
+            # 如果無法獲取數據，返回警告（而非靜默 HOLD）
+            if klines is None or klines.empty:
+                logger.warning(f"{symbol} 無法獲取市場數據，無法驗證信號")
+                # 如果開倉時信心度很高，發送警告
+                if position.confidence >= 80.0:
+                    return {
+                        'action': 'WARN',
+                        'reason': 'no_validation_data',
+                        'details': '無法獲取市場數據進行驗證，建議檢查 API 連接'
+                    }
+                return {'action': 'HOLD', 'reason': 'no_data', 'details': '無法獲取市場數據'}
+            
+            # 重新分析當前市場
+            symbols_data = {symbol: (klines, current_price)}
+            signals = await self.strategy_engine.analyze_batch(symbols_data)
+            
+            # 如果沒有新信號
+            if not signals:
+                # 檢查是否市場結構已經中性化（沒有明確方向）
+                if position.confidence >= 85.0:  # 如果開倉時信心度很高
+                    return {
+                        'action': 'WARN',
+                        'reason': 'signal_weakened',
+                        'details': '市場信號消失，但尚未反轉，建議密切關注'
+                    }
+                return {'action': 'HOLD', 'reason': 'neutral', 'details': '市場中性，繼續持倉'}
+            
+            # 找到對應的交易對信號（修復：不要盲目取 signals[0]）
+            current_signal = None
+            for sig in signals:
+                if sig.symbol == symbol:
+                    current_signal = sig
+                    break
+            
+            if current_signal is None:
+                logger.warning(f"未找到 {symbol} 的信號，但策略返回了其他信號")
+                return {'action': 'HOLD', 'reason': 'no_matching_signal', 'details': '未找到匹配的信號'}
+            
+            # === 檢查 1：方向是否反轉 ===
+            if current_signal.action != position.action:
+                return {
+                    'action': 'CLOSE',
+                    'reason': 'signal-reversal',
+                    'details': f'市場信號反轉：原{position.action}，現{current_signal.action}（信心度{current_signal.confidence:.1f}%）'
+                }
+            
+            # === 檢查 2：信心度是否大幅下降 ===
+            confidence_drop = position.confidence - current_signal.confidence
+            
+            if confidence_drop > 20.0:  # 信心度下降超過20%
+                return {
+                    'action': 'CLOSE',
+                    'reason': 'confidence-drop',
+                    'details': f'信心度大幅下降：{position.confidence:.1f}% → {current_signal.confidence:.1f}%（下降{confidence_drop:.1f}%）'
+                }
+            elif confidence_drop > 10.0:  # 信心度下降10-20%
+                return {
+                    'action': 'WARN',
+                    'reason': 'confidence-weakening',
+                    'details': f'信心度下降：{position.confidence:.1f}% → {current_signal.confidence:.1f}%'
+                }
+            
+            # === 檢查 3：信心度是否提升（可以放寬止損）===
+            if current_signal.confidence > position.confidence + 5.0:
+                # 信心度提升，可以考慮調整止損/止盈
+                return {
+                    'action': 'ADJUST',
+                    'reason': 'confidence-improved',
+                    'details': f'信心度提升：{position.confidence:.1f}% → {current_signal.confidence:.1f}%',
+                    'new_stop_loss': current_signal.stop_loss,  # 使用新的止損
+                    'new_take_profit': current_signal.take_profit  # 使用新的止盈
+                }
+            
+            # === 檢查 4：價格是否偏離預期太遠 ===
+            if position.action == 'BUY':
+                # 做多倉位，如果價格跌破入場價太多但還沒觸及止損
+                price_drop_pct = (position.entry_price - current_price) / position.entry_price * 100
+                if price_drop_pct > 2.0 and current_signal.confidence < 75.0:
+                    return {
+                        'action': 'WARN',
+                        'reason': 'adverse-movement',
+                        'details': f'價格逆向移動{price_drop_pct:.2f}%，當前信心度{current_signal.confidence:.1f}%'
+                    }
+            else:  # SELL
+                # 做空倉位，如果價格漲超入場價太多但還沒觸及止損
+                price_rise_pct = (current_price - position.entry_price) / position.entry_price * 100
+                if price_rise_pct > 2.0 and current_signal.confidence < 75.0:
+                    return {
+                        'action': 'WARN',
+                        'reason': 'adverse-movement',
+                        'details': f'價格逆向移動{price_rise_pct:.2f}%，當前信心度{current_signal.confidence:.1f}%'
+                    }
+            
+            # 一切正常，繼續持倉
+            return {'action': 'HOLD', 'reason': 'valid', 'details': '信號仍然有效'}
+            
+        except Exception as e:
+            logger.error(f"Error validating signal for {symbol}: {e}")
+            return {'action': 'HOLD', 'reason': 'error', 'details': f'驗證錯誤: {str(e)}'}
+    
+    async def adjust_position_levels(self, symbol: str, position: Position, validation_result: Dict[str, Any]):
+        """
+        動態調整倉位的止損/止盈水平。
+        
+        Args:
+            symbol: Trading symbol
+            position: Current position
+            validation_result: Validation result with new levels
+        """
+        try:
+            new_sl = validation_result.get('new_stop_loss')
+            new_tp = validation_result.get('new_take_profit')
+            
+            if new_sl is None and new_tp is None:
+                return
+            
+            old_sl = position.stop_loss
+            old_tp = position.take_profit
+            
+            # === 驗證新的止損/止盈是否合理（不能比原來更寬鬆） ===
+            # 對於多頭倉位
+            if position.action == 'BUY':
+                # 止損不能比原來更低（更寬鬆）
+                if new_sl is not None and new_sl < old_sl:
+                    logger.warning(f"{symbol} 新止損 {new_sl:.4f} 比原止損 {old_sl:.4f} 更寬鬆，拒絕調整")
+                    new_sl = None  # 拒絕調整
+                # 止盈可以調高（更保守）但不能調低
+                if new_tp is not None and new_tp < old_tp:
+                    logger.warning(f"{symbol} 新止盈 {new_tp:.4f} 比原止盈 {old_tp:.4f} 更差，使用原值")
+                    new_tp = old_tp  # 保持原值
+            else:  # SELL
+                # 止損不能比原來更高（更寬鬆）
+                if new_sl is not None and new_sl > old_sl:
+                    logger.warning(f"{symbol} 新止損 {new_sl:.4f} 比原止損 {old_sl:.4f} 更寬鬆，拒絕調整")
+                    new_sl = None  # 拒絕調整
+                # 止盈可以調低（更保守）但不能調高
+                if new_tp is not None and new_tp > old_tp:
+                    logger.warning(f"{symbol} 新止盈 {new_tp:.4f} 比原止盈 {old_tp:.4f} 更差，使用原值")
+                    new_tp = old_tp  # 保持原值
+            
+            # 如果調整被完全拒絕，返回
+            if new_sl is None and new_tp is None:
+                logger.info(f"{symbol} 動態調整被拒絕（風險保護）")
+                return
+            
+            # 更新倉位
+            if new_sl is not None:
+                position.stop_loss = new_sl
+            else:
+                new_sl = old_sl  # 用於日誌顯示
+            
+            if new_tp is not None:
+                position.take_profit = new_tp
+            else:
+                new_tp = old_tp  # 用於日誌顯示
+            
+            # 更新 risk manager
+            if symbol in self.risk_manager.open_positions:
+                self.risk_manager.open_positions[symbol]['stop_loss'] = position.stop_loss
+                self.risk_manager.open_positions[symbol]['take_profit'] = position.take_profit
+            
+            logger.info(
+                f"🔄 {symbol} 動態調整止損/止盈:\n"
+                f"   止損: {old_sl:.4f} → {new_sl:.4f}\n"
+                f"   止盈: {old_tp:.4f} → {new_tp:.4f}\n"
+                f"   原因: {validation_result['details']}"
+            )
+            
+            # 發送 Discord 通知
+            if self.discord:
+                await self.discord.send_notification(
+                    f"🔄 **動態調整倉位** - {symbol}\n"
+                    f"方向: {position.action}\n"
+                    f"原因: {validation_result['details']}\n\n"
+                    f"**止損調整**\n"
+                    f"舊: {old_sl:.4f}\n"
+                    f"新: {new_sl:.4f}\n\n"
+                    f"**止盈調整**\n"
+                    f"舊: {old_tp:.4f}\n"
+                    f"新: {new_tp:.4f}"
+                )
+            
+        except Exception as e:
+            logger.error(f"Error adjusting position levels for {symbol}: {e}")
     
     async def close_position(self, symbol: str, price: float, reason: str = "manual") -> bool:
         """
