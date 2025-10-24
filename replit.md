@@ -11,7 +11,29 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 
 ### Recent Updates (v3.2 - 2025-10-24)
 
-#### 🎯 Multi-Timeframe Trading Strategy (Latest)
+#### 🔧 System Optimization (Latest - 2025-10-24 PM)
+**Implementation**: API 使用率優化與虛擬倉位穩定性改進
+
+1. **虛擬倉位價格獲取優化** (`virtual_position_tracker.py`)
+   - 添加智能重試機制（最多 3 次嘗試，間隔 0.5 秒）
+   - 改進日誌策略：首次失敗使用 debug 級別，避免日誌刷屏
+   - 失敗時保留虛擬倉位供下一週期檢查（而非直接跳過）
+   - 重試成功時記錄成功信息
+   - 確保虛擬倉位使用市價單（當下價格）記錄
+
+2. **無效交易對黑名單** (`binance_client.py`)
+   - 添加 INVALID_SYMBOLS 常量，包含 38 個已下架或不存在的交易對
+   - 自動過濾黑名單中的交易對，減少 API 調用
+   - 記錄過濾統計日誌
+   - 預期減少約 5-6% 的 API 請求量
+
+**效果**：
+- ✅ 消除 "Invalid symbol" API 錯誤
+- ✅ 提高虛擬倉位價格獲取成功率
+- ✅ 減少不必要的 API 調用
+- ✅ 改善系統穩定性和日誌可讀性
+
+#### 🎯 Multi-Timeframe Trading Strategy
 **Implementation**: 使用15分鐘K線定義趨勢，1分鐘K線執行交易
 1. **15分鐘趨勢分析** (`get_15m_trend()`)
    - 使用 EMA200 判斷整體趨勢方向（價格 > EMA200 = 多頭，否則 = 空頭）
