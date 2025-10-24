@@ -10,7 +10,13 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **🔧 CRITICAL FIX - 技術指標計算修復** (LATEST): 修復導致 0 signals 的嚴重 bug
+- **🔧 CRITICAL FIX - 數量格式化修復** (LATEST): 修復 Binance API 科學計數法錯誤
+  - **問題**：小數量使用科學計數法（6.593e-05）導致 Binance API 拒絕訂單
+  - **症狀**：`APIError(code=-1100): Illegal characters found in parameter 'quantity'`
+  - **修復**：添加 `format_quantity()` 方法，根據 LOT_SIZE 過濾器正確格式化數量
+  - **實現**：使用 `binance.helpers.round_step_size()` 確保符合交易對精度要求
+  - **部署**：2025-10-24 16:00 UTC 已部署到 Railway EU
+- **🔧 CRITICAL FIX - 技術指標計算修復**: 修復導致 0 signals 的嚴重 bug
   - **問題**：主循環未調用 `TechnicalIndicators.calculate_all_indicators()`
   - **症狀**：大量 "Missing required indicators: 'macd'" 錯誤，導致 0 signals generated
   - **修復**：在 main_v3.py 第 366 行添加指標計算邏輯
