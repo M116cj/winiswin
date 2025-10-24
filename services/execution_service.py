@@ -31,6 +31,7 @@ class Position:
     confidence: float
     allocated_capital: float
     leverage: float = 1.0
+    trade_id: Optional[str] = None  # 用於關聯開倉和平倉的 ML 數據
 
 
 class ExecutionService:
@@ -211,7 +212,29 @@ class ExecutionService:
                 'position_value': position_params['position_value'],
                 'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
             }
+            # 保持向後兼容的簡單記錄
             self.trade_logger.log_trade(trade_data)
+            
+            # 新增：記錄詳細的 ML 訓練數據（開倉）
+            try:
+                trade_id = self.trade_logger.log_position_entry(
+                    trade_data=trade_data,
+                    binance_client=self.binance,
+                    timeframe=self.timeframe
+                )
+                # 修復問題 2.4：處理 trade_id 缺失情況
+                if trade_id:
+                    position.trade_id = trade_id
+                    logger.debug(f"Assigned trade_id {trade_id} to position {signal.symbol}")
+                else:
+                    # 降級處理：生成臨時 trade_id（避免平倉時無法記錄）
+                    position.trade_id = f"{signal.symbol}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_fallback"
+                    logger.warning(f"log_position_entry failed, using fallback trade_id: {position.trade_id}")
+            except Exception as e:
+                logger.error(f"Failed to log position entry for ML: {e}")
+                logger.exception(e)
+                # 即使失敗，也生成一個降級的 trade_id
+                position.trade_id = f"{signal.symbol}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_error"
         
         # Send Discord notification for new position
         if self.discord:
@@ -903,7 +926,69 @@ class ExecutionService:
                 'hit_stop_loss': 'STOP' in reason.upper(),
                 'hit_take_profit': 'PROFIT' in reason.upper() or 'TARGET' in reason.upper()
             }
+            # 保持向後兼容的簡單記錄
             self.trade_logger.log_trade(trade_data)
+            
+            # 新增：記錄詳細的 ML 訓練數據（平倉）
+            try:
+                # 獲取當前市場數據（用於記錄平倉時的技術指標）
+                exit_metadata = {}
+                if self.data_service:
+                    try:
+                        klines = await self.data_service.fetch_klines(
+                            symbol=symbol,
+                            timeframe=self.timeframe,
+                            limit=200,
+                            force_refresh=False
+                        )
+                        if klines is not None and not klines.empty:
+                            # 提取最新的技術指標（修復問題 2.2：添加導入錯誤處理）
+                            try:
+                                from utils.indicators import calculate_indicators
+                            except ImportError as e:
+                                logger.error(f"Failed to import calculate_indicators: {e}")
+                                raise
+                            
+                            indicators_df = calculate_indicators(klines)
+                            if not indicators_df.empty:
+                                latest = indicators_df.iloc[-1]
+                                exit_metadata = {
+                                    'macd': latest.get('macd'),
+                                    'macd_signal': latest.get('macd_signal'),
+                                    'ema_9': latest.get('ema_9'),
+                                    'ema_21': latest.get('ema_21'),
+                                    'ema_50': latest.get('ema_50'),
+                                    'ema_200': latest.get('ema_200'),
+                                    'atr': latest.get('atr'),
+                                    'rsi': latest.get('rsi')
+                                }
+                    except Exception as e:
+                        logger.warning(f"Failed to fetch exit metadata for {symbol}: {e}")
+                
+                # 修復問題 2.1：確保 exit_data 包含所有必要字段
+                exit_data = {
+                    'trade_id': getattr(position, 'trade_id', None),
+                    'symbol': symbol,
+                    'side': position.action,  # 從 position 對象獲取 side（修復 2.1）
+                    'entry_price': position.entry_price,  # 從 position 對象獲取 entry_price（修復 2.1）
+                    'exit_price': price,
+                    'exit_reason': reason,
+                    'pnl': pnl,
+                    'pnl_percent': pnl_pct,
+                    'holding_duration_minutes': (datetime.now() - position.opened_at).total_seconds() / 60,
+                    'entry_time': position.opened_at,
+                    'exit_time': datetime.now(),
+                    'metadata': exit_metadata
+                }
+                
+                self.trade_logger.log_position_exit(
+                    trade_data=exit_data,
+                    binance_client=self.binance,
+                    timeframe=self.timeframe
+                )
+            except Exception as e:
+                logger.error(f"Failed to log position exit for ML: {e}")
+                logger.exception(e)
         
         # Send Discord notification for closed position
         if self.discord:
