@@ -201,6 +201,10 @@ class ExecutionService:
     
     async def _notify_position_opened(self, position: Position, position_params: Dict):
         """Send Discord notification when position is opened."""
+        if not self.discord:
+            logger.warning("Discord bot not available, skipping notification")
+            return
+            
         try:
             trade_info = {
                 'type': 'OPEN',
@@ -220,6 +224,7 @@ class ExecutionService:
             await self.discord.send_trade_notification(trade_info)
         except Exception as e:
             logger.error(f"Failed to send Discord notification: {e}")
+            logger.exception(e)
     
     async def _place_order(self, symbol: str, action: str, quantity: float) -> Optional[Dict]:
         """
@@ -236,6 +241,8 @@ class ExecutionService:
         try:
             side = 'BUY' if action == 'BUY' else 'SELL'
             
+            logger.info(f"{'[LIVE]' if self.enable_trading else '[SIM]'} Placing {side} order: {symbol} qty={quantity}")
+            
             order = self.binance.create_order(
                 symbol=symbol,
                 side=side,
@@ -243,10 +250,16 @@ class ExecutionService:
                 quantity=quantity
             )
             
+            if order:
+                logger.info(f"✅ Order placed successfully: {order.get('orderId', 'N/A')}")
+            else:
+                logger.warning(f"⚠️  Order returned None (trading may be disabled)")
+            
             return order
             
         except Exception as e:
-            logger.error(f"Order placement failed: {e}")
+            logger.error(f"❌ Order placement failed for {symbol}: {e}")
+            logger.exception(e)
             return None
     
     async def monitor_positions(self) -> List[str]:

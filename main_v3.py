@@ -85,6 +85,8 @@ class TradingBotV3:
             enable_trading=Config.ENABLE_TRADING
         )
         
+        logger.info(f"⚙️  Trading mode: {'🔴 LIVE' if Config.ENABLE_TRADING else '🟡 SIMULATION'}")
+        
         # 註冊平倉後立即重新掃描回調
         self.execution_service.on_position_closed_callback = self.rescan_symbol_immediately
         logger.info("Registered position closed callback for immediate rescan")
@@ -110,6 +112,18 @@ class TradingBotV3:
         logger.info("\n" + "="*70)
         logger.info("Initializing Trading Bot")
         logger.info("="*70)
+        
+        # 運行健康檢查（僅在實盤模式）
+        if Config.ENABLE_TRADING:
+            logger.info("🏥 實盤模式：運行啟動健康檢查...")
+            try:
+                from health_check import HealthChecker
+                checker = HealthChecker()
+                health_ok = await checker.run_all_checks()
+                if not health_ok:
+                    logger.error("⚠️  健康檢查未完全通過，但繼續啟動（請檢查警告）")
+            except Exception as e:
+                logger.warning(f"健康檢查執行失敗: {e}，繼續啟動")
         
         # Get trading symbols based on mode
         try:
