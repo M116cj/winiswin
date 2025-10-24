@@ -82,7 +82,8 @@ class TradingBotV3:
             binance_client=self.binance,
             risk_manager=self.risk_manager,
             discord_bot=self.discord,
-            enable_trading=Config.ENABLE_TRADING
+            enable_trading=Config.ENABLE_TRADING,
+            trade_logger=self.trade_logger  # 📊 傳遞 trade_logger 供 XGBoost 學習
         )
         
         logger.info(f"⚙️  Trading mode: {'🔴 LIVE' if Config.ENABLE_TRADING else '🟡 SIMULATION'}")

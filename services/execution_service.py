@@ -36,7 +36,7 @@ class Position:
 class ExecutionService:
     """Service for executing and managing trades."""
     
-    def __init__(self, binance_client, risk_manager, discord_bot=None, enable_trading: bool = False):
+    def __init__(self, binance_client, risk_manager, discord_bot=None, enable_trading: bool = False, trade_logger=None):
         """
         Initialize execution service.
         
@@ -45,11 +45,13 @@ class ExecutionService:
             risk_manager: Risk management instance
             discord_bot: Discord bot for notifications
             enable_trading: Enable live trading
+            trade_logger: Trade logger for ML training data
         """
         self.binance = binance_client
         self.risk_manager = risk_manager
         self.discord = discord_bot
         self.enable_trading = enable_trading
+        self.trade_logger = trade_logger
         
         self.positions: Dict[str, Position] = {}
         self.max_positions = 3
@@ -219,6 +221,29 @@ class ExecutionService:
         # 🔒 設置交易所級別的止損/止盈訂單（關鍵安全功能）
         if self.enable_trading:
             await self._set_stop_loss_take_profit(position)
+        
+        # 📊 記錄開倉數據供 XGBoost 學習
+        if self.trade_logger:
+            trade_data = {
+                'type': 'OPEN',
+                'symbol': signal.symbol,
+                'side': signal.action,
+                'entry_price': signal.price,
+                'quantity': position_params['quantity'],
+                'stop_loss': signal.stop_loss,
+                'take_profit': signal.take_profit,
+                'leverage': position_params.get('leverage', 1.0),
+                'confidence': signal.confidence,
+                'expected_roi': signal.expected_roi,
+                'strategy': signal.strategy,
+                'reason': signal.reason,
+                # 技術指標 (供 XGBoost 學習)
+                'metadata': signal.metadata,  # 包含 MACD, EMA, ATR, structure 等
+                'allocated_capital': allocated_capital,
+                'position_value': position_params['quantity'] * signal.price,
+                'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
+            }
+            self.trade_logger.log_trade(trade_data)
         
         # Send Discord notification for new position
         if self.discord:
@@ -879,6 +904,33 @@ class ExecutionService:
             f"Closed {symbol} @ {price:.4f} ({reason}): "
             f"PnL = {pnl:.2f} USDT ({pnl_pct:+.2f}%)"
         )
+        
+        # 📊 記錄平倉數據供 XGBoost 學習
+        if self.trade_logger:
+            trade_data = {
+                'type': 'CLOSE',
+                'symbol': symbol,
+                'side': position.action,
+                'entry_price': position.entry_price,
+                'exit_price': price,
+                'quantity': position.quantity,
+                'stop_loss': position.stop_loss,
+                'take_profit': position.take_profit,
+                'leverage': position.leverage,
+                'pnl': pnl,
+                'pnl_percent': pnl_pct,
+                'reason': reason,
+                'strategy': position.strategy,
+                'confidence': position.confidence,
+                'allocated_capital': position.allocated_capital,
+                'duration_hours': (datetime.now() - position.opened_at).total_seconds() / 3600,
+                'mode': 'LIVE' if self.enable_trading else 'SIMULATION',
+                # 交易結果標記 (供 XGBoost 學習)
+                'is_winner': pnl > 0,
+                'hit_stop_loss': 'STOP' in reason.upper(),
+                'hit_take_profit': 'PROFIT' in reason.upper() or 'TARGET' in reason.upper()
+            }
+            self.trade_logger.log_trade(trade_data)
         
         # Send Discord notification for closed position
         if self.discord:
