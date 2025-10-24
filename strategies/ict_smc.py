@@ -40,10 +40,11 @@ class ICTSMCStrategy:
             if ob_body <= 0 or next_body < 1.2 * ob_body:
                 return False
             
-            # 驗證 3：5 根 K 棒不回測 OB 低點
+            # 驗證 3：5 根 K 棒不回測 OB 低點（檢查低點，不是收盤價）
             ob_low = df.iloc[idx]['low']
             for i in range(1, min(6, len(df) - idx)):
-                if df.iloc[idx + i]['close'] < ob_low:
+                # 任何 K 棒的低點觸及或低於 OB 低點，即為回測
+                if df.iloc[idx + i]['low'] <= ob_low:
                     return False
             
             return True
@@ -60,10 +61,11 @@ class ICTSMCStrategy:
             if ob_body <= 0 or next_body < 1.2 * ob_body:
                 return False
             
-            # 驗證 3：5 根 K 棒不回測 OB 高點
+            # 驗證 3：5 根 K 棒不回測 OB 高點（檢查高點，不是收盤價）
             ob_high = df.iloc[idx]['high']
             for i in range(1, min(6, len(df) - idx)):
-                if df.iloc[idx + i]['close'] > ob_high:
+                # 任何 K 棒的高點觸及或高於 OB 高點，即為回測
+                if df.iloc[idx + i]['high'] >= ob_high:
                     return False
             
             return True
