@@ -112,3 +112,4 @@ The project includes comprehensive documentation in the `docs/` directory:
 2. **`docs/error_handling.md`**: Error handling patterns and retry mechanisms
 3. **`docs/indicators.md`**: Technical indicator implementations and validations
 4. **`docs/implementation_comparison.md`**: Comparison report between v2.0 template and v3.0 implementation
+5. **`docs/v2_vs_v3_strategy_comparison.md`**: Detailed comparison between v2.0 optimized strategy and v3.0 current implementation, with integration recommendations
