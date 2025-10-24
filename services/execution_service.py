@@ -216,11 +216,90 @@ class ExecutionService:
             f"(confidence: {signal.confidence:.1f}%)"
         )
         
+        # 🔒 設置交易所級別的止損/止盈訂單（關鍵安全功能）
+        if self.enable_trading:
+            await self._set_stop_loss_take_profit(position)
+        
         # Send Discord notification for new position
         if self.discord:
             await self._notify_position_opened(position, position_params)
         
         return True
+    
+    async def _set_stop_loss_take_profit(self, position: Position):
+        """
+        在交易所設置止損/止盈訂單（關鍵安全功能）
+        
+        Args:
+            position: 倉位對象
+        """
+        try:
+            symbol = position.symbol
+            quantity = position.quantity
+            
+            # 確定平倉方向和持倉側
+            # LONG 倉位 (BUY 開倉) → SELL 平倉，positionSide=LONG
+            # SHORT 倉位 (SELL 開倉) → BUY 平倉，positionSide=SHORT
+            if position.action == 'BUY':
+                close_side = 'SELL'
+                position_side = 'LONG'
+            else:
+                close_side = 'BUY'
+                position_side = 'SHORT'
+            
+            logger.info(
+                f"🔒 Setting exchange-level protection for {symbol} {position_side}: "
+                f"SL @ {position.stop_loss:.8f}, TP @ {position.take_profit:.8f}"
+            )
+            
+            # 設置止損訂單
+            sl_order = self.binance.set_stop_loss_order(
+                symbol=symbol,
+                side=close_side,
+                quantity=quantity,
+                stop_price=position.stop_loss,
+                position_side=position_side
+            )
+            
+            if sl_order:
+                logger.info(f"✅ Stop-loss order set successfully for {symbol}")
+            else:
+                logger.error(f"❌ Failed to set stop-loss for {symbol}")
+            
+            # 設置止盈訂單
+            tp_order = self.binance.set_take_profit_order(
+                symbol=symbol,
+                side=close_side,
+                quantity=quantity,
+                tp_price=position.take_profit,
+                position_side=position_side
+            )
+            
+            if tp_order:
+                logger.info(f"✅ Take-profit order set successfully for {symbol}")
+            else:
+                logger.error(f"❌ Failed to set take-profit for {symbol}")
+            
+            # 如果兩個訂單都失敗，發出嚴重警告
+            if not sl_order and not tp_order:
+                logger.critical(
+                    f"🚨 CRITICAL: Failed to set ANY protection orders for {symbol}! "
+                    f"Position is UNPROTECTED!"
+                )
+                # 可選：發送 Discord 緊急通知
+                if self.discord:
+                    try:
+                        await self.discord.send_alert(
+                            f"🚨 **CRITICAL ALERT**\n\n"
+                            f"Failed to set stop-loss/take-profit for {symbol}!\n"
+                            f"Position is UNPROTECTED - manual intervention required!"
+                        )
+                    except Exception as e:
+                        logger.error(f"Failed to send Discord alert: {e}")
+            
+        except Exception as e:
+            logger.error(f"Error setting stop-loss/take-profit for {position.symbol}: {e}")
+            logger.exception(e)
     
     async def _notify_position_opened(self, position: Position, position_params: Dict):
         """Send Discord notification when position is opened."""
