@@ -105,7 +105,7 @@ class BinanceDataClient:
     )
     def get_ticker_price(self, symbol):
         """
-        獲取最新價格（輕量級，快速重試）
+        獲取期貨合約最新價格（輕量級，快速重試）
         
         重試策略：
         - 第 1 次失敗：等待 0.5 秒
@@ -115,7 +115,8 @@ class BinanceDataClient:
         if not self.client:
             raise RuntimeError("Binance client not initialized")
         
-        ticker = self.client.get_symbol_ticker(symbol=symbol)
+        # ✅ 使用期貨 API 獲取價格
+        ticker = self.client.futures_symbol_ticker(symbol=symbol)
         return float(ticker['price'])
     
     def get_account_balance(self):
@@ -313,6 +314,7 @@ class BinanceDataClient:
             return quantity
     
     def place_order(self, symbol, side, order_type, quantity, price=None):
+        """Place futures order (U本位合約)."""
         if not Config.ENABLE_TRADING:
             logger.warning("Trading is disabled. Set ENABLE_TRADING=true to enable.")
             return None
@@ -332,15 +334,17 @@ class BinanceDataClient:
                 logger.error(f"❌ Order rejected: {symbol} cannot meet MIN_NOTIONAL requirement")
                 return None
             
+            # ✅ 使用期貨 API (futures_create_order)
             if order_type == 'MARKET':
-                order = self.client.create_order(
+                order = self.client.futures_create_order(
                     symbol=symbol,
                     side=side,
                     type=order_type,
                     quantity=formatted_quantity
                 )
             else:
-                order = self.client.create_order(
+                # 限價單需要 timeInForce
+                order = self.client.futures_create_order(
                     symbol=symbol,
                     side=side,
                     type=order_type,
@@ -349,11 +353,11 @@ class BinanceDataClient:
                     timeInForce='GTC'
                 )
             
-            logger.info(f"Order placed: {order}")
+            logger.info(f"✅ Futures order placed: {order.get('orderId', 'N/A')}")
             return order
         
         except Exception as e:
-            logger.error(f"Error placing order: {e}")
+            logger.error(f"❌ Futures order failed: {e}")
             return None
     
     def get_all_usdt_perpetual_pairs(self):
