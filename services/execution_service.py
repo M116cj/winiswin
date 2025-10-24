@@ -106,10 +106,7 @@ class ExecutionService:
             self.stats['trades_rejected'] += 1
             return False
         
-        # Get allocated capital for this position
-        allocated_capital = self.risk_manager.get_allocated_capital()
-        
-        # 計算動態槓桿
+        # 計算動態槓桿（基於勝率或信心度）
         atr = signal.metadata.get('atr', 0)
         current_price = signal.metadata.get('current_price', signal.price)
         leverage = self.risk_manager.calculate_dynamic_leverage(
@@ -118,49 +115,19 @@ class ExecutionService:
             current_price=current_price
         )
         
-        # Calculate position size with risk management
+        # 計算倉位大小（使用新的保證金比例系統：3%-13%）
         position_params = self.risk_manager.calculate_position_size(
-            signal.symbol,
-            signal.price,
-            signal.stop_loss,
-            allocated_capital
+            symbol=signal.symbol,
+            entry_price=signal.price,
+            stop_loss_price=signal.stop_loss,
+            confidence=signal.confidence,  # 用於計算保證金比例（3%-13%）
+            leverage=leverage               # 用於計算倉位價值
         )
         
         if not position_params:
             logger.warning(f"Risk check failed for {signal.symbol}")
             self.stats['trades_rejected'] += 1
             return False
-        
-        # 🔧 正確的槓桿邏輯：槓桿影響倉位價值，而不是簡單乘以數量
-        # allocated_capital = 保證金（如 14.85 USDT）
-        # 倉位價值 = 保證金 * 槓桿（如 14.85 * 12 = 178.2 USDT）
-        # 數量 = 倉位價值 / 價格
-        
-        if leverage > 1.0:
-            # 計算正確的槓桿倉位
-            # 當前的 quantity 是基於 0.3% 風險計算的（太小）
-            # 我們需要基於分配資金和槓桿重新計算
-            
-            position_value = allocated_capital * leverage
-            correct_quantity = position_value / signal.price
-            
-            # 限制：確保不超過最大倉位大小（0.5% 總資金）
-            max_position_value = allocated_capital * (self.risk_manager.max_position_size / self.risk_manager.capital_per_position)
-            max_quantity = max_position_value * leverage / signal.price
-            
-            final_quantity = min(correct_quantity, max_quantity)
-            
-            position_params['quantity'] = final_quantity
-            position_params['leverage'] = leverage
-            
-            logger.info(
-                f"📊 槓桿倉位計算: 保證金=${allocated_capital:.2f}, "
-                f"槓桿={leverage:.2f}x, 倉位價值=${position_value:.2f}, "
-                f"數量={final_quantity:.6f}"
-            )
-        else:
-            position_params['leverage'] = 1.0
-            logger.info(f"No leverage applied (leverage = 1.0x)")
         
         # Execute trade
         if self.enable_trading:
@@ -193,8 +160,8 @@ class ExecutionService:
             opened_at=datetime.now(),
             strategy=signal.strategy,
             confidence=signal.confidence,
-            allocated_capital=allocated_capital,
-            leverage=position_params.get('leverage', 1.0)
+            allocated_capital=position_params['margin'],  # 保證金
+            leverage=position_params['leverage']
         )
         
         # Add to risk manager
@@ -232,15 +199,16 @@ class ExecutionService:
                 'quantity': position_params['quantity'],
                 'stop_loss': signal.stop_loss,
                 'take_profit': signal.take_profit,
-                'leverage': position_params.get('leverage', 1.0),
+                'leverage': position_params['leverage'],
                 'confidence': signal.confidence,
                 'expected_roi': signal.expected_roi,
                 'strategy': signal.strategy,
                 'reason': signal.reason,
                 # 技術指標 (供 XGBoost 學習)
                 'metadata': signal.metadata,  # 包含 MACD, EMA, ATR, structure 等
-                'allocated_capital': allocated_capital,
-                'position_value': position_params['quantity'] * signal.price,
+                'margin': position_params['margin'],
+                'margin_percent': position_params['margin_percent'],
+                'position_value': position_params['position_value'],
                 'mode': 'LIVE' if self.enable_trading else 'SIMULATION'
             }
             self.trade_logger.log_trade(trade_data)

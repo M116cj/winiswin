@@ -91,9 +91,101 @@ class RiskManager:
             # 發生錯誤時，返回進場價格（保守做法）
             return entry_price
     
+    def get_win_rate(self):
+        """獲取當前勝率"""
+        if self.total_trades == 0:
+            return 0.0
+        return (self.winning_trades / self.total_trades) * 100
+    
+    def calculate_win_rate_based_leverage(self):
+        """
+        基於勝率計算槓桿倍數
+        
+        勝率分級：
+        - >= 60%: 高槓桿 15-20x
+        - 50-60%: 中高槓桿 10-15x
+        - 40-50%: 中槓桿 5-10x
+        - < 40%: 低槓桿 3-5x
+        - 無記錄: 保守 3x
+        
+        Returns:
+            槓桿倍數 (3.0-20.0x)
+        """
+        win_rate = self.get_win_rate()
+        
+        # 無交易記錄：使用最保守槓桿
+        if self.total_trades < 10:
+            logger.info(f"📊 交易記錄不足 ({self.total_trades} 筆)，使用保守槓桿 3x")
+            return 3.0
+        
+        # 根據勝率計算槓桿
+        if win_rate >= 60.0:
+            # 勝率 >= 60%: 15-20x（線性插值）
+            leverage = 15.0 + (win_rate - 60.0) * (5.0 / 40.0)  # 60% → 15x, 100% → 20x
+            level = "極高"
+        elif win_rate >= 50.0:
+            # 勝率 50-60%: 10-15x
+            leverage = 10.0 + (win_rate - 50.0) * (5.0 / 10.0)  # 50% → 10x, 60% → 15x
+            level = "高"
+        elif win_rate >= 40.0:
+            # 勝率 40-50%: 5-10x
+            leverage = 5.0 + (win_rate - 40.0) * (5.0 / 10.0)  # 40% → 5x, 50% → 10x
+            level = "中"
+        else:
+            # 勝率 < 40%: 3-5x
+            leverage = 3.0 + (win_rate / 40.0) * 2.0  # 0% → 3x, 40% → 5x
+            level = "低"
+        
+        # 限制在允許範圍內
+        leverage = max(Config.MIN_LEVERAGE, min(leverage, Config.MAX_LEVERAGE))
+        
+        logger.info(
+            f"🎯 勝率槓桿計算: 勝率={win_rate:.1f}% ({self.winning_trades}/{self.total_trades} 勝), "
+            f"風險等級={level}, 槓桿={leverage:.2f}x"
+        )
+        
+        return leverage
+    
+    def calculate_margin_percent(self, confidence):
+        """
+        根據信心度計算保證金比例（3%-13%）
+        
+        信心度分級：
+        - >= 90%: 高保證金 10-13%
+        - 80-90%: 中保證金 6-10%
+        - 70-80%: 低保證金 3-6%
+        
+        Args:
+            confidence: 信號信心度 (70-100)
+        
+        Returns:
+            保證金比例 (3.0-13.0%)
+        """
+        if confidence is None or np.isnan(confidence):
+            logger.warning(f"Invalid confidence {confidence}, using minimum margin")
+            return Config.MARGIN_MIN_PERCENT
+        
+        # 根據信心度計算保證金比例
+        if confidence >= 90.0:
+            # 90-100% 信心度: 10-13% 保證金
+            margin_percent = 10.0 + (confidence - 90.0) * (3.0 / 10.0)
+        elif confidence >= 80.0:
+            # 80-90% 信心度: 6-10% 保證金
+            margin_percent = 6.0 + (confidence - 80.0) * (4.0 / 10.0)
+        else:
+            # 70-80% 信心度: 3-6% 保證金
+            margin_percent = 3.0 + (confidence - 70.0) * (3.0 / 10.0)
+        
+        # 限制在允許範圍內
+        margin_percent = max(Config.MARGIN_MIN_PERCENT, min(margin_percent, Config.MARGIN_MAX_PERCENT))
+        
+        logger.info(f"💰 保證金計算: 信心度={confidence:.1f}% → 保證金比例={margin_percent:.2f}%")
+        
+        return margin_percent
+    
     def calculate_dynamic_leverage(self, confidence, atr, current_price):
         """
-        智能槓桿計算：根據信心度和市場波動性動態調整槓桿倍數
+        智能槓桿計算：根據配置選擇勝率模式或信心度模式
         
         Args:
             confidence: 信號信心度 (70-100)
@@ -101,11 +193,32 @@ class RiskManager:
             current_price: 當前價格
         
         Returns:
-            槓桿倍數 (1.0-2.0x)
+            槓桿倍數 (3.0-20.0x)
         """
         # 如果未啟用動態槓桿，返回預設值
         if not Config.ENABLE_DYNAMIC_LEVERAGE:
             return Config.DEFAULT_LEVERAGE
+        
+        # 選擇槓桿計算模式
+        if Config.LEVERAGE_MODE == 'win_rate':
+            # 勝率模式：根據歷史勝率計算
+            return self.calculate_win_rate_based_leverage()
+        else:
+            # 信心度模式：根據信號信心度計算（原有邏輯）
+            return self._calculate_confidence_based_leverage(confidence, atr, current_price)
+    
+    def _calculate_confidence_based_leverage(self, confidence, atr, current_price):
+        """
+        原有的基於信心度的槓桿計算（保留向下兼容）
+        
+        Args:
+            confidence: 信號信心度 (70-100)
+            atr: 平均真實波幅（ATR）
+            current_price: 當前價格
+        
+        Returns:
+            槓桿倍數 (3.0-20.0x)
+        """
         
         # 數據驗證
         if confidence is None or np.isnan(confidence) or confidence < 0:
@@ -170,15 +283,22 @@ class RiskManager:
             logger.error(f"Error calculating dynamic leverage: {e}")
             return Config.DEFAULT_LEVERAGE
     
-    def calculate_position_size(self, symbol, entry_price, stop_loss_price, allocated_capital=None):
+    def calculate_position_size(self, symbol, entry_price, stop_loss_price, confidence=None, leverage=None):
         """
-        Calculate position size with risk management.
+        計算倉位大小（基於保證金比例和槓桿）
+        
+        新邏輯：
+        1. 根據信心度計算保證金比例（3%-13%）
+        2. 保證金 = 總資金 × 保證金比例
+        3. 倉位價值 = 保證金 × 槓桿
+        4. 數量 = 倉位價值 / 進場價格
         
         Args:
-            symbol: Trading symbol
-            entry_price: Entry price
-            stop_loss_price: Stop loss price
-            allocated_capital: Capital allocated for this position (optional)
+            symbol: 交易對
+            entry_price: 進場價格
+            stop_loss_price: 止損價格
+            confidence: 信號信心度 (70-100)，用於計算保證金比例
+            leverage: 槓桿倍數（如果提供）
         
         Returns:
             Dict with position parameters or None if invalid
@@ -191,35 +311,44 @@ class RiskManager:
             logger.error("Cannot calculate position size: NaN values detected")
             return None
         
-        # Use provided capital or calculate from account
-        if allocated_capital is None:
-            allocated_capital = self.get_allocated_capital()
+        # 計算保證金比例（3%-13%，基於信心度）
+        if confidence is not None:
+            margin_percent = self.calculate_margin_percent(confidence)
+        else:
+            # 如果沒有信心度，使用最小保證金
+            margin_percent = Config.MARGIN_MIN_PERCENT
+            logger.warning(f"No confidence provided, using minimum margin: {margin_percent}%")
         
-        position_size = calculate_position_size(
-            allocated_capital,
-            self.risk_per_trade,
-            entry_price,
-            stop_loss_price
+        # 計算保證金金額
+        margin = self.account_balance * (margin_percent / 100.0)
+        
+        # 如果沒有提供槓桿，使用預設槓桿
+        if leverage is None:
+            leverage = Config.DEFAULT_LEVERAGE
+        
+        # 計算倉位價值（保證金 × 槓桿）
+        position_value = margin * leverage
+        
+        # 計算數量
+        quantity = position_value / entry_price
+        
+        logger.info(
+            f"📊 倉位計算: {symbol} - "
+            f"總資金=${self.account_balance:.2f}, "
+            f"保證金比例={margin_percent:.2f}%, "
+            f"保證金=${margin:.2f}, "
+            f"槓桿={leverage:.2f}x, "
+            f"倉位價值=${position_value:.2f}, "
+            f"數量={quantity:.6f}"
         )
         
-        if np.isnan(position_size) or position_size <= 0:
-            logger.error(f"Invalid position size calculated: {position_size}")
-            return None
-        
-        # Maximum position limit (based on allocated capital)
-        max_position_value = allocated_capital * (self.max_position_size / 100)
-        max_quantity = max_position_value / entry_price
-        
-        final_position_size = min(position_size, max_quantity)
-        
-        logger.info(f"Calculated position size: {final_position_size:.6f} "
-                   f"(Entry: {entry_price}, SL: {stop_loss_price}, "
-                   f"Capital allocated: ${allocated_capital:.2f})")
-        
         return {
-            'quantity': final_position_size,
-            'allocated_capital': allocated_capital,
-            'risk_amount': allocated_capital * (self.risk_per_trade / 100)
+            'quantity': quantity,
+            'margin': margin,
+            'margin_percent': margin_percent,
+            'position_value': position_value,
+            'leverage': leverage,
+            'risk_amount': margin  # 風險金額 = 保證金（最大可能損失）
         }
     
     def calculate_stop_loss(self, entry_price, atr, direction='LONG'):

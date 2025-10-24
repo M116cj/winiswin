@@ -40,6 +40,13 @@ class Config:
     MAX_CONCURRENT_POSITIONS = int(os.getenv('MAX_CONCURRENT_POSITIONS', '3'))
     CAPITAL_PER_POSITION_PERCENT = 100.0 / MAX_CONCURRENT_POSITIONS  # 33.33% per position
     
+    # 保證金配置（單個倉位的保證金佔總資金比例）
+    MARGIN_MIN_PERCENT = float(os.getenv('MARGIN_MIN_PERCENT', '3.0'))   # 最小保證金 3%
+    MARGIN_MAX_PERCENT = float(os.getenv('MARGIN_MAX_PERCENT', '13.0'))  # 最大保證金 13%
+    
+    # 槓桿計算模式
+    LEVERAGE_MODE = os.getenv('LEVERAGE_MODE', 'win_rate')  # 'win_rate' = 勝率模式, 'confidence' = 信心度模式
+    
     # 靜態交易對列表（備用）
     STATIC_SYMBOLS = [
         'BTCUSDT',   # Bitcoin

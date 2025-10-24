@@ -29,15 +29,20 @@ The bot has undergone a significant architectural overhaul to v3.0, transitionin
     - `MonitoringService`: Collects system metrics and manages alerts.
 - **Trading Strategy (ICT/SMC)**: Identifies order blocks, liquidity zones, and market structure. Uses MACD and EMA for confirmation and assigns a confidence score (70-100%). Includes OB triple validation, MSB amplitude filtering, and 1h trend filtering.
 - **Intelligent Position Selection**: Scans all 648 symbols, scores signals by confidence/expected ROI, sorts them, and opens positions only for the top 3 signals, dynamically managing existing positions.
-- **Advanced Risk Management**:
+- **Advanced Risk Management (v3.2)**:
     - Automatic account balance detection from Binance API (Spot + Futures USDT).
-    - Dual position limits based on 0.3% risk and a 0.5% maximum position size.
-    - Capital is divided into 3 equal parts, with each position using 33.33% of the allocated funds.
+    - **Variable Margin Sizing**: Each position uses 3%-13% of total capital as margin (based on signal confidence).
+    - **Win-Rate Based Leverage**: Leverage (3-20x) calculated from historical win rate:
+      - Win rate >= 60%: High leverage 15-20x
+      - Win rate 50-60%: Medium-high leverage 10-15x
+      - Win rate 40-50%: Medium leverage 5-10x
+      - Win rate < 40%: Low leverage 3-5x
+      - No history (<10 trades): Conservative 3x
+    - Position value = Margin × Leverage (e.g., $5.2 margin × 10x = $52 position).
     - Dynamic stop-loss/take-profit based on ATR.
     - Automatic drawdown alerts (5% triggers Discord alert).
     - Exchange-level stop-loss/take-profit orders for true position protection.
-    - Dynamic leverage adjustment based on signal confidence and market volatility.
-    - Min Notional validation to avoid trading low-value assets.
+    - Min Notional validation with +2% safety margin to prevent floating-point errors.
 - **Technical Indicators**: Uses pure Python/NumPy for MACD, Bollinger Bands, EMA, and ATR.
 - **Error Handling**: Implements exponential backoff retry decorators (`@retry_on_failure`, `@async_retry_on_failure`) and intelligent retry strategies for network and API errors.
 - **Dynamic Position Monitoring**: Continuously validates market conditions for open positions, detecting signal reversals, monitoring confidence changes, and dynamically adjusting stop-loss/take-profit levels.
