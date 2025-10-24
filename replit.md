@@ -43,7 +43,14 @@ The bot has undergone a significant architectural overhaul to v3.0, transitionin
 - **Dynamic Position Monitoring**: Continuously validates market conditions for open positions, detecting signal reversals, monitoring confidence changes, and dynamically adjusting stop-loss/take-profit levels.
 - **Immediate Rescan after Closure**: Forces a rescan of a trading pair immediately after a position is closed, maximizing capital utilization.
 - **Security**: API keys stored in environment variables, trading disabled by default, testnet mode for testing, and no withdrawal permissions on API keys.
-- **Optimized Timeframe**: Uses 15m K-lines for faster signal generation.
+- **High-Frequency Trading Mode (v3.1)**:
+    - Switched to 1-minute candles for rapid signal detection and execution
+    - Breakeven-based stop-loss/take-profit calculation accounting for leverage and fees
+    - Configurable risk/reward ratios (1:1 or 1:2) via RISK_REWARD_RATIO parameter
+    - Trading fees: Maker 0.02%, Taker 0.04% (configurable)
+    - Stop-loss positioned at breakeven ± 1.5 ATR buffer
+    - Take-profit calculated using: risk × RISK_REWARD_RATIO
+    - Optimized for short-term price movements with tight risk management
 
 ### External Dependencies
 - **Binance API**: For real-time market data, order placement, and account information.
