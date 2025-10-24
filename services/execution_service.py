@@ -54,6 +54,9 @@ class ExecutionService:
         self.positions: Dict[str, Position] = {}
         self.max_positions = 3
         
+        # Callback for position closed event (平倉後立即重新掃描)
+        self.on_position_closed_callback = None
+        
         # Statistics
         self.stats = {
             'total_signals_received': 0,
@@ -344,6 +347,14 @@ class ExecutionService:
         # Send Discord notification for closed position
         if self.discord:
             await self._notify_position_closed(position, price, pnl, pnl_pct, reason)
+        
+        # 觸發平倉後立即重新掃描回調
+        if self.on_position_closed_callback:
+            try:
+                logger.info(f"🔄 觸發 {symbol} 立即重新掃描回調")
+                asyncio.create_task(self.on_position_closed_callback(symbol))
+            except Exception as e:
+                logger.error(f"執行平倉回調時發生錯誤: {e}")
         
         return True
     

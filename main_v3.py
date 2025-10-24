@@ -80,6 +80,10 @@ class TradingBotV3:
             enable_trading=Config.ENABLE_TRADING
         )
         
+        # 註冊平倉後立即重新掃描回調
+        self.execution_service.on_position_closed_callback = self.rescan_symbol_immediately
+        logger.info("Registered position closed callback for immediate rescan")
+        
         self.monitoring_service = MonitoringService(
             discord_bot=self.discord
         )
@@ -226,6 +230,80 @@ class TradingBotV3:
             logger.error(f"❌ Failed to load account balance: {e}")
             logger.info("ℹ️  Using default balance: $10,000 USDT")
             logger.info("="*70)
+    
+    async def rescan_symbol_immediately(self, symbol: str):
+        """
+        立即重新掃描單一交易對並嘗試開倉。
+        在倉位平倉後觸發，不等待下一個週期。
+        
+        Args:
+            symbol: 要重新掃描的交易對
+        """
+        try:
+            logger.info(f"\n{'='*70}")
+            logger.info(f"🔄 立即重新掃描 {symbol} - 倉位已平倉")
+            logger.info(f"{'='*70}")
+            
+            # 檢查是否還有空閒倉位
+            current_positions = len(self.execution_service.positions)
+            available_slots = self.execution_service.max_positions - current_positions
+            
+            if available_slots <= 0:
+                logger.info(f"ℹ️  無可用倉位槽位 ({current_positions}/{self.execution_service.max_positions})")
+                return
+            
+            # 獲取該交易對的最新數據（強制刷新，繞過緩存）
+            logger.info(f"📥 獲取 {symbol} 最新數據（強制刷新）...")
+            klines = await self.data_service.fetch_klines(
+                symbol=symbol,
+                timeframe=self.timeframe,
+                limit=200,
+                force_refresh=True  # 繞過緩存，確保獲取最新數據
+            )
+            
+            if klines is None or klines.empty:
+                logger.warning(f"⚠️  無法獲取 {symbol} 數據")
+                return
+            
+            # 分析該交易對
+            current_price = float(klines.iloc[-1]['close'])
+            logger.info(f"🔍 分析 {symbol} @ {current_price:.4f}...")
+            
+            symbols_data = {symbol: (klines, current_price)}
+            signals = await self.strategy_engine.analyze_batch(symbols_data)
+            
+            if not signals:
+                logger.info(f"ℹ️  {symbol} 未產生新信號")
+                return
+            
+            # 執行信號
+            signal = signals[0]
+            logger.info(
+                f"🎯 發現新信號: {signal.action} @ {signal.price:.4f} "
+                f"(信心度: {signal.confidence:.1f}%, ROI: {signal.expected_roi:.2f}%)"
+            )
+            
+            success = await self.execution_service.execute_signal(signal)
+            
+            if success:
+                logger.info(f"✅ {symbol} 立即重新開倉成功")
+                if self.discord:
+                    await self.discord.send_notification(
+                        f"⚡ **快速重新進場**\n"
+                        f"交易對: {symbol}\n"
+                        f"方向: {signal.action}\n"
+                        f"價格: {signal.price:.4f}\n"
+                        f"信心度: {signal.confidence:.1f}%\n"
+                        f"預期投報率: {signal.expected_roi:.2f}%\n"
+                        f"_平倉後立即重新掃描_"
+                    )
+            else:
+                logger.info(f"ℹ️  {symbol} 重新開倉被拒絕")
+            
+            logger.info(f"{'='*70}\n")
+            
+        except Exception as e:
+            logger.error(f"重新掃描 {symbol} 時發生錯誤: {e}", exc_info=True)
     
     async def run_cycle(self):
         """Execute one complete trading cycle."""

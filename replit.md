@@ -9,6 +9,14 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Focus on: ICT/SMC strategy with ML confirmation
 - Notifications: Discord alerts for all trades and warnings
 
+### Recent Updates (October 24, 2025)
+- **平倉後立即重新掃描機制** (NEW): 當任何倉位平倉後（止損/止盈/手動），系統會立即重新分析該交易對
+  - 繞過30秒緩存，強制獲取最新市場數據 (`force_refresh=True`)
+  - 如果發現新信號且有空閒倉位，立即開倉
+  - 不等待下一個60秒週期，最大化資金使用效率
+  - 使用異步回調機制（`asyncio.create_task`），不阻塞平倉流程
+  - Discord 特殊通知："⚡ 快速重新進場"
+
 ### Recent Updates (October 23, 2025)
 - **Automatic Account Balance Loading**: Bot now automatically reads real USDT balance from both Spot and Futures accounts (especially USDT-M Futures) on startup
 - **Enhanced Balance Reporting**: Detailed logging shows Spot balance, Futures balance, and total USDT with capital allocation per position

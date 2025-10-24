@@ -107,11 +107,33 @@ class DataService:
         
         return results
     
+    async def fetch_klines(
+        self,
+        symbol: str,
+        timeframe: str = '1h',
+        limit: int = 200,
+        force_refresh: bool = False
+    ) -> Optional[pd.DataFrame]:
+        """
+        Fetch klines for a single symbol (public method).
+        
+        Args:
+            symbol: Trading symbol
+            timeframe: Candlestick timeframe
+            limit: Number of candles
+            force_refresh: If True, bypass cache and fetch fresh data
+            
+        Returns:
+            DataFrame or None if failed
+        """
+        return await self._fetch_single_kline(symbol, timeframe, limit, force_refresh)
+    
     async def _fetch_single_kline(
         self,
         symbol: str,
         timeframe: str,
-        limit: int
+        limit: int,
+        force_refresh: bool = False
     ) -> Optional[pd.DataFrame]:
         """
         Fetch klines for a single symbol with caching and rate limiting.
@@ -120,17 +142,19 @@ class DataService:
             symbol: Trading symbol
             timeframe: Candlestick timeframe
             limit: Number of candles
+            force_refresh: If True, bypass cache and fetch fresh data
             
         Returns:
             DataFrame or None if failed
         """
         cache_key = f"{symbol}:{timeframe}:{limit}"
         
-        # Check cache first
-        cached = await self.cache.get(cache_key)
-        if cached is not None:
-            self.stats['cache_hits'] += 1
-            return cached
+        # Check cache first (unless force_refresh is True)
+        if not force_refresh:
+            cached = await self.cache.get(cache_key)
+            if cached is not None:
+                self.stats['cache_hits'] += 1
+                return cached
         
         # Acquire rate limit token
         if not await self.rate_limiter.acquire(weight=1, endpoint='api'):
