@@ -34,6 +34,41 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
    - 當損益平衡止損無效時，自動降級到傳統 ATR 止損 (2.0x)
    - 雙重驗證確保風險控制完整性
 
+#### 📊 XGBoost Machine Learning Integration (Latest - 2025-10-24)
+**Implementation**: 完整的交易數據記錄系統，為 XGBoost 機器學習提供訓練數據
+
+1. **開倉數據記錄** (`log_position_entry()`)
+   - 記錄所有信號特徵（confidence、expected_roi、market_structure、OB score 等）
+   - 記錄當下技術指標（MACD、EMA、ATR、Bollinger Bands）
+   - 記錄價格位置（距離 EMA200 的距離和百分比）
+   - 記錄 15 分鐘和 1 小時趨勢方向
+   - 記錄開倉時的 K 線快照（最近 20 根）
+   - 生成唯一 trade_id（格式：`SYMBOL_YYYYMMDD_HHMMSS`）
+
+2. **平倉數據記錄** (`log_position_exit()`)
+   - 記錄從開倉到平倉的完整 K 線歷史
+   - 記錄平倉時的技術指標
+   - 自動計算 MFE（最大有利波動）和 MAE（最大不利波動）
+   - 記錄交易結果標籤（WIN/LOSS、是否命中止盈/止損）
+   - 記錄持倉時長和退出原因
+
+3. **數據完整性保護**
+   - `_sanitize_metadata()`: 處理 NumPy 標量、pandas Timestamps、NaN/Inf 值
+   - `_safe_float()`: 安全轉換所有數值，處理 None 值
+   - `pending_entries` 持久化：進程重啟不會丟失待處理的開倉記錄
+   - 時間戳驗證：自動解析字符串時間戳為 datetime 對象
+   - MFE/MAE 計算保護：處理空 K 線歷史、無效價格、除以零等異常
+
+4. **降級機制**
+   - 當 `log_position_entry` 失敗時，自動生成降級 trade_id（`{symbol}_{timestamp}_fallback`）
+   - 異常情況下生成錯誤 trade_id（`{symbol}_{timestamp}_error`）
+   - 確保即使記錄失敗，交易仍能正常執行
+
+5. **數據文件**
+   - `trades.json`: 基本交易記錄（保持向後兼容）
+   - `ml_training_data.json`: 完整的 ML 訓練數據（開倉 + 平倉合併）
+   - `ml_pending_entries.json`: 待處理的開倉記錄（進程重啟持久化）
+
 #### Critical Bug Fixes (Earlier)
 1. **Fixed Margin Calculation (v3.0 → v3.2)**
    - **Issue**: RiskManager was importing old `calculate_position_size` from utils/helpers, causing fixed $0.4-0.6 margins
