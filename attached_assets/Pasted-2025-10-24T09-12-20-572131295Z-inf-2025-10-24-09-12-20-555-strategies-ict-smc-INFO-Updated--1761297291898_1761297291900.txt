@@ -1,0 +1,1001 @@
+2025-10-24T09:12:20.572131295Z [inf]  2025-10-24 09:12:20,555 - strategies.ict_smc - INFO - Updated 1h trend for CTKUSDT: bear (Price: 0.33, EMA200: 0.36)
+2025-10-24T09:12:20.572138627Z [inf]  2025-10-24 09:12:20,555 - strategies.ict_smc - INFO - CTKUSDT - 1h趨勢: bear
+2025-10-24T09:12:20.878861765Z [inf]  2025-10-24 09:12:20,876 - binance_client - INFO - Fetched 250 klines for DOLOUSDT
+2025-10-24T09:12:20.881691363Z [inf]  2025-10-24 09:12:20,877 - strategies.ict_smc - INFO - Updated 1h trend for DOLOUSDT: bull (Price: 0.09, EMA200: 0.08)
+2025-10-24T09:12:20.881696690Z [inf]  2025-10-24 09:12:20,877 - strategies.ict_smc - INFO - DOLOUSDT - 1h趨勢: bull
+2025-10-24T09:12:21.553263667Z [inf]  2025-10-24 09:12:21,196 - binance_client - INFO - Fetched 250 klines for HAEDALUSDT
+2025-10-24T09:12:21.553270958Z [inf]  2025-10-24 09:12:21,196 - strategies.ict_smc - INFO - Updated 1h trend for HAEDALUSDT: bear (Price: 0.09, EMA200: 0.10)
+2025-10-24T09:12:21.553275525Z [inf]  2025-10-24 09:12:21,197 - strategies.ict_smc - INFO - HAEDALUSDT - 1h趨勢: bear
+2025-10-24T09:12:21.553279672Z [inf]  2025-10-24 09:12:21,479 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 80 seconds.
+2025-10-24T09:12:21.553283916Z [inf]  Loop thread traceback (most recent call last):
+2025-10-24T09:12:21.556301853Z [inf]      return self.request("GET", url, **kwargs)
+2025-10-24T09:12:21.556308682Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-24T09:12:21.556321151Z [inf]      response.begin()
+2025-10-24T09:12:21.556331353Z [inf]      resp = self.send(prep, **send_kwargs)
+2025-10-24T09:12:21.556331457Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-24T09:12:21.556336819Z [inf]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-24T09:12:21.556339801Z [inf]      version, status, reason = self._read_status()
+2025-10-24T09:12:21.556340251Z [inf]      resp = conn.urlopen(
+2025-10-24T09:12:21.556344307Z [inf]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-24T09:12:21.556345564Z [inf]      response = conn.getresponse()
+2025-10-24T09:12:21.556351261Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-24T09:12:21.556351283Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-24T09:12:21.556357390Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-24T09:12:21.556357937Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-24T09:12:21.556362798Z [inf]      response = self._make_request(
+2025-10-24T09:12:21.556367180Z [inf]      httplib_response = super().getresponse()
+2025-10-24T09:12:21.556373515Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-24T09:12:21.556375362Z [inf]      r = adapter.send(request, **kwargs)
+2025-10-24T09:12:21.556377622Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-24T09:12:21.556397018Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-24T09:12:21.557825220Z [inf]      return self._sock.recv_into(b)
+2025-10-24T09:12:21.557832330Z [inf]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-24T09:12:21.557838276Z [inf]      return self.read(nbytes, buffer)
+2025-10-24T09:12:21.557844102Z [inf]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-24T09:12:21.557850004Z [inf]      return self._sslobj.read(len, buffer)
+2025-10-24T09:12:21.557857012Z [inf]  
+2025-10-24T09:12:21.557864107Z [inf]  2025-10-24 09:12:21,527 - binance_client - INFO - Fetched 250 klines for SXTUSDT
+2025-10-24T09:12:21.557870034Z [inf]  2025-10-24 09:12:21,527 - strategies.ict_smc - INFO - Updated 1h trend for SXTUSDT: bear (Price: 0.06, EMA200: 0.06)
+2025-10-24T09:12:21.557879145Z [inf]  2025-10-24 09:12:21,528 - strategies.ict_smc - INFO - SXTUSDT - 1h趨勢: bear
+2025-10-24T09:12:21.558623303Z [inf]    File "/app/main_v3.py", line 549, in <module>
+2025-10-24T09:12:21.558635068Z [inf]      asyncio.run(main())
+2025-10-24T09:12:21.558643793Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-24T09:12:21.558653698Z [inf]      return runner.run(main)
+2025-10-24T09:12:21.558660789Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-24T09:12:21.558668446Z [inf]      return self._loop.run_until_complete(task)
+2025-10-24T09:12:21.558675034Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-24T09:12:21.558681745Z [inf]      self.run_forever()
+2025-10-24T09:12:21.558688834Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-24T09:12:21.558696463Z [inf]      self._run_once()
+2025-10-24T09:12:21.558703335Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-24T09:12:21.558709693Z [inf]      handle._run()
+2025-10-24T09:12:21.558715482Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-24T09:12:21.558722334Z [inf]      self._context.run(self._callback, *self._args)
+2025-10-24T09:12:21.559090953Z [inf]    File "/app/services/strategy_engine.py", line 93, in analyze_symbol
+2025-10-24T09:12:21.559098623Z [inf]      result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
+2025-10-24T09:12:21.559103066Z [inf]    File "/app/strategies/ict_smc.py", line 350, in generate_signal
+2025-10-24T09:12:21.559109008Z [inf]      trend_1h = self.get_1h_trend(symbol, binance_client)
+2025-10-24T09:12:21.559113552Z [inf]    File "/app/strategies/ict_smc.py", line 189, in get_1h_trend
+2025-10-24T09:12:21.559118119Z [inf]      klines_1h = binance_client.get_klines(symbol, '1h', limit=250)
+2025-10-24T09:12:21.559123264Z [inf]    File "/app/utils/helpers.py", line 52, in wrapper
+2025-10-24T09:12:21.559131037Z [inf]      return func(*args, **kwargs)
+2025-10-24T09:12:21.559135517Z [inf]    File "/app/binance_client.py", line 78, in get_klines
+2025-10-24T09:12:21.559141253Z [inf]      klines = self.client.get_klines(
+2025-10-24T09:12:21.559145805Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-24T09:12:21.559153823Z [inf]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-24T09:12:21.559158475Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-24T09:12:21.559162682Z [inf]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-24T09:12:21.559167657Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-24T09:12:21.559172303Z [inf]      return self._request(method, uri, signed, **kwargs)
+2025-10-24T09:12:21.559177099Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-24T09:12:21.559181822Z [inf]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-24T09:12:21.559187385Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-24T09:12:21.842697452Z [inf]  2025-10-24 09:12:21,838 - strategies.ict_smc - INFO - Updated 1h trend for ASRUSDT: bear (Price: 1.49, EMA200: 1.56)
+2025-10-24T09:12:21.842723338Z [inf]  2025-10-24 09:12:21,837 - binance_client - INFO - Fetched 250 klines for ASRUSDT
+2025-10-24T09:12:21.842723807Z [inf]  2025-10-24 09:12:21,839 - strategies.ict_smc - INFO - ASRUSDT - 1h趨勢: bear
+2025-10-24T09:12:22.626543357Z [inf]  2025-10-24 09:12:22,164 - binance_client - INFO - Fetched 250 klines for ALPINEUSDT
+2025-10-24T09:12:22.626550428Z [inf]  2025-10-24 09:12:22,164 - strategies.ict_smc - INFO - Updated 1h trend for ALPINEUSDT: bear (Price: 0.84, EMA200: 0.87)
+2025-10-24T09:12:22.626556811Z [inf]  2025-10-24 09:12:22,165 - strategies.ict_smc - INFO - ALPINEUSDT - 1h趨勢: bear
+2025-10-24T09:12:22.626565083Z [inf]  2025-10-24 09:12:22,491 - binance_client - INFO - Fetched 250 klines for SYRUPUSDT
+2025-10-24T09:12:22.626572003Z [inf]  2025-10-24 09:12:22,491 - strategies.ict_smc - INFO - Updated 1h trend for SYRUPUSDT: bear (Price: 0.38, EMA200: 0.38)
+2025-10-24T09:12:22.626600605Z [inf]  2025-10-24 09:12:22,492 - strategies.ict_smc - INFO - SYRUPUSDT - 1h趨勢: bear
+2025-10-24T09:12:22.817209079Z [inf]  2025-10-24 09:12:22,815 - binance_client - INFO - Fetched 250 klines for OGUSDT
+2025-10-24T09:12:22.819312640Z [inf]  2025-10-24 09:12:22,816 - strategies.ict_smc - INFO - Updated 1h trend for OGUSDT: bear (Price: 16.94, EMA200: 17.85)
+2025-10-24T09:12:22.819319211Z [inf]  2025-10-24 09:12:22,816 - strategies.ict_smc - INFO - OGUSDT - 1h趨勢: bear
+2025-10-24T09:12:23.629083460Z [inf]  2025-10-24 09:12:23,144 - binance_client - INFO - Fetched 250 klines for NXPCUSDT
+2025-10-24T09:12:23.629088429Z [inf]  2025-10-24 09:12:23,144 - strategies.ict_smc - INFO - Updated 1h trend for NXPCUSDT: bear (Price: 0.35, EMA200: 0.35)
+2025-10-24T09:12:23.629092954Z [inf]  2025-10-24 09:12:23,144 - strategies.ict_smc - INFO - NXPCUSDT - 1h趨勢: bear
+2025-10-24T09:12:23.629097702Z [inf]  2025-10-24 09:12:23,462 - binance_client - INFO - Fetched 250 klines for CVCUSDT
+2025-10-24T09:12:23.629102689Z [inf]  2025-10-24 09:12:23,463 - strategies.ict_smc - INFO - Updated 1h trend for CVCUSDT: bear (Price: 0.06, EMA200: 0.06)
+2025-10-24T09:12:23.629109769Z [inf]  2025-10-24 09:12:23,463 - strategies.ict_smc - INFO - CVCUSDT - 1h趨勢: bear
+2025-10-24T09:12:23.774857024Z [inf]  2025-10-24 09:12:23,769 - binance_client - INFO - Fetched 250 klines for AWEUSDT
+2025-10-24T09:12:23.774864684Z [inf]  2025-10-24 09:12:23,769 - strategies.ict_smc - INFO - Updated 1h trend for AWEUSDT: bull (Price: 0.08, EMA200: 0.08)
+2025-10-24T09:12:23.774871774Z [inf]  2025-10-24 09:12:23,769 - strategies.ict_smc - INFO - AWEUSDT - 1h趨勢: bull
+2025-10-24T09:12:24.645938712Z [inf]  2025-10-24 09:12:24,464 - binance_client - INFO - Fetched 250 klines for AUSDT
+2025-10-24T09:12:24.645948773Z [inf]  2025-10-24 09:12:24,464 - strategies.ict_smc - INFO - Updated 1h trend for AUSDT: bull (Price: 0.29, EMA200: 0.29)
+2025-10-24T09:12:24.645990645Z [inf]  2025-10-24 09:12:24,101 - binance_client - INFO - Fetched 250 klines for HUMAUSDT
+2025-10-24T09:12:24.645999435Z [inf]  2025-10-24 09:12:24,102 - strategies.ict_smc - INFO - Updated 1h trend for HUMAUSDT: bear (Price: 0.03, EMA200: 0.03)
+2025-10-24T09:12:24.646008657Z [inf]  2025-10-24 09:12:24,102 - strategies.ict_smc - INFO - HUMAUSDT - 1h趨勢: bear
+2025-10-24T09:12:24.646023484Z [inf]  2025-10-24 09:12:24,464 - strategies.ict_smc - INFO - AUSDT - 1h趨勢: bull
+2025-10-24T09:12:24.806285781Z [inf]  2025-10-24 09:12:24,801 - binance_client - INFO - Fetched 250 klines for SOPHUSDT
+2025-10-24T09:12:24.806293553Z [inf]  2025-10-24 09:12:24,802 - strategies.ict_smc - INFO - Updated 1h trend for SOPHUSDT: bull (Price: 0.03, EMA200: 0.03)
+2025-10-24T09:12:24.806300274Z [inf]  2025-10-24 09:12:24,802 - strategies.ict_smc - INFO - SOPHUSDT - 1h趨勢: bull
+2025-10-24T09:12:25.561202370Z [inf]  2025-10-24 09:12:25,121 - strategies.ict_smc - INFO - LAUSDT - 1h趨勢: bull
+2025-10-24T09:12:25.561217620Z [inf]  2025-10-24 09:12:25,447 - binance_client - INFO - Fetched 250 klines for HOMEUSDT
+2025-10-24T09:12:25.561274600Z [inf]  2025-10-24 09:12:25,120 - binance_client - INFO - Fetched 250 klines for LAUSDT
+2025-10-24T09:12:25.561281009Z [inf]  2025-10-24 09:12:25,121 - strategies.ict_smc - INFO - Updated 1h trend for LAUSDT: bull (Price: 0.44, EMA200: 0.41)
+2025-10-24T09:12:25.561297855Z [inf]  2025-10-24 09:12:25,448 - strategies.ict_smc - INFO - Updated 1h trend for HOMEUSDT: bear (Price: 0.02, EMA200: 0.03)
+2025-10-24T09:12:25.561312994Z [inf]  2025-10-24 09:12:25,448 - strategies.ict_smc - INFO - HOMEUSDT - 1h趨勢: bear
+2025-10-24T09:12:25.766264117Z [inf]  2025-10-24 09:12:25,763 - binance_client - INFO - Fetched 250 klines for RESOLVUSDT
+2025-10-24T09:12:25.766276202Z [inf]  2025-10-24 09:12:25,764 - strategies.ict_smc - INFO - Updated 1h trend for RESOLVUSDT: bear (Price: 0.06, EMA200: 0.06)
+2025-10-24T09:12:25.766283113Z [inf]  2025-10-24 09:12:25,764 - strategies.ict_smc - INFO - RESOLVUSDT - 1h趨勢: bear
+2025-10-24T09:12:26.544521146Z [inf]  2025-10-24 09:12:26,070 - binance_client - INFO - Fetched 250 klines for SPKUSDT
+2025-10-24T09:12:26.544526742Z [inf]  2025-10-24 09:12:26,070 - strategies.ict_smc - INFO - Updated 1h trend for SPKUSDT: bull (Price: 0.04, EMA200: 0.04)
+2025-10-24T09:12:26.544531560Z [inf]  2025-10-24 09:12:26,071 - strategies.ict_smc - INFO - SPKUSDT - 1h趨勢: bull
+2025-10-24T09:12:26.544536951Z [inf]  2025-10-24 09:12:26,398 - binance_client - INFO - Fetched 250 klines for NEWTUSDT
+2025-10-24T09:12:26.544541214Z [inf]  2025-10-24 09:12:26,398 - strategies.ict_smc - INFO - Updated 1h trend for NEWTUSDT: bull (Price: 0.15, EMA200: 0.15)
+2025-10-24T09:12:26.544546459Z [inf]  2025-10-24 09:12:26,399 - strategies.ict_smc - INFO - NEWTUSDT - 1h趨勢: bull
+2025-10-24T09:12:26.713931998Z [inf]  2025-10-24 09:12:26,710 - binance_client - INFO - Fetched 250 klines for SAHARAUSDT
+2025-10-24T09:12:26.713941055Z [inf]  2025-10-24 09:12:26,711 - strategies.ict_smc - INFO - Updated 1h trend for SAHARAUSDT: bull (Price: 0.08, EMA200: 0.08)
+2025-10-24T09:12:26.713948634Z [inf]  2025-10-24 09:12:26,712 - strategies.ict_smc - INFO - SAHARAUSDT - 1h趨勢: bull
+2025-10-24T09:12:27.679747687Z [inf]  2025-10-24 09:12:27,045 - binance_client - INFO - Fetched 250 klines for PUMPUSDT
+2025-10-24T09:12:27.679753733Z [inf]  2025-10-24 09:12:27,046 - strategies.ict_smc - INFO - Updated 1h trend for PUMPUSDT: bull (Price: 0.00, EMA200: 0.00)
+2025-10-24T09:12:27.679759583Z [inf]  2025-10-24 09:12:27,046 - strategies.ict_smc - INFO - PUMPUSDT - 1h趨勢: bull
+2025-10-24T09:12:27.679765639Z [inf]  2025-10-24 09:12:27,162 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.0041 (信心度: 70.0%) - 1h多頭 + 中性結構 + 中信心
+2025-10-24T09:12:27.679771942Z [inf]  2025-10-24 09:12:27,395 - binance_client - INFO - Fetched 250 klines for CUSDT
+2025-10-24T09:12:27.679778332Z [inf]  2025-10-24 09:12:27,396 - strategies.ict_smc - INFO - Updated 1h trend for CUSDT: bear (Price: 0.11, EMA200: 0.11)
+2025-10-24T09:12:27.679784207Z [inf]  2025-10-24 09:12:27,396 - strategies.ict_smc - INFO - CUSDT - 1h趨勢: bear
+2025-10-24T09:12:27.720334599Z [inf]  2025-10-24 09:12:27,716 - binance_client - INFO - Fetched 250 klines for ERAUSDT
+2025-10-24T09:12:27.720341455Z [inf]  2025-10-24 09:12:27,716 - strategies.ict_smc - INFO - Updated 1h trend for ERAUSDT: bear (Price: 0.34, EMA200: 0.38)
+2025-10-24T09:12:27.720348487Z [inf]  2025-10-24 09:12:27,717 - strategies.ict_smc - INFO - ERAUSDT - 1h趨勢: bear
+2025-10-24T09:12:28.817687843Z [inf]  2025-10-24 09:12:28,072 - binance_client - INFO - Fetched 250 klines for CVXUSDT
+2025-10-24T09:12:28.817693891Z [inf]  2025-10-24 09:12:28,072 - strategies.ict_smc - INFO - Updated 1h trend for CVXUSDT: bear (Price: 2.27, EMA200: 2.37)
+2025-10-24T09:12:28.817700998Z [inf]  2025-10-24 09:12:28,072 - strategies.ict_smc - INFO - CVXUSDT - 1h趨勢: bear
+2025-10-24T09:12:28.817707449Z [inf]  2025-10-24 09:12:28,398 - binance_client - INFO - Fetched 250 klines for SLPUSDT
+2025-10-24T09:12:28.817713834Z [inf]  2025-10-24 09:12:28,399 - strategies.ict_smc - INFO - Updated 1h trend for SLPUSDT: bear (Price: 0.00, EMA200: 0.00)
+2025-10-24T09:12:28.817723177Z [inf]  2025-10-24 09:12:28,399 - strategies.ict_smc - INFO - SLPUSDT - 1h趨勢: bear
+2025-10-24T09:12:28.817732453Z [inf]  2025-10-24 09:12:28,507 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0012 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:12:28.817741274Z [inf]  2025-10-24 09:12:28,738 - binance_client - INFO - Fetched 250 klines for TREEUSDT
+2025-10-24T09:12:28.817749324Z [inf]  2025-10-24 09:12:28,739 - strategies.ict_smc - INFO - Updated 1h trend for TREEUSDT: bull (Price: 0.18, EMA200: 0.17)
+2025-10-24T09:12:28.817759511Z [inf]  2025-10-24 09:12:28,739 - strategies.ict_smc - INFO - TREEUSDT - 1h趨勢: bull
+2025-10-24T09:12:29.742436733Z [inf]  2025-10-24 09:12:29,071 - binance_client - INFO - Fetched 250 klines for A2ZUSDT
+2025-10-24T09:12:29.742443290Z [inf]  2025-10-24 09:12:29,071 - strategies.ict_smc - INFO - Updated 1h trend for A2ZUSDT: bull (Price: 0.00, EMA200: 0.00)
+2025-10-24T09:12:29.742459361Z [inf]  2025-10-24 09:12:29,071 - strategies.ict_smc - INFO - A2ZUSDT - 1h趨勢: bull
+2025-10-24T09:12:29.742465529Z [inf]  2025-10-24 09:12:29,394 - binance_client - INFO - Fetched 250 klines for TOWNSUSDT
+2025-10-24T09:12:29.742474237Z [inf]  2025-10-24 09:12:29,395 - strategies.ict_smc - INFO - Updated 1h trend for TOWNSUSDT: bull (Price: 0.01, EMA200: 0.01)
+2025-10-24T09:12:29.742479352Z [inf]  2025-10-24 09:12:29,395 - strategies.ict_smc - INFO - TOWNSUSDT - 1h趨勢: bull
+2025-10-24T09:12:29.742486314Z [inf]  2025-10-24 09:12:29,705 - binance_client - INFO - Fetched 250 klines for PROVEUSDT
+2025-10-24T09:12:29.742493681Z [inf]  2025-10-24 09:12:29,706 - strategies.ict_smc - INFO - Updated 1h trend for PROVEUSDT: bull (Price: 0.98, EMA200: 0.82)
+2025-10-24T09:12:29.742499408Z [inf]  2025-10-24 09:12:29,706 - strategies.ict_smc - INFO - PROVEUSDT - 1h趨勢: bull
+2025-10-24T09:12:30.727631435Z [inf]  2025-10-24 09:12:30,046 - binance_client - INFO - Fetched 250 klines for XPLUSDT
+2025-10-24T09:12:30.727640684Z [inf]  2025-10-24 09:12:30,047 - strategies.ict_smc - INFO - Updated 1h trend for XPLUSDT: bear (Price: 0.37, EMA200: 0.40)
+2025-10-24T09:12:30.727647742Z [inf]  2025-10-24 09:12:30,047 - strategies.ict_smc - INFO - XPLUSDT - 1h趨勢: bear
+2025-10-24T09:12:30.727655395Z [inf]  2025-10-24 09:12:30,385 - binance_client - INFO - Fetched 250 klines for WLFIUSDT
+2025-10-24T09:12:30.727665413Z [inf]  2025-10-24 09:12:30,386 - strategies.ict_smc - INFO - Updated 1h trend for WLFIUSDT: bull (Price: 0.14, EMA200: 0.13)
+2025-10-24T09:12:30.727672004Z [inf]  2025-10-24 09:12:30,386 - strategies.ict_smc - INFO - WLFIUSDT - 1h趨勢: bull
+2025-10-24T09:12:30.727678241Z [inf]  2025-10-24 09:12:30,702 - binance_client - INFO - Fetched 250 klines for SOMIUSDT
+2025-10-24T09:12:30.727684041Z [inf]  2025-10-24 09:12:30,703 - strategies.ict_smc - INFO - Updated 1h trend for SOMIUSDT: bull (Price: 0.53, EMA200: 0.52)
+2025-10-24T09:12:30.727735146Z [inf]  2025-10-24 09:12:30,703 - strategies.ict_smc - INFO - SOMIUSDT - 1h趨勢: bull
+2025-10-24T09:12:31.729266730Z [inf]  2025-10-24 09:12:31,461 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0600 (信心度: 80.0%) - 1h空頭 + 看跌結構 + 價格在阻力區 + 中高信心
+2025-10-24T09:12:31.729274380Z [inf]  2025-10-24 09:12:31,480 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 90 seconds.
+2025-10-24T09:12:31.729282056Z [inf]  Loop thread traceback (most recent call last):
+2025-10-24T09:12:31.729283107Z [inf]  2025-10-24 09:12:31,035 - binance_client - INFO - Fetched 250 klines for MITOUSDT
+2025-10-24T09:12:31.729288760Z [inf]    File "/app/main_v3.py", line 549, in <module>
+2025-10-24T09:12:31.729295211Z [inf]      asyncio.run(main())
+2025-10-24T09:12:31.729300349Z [inf]  2025-10-24 09:12:31,035 - strategies.ict_smc - INFO - Updated 1h trend for MITOUSDT: bear (Price: 0.12, EMA200: 0.12)
+2025-10-24T09:12:31.729302725Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-24T09:12:31.729336554Z [inf]  2025-10-24 09:12:31,376 - binance_client - INFO - Fetched 250 klines for HEMIUSDT
+2025-10-24T09:12:31.729346483Z [inf]  2025-10-24 09:12:31,377 - strategies.ict_smc - INFO - Updated 1h trend for HEMIUSDT: bear (Price: 0.06, EMA200: 0.06)
+2025-10-24T09:12:31.729354505Z [inf]  2025-10-24 09:12:31,377 - strategies.ict_smc - INFO - HEMIUSDT - 1h趨勢: bear
+2025-10-24T09:12:31.729369755Z [inf]      return runner.run(main)
+2025-10-24T09:12:31.729382043Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-24T09:12:31.729389522Z [inf]      return self._loop.run_until_complete(task)
+2025-10-24T09:12:31.729443967Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-24T09:12:31.729455656Z [inf]      self.run_forever()
+2025-10-24T09:12:31.729605987Z [inf]  2025-10-24 09:12:31,036 - strategies.ict_smc - INFO - MITOUSDT - 1h趨勢: bear
+2025-10-24T09:12:31.734887634Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-24T09:12:31.734894470Z [inf]      self._run_once()
+2025-10-24T09:12:31.734901513Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-24T09:12:31.734918671Z [inf]      handle._run()
+2025-10-24T09:12:31.734934917Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-24T09:12:31.734941702Z [inf]      self._context.run(self._callback, *self._args)
+2025-10-24T09:12:31.734947584Z [inf]    File "/app/services/strategy_engine.py", line 93, in analyze_symbol
+2025-10-24T09:12:31.734954187Z [inf]      result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
+2025-10-24T09:12:31.734965513Z [inf]    File "/app/strategies/ict_smc.py", line 350, in generate_signal
+2025-10-24T09:12:31.734974318Z [inf]      trend_1h = self.get_1h_trend(symbol, binance_client)
+2025-10-24T09:12:31.734980780Z [inf]    File "/app/strategies/ict_smc.py", line 189, in get_1h_trend
+2025-10-24T09:12:31.734987011Z [inf]      klines_1h = binance_client.get_klines(symbol, '1h', limit=250)
+2025-10-24T09:12:31.734992951Z [inf]    File "/app/utils/helpers.py", line 52, in wrapper
+2025-10-24T09:12:31.734999464Z [inf]      return func(*args, **kwargs)
+2025-10-24T09:12:31.735006104Z [inf]    File "/app/binance_client.py", line 78, in get_klines
+2025-10-24T09:12:31.735012444Z [inf]      klines = self.client.get_klines(
+2025-10-24T09:12:31.735018263Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 919, in get_klines
+2025-10-24T09:12:31.735025088Z [inf]      return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+2025-10-24T09:12:31.735031336Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 415, in _get
+2025-10-24T09:12:31.735037468Z [inf]      return self._request_api('get', path, signed, version, **kwargs)
+2025-10-24T09:12:31.735845836Z [inf]      httplib_response = super().getresponse()
+2025-10-24T09:12:31.735853532Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 1395, in getresponse
+2025-10-24T09:12:31.736507053Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 378, in _request_api
+2025-10-24T09:12:31.736514039Z [inf]      return self._request(method, uri, signed, **kwargs)
+2025-10-24T09:12:31.736521315Z [inf]    File "/opt/venv/lib/python3.11/site-packages/binance/client.py", line 358, in _request
+2025-10-24T09:12:31.736532679Z [inf]      self.response = getattr(self.session, method)(uri, **kwargs)
+2025-10-24T09:12:31.736540200Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 602, in get
+2025-10-24T09:12:31.736548566Z [inf]      return self.request("GET", url, **kwargs)
+2025-10-24T09:12:31.736555180Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+2025-10-24T09:12:31.736561278Z [inf]      resp = self.send(prep, **send_kwargs)
+2025-10-24T09:12:31.736567957Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+2025-10-24T09:12:31.736574281Z [inf]      r = adapter.send(request, **kwargs)
+2025-10-24T09:12:31.736581780Z [inf]    File "/opt/venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+2025-10-24T09:12:31.736589372Z [inf]      resp = conn.urlopen(
+2025-10-24T09:12:31.736596907Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+2025-10-24T09:12:31.736604569Z [inf]      response = self._make_request(
+2025-10-24T09:12:31.736611123Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+2025-10-24T09:12:31.736618134Z [inf]      response = conn.getresponse()
+2025-10-24T09:12:31.736626002Z [inf]    File "/opt/venv/lib/python3.11/site-packages/urllib3/connection.py", line 565, in getresponse
+2025-10-24T09:12:31.737927358Z [inf]      response.begin()
+2025-10-24T09:12:31.737932888Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 325, in begin
+2025-10-24T09:12:31.737940268Z [inf]      version, status, reason = self._read_status()
+2025-10-24T09:12:31.737946320Z [inf]    File "/root/.nix-profile/lib/python3.11/http/client.py", line 286, in _read_status
+2025-10-24T09:12:31.737952141Z [inf]      line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+2025-10-24T09:12:31.737960380Z [inf]    File "/root/.nix-profile/lib/python3.11/socket.py", line 718, in readinto
+2025-10-24T09:12:31.737966837Z [inf]      return self._sock.recv_into(b)
+2025-10-24T09:12:31.737973386Z [inf]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1314, in recv_into
+2025-10-24T09:12:31.737979188Z [inf]      return self.read(nbytes, buffer)
+2025-10-24T09:12:31.737985904Z [inf]    File "/root/.nix-profile/lib/python3.11/ssl.py", line 1166, in read
+2025-10-24T09:12:31.737992062Z [inf]      return self._sslobj.read(len, buffer)
+2025-10-24T09:12:31.737998832Z [inf]  
+2025-10-24T09:12:31.738006399Z [inf]  2025-10-24 09:12:31,692 - binance_client - INFO - Fetched 250 klines for LINEAUSDT
+2025-10-24T09:12:31.738013113Z [inf]  2025-10-24 09:12:31,692 - strategies.ict_smc - INFO - Updated 1h trend for LINEAUSDT: bear (Price: 0.02, EMA200: 0.02)
+2025-10-24T09:12:31.738019425Z [inf]  2025-10-24 09:12:31,692 - strategies.ict_smc - INFO - LINEAUSDT - 1h趨勢: bear
+2025-10-24T09:12:32.800962466Z [inf]  2025-10-24 09:12:32,369 - binance_client - INFO - Fetched 250 klines for SKYUSDT
+2025-10-24T09:12:32.800970881Z [inf]  2025-10-24 09:12:32,369 - strategies.ict_smc - INFO - Updated 1h trend for SKYUSDT: bear (Price: 0.06, EMA200: 0.06)
+2025-10-24T09:12:32.800999778Z [inf]  2025-10-24 09:12:32,024 - binance_client - INFO - Fetched 250 klines for OPENUSDT
+2025-10-24T09:12:32.801007209Z [inf]  2025-10-24 09:12:32,369 - strategies.ict_smc - INFO - SKYUSDT - 1h趨勢: bear
+2025-10-24T09:12:32.801007856Z [inf]  2025-10-24 09:12:32,025 - strategies.ict_smc - INFO - Updated 1h trend for OPENUSDT: bear (Price: 0.36, EMA200: 0.37)
+2025-10-24T09:12:32.801015692Z [inf]  2025-10-24 09:12:32,689 - binance_client - INFO - Fetched 250 klines for AVNTUSDT
+2025-10-24T09:12:32.801017819Z [inf]  2025-10-24 09:12:32,025 - strategies.ict_smc - INFO - OPENUSDT - 1h趨勢: bear
+2025-10-24T09:12:32.801024189Z [inf]  2025-10-24 09:12:32,689 - strategies.ict_smc - INFO - Updated 1h trend for AVNTUSDT: bull (Price: 0.76, EMA200: 0.62)
+2025-10-24T09:12:32.801031738Z [inf]  2025-10-24 09:12:32,689 - strategies.ict_smc - INFO - AVNTUSDT - 1h趨勢: bull
+2025-10-24T09:12:33.015896664Z [inf]  2025-10-24 09:12:33,013 - binance_client - INFO - Fetched 250 klines for HOLOUSDT
+2025-10-24T09:12:33.015906856Z [inf]  2025-10-24 09:12:33,013 - strategies.ict_smc - INFO - Updated 1h trend for HOLOUSDT: bull (Price: 0.14, EMA200: 0.14)
+2025-10-24T09:12:33.015913489Z [inf]  2025-10-24 09:12:33,013 - strategies.ict_smc - INFO - HOLOUSDT - 1h趨勢: bull
+2025-10-24T09:12:33.717913348Z [inf]  2025-10-24 09:12:33,666 - strategies.ict_smc - INFO - 0GUSDT - 1h趨勢: bear
+2025-10-24T09:12:33.718030391Z [inf]  2025-10-24 09:12:33,332 - binance_client - INFO - Fetched 250 klines for ZKCUSDT
+2025-10-24T09:12:33.718036543Z [inf]  2025-10-24 09:12:33,333 - strategies.ict_smc - INFO - Updated 1h trend for ZKCUSDT: bull (Price: 0.24, EMA200: 0.23)
+2025-10-24T09:12:33.718042948Z [inf]  2025-10-24 09:12:33,333 - strategies.ict_smc - INFO - ZKCUSDT - 1h趨勢: bull
+2025-10-24T09:12:33.718048855Z [inf]  2025-10-24 09:12:33,665 - binance_client - INFO - Fetched 250 klines for 0GUSDT
+2025-10-24T09:12:33.718054397Z [inf]  2025-10-24 09:12:33,666 - strategies.ict_smc - INFO - Updated 1h trend for 0GUSDT: bear (Price: 1.76, EMA200: 1.91)
+2025-10-24T09:12:34.008822076Z [inf]  2025-10-24 09:12:34,000 - binance_client - INFO - Fetched 250 klines for BARDUSDT
+2025-10-24T09:12:34.008827920Z [inf]  2025-10-24 09:12:34,001 - strategies.ict_smc - INFO - Updated 1h trend for BARDUSDT: bear (Price: 0.65, EMA200: 0.65)
+2025-10-24T09:12:34.008834115Z [inf]  2025-10-24 09:12:34,001 - strategies.ict_smc - INFO - BARDUSDT - 1h趨勢: bear
+2025-10-24T09:12:34.620636047Z [inf]  2025-10-24 09:12:34,328 - binance_client - INFO - Fetched 250 klines for ASTERUSDT
+2025-10-24T09:12:34.620645256Z [inf]  2025-10-24 09:12:34,329 - strategies.ict_smc - INFO - Updated 1h trend for ASTERUSDT: bear (Price: 1.11, EMA200: 1.15)
+2025-10-24T09:12:34.620652505Z [inf]  2025-10-24 09:12:34,329 - strategies.ict_smc - INFO - ASTERUSDT - 1h趨勢: bear
+2025-10-24T09:12:34.654733664Z [inf]  2025-10-24 09:12:34,651 - binance_client - INFO - Fetched 250 klines for MIRAUSDT
+2025-10-24T09:12:34.654742906Z [inf]  2025-10-24 09:12:34,652 - strategies.ict_smc - INFO - Updated 1h trend for MIRAUSDT: bull (Price: 0.32, EMA200: 0.32)
+2025-10-24T09:12:34.654749270Z [inf]  2025-10-24 09:12:34,652 - strategies.ict_smc - INFO - MIRAUSDT - 1h趨勢: bull
+2025-10-24T09:12:34.987428151Z [inf]  2025-10-24 09:12:34,985 - binance_client - INFO - Fetched 250 klines for FFUSDT
+2025-10-24T09:12:34.987439761Z [inf]  2025-10-24 09:12:34,986 - strategies.ict_smc - INFO - Updated 1h trend for FFUSDT: bull (Price: 0.16, EMA200: 0.15)
+2025-10-24T09:12:34.987445729Z [inf]  2025-10-24 09:12:34,986 - strategies.ict_smc - INFO - FFUSDT - 1h趨勢: bull
+2025-10-24T09:12:35.684499029Z [inf]  2025-10-24 09:12:35,391 - binance_client - INFO - Fetched 250 klines for EDENUSDT
+2025-10-24T09:12:35.684504236Z [inf]  2025-10-24 09:12:35,392 - strategies.ict_smc - INFO - Updated 1h trend for EDENUSDT: bull (Price: 0.15, EMA200: 0.15)
+2025-10-24T09:12:35.684509413Z [inf]  2025-10-24 09:12:35,392 - strategies.ict_smc - INFO - EDENUSDT - 1h趨勢: bull
+2025-10-24T09:12:35.712657456Z [inf]  2025-10-24 09:12:35,709 - binance_client - INFO - Fetched 250 klines for NOMUSDT
+2025-10-24T09:12:35.712665232Z [inf]  2025-10-24 09:12:35,710 - strategies.ict_smc - INFO - Updated 1h trend for NOMUSDT: bear (Price: 0.02, EMA200: 0.02)
+2025-10-24T09:12:35.712677384Z [inf]  2025-10-24 09:12:35,710 - strategies.ict_smc - INFO - NOMUSDT - 1h趨勢: bear
+2025-10-24T09:12:36.539456812Z [inf]  2025-10-24 09:12:36,045 - binance_client - INFO - Fetched 250 klines for 2ZUSDT
+2025-10-24T09:12:36.539463031Z [inf]  2025-10-24 09:12:36,046 - strategies.ict_smc - INFO - Updated 1h trend for 2ZUSDT: bear (Price: 0.24, EMA200: 0.24)
+2025-10-24T09:12:36.539469797Z [inf]  2025-10-24 09:12:36,046 - strategies.ict_smc - INFO - 2ZUSDT - 1h趨勢: bear
+2025-10-24T09:12:36.539477326Z [inf]  2025-10-24 09:12:36,356 - binance_client - INFO - Fetched 215 klines for YBUSDT
+2025-10-24T09:12:36.539485428Z [inf]  2025-10-24 09:12:36,356 - strategies.ict_smc - INFO - Updated 1h trend for YBUSDT: bear (Price: 0.48, EMA200: 0.49)
+2025-10-24T09:12:36.539492095Z [inf]  2025-10-24 09:12:36,356 - strategies.ict_smc - INFO - YBUSDT - 1h趨勢: bear
+2025-10-24T09:12:36.676325653Z [inf]  2025-10-24 09:12:36,672 - binance_client - INFO - Fetched 250 klines for EULUSDT
+2025-10-24T09:12:36.676333161Z [inf]  2025-10-24 09:12:36,673 - strategies.ict_smc - INFO - Updated 1h trend for EULUSDT: bear (Price: 7.46, EMA200: 7.79)
+2025-10-24T09:12:36.676338441Z [inf]  2025-10-24 09:12:36,673 - strategies.ict_smc - INFO - EULUSDT - 1h趨勢: bear
+2025-10-24T09:12:36.999218119Z [inf]  2025-10-24 09:12:36,993 - binance_client - INFO - Fetched 241 klines for ENSOUSDT
+2025-10-24T09:12:36.999224985Z [inf]  2025-10-24 09:12:36,994 - strategies.ict_smc - INFO - Updated 1h trend for ENSOUSDT: bear (Price: 1.59, EMA200: 1.81)
+2025-10-24T09:12:36.999231865Z [inf]  2025-10-24 09:12:36,994 - strategies.ict_smc - INFO - ENSOUSDT - 1h趨勢: bear
+2025-10-24T09:12:37.690711125Z [inf]  2025-10-24 09:12:37,087 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 1.5870 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:12:37.690716461Z [inf]  2025-10-24 09:12:37,323 - binance_client - INFO - Fetched 165 klines for ZBTUSDT
+2025-10-24T09:12:37.690721030Z [inf]  2025-10-24 09:12:37,323 - strategies.ict_smc - WARNING - Insufficient 1h data for ZBTUSDT, using neutral trend
+2025-10-24T09:12:37.690726087Z [inf]  2025-10-24 09:12:37,324 - strategies.ict_smc - INFO - ZBTUSDT - 1h趨勢: neutral
+2025-10-24T09:12:37.690733419Z [inf]  2025-10-24 09:12:37,645 - strategies.ict_smc - ERROR - Error fetching 1h trend for TURTLEUSDT: Insufficient klines data: 43 < 50
+2025-10-24T09:12:37.690739107Z [inf]  2025-10-24 09:12:37,645 - strategies.ict_smc - INFO - TURTLEUSDT - 1h趨勢: neutral
+2025-10-24T09:12:37.726012999Z [inf]  2025-10-24 09:12:37,721 - services.strategy_engine - INFO - Generated 29 signals from 369 symbols
+2025-10-24T09:12:37.726018808Z [inf]  2025-10-24 09:12:37,721 - __main__ - INFO - ✅ Analysis complete in 128.73s - 29 signals generated
+2025-10-24T09:12:37.726023491Z [inf]  2025-10-24 09:12:37,722 - services.strategy_engine - INFO - Filtered 26 signals, kept top 3
+2025-10-24T09:12:37.726029431Z [inf]  2025-10-24 09:12:37,722 - __main__ - INFO - 🎯 Top 3 signals selected:
+2025-10-24T09:12:37.726035555Z [inf]  2025-10-24 09:12:37,722 - __main__ - INFO -   1. CATIUSDT: BUY @ 0.0886 (confidence: 90.0%, ROI: 1.50%)
+2025-10-24T09:12:37.726040047Z [inf]  2025-10-24 09:12:37,722 - __main__ - INFO -   2. LPTUSDT: BUY @ 5.1460 (confidence: 82.7%, ROI: 1.50%)
+2025-10-24T09:12:37.726043839Z [inf]  2025-10-24 09:12:37,722 - __main__ - INFO -   3. REIUSDT: SELL @ 0.0119 (confidence: 80.0%, ROI: 1.50%)
+2025-10-24T09:12:37.726048132Z [inf]  2025-10-24 09:12:37,722 - __main__ - INFO - 💼 Executing signals (3 slots available)...
+2025-10-24T09:12:37.726053941Z [inf]  2025-10-24 09:12:37,722 - risk_manager - INFO - 🎯 槓桿計算: 信心度=90.0% → 基礎=10.00x, 波動性=低(1.52%) → 調整=+2.0x, 最終槓桿=12.00x
+2025-10-24T09:12:37.726058460Z [inf]  2025-10-24 09:12:37,722 - risk_manager - INFO - Calculated position size: 0.838202 (Entry: 0.0886, SL: 0.08591428571428572, Capital allocated: $14.85)
+2025-10-24T09:12:37.726062621Z [inf]  2025-10-24 09:12:37,722 - services.execution_service - INFO - 📊 槓桿倉位計算: 保證金=$14.85, 槓桿=12.00x, 倉位價值=$178.24, 數量=30.175277
+2025-10-24T09:12:37.726067489Z [inf]  2025-10-24 09:12:37,722 - services.execution_service - INFO - [LIVE] Placing BUY MARKET order: CATIUSDT qty=30.175277
+2025-10-24T09:12:38.599637132Z [inf]  2025-10-24 09:12:38,209 - binance_client - INFO - 📈 CATIUSDT: Adjusted quantity to meet MIN_NOTIONAL $5.00: 30.175277 → 57.0 (notional: $5.04)
+2025-10-24T09:12:38.599642269Z [inf]  2025-10-24 09:12:38,209 - binance_client - INFO - Formatted quantity for CATIUSDT: 30.1752768691 → 57.0 (step=1.0, min=1.0)
+2025-10-24T09:12:38.599646502Z [inf]  2025-10-24 09:12:38,437 - binance_client - INFO - ✅ Futures order placed: 1664985104
+2025-10-24T09:12:38.599651078Z [inf]  2025-10-24 09:12:38,437 - services.execution_service - INFO - ✅ Order placed successfully: 1664985104
+2025-10-24T09:12:38.599657101Z [inf]  2025-10-24 09:12:38,437 - risk_manager - INFO - Opened BUY position for CATIUSDT at 0.0886
+2025-10-24T09:12:38.599661460Z [inf]  2025-10-24 09:12:38,437 - services.execution_service - INFO - EXECUTED BUY CATIUSDT @ 0.0886 qty=30.1753 (confidence: 90.0%)
+2025-10-24T09:12:38.599665866Z [inf]  2025-10-24 09:12:38,438 - __main__ - ERROR - Error in trading cycle: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:12:38.599670274Z [inf]  Traceback (most recent call last):
+2025-10-24T09:12:38.599675208Z [inf]    File "/app/main_v3.py", line 422, in run_cycle
+2025-10-24T09:12:38.599686063Z [inf]      await self.discord.send_notification(
+2025-10-24T09:12:38.599700782Z [inf]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-10-24T09:12:38.599708871Z [inf]  AttributeError: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:12:38.599716904Z [inf]  2025-10-24 09:12:38,438 - services.monitoring_service - CRITICAL - ALERT [CRITICAL]: Trading cycle error: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:12:38.599724515Z [inf]  2025-10-24 09:12:38,438 - services.monitoring_service - ERROR - Failed to send Discord alert: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:12:38.599730829Z [inf]  2025-10-24 09:12:38,466 - __main__ - INFO - ⏳ Waiting 60s for next cycle...
+2025-10-24T09:12:38.721639952Z [inf]  2025-10-24 09:12:38,719 - discord.gateway - INFO - Shard ID None session has been invalidated.
+2025-10-24T09:12:44.874917046Z [inf]  2025-10-24 09:12:44,214 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 9d3f0195030c50d7623e8c3e82f04966).
+2025-10-24T09:12:46.937815471Z [inf]  2025-10-24 09:12:46,217 - discord_bot - INFO - Discord bot logged in as winiswin#6842
+2025-10-24T09:12:46.937824090Z [inf]  2025-10-24 09:12:46,520 - discord_bot - INFO - Synced 5 slash commands
+2025-10-24T09:12:46.937832146Z [inf]  2025-10-24 09:12:46,520 - discord_bot - ERROR - Could not find channel with ID: 1430538906629050500
+2025-10-24T09:13:47.065121977Z [inf]  2025-10-24 09:13:38,483 - __main__ - INFO - 📥 Fetching data for 526 symbols...
+2025-10-24T09:13:47.065131542Z [inf]  2025-10-24 09:13:39,650 - binance_client - ERROR - Error fetching async klines for 1000SHIBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065148122Z [inf]  2025-10-24 09:13:38,483 - __main__ - INFO - 📊 Trading Cycle #2 - 2025-10-24 09:13:38
+2025-10-24T09:13:47.065154267Z [inf]  2025-10-24 09:13:38,483 - __main__ - INFO - 
+2025-10-24T09:13:47.065156261Z [inf]  2025-10-24 09:13:38,483 - __main__ - INFO - ======================================================================
+2025-10-24T09:13:47.065161572Z [inf]  ======================================================================
+2025-10-24T09:13:47.065193850Z [inf]  2025-10-24 09:13:39,661 - binance_client - ERROR - Error fetching async klines for BTCDOMUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065203075Z [inf]  2025-10-24 09:13:39,674 - binance_client - ERROR - Error fetching async klines for 1000XECUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065209027Z [inf]  2025-10-24 09:13:40,088 - binance_client - ERROR - Error fetching async klines for 1000LUNCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065219859Z [inf]  2025-10-24 09:13:40,103 - binance_client - ERROR - Error fetching async klines for LUNA2USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065229902Z [inf]  2025-10-24 09:13:40,904 - binance_client - ERROR - Error fetching async klines for BSVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065231462Z [inf]  2025-10-24 09:13:40,175 - binance_client - ERROR - Error fetching async klines for 1000PEPEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065239374Z [inf]  2025-10-24 09:13:40,201 - binance_client - ERROR - Error fetching async klines for 1000FLOKIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.065246010Z [inf]  2025-10-24 09:13:40,873 - binance_client - ERROR - Error fetching async klines for DODOXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071236671Z [inf]  2025-10-24 09:13:40,904 - binance_client - ERROR - Error fetching async klines for 1000BONKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071244355Z [inf]  2025-10-24 09:13:40,939 - binance_client - ERROR - Error fetching async klines for KASUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071254187Z [inf]  2025-10-24 09:13:40,966 - binance_client - ERROR - Error fetching async klines for ETHWUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071262031Z [inf]  2025-10-24 09:13:40,966 - binance_client - ERROR - Error fetching async klines for TOKENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071269550Z [inf]  2025-10-24 09:13:40,999 - binance_client - ERROR - Error fetching async klines for 1000RATSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071277409Z [inf]  2025-10-24 09:13:41,675 - binance_client - ERROR - Error fetching async klines for MYROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071284153Z [inf]  2025-10-24 09:13:41,676 - binance_client - ERROR - Error fetching async klines for ZETAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071290508Z [inf]  2025-10-24 09:13:41,755 - binance_client - ERROR - Error fetching async klines for BRETTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071297383Z [inf]  2025-10-24 09:13:41,759 - binance_client - ERROR - Error fetching async klines for MEWUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071303972Z [inf]  2025-10-24 09:13:41,764 - binance_client - ERROR - Error fetching async klines for POPCATUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071311605Z [inf]  2025-10-24 09:13:42,459 - binance_client - ERROR - Error fetching async klines for SWELLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071318289Z [inf]  2025-10-24 09:13:42,459 - binance_client - ERROR - Error fetching async klines for MOODENGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071520573Z [inf]  2025-10-24 09:13:42,472 - binance_client - ERROR - Error fetching async klines for DRIFTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071528236Z [inf]  2025-10-24 09:13:42,472 - binance_client - ERROR - Error fetching async klines for PONKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071535538Z [inf]  2025-10-24 09:13:42,476 - binance_client - ERROR - Error fetching async klines for BANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071541937Z [inf]  2025-10-24 09:13:42,484 - binance_client - ERROR - Error fetching async klines for CHILLGUYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071547996Z [inf]  2025-10-24 09:13:42,494 - binance_client - ERROR - Error fetching async klines for GOATUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071554251Z [inf]  2025-10-24 09:13:42,503 - binance_client - ERROR - Error fetching async klines for SAFEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071560715Z [inf]  2025-10-24 09:13:42,503 - binance_client - ERROR - Error fetching async klines for 1000XUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071567182Z [inf]  2025-10-24 09:13:42,508 - binance_client - ERROR - Error fetching async klines for AEROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071573556Z [inf]  2025-10-24 09:13:42,509 - binance_client - ERROR - Error fetching async klines for 1000000MOGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071580379Z [inf]  2025-10-24 09:13:42,514 - binance_client - ERROR - Error fetching async klines for DEGENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071587105Z [inf]  2025-10-24 09:13:42,514 - binance_client - ERROR - Error fetching async klines for RAYSOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.071593250Z [inf]  2025-10-24 09:13:42,514 - binance_client - ERROR - Error fetching async klines for KOMAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072268405Z [inf]  2025-10-24 09:13:42,519 - binance_client - ERROR - Error fetching async klines for SPXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072273692Z [inf]  2025-10-24 09:13:42,527 - binance_client - ERROR - Error fetching async klines for AKTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072279312Z [inf]  2025-10-24 09:13:42,531 - binance_client - ERROR - Error fetching async klines for MOCAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072285024Z [inf]  2025-10-24 09:13:42,539 - binance_client - ERROR - Error fetching async klines for 1000WHYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072291250Z [inf]  2025-10-24 09:13:42,885 - binance_client - ERROR - Error fetching async klines for GRASSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072296755Z [inf]  2025-10-24 09:13:42,885 - binance_client - ERROR - Error fetching async klines for HIPPOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072305085Z [inf]  2025-10-24 09:13:43,220 - binance_client - ERROR - Error fetching async klines for FARTCOINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072311058Z [inf]  2025-10-24 09:13:43,235 - binance_client - ERROR - Error fetching async klines for GRIFFAINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072317236Z [inf]  2025-10-24 09:13:43,247 - binance_client - ERROR - Error fetching async klines for AI16ZUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072323159Z [inf]  2025-10-24 09:13:43,254 - binance_client - ERROR - Error fetching async klines for MELANIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072329051Z [inf]  2025-10-24 09:13:43,254 - binance_client - ERROR - Error fetching async klines for PIPPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.072334553Z [inf]  2025-10-24 09:13:43,254 - binance_client - ERROR - Error fetching async klines for ZEREBROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075787602Z [inf]  2025-10-24 09:13:43,296 - binance_client - ERROR - Error fetching async klines for B3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075799104Z [inf]  2025-10-24 09:13:43,296 - binance_client - ERROR - Error fetching async klines for VVVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075808074Z [inf]  2025-10-24 09:13:43,303 - binance_client - ERROR - Error fetching async klines for BIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075809615Z [inf]  2025-10-24 09:13:43,273 - binance_client - ERROR - Error fetching async klines for SWARMSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075816464Z [inf]  2025-10-24 09:13:43,276 - binance_client - ERROR - Error fetching async klines for ALCHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075819366Z [inf]  2025-10-24 09:13:43,307 - binance_client - ERROR - Error fetching async klines for IPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075824726Z [inf]  2025-10-24 09:13:43,279 - binance_client - ERROR - Error fetching async klines for SONICUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075827919Z [inf]  2025-10-24 09:13:44,015 - binance_client - ERROR - Error fetching async klines for BRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075832752Z [inf]  2025-10-24 09:13:43,284 - binance_client - ERROR - Error fetching async klines for AVAAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075836772Z [inf]  2025-10-24 09:13:44,016 - binance_client - ERROR - Error fetching async klines for SIRENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075840345Z [inf]  2025-10-24 09:13:43,288 - binance_client - ERROR - Error fetching async klines for ARCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.075846974Z [inf]  2025-10-24 09:13:43,292 - binance_client - ERROR - Error fetching async klines for VINEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078153583Z [inf]  2025-10-24 09:13:44,027 - binance_client - ERROR - Error fetching async klines for ATHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078164354Z [inf]  2025-10-24 09:13:44,052 - binance_client - ERROR - Error fetching async klines for PROMPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078173650Z [inf]  2025-10-24 09:13:44,058 - binance_client - ERROR - Error fetching async klines for DEEPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078181279Z [inf]  2025-10-24 09:13:44,059 - binance_client - ERROR - Error fetching async klines for FHEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078187868Z [inf]  2025-10-24 09:13:44,063 - binance_client - ERROR - Error fetching async klines for BANKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078195146Z [inf]  2025-10-24 09:13:44,063 - binance_client - ERROR - Error fetching async klines for XCNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078200376Z [inf]  2025-10-24 09:13:44,017 - binance_client - ERROR - Error fetching async klines for BROCCOLIF3BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078202739Z [inf]  2025-10-24 09:13:44,068 - binance_client - ERROR - Error fetching async klines for EPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078206732Z [inf]  2025-10-24 09:13:44,024 - binance_client - ERROR - Error fetching async klines for JELLYJELLYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078217086Z [inf]  2025-10-24 09:13:44,081 - binance_client - ERROR - Error fetching async klines for DOODUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078225487Z [inf]  2025-10-24 09:13:44,086 - binance_client - ERROR - Error fetching async klines for ZKJUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.078232050Z [inf]  2025-10-24 09:13:44,091 - binance_client - ERROR - Error fetching async klines for SKYAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081615159Z [inf]  2025-10-24 09:13:44,098 - binance_client - ERROR - Error fetching async klines for MILKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081622212Z [inf]  2025-10-24 09:13:44,102 - binance_client - ERROR - Error fetching async klines for OBOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081629417Z [inf]  2025-10-24 09:13:44,115 - binance_client - ERROR - Error fetching async klines for B2USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081635758Z [inf]  2025-10-24 09:13:44,462 - binance_client - ERROR - Error fetching async klines for MAVIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081642178Z [inf]  2025-10-24 09:13:44,496 - binance_client - ERROR - Error fetching async klines for AIOTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081648509Z [inf]  2025-10-24 09:13:44,841 - binance_client - ERROR - Error fetching async klines for PORT3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081655948Z [inf]  2025-10-24 09:13:44,841 - binance_client - ERROR - Error fetching async klines for SOONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081664538Z [inf]  2025-10-24 09:13:44,841 - binance_client - ERROR - Error fetching async klines for BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081670262Z [inf]  2025-10-24 09:13:44,842 - binance_client - ERROR - Error fetching async klines for AGTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081676471Z [inf]  2025-10-24 09:13:44,842 - binance_client - ERROR - Error fetching async klines for MERLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081683322Z [inf]  2025-10-24 09:13:44,842 - binance_client - ERROR - Error fetching async klines for HYPEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.081689802Z [inf]  2025-10-24 09:13:44,842 - binance_client - ERROR - Error fetching async klines for SKATEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086249360Z [inf]  2025-10-24 09:13:44,842 - binance_client - ERROR - Error fetching async klines for BDXNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086256401Z [inf]  2025-10-24 09:13:44,849 - binance_client - ERROR - Error fetching async klines for MYXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086262838Z [inf]  2025-10-24 09:13:44,853 - binance_client - ERROR - Error fetching async klines for PUMPBTCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086269664Z [inf]  2025-10-24 09:13:44,854 - binance_client - ERROR - Error fetching async klines for SQDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086277213Z [inf]  2025-10-24 09:13:44,854 - binance_client - ERROR - Error fetching async klines for 1000000BOBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086283450Z [inf]  2025-10-24 09:13:44,854 - binance_client - ERROR - Error fetching async klines for MUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086290871Z [inf]  2025-10-24 09:13:44,854 - binance_client - ERROR - Error fetching async klines for OLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086297617Z [inf]  2025-10-24 09:13:44,861 - binance_client - ERROR - Error fetching async klines for IDOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086305152Z [inf]  2025-10-24 09:13:44,861 - binance_client - ERROR - Error fetching async klines for TAIKOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086311783Z [inf]  2025-10-24 09:13:44,862 - binance_client - ERROR - Error fetching async klines for HUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086318060Z [inf]  2025-10-24 09:13:44,862 - binance_client - ERROR - Error fetching async klines for FUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.086325270Z [inf]  2025-10-24 09:13:44,862 - binance_client - ERROR - Error fetching async klines for CROSSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089369757Z [inf]  2025-10-24 09:13:44,877 - binance_client - ERROR - Error fetching async klines for ZRCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089388171Z [inf]  2025-10-24 09:13:44,862 - binance_client - ERROR - Error fetching async klines for DMCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089394780Z [inf]  2025-10-24 09:13:44,862 - binance_client - ERROR - Error fetching async klines for AINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089401787Z [inf]  2025-10-24 09:13:44,876 - binance_client - ERROR - Error fetching async klines for TANSSIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089407706Z [inf]  2025-10-24 09:13:44,877 - binance_client - ERROR - Error fetching async klines for BULLAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089410168Z [inf]  2025-10-24 09:13:44,877 - binance_client - ERROR - Error fetching async klines for TAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089417217Z [inf]  2025-10-24 09:13:44,877 - binance_client - ERROR - Error fetching async klines for ESPORTSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089417560Z [inf]  2025-10-24 09:13:44,877 - binance_client - ERROR - Error fetching async klines for ICNTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089425199Z [inf]  2025-10-24 09:13:44,881 - binance_client - ERROR - Error fetching async klines for TACUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089431010Z [inf]  2025-10-24 09:13:44,882 - binance_client - ERROR - Error fetching async klines for VELVETUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089437002Z [inf]  2025-10-24 09:13:44,882 - binance_client - ERROR - Error fetching async klines for TAGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.089445248Z [inf]  2025-10-24 09:13:44,887 - binance_client - ERROR - Error fetching async klines for ZORAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092814084Z [inf]  2025-10-24 09:13:45,620 - binance_client - ERROR - Error fetching async klines for DAMUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092828651Z [inf]  2025-10-24 09:13:45,620 - binance_client - ERROR - Error fetching async klines for TAKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092836542Z [inf]  2025-10-24 09:13:45,620 - binance_client - ERROR - Error fetching async klines for FLOCKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092843192Z [inf]  2025-10-24 09:13:45,621 - binance_client - ERROR - Error fetching async klines for SAPIENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092862183Z [inf]  2025-10-24 09:13:45,273 - binance_client - ERROR - Error fetching async klines for PLAYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092869009Z [inf]  2025-10-24 09:13:45,280 - binance_client - ERROR - Error fetching async klines for PUFFERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092874680Z [inf]  2025-10-24 09:13:45,606 - binance_client - ERROR - Error fetching async klines for YALAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092882474Z [inf]  2025-10-24 09:13:45,607 - binance_client - ERROR - Error fetching async klines for NAORISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092889236Z [inf]  2025-10-24 09:13:45,608 - binance_client - ERROR - Error fetching async klines for USELESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092895993Z [inf]  2025-10-24 09:13:45,615 - binance_client - ERROR - Error fetching async klines for XNYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092902848Z [inf]  2025-10-24 09:13:45,615 - binance_client - ERROR - Error fetching async klines for INUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.092908762Z [inf]  2025-10-24 09:13:45,619 - binance_client - ERROR - Error fetching async klines for CARVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095180482Z [inf]  2025-10-24 09:13:45,621 - binance_client - ERROR - Error fetching async klines for BTRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095234152Z [inf]  2025-10-24 09:13:45,624 - binance_client - ERROR - Error fetching async klines for AIOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095242498Z [inf]  2025-10-24 09:13:45,624 - binance_client - ERROR - Error fetching async klines for UBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095248705Z [inf]  2025-10-24 09:13:45,624 - binance_client - ERROR - Error fetching async klines for QUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095257164Z [inf]  2025-10-24 09:13:45,628 - binance_client - ERROR - Error fetching async klines for TOSHIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095264308Z [inf]  2025-10-24 09:13:45,629 - binance_client - ERROR - Error fetching async klines for AKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095270121Z [inf]  2025-10-24 09:13:45,629 - binance_client - ERROR - Error fetching async klines for ARIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095276560Z [inf]  2025-10-24 09:13:45,629 - binance_client - ERROR - Error fetching async klines for PTBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095283435Z [inf]  2025-10-24 09:13:45,636 - binance_client - ERROR - Error fetching async klines for AIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095289929Z [inf]  2025-10-24 09:13:45,640 - binance_client - ERROR - Error fetching async klines for TRADOORUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095296038Z [inf]  2025-10-24 09:13:45,640 - binance_client - ERROR - Error fetching async klines for BLESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.095302501Z [inf]  2025-10-24 09:13:45,653 - binance_client - ERROR - Error fetching async klines for XPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098481831Z [inf]  2025-10-24 09:13:45,658 - binance_client - ERROR - Error fetching async klines for STBLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098491437Z [inf]  2025-10-24 09:13:45,658 - binance_client - ERROR - Error fetching async klines for ORDERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098497927Z [inf]  2025-10-24 09:13:45,668 - binance_client - ERROR - Error fetching async klines for FLUIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098503851Z [inf]  2025-10-24 09:13:45,672 - binance_client - ERROR - Error fetching async klines for LIGHTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098510935Z [inf]  2025-10-24 09:13:45,683 - binance_client - ERROR - Error fetching async klines for HANAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098516910Z [inf]  2025-10-24 09:13:46,045 - binance_client - ERROR - Error fetching async klines for ALLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098522867Z [inf]  2025-10-24 09:13:46,051 - binance_client - ERROR - Error fetching async klines for CUDISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098530425Z [inf]  2025-10-24 09:13:46,065 - binance_client - ERROR - Error fetching async klines for BASUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098536288Z [inf]  2025-10-24 09:13:46,066 - binance_client - ERROR - Error fetching async klines for COAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098544389Z [inf]  2025-10-24 09:13:46,068 - binance_client - ERROR - Error fetching async klines for XANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098549868Z [inf]  2025-10-24 09:13:46,391 - binance_client - ERROR - Error fetching async klines for TRUTHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.098560997Z [inf]  2025-10-24 09:13:46,398 - binance_client - ERROR - Error fetching async klines for EVAAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101628946Z [inf]  2025-10-24 09:13:46,398 - binance_client - ERROR - Error fetching async klines for METUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101644194Z [inf]  2025-10-24 09:13:46,398 - binance_client - ERROR - Error fetching async klines for CLOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101650494Z [inf]  2025-10-24 09:13:46,409 - binance_client - ERROR - Error fetching async klines for LYNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101656137Z [inf]  2025-10-24 09:13:46,409 - binance_client - ERROR - Error fetching async klines for VFYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101665016Z [inf]  2025-10-24 09:13:46,409 - binance_client - ERROR - Error fetching async klines for RECALLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101670459Z [inf]  2025-10-24 09:13:46,409 - binance_client - ERROR - Error fetching async klines for MONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101676941Z [inf]  2025-10-24 09:13:46,409 - binance_client - ERROR - Error fetching async klines for RVVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101684681Z [inf]  2025-10-24 09:13:46,414 - binance_client - ERROR - Error fetching async klines for 4USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101690903Z [inf]  2025-10-24 09:13:46,414 - binance_client - ERROR - Error fetching async klines for GIGGLEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101697499Z [inf]  2025-10-24 09:13:46,417 - binance_client - ERROR - Error fetching async klines for APRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101703520Z [inf]  2025-10-24 09:13:46,418 - binance_client - ERROR - Error fetching async klines for KGENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.101708977Z [inf]  2025-10-24 09:13:46,418 - binance_client - ERROR - Error fetching async klines for LABUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.110205369Z [inf]  2025-10-24 09:13:46,425 - binance_client - ERROR - Error fetching async klines for BLUAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.110211419Z [inf]  2025-10-24 09:13:46,428 - binance_client - ERROR - Error fetching async klines for RIVERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.110217295Z [inf]  2025-10-24 09:13:46,428 - binance_client - ERROR - Error fetching async klines for ONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T09:13:47.110222975Z [inf]  2025-10-24 09:13:46,428 - binance_client - ERROR - Error fetching async klines for 币安人生USDT: APIError(code=-1100): Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'.
+2025-10-24T09:13:47.110229501Z [inf]  2025-10-24 09:13:46,529 - services.data_service - INFO - Fetched 369/526 symbols in 8.05s
+2025-10-24T09:13:47.110235878Z [inf]  2025-10-24 09:13:46,529 - __main__ - INFO - ✅ Fetched data in 8.05s
+2025-10-24T09:13:47.110242112Z [inf]  2025-10-24 09:13:46,529 - __main__ - INFO - 🔍 Analyzing market data...
+2025-10-24T09:13:49.934530069Z [inf]  2025-10-24 09:13:49,359 - strategies.ict_smc - INFO - BTCUSDT - 1h趨勢: bull
+2025-10-24T09:13:49.934535726Z [inf]  2025-10-24 09:13:49,448 - strategies.ict_smc - INFO - ETHUSDT - 1h趨勢: bull
+2025-10-24T09:13:49.934541629Z [inf]  2025-10-24 09:13:49,533 - strategies.ict_smc - INFO - BCHUSDT - 1h趨勢: bull
+2025-10-24T09:13:49.934548082Z [inf]  2025-10-24 09:13:49,617 - strategies.ict_smc - INFO - XRPUSDT - 1h趨勢: bull
+2025-10-24T09:13:49.934557524Z [inf]  2025-10-24 09:13:49,715 - strategies.ict_smc - INFO - LTCUSDT - 1h趨勢: bull
+2025-10-24T09:13:49.934563385Z [inf]  2025-10-24 09:13:49,802 - strategies.ict_smc - INFO - TRXUSDT - 1h趨勢: bear
+2025-10-24T09:13:49.934569487Z [inf]  2025-10-24 09:13:49,889 - strategies.ict_smc - INFO - ETCUSDT - 1h趨勢: bear
+2025-10-24T09:13:49.977884014Z [inf]  2025-10-24 09:13:49,973 - strategies.ict_smc - INFO - LINKUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.082277377Z [inf]  2025-10-24 09:13:50,073 - strategies.ict_smc - INFO - XLMUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.201485488Z [inf]  2025-10-24 09:13:50,192 - strategies.ict_smc - INFO - ADAUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977149718Z [inf]  2025-10-24 09:13:50,311 - strategies.ict_smc - INFO - XMRUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977154259Z [inf]  2025-10-24 09:13:50,406 - strategies.ict_smc - INFO - DASHUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977158276Z [inf]  2025-10-24 09:13:50,492 - strategies.ict_smc - INFO - ZECUSDT - 1h趨勢: bull
+2025-10-24T09:13:50.977162139Z [inf]  2025-10-24 09:13:50,579 - strategies.ict_smc - INFO - XTZUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977168662Z [inf]  2025-10-24 09:13:50,668 - strategies.ict_smc - INFO - BNBUSDT - 1h趨勢: bull
+2025-10-24T09:13:50.977172796Z [inf]  2025-10-24 09:13:50,766 - strategies.ict_smc - INFO - ATOMUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977182425Z [inf]  2025-10-24 09:13:50,852 - strategies.ict_smc - INFO - ONTUSDT - 1h趨勢: bear
+2025-10-24T09:13:50.977188276Z [inf]  2025-10-24 09:13:50,931 - strategies.ict_smc - INFO - IOTAUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.016300288Z [inf]  2025-10-24 09:13:51,011 - strategies.ict_smc - INFO - BATUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.094326858Z [inf]  2025-10-24 09:13:51,090 - strategies.ict_smc - INFO - VETUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.163719806Z [inf]  2025-10-24 09:13:51,161 - strategies.ict_smc - INFO - NEOUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.912367571Z [inf]  2025-10-24 09:13:51,241 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 5.1510 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:13:51.912373181Z [inf]  2025-10-24 09:13:51,242 - strategies.ict_smc - INFO - QTUMUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.912379002Z [inf]  2025-10-24 09:13:51,316 - strategies.ict_smc - INFO - IOSTUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.912382934Z [inf]  2025-10-24 09:13:51,401 - strategies.ict_smc - INFO - THETAUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.912387366Z [inf]  2025-10-24 09:13:51,467 - strategies.ict_smc - INFO - ALGOUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.912397369Z [inf]  2025-10-24 09:13:51,549 - strategies.ict_smc - INFO - ZILUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.912401376Z [inf]  2025-10-24 09:13:51,635 - strategies.ict_smc - INFO - KNCUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.912407402Z [inf]  2025-10-24 09:13:51,710 - strategies.ict_smc - INFO - ZRXUSDT - 1h趨勢: bear
+2025-10-24T09:13:51.912411225Z [inf]  2025-10-24 09:13:51,785 - strategies.ict_smc - INFO - COMPUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.912415319Z [inf]  2025-10-24 09:13:51,868 - strategies.ict_smc - INFO - DOGEUSDT - 1h趨勢: bull
+2025-10-24T09:13:51.962984883Z [inf]  2025-10-24 09:13:51,959 - strategies.ict_smc - INFO - SXPUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.041666231Z [inf]  2025-10-24 09:13:52,040 - strategies.ict_smc - INFO - KAVAUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.139500769Z [inf]  2025-10-24 09:13:52,135 - strategies.ict_smc - INFO - BANDUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.220861128Z [inf]  2025-10-24 09:13:52,215 - strategies.ict_smc - INFO - RLCUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929493765Z [inf]  2025-10-24 09:13:52,290 - strategies.ict_smc - INFO - SNXUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929500874Z [inf]  2025-10-24 09:13:52,368 - strategies.ict_smc - INFO - DOTUSDT - 1h趨勢: bull
+2025-10-24T09:13:52.929506691Z [inf]  2025-10-24 09:13:52,464 - strategies.ict_smc - INFO - YFIUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929512621Z [inf]  2025-10-24 09:13:52,547 - strategies.ict_smc - INFO - CRVUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929519142Z [inf]  2025-10-24 09:13:52,634 - strategies.ict_smc - INFO - TRBUSDT - 1h趨勢: bull
+2025-10-24T09:13:52.929525434Z [inf]  2025-10-24 09:13:52,715 - strategies.ict_smc - INFO - RUNEUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929531614Z [inf]  2025-10-24 09:13:52,783 - strategies.ict_smc - INFO - SUSHIUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.929537534Z [inf]  2025-10-24 09:13:52,860 - strategies.ict_smc - INFO - EGLDUSDT - 1h趨勢: bear
+2025-10-24T09:13:52.966917183Z [inf]  2025-10-24 09:13:52,963 - strategies.ict_smc - INFO - SOLUSDT - 1h趨勢: bull
+2025-10-24T09:13:53.103621918Z [inf]  2025-10-24 09:13:53,101 - strategies.ict_smc - INFO - ICXUSDT - 1h趨勢: bull
+2025-10-24T09:13:53.208763344Z [inf]  2025-10-24 09:13:53,202 - strategies.ict_smc - INFO - STORJUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.192962396Z [inf]  2025-10-24 09:13:53,289 - strategies.ict_smc - INFO - UNIUSDT - 1h趨勢: bull
+2025-10-24T09:13:54.192970643Z [inf]  2025-10-24 09:13:53,384 - strategies.ict_smc - INFO - AVAXUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.192979910Z [inf]  2025-10-24 09:13:53,472 - strategies.ict_smc - INFO - ENJUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.192988318Z [inf]  2025-10-24 09:13:53,567 - strategies.ict_smc - INFO - FLMUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.192999331Z [inf]  2025-10-24 09:13:53,654 - strategies.ict_smc - INFO - KSMUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.193008751Z [inf]  2025-10-24 09:13:53,758 - strategies.ict_smc - INFO - NEARUSDT - 1h趨勢: bull
+2025-10-24T09:13:54.193017419Z [inf]  2025-10-24 09:13:53,869 - strategies.ict_smc - INFO - AAVEUSDT - 1h趨勢: bull
+2025-10-24T09:13:54.193026645Z [inf]  2025-10-24 09:13:53,982 - strategies.ict_smc - INFO - FILUSDT - 1h趨勢: bull
+2025-10-24T09:13:54.193035168Z [inf]  2025-10-24 09:13:54,089 - strategies.ict_smc - INFO - RSRUSDT - 1h趨勢: bear
+2025-10-24T09:13:54.220554005Z [inf]  2025-10-24 09:13:54,213 - strategies.ict_smc - INFO - LRCUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.092448745Z [inf]  2025-10-24 09:13:54,788 - strategies.ict_smc - INFO - GRTUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.092462629Z [inf]  2025-10-24 09:13:54,899 - strategies.ict_smc - INFO - 1INCHUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.092473706Z [inf]  2025-10-24 09:13:55,007 - strategies.ict_smc - INFO - CHZUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.092631864Z [inf]  2025-10-24 09:13:54,324 - strategies.ict_smc - INFO - BELUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.092640738Z [inf]  2025-10-24 09:13:54,445 - strategies.ict_smc - INFO - AXSUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.092647527Z [inf]  2025-10-24 09:13:54,559 - strategies.ict_smc - INFO - ZENUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.092653690Z [inf]  2025-10-24 09:13:54,683 - strategies.ict_smc - INFO - SKLUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.145334885Z [inf]  2025-10-24 09:13:55,117 - strategies.ict_smc - INFO - SANDUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.238606618Z [inf]  2025-10-24 09:13:55,235 - strategies.ict_smc - INFO - ANKRUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.936122360Z [inf]  2025-10-24 09:13:55,337 - strategies.ict_smc - INFO - RVNUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.936129071Z [inf]  2025-10-24 09:13:55,438 - strategies.ict_smc - INFO - SFPUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.936136016Z [inf]  2025-10-24 09:13:55,551 - strategies.ict_smc - INFO - COTIUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.936228911Z [inf]  2025-10-24 09:13:55,661 - strategies.ict_smc - INFO - CHRUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.936239692Z [inf]  2025-10-24 09:13:55,763 - strategies.ict_smc - INFO - MANAUSDT - 1h趨勢: bull
+2025-10-24T09:13:55.936245979Z [inf]  2025-10-24 09:13:55,870 - strategies.ict_smc - INFO - ALICEUSDT - 1h趨勢: bear
+2025-10-24T09:13:55.987608252Z [inf]  2025-10-24 09:13:55,983 - strategies.ict_smc - INFO - HBARUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.105951431Z [inf]  2025-10-24 09:13:56,101 - strategies.ict_smc - INFO - ONEUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.209524531Z [inf]  2025-10-24 09:13:56,204 - strategies.ict_smc - INFO - DENTUSDT - 1h趨勢: bull
+2025-10-24T09:13:56.957646201Z [inf]  2025-10-24 09:13:56,301 - strategies.ict_smc - INFO - CELRUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.957655655Z [inf]  2025-10-24 09:13:56,412 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0055 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:13:56.957661424Z [inf]  2025-10-24 09:13:56,413 - strategies.ict_smc - INFO - HOTUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.957672893Z [inf]  2025-10-24 09:13:56,513 - strategies.ict_smc - INFO - MTLUSDT - 1h趨勢: bull
+2025-10-24T09:13:56.957679090Z [inf]  2025-10-24 09:13:56,613 - strategies.ict_smc - INFO - OGNUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.957685431Z [inf]  2025-10-24 09:13:56,707 - strategies.ict_smc - INFO - NKNUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.957695693Z [inf]  2025-10-24 09:13:56,791 - strategies.ict_smc - INFO - GTCUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.957702097Z [inf]  2025-10-24 09:13:56,876 - strategies.ict_smc - INFO - IOTXUSDT - 1h趨勢: bear
+2025-10-24T09:13:56.990687691Z [inf]  2025-10-24 09:13:56,985 - strategies.ict_smc - INFO - C98USDT - 1h趨勢: bear
+2025-10-24T09:13:57.080667096Z [inf]  2025-10-24 09:13:57,077 - strategies.ict_smc - INFO - MASKUSDT - 1h趨勢: bear
+2025-10-24T09:13:57.175427689Z [inf]  2025-10-24 09:13:57,173 - strategies.ict_smc - INFO - ATAUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348290844Z [inf]  2025-10-24 09:13:57,260 - strategies.ict_smc - INFO - DYDXUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348295408Z [inf]  2025-10-24 09:13:57,375 - strategies.ict_smc - INFO - GALAUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348300233Z [inf]  2025-10-24 09:13:57,488 - strategies.ict_smc - INFO - CELOUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348305229Z [inf]  2025-10-24 09:13:57,605 - strategies.ict_smc - INFO - ARUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348311816Z [inf]  2025-10-24 09:13:57,701 - strategies.ict_smc - INFO - ARPAUSDT - 1h趨勢: bull
+2025-10-24T09:13:58.348316434Z [inf]  2025-10-24 09:13:57,810 - strategies.ict_smc - INFO - CTSIUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348323437Z [inf]  2025-10-24 09:13:57,912 - strategies.ict_smc - INFO - LPTUSDT - 1h趨勢: bull
+2025-10-24T09:13:58.348328125Z [inf]  2025-10-24 09:13:58,028 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 5.1540 (信心度: 83.0%) - 1h多頭 + 看漲結構 + 中高信心
+2025-10-24T09:13:58.348333285Z [inf]  2025-10-24 09:13:58,029 - strategies.ict_smc - INFO - ENSUSDT - 1h趨勢: bear
+2025-10-24T09:13:58.348338762Z [inf]  2025-10-24 09:13:58,138 - strategies.ict_smc - INFO - PEOPLEUSDT - 1h趨勢: bull
+2025-10-24T09:13:58.348344339Z [inf]  2025-10-24 09:13:58,246 - strategies.ict_smc - INFO - ROSEUSDT - 1h趨勢: bear
+2025-10-24T09:13:59.412313118Z [inf]  2025-10-24 09:13:58,536 - strategies.ict_smc - INFO - IMXUSDT - 1h趨勢: bull
+2025-10-24T09:13:59.412317002Z [inf]  2025-10-24 09:13:59,313 - strategies.ict_smc - INFO - INJUSDT - 1h趨勢: bear
+2025-10-24T09:13:59.412320102Z [inf]  2025-10-24 09:13:58,638 - strategies.ict_smc - INFO - API3USDT - 1h趨勢: bear
+2025-10-24T09:13:59.412326600Z [inf]  2025-10-24 09:13:58,760 - strategies.ict_smc - INFO - GMTUSDT - 1h趨勢: bull
+2025-10-24T09:13:59.412335185Z [inf]  2025-10-24 09:13:58,872 - strategies.ict_smc - INFO - APEUSDT - 1h趨勢: bull
+2025-10-24T09:13:59.412348195Z [inf]  2025-10-24 09:13:58,988 - strategies.ict_smc - INFO - WOOUSDT - 1h趨勢: bear
+2025-10-24T09:13:59.412358522Z [inf]  2025-10-24 09:13:59,088 - strategies.ict_smc - INFO - JASMYUSDT - 1h趨勢: bull
+2025-10-24T09:13:59.412359175Z [inf]  2025-10-24 09:13:58,350 - strategies.ict_smc - INFO - DUSKUSDT - 1h趨勢: bear
+2025-10-24T09:13:59.412366990Z [inf]  2025-10-24 09:13:58,447 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0474 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:13:59.412368136Z [inf]  2025-10-24 09:13:59,196 - strategies.ict_smc - INFO - OPUSDT - 1h趨勢: bull
+2025-10-24T09:13:59.412373724Z [inf]  2025-10-24 09:13:58,447 - strategies.ict_smc - INFO - FLOWUSDT - 1h趨勢: bull
+2025-10-24T09:14:00.444170966Z [inf]  2025-10-24 09:13:59,414 - strategies.ict_smc - INFO - STGUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444180410Z [inf]  2025-10-24 09:13:59,520 - strategies.ict_smc - INFO - SPELLUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444186229Z [inf]  2025-10-24 09:13:59,633 - strategies.ict_smc - INFO - LDOUSDT - 1h趨勢: bull
+2025-10-24T09:14:00.444191420Z [inf]  2025-10-24 09:13:59,750 - strategies.ict_smc - INFO - ICPUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444197478Z [inf]  2025-10-24 09:13:59,870 - strategies.ict_smc - INFO - APTUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444203120Z [inf]  2025-10-24 09:13:59,990 - strategies.ict_smc - INFO - QNTUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444208381Z [inf]  2025-10-24 09:14:00,109 - strategies.ict_smc - INFO - FETUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444215054Z [inf]  2025-10-24 09:14:00,222 - strategies.ict_smc - INFO - FXSUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444220730Z [inf]  2025-10-24 09:14:00,325 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 1.4110 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:00.444226136Z [inf]  2025-10-24 09:14:00,326 - strategies.ict_smc - INFO - HOOKUSDT - 1h趨勢: bear
+2025-10-24T09:14:00.444232657Z [inf]  2025-10-24 09:14:00,427 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0653 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:00.444237900Z [inf]  2025-10-24 09:14:00,428 - strategies.ict_smc - INFO - MAGICUSDT - 1h趨勢: bear
+2025-10-24T09:14:01.492892871Z [inf]  2025-10-24 09:14:00,533 - strategies.ict_smc - INFO - TUSDT - 1h趨勢: bull
+2025-10-24T09:14:01.492900470Z [inf]  2025-10-24 09:14:00,646 - strategies.ict_smc - INFO - HIGHUSDT - 1h趨勢: bear
+2025-10-24T09:14:01.492909438Z [inf]  2025-10-24 09:14:00,736 - strategies.ict_smc - INFO - MINAUSDT - 1h趨勢: bear
+2025-10-24T09:14:01.493027993Z [inf]  2025-10-24 09:14:00,842 - strategies.ict_smc - INFO - ASTRUSDT - 1h趨勢: bear
+2025-10-24T09:14:01.493036005Z [inf]  2025-10-24 09:14:00,949 - strategies.ict_smc - INFO - PHBUSDT - 1h趨勢: bull
+2025-10-24T09:14:01.493043644Z [inf]  2025-10-24 09:14:01,053 - strategies.ict_smc - INFO - GMXUSDT - 1h趨勢: bull
+2025-10-24T09:14:01.493051333Z [inf]  2025-10-24 09:14:01,158 - strategies.ict_smc - INFO - CFXUSDT - 1h趨勢: bull
+2025-10-24T09:14:01.493059591Z [inf]  2025-10-24 09:14:01,266 - strategies.ict_smc - INFO - STXUSDT - 1h趨勢: bull
+2025-10-24T09:14:01.493067734Z [inf]  2025-10-24 09:14:01,384 - strategies.ict_smc - INFO - ACHUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.376938550Z [inf]  2025-10-24 09:14:01,497 - strategies.ict_smc - INFO - SSVUSDT - 1h趨勢: bull
+2025-10-24T09:14:02.376946881Z [inf]  2025-10-24 09:14:01,630 - strategies.ict_smc - INFO - CKBUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.376954459Z [inf]  2025-10-24 09:14:01,747 - strategies.ict_smc - INFO - PERPUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.376962910Z [inf]  2025-10-24 09:14:01,857 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.2235 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:02.376971549Z [inf]  2025-10-24 09:14:01,857 - strategies.ict_smc - INFO - TRUUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.376980619Z [inf]  2025-10-24 09:14:01,941 - strategies.ict_smc - INFO - LQTYUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.376988511Z [inf]  2025-10-24 09:14:02,039 - strategies.ict_smc - INFO - USDCUSDT - 1h趨勢: bull
+2025-10-24T09:14:02.377002506Z [inf]  2025-10-24 09:14:02,124 - strategies.ict_smc - INFO - IDUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.377009932Z [inf]  2025-10-24 09:14:02,228 - strategies.ict_smc - INFO - ARBUSDT - 1h趨勢: bull
+2025-10-24T09:14:02.377017223Z [inf]  2025-10-24 09:14:02,344 - strategies.ict_smc - INFO - JOEUSDT - 1h趨勢: bear
+2025-10-24T09:14:02.451816263Z [inf]  2025-10-24 09:14:02,447 - strategies.ict_smc - INFO - TLMUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228482000Z [inf]  2025-10-24 09:14:02,532 - strategies.ict_smc - INFO - RDNTUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228491712Z [inf]  2025-10-24 09:14:02,643 - strategies.ict_smc - INFO - HFTUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228499080Z [inf]  2025-10-24 09:14:02,735 - strategies.ict_smc - INFO - XVSUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228505330Z [inf]  2025-10-24 09:14:02,827 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 4.8800 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:03.228511826Z [inf]  2025-10-24 09:14:02,828 - strategies.ict_smc - INFO - BLURUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228518792Z [inf]  2025-10-24 09:14:02,947 - strategies.ict_smc - INFO - EDUUSDT - 1h趨勢: bull
+2025-10-24T09:14:03.228525074Z [inf]  2025-10-24 09:14:03,061 - strategies.ict_smc - INFO - SUIUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.228530496Z [inf]  2025-10-24 09:14:03,174 - strategies.ict_smc - INFO - UMAUSDT - 1h趨勢: bull
+2025-10-24T09:14:03.284728881Z [inf]  2025-10-24 09:14:03,279 - strategies.ict_smc - INFO - NMRUSDT - 1h趨勢: bear
+2025-10-24T09:14:03.392004614Z [inf]  2025-10-24 09:14:03,387 - strategies.ict_smc - INFO - MAVUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491421122Z [inf]  2025-10-24 09:14:03,809 - strategies.ict_smc - INFO - ARKMUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491431613Z [inf]  2025-10-24 09:14:03,901 - strategies.ict_smc - INFO - AGLDUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491437639Z [inf]  2025-10-24 09:14:03,984 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.4130 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:04.491442546Z [inf]  2025-10-24 09:14:03,985 - strategies.ict_smc - INFO - YGGUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491454659Z [inf]  2025-10-24 09:14:03,490 - strategies.ict_smc - INFO - XVGUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491460919Z [inf]  2025-10-24 09:14:03,597 - strategies.ict_smc - INFO - WLDUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.491467187Z [inf]  2025-10-24 09:14:03,689 - strategies.ict_smc - INFO - PENDLEUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.505462902Z [inf]  2025-10-24 09:14:04,074 - strategies.ict_smc - INFO - BNTUSDT - 1h趨勢: bull
+2025-10-24T09:14:04.505472727Z [inf]  2025-10-24 09:14:04,157 - strategies.ict_smc - INFO - OXTUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.505481056Z [inf]  2025-10-24 09:14:04,233 - strategies.ict_smc - INFO - SEIUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.505492175Z [inf]  2025-10-24 09:14:04,327 - strategies.ict_smc - INFO - CYBERUSDT - 1h趨勢: bear
+2025-10-24T09:14:04.505500142Z [inf]  2025-10-24 09:14:04,424 - strategies.ict_smc - INFO - ARKUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343605286Z [inf]  2025-10-24 09:14:04,522 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.3273 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:05.343612141Z [inf]  2025-10-24 09:14:04,522 - strategies.ict_smc - INFO - BICOUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343619070Z [inf]  2025-10-24 09:14:04,607 - strategies.ict_smc - INFO - BIGTIMEUSDT - 1h趨勢: bull
+2025-10-24T09:14:05.343626236Z [inf]  2025-10-24 09:14:04,703 - strategies.ict_smc - INFO - WAXPUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343633684Z [inf]  2025-10-24 09:14:04,795 - strategies.ict_smc - INFO - RIFUSDT - 1h趨勢: bull
+2025-10-24T09:14:05.343641644Z [inf]  2025-10-24 09:14:04,872 - strategies.ict_smc - INFO - POLYXUSDT - 1h趨勢: bull
+2025-10-24T09:14:05.343650020Z [inf]  2025-10-24 09:14:04,956 - strategies.ict_smc - INFO - GASUSDT - 1h趨勢: bull
+2025-10-24T09:14:05.343658581Z [inf]  2025-10-24 09:14:05,036 - strategies.ict_smc - INFO - POWRUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343666386Z [inf]  2025-10-24 09:14:05,120 - strategies.ict_smc - INFO - TIAUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343674187Z [inf]  2025-10-24 09:14:05,198 - strategies.ict_smc - INFO - CAKEUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.343682506Z [inf]  2025-10-24 09:14:05,299 - strategies.ict_smc - INFO - MEMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.388729331Z [inf]  2025-10-24 09:14:05,381 - strategies.ict_smc - INFO - TWTUSDT - 1h趨勢: bear
+2025-10-24T09:14:05.477889727Z [inf]  2025-10-24 09:14:05,472 - strategies.ict_smc - INFO - ORDIUSDT - 1h趨勢: bull
+2025-10-24T09:14:06.141026365Z [inf]  2025-10-24 09:14:05,566 - strategies.ict_smc - INFO - STEEMUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141033946Z [inf]  2025-10-24 09:14:05,635 - strategies.ict_smc - INFO - ILVUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141040553Z [inf]  2025-10-24 09:14:05,715 - strategies.ict_smc - INFO - NTRNUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141047268Z [inf]  2025-10-24 09:14:05,785 - strategies.ict_smc - INFO - BEAMXUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141065029Z [inf]  2025-10-24 09:14:05,866 - strategies.ict_smc - INFO - PYTHUSDT - 1h趨勢: bull
+2025-10-24T09:14:06.141072415Z [inf]  2025-10-24 09:14:05,950 - strategies.ict_smc - INFO - SUPERUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141079470Z [inf]  2025-10-24 09:14:06,036 - strategies.ict_smc - INFO - USTCUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.141098512Z [inf]  2025-10-24 09:14:06,111 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0081 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:06.141106920Z [inf]  2025-10-24 09:14:06,111 - strategies.ict_smc - INFO - ONGUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.189927443Z [inf]  2025-10-24 09:14:06,187 - strategies.ict_smc - INFO - JTOUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.284722456Z [inf]  2025-10-24 09:14:06,280 - strategies.ict_smc - INFO - 1000SATSUSDT - 1h趨勢: bear
+2025-10-24T09:14:06.365459024Z [inf]  2025-10-24 09:14:06,361 - strategies.ict_smc - INFO - AUCTIONUSDT - 1h趨勢: bull
+2025-10-24T09:14:06.445886542Z [inf]  2025-10-24 09:14:06,444 - strategies.ict_smc - INFO - ACEUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088668216Z [inf]  2025-10-24 09:14:06,518 - strategies.ict_smc - INFO - MOVRUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088676446Z [inf]  2025-10-24 09:14:06,603 - strategies.ict_smc - INFO - NFPUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088683426Z [inf]  2025-10-24 09:14:06,671 - strategies.ict_smc - INFO - AIUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088690252Z [inf]  2025-10-24 09:14:06,742 - strategies.ict_smc - INFO - XAIUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088695291Z [inf]  2025-10-24 09:14:06,803 - strategies.ict_smc - INFO - WIFUSDT - 1h趨勢: bull
+2025-10-24T09:14:07.088700385Z [inf]  2025-10-24 09:14:06,879 - strategies.ict_smc - INFO - MANTAUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088706838Z [inf]  2025-10-24 09:14:06,965 - strategies.ict_smc - INFO - ONDOUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.088714041Z [inf]  2025-10-24 09:14:07,070 - strategies.ict_smc - INFO - LSKUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.152323367Z [inf]  2025-10-24 09:14:07,145 - strategies.ict_smc - INFO - ALTUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.249848893Z [inf]  2025-10-24 09:14:07,244 - strategies.ict_smc - INFO - JUPUSDT - 1h趨勢: bull
+2025-10-24T09:14:07.351647789Z [inf]  2025-10-24 09:14:07,349 - strategies.ict_smc - INFO - RONINUSDT - 1h趨勢: bear
+2025-10-24T09:14:07.457107668Z [inf]  2025-10-24 09:14:07,454 - strategies.ict_smc - INFO - DYMUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296545549Z [inf]  2025-10-24 09:14:07,546 - strategies.ict_smc - INFO - OMUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296558250Z [inf]  2025-10-24 09:14:07,647 - strategies.ict_smc - INFO - PIXELUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296565971Z [inf]  2025-10-24 09:14:07,745 - strategies.ict_smc - INFO - STRKUSDT - 1h趨勢: bull
+2025-10-24T09:14:08.296573907Z [inf]  2025-10-24 09:14:07,826 - strategies.ict_smc - INFO - GLMUSDT - 1h趨勢: bull
+2025-10-24T09:14:08.296582333Z [inf]  2025-10-24 09:14:07,903 - strategies.ict_smc - INFO - PORTALUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296589652Z [inf]  2025-10-24 09:14:07,993 - strategies.ict_smc - INFO - TONUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296636039Z [inf]  2025-10-24 09:14:08,090 - strategies.ict_smc - INFO - AXLUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.296646092Z [inf]  2025-10-24 09:14:08,186 - strategies.ict_smc - INFO - METISUSDT - 1h趨勢: bull
+2025-10-24T09:14:08.296653355Z [inf]  2025-10-24 09:14:08,270 - strategies.ict_smc - INFO - AEVOUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.347940985Z [inf]  2025-10-24 09:14:08,346 - strategies.ict_smc - INFO - VANRYUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.411121219Z [inf]  2025-10-24 09:14:08,409 - strategies.ict_smc - INFO - BOMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:08.499055805Z [inf]  2025-10-24 09:14:08,494 - strategies.ict_smc - INFO - ETHFIUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306059598Z [inf]  2025-10-24 09:14:08,581 - strategies.ict_smc - INFO - ENAUSDT - 1h趨勢: bull
+2025-10-24T09:14:09.306067280Z [inf]  2025-10-24 09:14:08,673 - strategies.ict_smc - INFO - WUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306075778Z [inf]  2025-10-24 09:14:08,753 - strategies.ict_smc - INFO - TNSRUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306082750Z [inf]  2025-10-24 09:14:08,829 - strategies.ict_smc - INFO - SAGAUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306089096Z [inf]  2025-10-24 09:14:08,913 - strategies.ict_smc - INFO - TAOUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306101097Z [inf]  2025-10-24 09:14:08,997 - strategies.ict_smc - INFO - REZUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306108850Z [inf]  2025-10-24 09:14:09,084 - strategies.ict_smc - INFO - BBUSDT - 1h趨勢: bull
+2025-10-24T09:14:09.306116277Z [inf]  2025-10-24 09:14:09,175 - strategies.ict_smc - INFO - NOTUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.306123279Z [inf]  2025-10-24 09:14:09,256 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0008 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:09.306129261Z [inf]  2025-10-24 09:14:09,257 - strategies.ict_smc - INFO - TURBOUSDT - 1h趨勢: bear
+2025-10-24T09:14:09.355330400Z [inf]  2025-10-24 09:14:09,349 - strategies.ict_smc - INFO - IOUSDT - 1h趨勢: bull
+2025-10-24T09:14:09.419496656Z [inf]  2025-10-24 09:14:09,417 - strategies.ict_smc - INFO - ZKUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284466607Z [inf]  2025-10-24 09:14:09,507 - strategies.ict_smc - INFO - LISTAUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284491722Z [inf]  2025-10-24 09:14:09,593 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.2923 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:10.284501961Z [inf]  2025-10-24 09:14:09,593 - strategies.ict_smc - INFO - ZROUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284508660Z [inf]  2025-10-24 09:14:09,676 - strategies.ict_smc - INFO - RENDERUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284521996Z [inf]  2025-10-24 09:14:10,018 - strategies.ict_smc - INFO - SYNUSDT - 1h趨勢: bull
+2025-10-24T09:14:10.284530301Z [inf]  2025-10-24 09:14:10,106 - strategies.ict_smc - INFO - SYSUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284539295Z [inf]  2025-10-24 09:14:10,188 - strategies.ict_smc - INFO - VOXELUSDT - 1h趨勢: bull
+2025-10-24T09:14:10.284550426Z [inf]  2025-10-24 09:14:10,256 - strategies.ict_smc - INFO - SUNUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284568266Z [inf]  2025-10-24 09:14:09,777 - strategies.ict_smc - INFO - BANANAUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284581404Z [inf]  2025-10-24 09:14:09,874 - strategies.ict_smc - INFO - RAREUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.284590300Z [inf]  2025-10-24 09:14:09,945 - strategies.ict_smc - INFO - GUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.333499581Z [inf]  2025-10-24 09:14:10,332 - strategies.ict_smc - INFO - DOGSUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.409613898Z [inf]  2025-10-24 09:14:10,407 - strategies.ict_smc - INFO - MBOXUSDT - 1h趨勢: bear
+2025-10-24T09:14:10.486223640Z [inf]  2025-10-24 09:14:10,483 - strategies.ict_smc - INFO - CHESSUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.308251705Z [inf]  2025-10-24 09:14:10,579 - strategies.ict_smc - INFO - FLUXUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.308261565Z [inf]  2025-10-24 09:14:10,664 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.1230 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:11.308269586Z [inf]  2025-10-24 09:14:10,665 - strategies.ict_smc - INFO - QUICKUSDT - 1h趨勢: bull
+2025-10-24T09:14:11.308277693Z [inf]  2025-10-24 09:14:10,744 - strategies.ict_smc - INFO - RPLUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.308285303Z [inf]  2025-10-24 09:14:10,828 - strategies.ict_smc - INFO - POLUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.308448738Z [inf]  2025-10-24 09:14:10,917 - strategies.ict_smc - INFO - 1MBABYDOGEUSDT - 1h趨勢: bull
+2025-10-24T09:14:11.308456528Z [inf]  2025-10-24 09:14:11,007 - strategies.ict_smc - INFO - NEIROUSDT - 1h趨勢: bull
+2025-10-24T09:14:11.308464349Z [inf]  2025-10-24 09:14:11,091 - strategies.ict_smc - INFO - KDAUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.308473908Z [inf]  2025-10-24 09:14:11,172 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0579 (信心度: 90.0%) - 1h空頭 + 看跌結構 + 高信心
+2025-10-24T09:14:11.312638486Z [inf]  2025-10-24 09:14:11,172 - strategies.ict_smc - INFO - FIDAUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.312647009Z [inf]  2025-10-24 09:14:11,244 - strategies.ict_smc - INFO - FIOUSDT - 1h趨勢: bull
+2025-10-24T09:14:11.327494960Z [inf]  2025-10-24 09:14:11,324 - strategies.ict_smc - INFO - CATIUSDT - 1h趨勢: bull
+2025-10-24T09:14:11.410299810Z [inf]  2025-10-24 09:14:11,406 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.0888 (信心度: 70.0%) - 1h多頭 + 中性結構 + 中信心
+2025-10-24T09:14:11.410306014Z [inf]  2025-10-24 09:14:11,407 - strategies.ict_smc - INFO - GHSTUSDT - 1h趨勢: bear
+2025-10-24T09:14:11.477515100Z [inf]  2025-10-24 09:14:11,474 - strategies.ict_smc - INFO - HMSTRUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.351668975Z [inf]  Loop thread traceback (most recent call last):
+2025-10-24T09:14:12.351676957Z [inf]    File "/app/main_v3.py", line 549, in <module>
+2025-10-24T09:14:12.351680070Z [inf]  2025-10-24 09:14:11,527 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 10 seconds.
+2025-10-24T09:14:12.351684962Z [inf]      asyncio.run(main())
+2025-10-24T09:14:12.351809336Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-24T09:14:12.351816405Z [inf]      return runner.run(main)
+2025-10-24T09:14:12.351821572Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-24T09:14:12.351826496Z [inf]      return self._loop.run_until_complete(task)
+2025-10-24T09:14:12.351831315Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-24T09:14:12.355450036Z [inf]      self.run_forever()
+2025-10-24T09:14:12.355466212Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-24T09:14:12.355476300Z [inf]      self._run_once()
+2025-10-24T09:14:12.355483274Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-24T09:14:12.355491576Z [inf]      handle._run()
+2025-10-24T09:14:12.355497833Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-24T09:14:12.355504729Z [inf]      self._context.run(self._callback, *self._args)
+2025-10-24T09:14:12.355514815Z [inf]    File "/app/services/strategy_engine.py", line 93, in analyze_symbol
+2025-10-24T09:14:12.355520431Z [inf]      result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
+2025-10-24T09:14:12.355532945Z [inf]    File "/app/strategies/ict_smc.py", line 357, in generate_signal
+2025-10-24T09:14:12.355537850Z [inf]      self.identify_order_blocks(df)
+2025-10-24T09:14:12.355846524Z [inf]    File "/app/strategies/ict_smc.py", line 90, in identify_order_blocks
+2025-10-24T09:14:12.355851381Z [inf]      elif self.is_valid_order_block(df, i, 'bearish'):
+2025-10-24T09:14:12.355855809Z [inf]    File "/app/strategies/ict_smc.py", line 54, in is_valid_order_block
+2025-10-24T09:14:12.355861692Z [inf]      if df.iloc[idx]['close'] <= df.iloc[idx]['open']:
+2025-10-24T09:14:12.355868039Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/indexing.py", line 1153, in __getitem__
+2025-10-24T09:14:12.355874995Z [inf]      return self._getitem_axis(maybe_callable, axis=axis)
+2025-10-24T09:14:12.355885889Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/indexing.py", line 1716, in _getitem_axis
+2025-10-24T09:14:12.355893069Z [inf]      return self.obj._ixs(key, axis=axis)
+2025-10-24T09:14:12.356164570Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/frame.py", line 3789, in _ixs
+2025-10-24T09:14:12.356183110Z [inf]      new_mgr = self._mgr.fast_xs(i)
+2025-10-24T09:14:12.356194828Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/internals/managers.py", line 967, in fast_xs
+2025-10-24T09:14:12.356206094Z [inf]      dtype = interleaved_dtype([blk.dtype for blk in self.blocks])
+2025-10-24T09:14:12.356216378Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/internals/base.py", line 363, in interleaved_dtype
+2025-10-24T09:14:12.356225865Z [inf]      return find_common_type(dtypes)
+2025-10-24T09:14:12.356234244Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/dtypes/cast.py", line 1452, in find_common_type
+2025-10-24T09:14:12.356244748Z [inf]      return np_find_common_type(*types)
+2025-10-24T09:14:12.356253004Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/dtypes/cast.py", line 1381, in np_find_common_type
+2025-10-24T09:14:12.356261878Z [inf]      common_dtype = np.dtype("O")
+2025-10-24T09:14:12.358962842Z [inf]  
+2025-10-24T09:14:12.358968737Z [inf]  2025-10-24 09:14:11,551 - strategies.ict_smc - INFO - REIUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.358975151Z [inf]  2025-10-24 09:14:11,643 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0120 (信心度: 90.0%) - 1h空頭 + 看跌結構 + 價格在阻力區 + 高信心
+2025-10-24T09:14:12.358980793Z [inf]  2025-10-24 09:14:11,643 - strategies.ict_smc - INFO - COSUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.358986000Z [inf]  2025-10-24 09:14:11,732 - strategies.ict_smc - INFO - EIGENUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.358991269Z [inf]  2025-10-24 09:14:11,816 - strategies.ict_smc - INFO - DIAUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.358996931Z [inf]  2025-10-24 09:14:11,905 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.4142 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:12.359003272Z [inf]  2025-10-24 09:14:11,906 - strategies.ict_smc - INFO - 1000CATUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.359008495Z [inf]  2025-10-24 09:14:11,974 - strategies.ict_smc - INFO - SCRUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.359014027Z [inf]  2025-10-24 09:14:12,042 - strategies.ict_smc - INFO - SANTOSUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.359020507Z [inf]  2025-10-24 09:14:12,119 - strategies.ict_smc - INFO - COWUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.359026364Z [inf]  2025-10-24 09:14:12,202 - strategies.ict_smc - INFO - CETUSUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.359032678Z [inf]  2025-10-24 09:14:12,293 - strategies.ict_smc - INFO - ACTUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.374797199Z [inf]  2025-10-24 09:14:12,362 - strategies.ict_smc - INFO - PNUTUSDT - 1h趨勢: bear
+2025-10-24T09:14:12.450276006Z [inf]  2025-10-24 09:14:12,446 - strategies.ict_smc - INFO - SCRTUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.318977651Z [inf]  2025-10-24 09:14:12,526 - strategies.ict_smc - INFO - 1000CHEEMSUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.318984135Z [inf]  2025-10-24 09:14:12,604 - strategies.ict_smc - INFO - THEUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.318991099Z [inf]  2025-10-24 09:14:12,687 - strategies.ict_smc - INFO - MORPHOUSDT - 1h趨勢: bull
+2025-10-24T09:14:13.319002970Z [inf]  2025-10-24 09:14:12,780 - strategies.ict_smc - INFO - KAIAUSDT - 1h趨勢: bull
+2025-10-24T09:14:13.319009211Z [inf]  2025-10-24 09:14:12,856 - strategies.ict_smc - INFO - ACXUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.319015717Z [inf]  2025-10-24 09:14:12,939 - strategies.ict_smc - INFO - ORCAUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.319022541Z [inf]  2025-10-24 09:14:13,028 - strategies.ict_smc - INFO - MOVEUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.319032816Z [inf]  2025-10-24 09:14:13,115 - strategies.ict_smc - INFO - VIRTUALUSDT - 1h趨勢: bull
+2025-10-24T09:14:13.319039514Z [inf]  2025-10-24 09:14:13,209 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.8816 (信心度: 70.0%) - 1h多頭 + 中性結構 + 中信心
+2025-10-24T09:14:13.319045850Z [inf]  2025-10-24 09:14:13,209 - strategies.ict_smc - INFO - MEUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.319052608Z [inf]  2025-10-24 09:14:13,283 - strategies.ict_smc - INFO - AVAUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.376891745Z [inf]  2025-10-24 09:14:13,370 - strategies.ict_smc - INFO - DEGOUSDT - 1h趨勢: bear
+2025-10-24T09:14:13.464995807Z [inf]  2025-10-24 09:14:13,458 - strategies.ict_smc - INFO - VELODROMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364598888Z [inf]  2025-10-24 09:14:13,598 - strategies.ict_smc - INFO - PENGUUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364611882Z [inf]  2025-10-24 09:14:13,681 - strategies.ict_smc - INFO - LUMIAUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364618586Z [inf]  2025-10-24 09:14:13,739 - strategies.ict_smc - INFO - USUALUSDT - 1h趨勢: bull
+2025-10-24T09:14:14.364624542Z [inf]  2025-10-24 09:14:13,802 - strategies.ict_smc - INFO - AIXBTUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364640994Z [inf]  2025-10-24 09:14:13,871 - strategies.ict_smc - INFO - KMNOUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364651234Z [inf]  2025-10-24 09:14:13,960 - strategies.ict_smc - INFO - CGPTUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364654951Z [inf]  2025-10-24 09:14:13,519 - strategies.ict_smc - INFO - VANAUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364655922Z [inf]  2025-10-24 09:14:14,232 - strategies.ict_smc - INFO - PHAUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364661130Z [inf]  2025-10-24 09:14:14,041 - strategies.ict_smc - INFO - HIVEUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364665116Z [inf]  2025-10-24 09:14:14,314 - strategies.ict_smc - INFO - DFUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.364671248Z [inf]  2025-10-24 09:14:14,129 - strategies.ict_smc - INFO - DEXEUSDT - 1h趨勢: bear
+2025-10-24T09:14:14.393855686Z [inf]  2025-10-24 09:14:14,391 - strategies.ict_smc - INFO - BIOUSDT - 1h趨勢: bull
+2025-10-24T09:14:14.490025716Z [inf]  2025-10-24 09:14:14,473 - strategies.ict_smc - INFO - COOKIEUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112583303Z [inf]  2025-10-24 09:14:14,552 - strategies.ict_smc - INFO - DUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112601556Z [inf]  2025-10-24 09:14:14,637 - strategies.ict_smc - INFO - PROMUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112609507Z [inf]  2025-10-24 09:14:14,724 - strategies.ict_smc - INFO - SUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112617125Z [inf]  2025-10-24 09:14:14,811 - strategies.ict_smc - INFO - SOLVUSDT - 1h趨勢: bull
+2025-10-24T09:14:15.112624538Z [inf]  2025-10-24 09:14:14,898 - strategies.ict_smc - INFO - TRUMPUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112650485Z [inf]  2025-10-24 09:14:14,984 - strategies.ict_smc - INFO - VTHOUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.112658464Z [inf]  2025-10-24 09:14:15,093 - strategies.ict_smc - INFO - ANIMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.181584999Z [inf]  2025-10-24 09:14:15,180 - strategies.ict_smc - INFO - BERAUSDT - 1h趨勢: bull
+2025-10-24T09:14:15.268571402Z [inf]  2025-10-24 09:14:15,265 - strategies.ict_smc - INFO - TSTUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.354741902Z [inf]  2025-10-24 09:14:15,349 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0201 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:15.354747035Z [inf]  2025-10-24 09:14:15,349 - strategies.ict_smc - INFO - LAYERUSDT - 1h趨勢: bear
+2025-10-24T09:14:15.436767900Z [inf]  2025-10-24 09:14:15,434 - strategies.ict_smc - INFO - HEIUSDT - 1h趨勢: bull
+2025-10-24T09:14:16.114360909Z [inf]  2025-10-24 09:14:15,534 - strategies.ict_smc - INFO - GPSUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114370460Z [inf]  2025-10-24 09:14:15,621 - strategies.ict_smc - INFO - SHELLUSDT - 1h趨勢: bull
+2025-10-24T09:14:16.114374928Z [inf]  2025-10-24 09:14:16,092 - strategies.ict_smc - INFO - MUBARAKUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114377705Z [inf]  2025-10-24 09:14:15,697 - strategies.ict_smc - INFO - KAITOUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114385024Z [inf]  2025-10-24 09:14:15,784 - strategies.ict_smc - INFO - REDUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114391558Z [inf]  2025-10-24 09:14:15,862 - strategies.ict_smc - INFO - VICUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114397716Z [inf]  2025-10-24 09:14:15,944 - strategies.ict_smc - INFO - EPICUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.114403543Z [inf]  2025-10-24 09:14:16,026 - strategies.ict_smc - INFO - BMTUSDT - 1h趨勢: bull
+2025-10-24T09:14:16.176000363Z [inf]  2025-10-24 09:14:16,171 - strategies.ict_smc - INFO - FORMUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.261887187Z [inf]  2025-10-24 09:14:16,260 - strategies.ict_smc - INFO - TUTUSDT - 1h趨勢: bear
+2025-10-24T09:14:16.362993404Z [inf]  2025-10-24 09:14:16,359 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0240 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:16.363002986Z [inf]  2025-10-24 09:14:16,359 - strategies.ict_smc - INFO - BROCCOLI714USDT - 1h趨勢: bear
+2025-10-24T09:14:16.458344132Z [inf]  2025-10-24 09:14:16,453 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0247 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:16.458357570Z [inf]  2025-10-24 09:14:16,453 - strategies.ict_smc - INFO - BANANAS31USDT - 1h趨勢: bear
+2025-10-24T09:14:17.299300982Z [inf]  2025-10-24 09:14:17,124 - strategies.ict_smc - INFO - GUNUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299312666Z [inf]  2025-10-24 09:14:17,199 - strategies.ict_smc - INFO - BABYUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299320232Z [inf]  2025-10-24 09:14:17,280 - strategies.ict_smc - INFO - FORTHUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299377652Z [inf]  2025-10-24 09:14:16,534 - strategies.ict_smc - INFO - PLUMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299383828Z [inf]  2025-10-24 09:14:16,620 - strategies.ict_smc - INFO - NILUSDT - 1h趨勢: bull
+2025-10-24T09:14:17.299391033Z [inf]  2025-10-24 09:14:16,701 - strategies.ict_smc - INFO - PARTIUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299397646Z [inf]  2025-10-24 09:14:16,780 - strategies.ict_smc - INFO - PAXGUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299403509Z [inf]  2025-10-24 09:14:16,876 - strategies.ict_smc - INFO - WALUSDT - 1h趨勢: bull
+2025-10-24T09:14:17.299409166Z [inf]  2025-10-24 09:14:16,960 - strategies.ict_smc - INFO - FUNUSDT - 1h趨勢: bear
+2025-10-24T09:14:17.299414310Z [inf]  2025-10-24 09:14:17,050 - strategies.ict_smc - INFO - MLNUSDT - 1h趨勢: bull
+2025-10-24T09:14:17.370176298Z [inf]  2025-10-24 09:14:17,367 - strategies.ict_smc - INFO - STOUSDT - 1h趨勢: bull
+2025-10-24T09:14:17.463941257Z [inf]  2025-10-24 09:14:17,460 - strategies.ict_smc - INFO - KERNELUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193138139Z [inf]  2025-10-24 09:14:17,544 - strategies.ict_smc - INFO - WCTUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193142492Z [inf]  2025-10-24 09:14:17,627 - strategies.ict_smc - INFO - INITUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193147359Z [inf]  2025-10-24 09:14:17,706 - strategies.ict_smc - INFO - AERGOUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193151428Z [inf]  2025-10-24 09:14:17,774 - strategies.ict_smc - INFO - HYPERUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193155431Z [inf]  2025-10-24 09:14:17,851 - strategies.ict_smc - INFO - FISUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193160061Z [inf]  2025-10-24 09:14:17,930 - strategies.ict_smc - INFO - JSTUSDT - 1h趨勢: bull
+2025-10-24T09:14:18.193164509Z [inf]  2025-10-24 09:14:18,014 - strategies.ict_smc - INFO - SIGNUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.193169468Z [inf]  2025-10-24 09:14:18,100 - strategies.ict_smc - INFO - PUNDIXUSDT - 1h趨勢: bull
+2025-10-24T09:14:18.195466838Z [inf]  2025-10-24 09:14:18,191 - strategies.ict_smc - INFO - CTKUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.308613557Z [inf]  2025-10-24 09:14:18,306 - strategies.ict_smc - INFO - DOLOUSDT - 1h趨勢: bull
+2025-10-24T09:14:18.430116459Z [inf]  2025-10-24 09:14:18,410 - strategies.ict_smc - INFO - HAEDALUSDT - 1h趨勢: bear
+2025-10-24T09:14:18.517545986Z [inf]  2025-10-24 09:14:18,510 - strategies.ict_smc - INFO - SXTUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.085904184Z [inf]  2025-10-24 09:14:18,912 - strategies.ict_smc - INFO - OGUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.085911929Z [inf]  2025-10-24 09:14:19,025 - strategies.ict_smc - INFO - NXPCUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.085959345Z [inf]  2025-10-24 09:14:18,609 - strategies.ict_smc - INFO - ASRUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.085968964Z [inf]  2025-10-24 09:14:18,706 - strategies.ict_smc - INFO - ALPINEUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.085976583Z [inf]  2025-10-24 09:14:18,801 - strategies.ict_smc - INFO - SYRUPUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.134670909Z [inf]  2025-10-24 09:14:19,132 - strategies.ict_smc - INFO - CVCUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.223100275Z [inf]  2025-10-24 09:14:19,219 - strategies.ict_smc - INFO - AWEUSDT - 1h趨勢: bull
+2025-10-24T09:14:19.327353294Z [inf]  2025-10-24 09:14:19,326 - strategies.ict_smc - INFO - HUMAUSDT - 1h趨勢: bear
+2025-10-24T09:14:19.436799092Z [inf]  2025-10-24 09:14:19,432 - strategies.ict_smc - INFO - AUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.152241835Z [inf]  2025-10-24 09:14:19,534 - strategies.ict_smc - INFO - SOPHUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.152247501Z [inf]  2025-10-24 09:14:19,645 - strategies.ict_smc - INFO - LAUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.152253168Z [inf]  2025-10-24 09:14:19,756 - strategies.ict_smc - INFO - HOMEUSDT - 1h趨勢: bear
+2025-10-24T09:14:20.152259420Z [inf]  2025-10-24 09:14:19,862 - strategies.ict_smc - INFO - RESOLVUSDT - 1h趨勢: bear
+2025-10-24T09:14:20.152267662Z [inf]  2025-10-24 09:14:19,955 - strategies.ict_smc - INFO - SPKUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.152273749Z [inf]  2025-10-24 09:14:20,066 - strategies.ict_smc - INFO - NEWTUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.177461609Z [inf]  2025-10-24 09:14:20,172 - strategies.ict_smc - INFO - SAHARAUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.287752939Z [inf]  2025-10-24 09:14:20,284 - strategies.ict_smc - INFO - PUMPUSDT - 1h趨勢: bull
+2025-10-24T09:14:20.387398472Z [inf]  2025-10-24 09:14:20,382 - strategies.ict_smc - INFO - ICT/SMC Signal: BUY at 0.0041 (信心度: 90.0%) - 1h多頭 + 看漲結構 + 高信心
+2025-10-24T09:14:20.387407821Z [inf]  2025-10-24 09:14:20,382 - strategies.ict_smc - INFO - CUSDT - 1h趨勢: bear
+2025-10-24T09:14:20.474768527Z [inf]  2025-10-24 09:14:20,472 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.1119 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:20.474783080Z [inf]  2025-10-24 09:14:20,472 - strategies.ict_smc - INFO - ERAUSDT - 1h趨勢: bear
+2025-10-24T09:14:21.179605977Z [inf]  2025-10-24 09:14:20,562 - strategies.ict_smc - INFO - CVXUSDT - 1h趨勢: bear
+2025-10-24T09:14:21.179611697Z [inf]  2025-10-24 09:14:20,649 - strategies.ict_smc - INFO - SLPUSDT - 1h趨勢: bear
+2025-10-24T09:14:21.179619371Z [inf]  2025-10-24 09:14:20,738 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0012 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:21.179623602Z [inf]  2025-10-24 09:14:20,738 - strategies.ict_smc - INFO - TREEUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.179628132Z [inf]  2025-10-24 09:14:20,819 - strategies.ict_smc - INFO - A2ZUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.179633335Z [inf]  2025-10-24 09:14:20,897 - strategies.ict_smc - INFO - TOWNSUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.179639760Z [inf]  2025-10-24 09:14:20,980 - strategies.ict_smc - INFO - PROVEUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.179644187Z [inf]  2025-10-24 09:14:21,096 - strategies.ict_smc - INFO - XPLUSDT - 1h趨勢: bear
+2025-10-24T09:14:21.186460873Z [inf]  2025-10-24 09:14:21,183 - strategies.ict_smc - INFO - WLFIUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.276184613Z [inf]  2025-10-24 09:14:21,274 - strategies.ict_smc - INFO - SOMIUSDT - 1h趨勢: bull
+2025-10-24T09:14:21.372502775Z [inf]  2025-10-24 09:14:21,369 - strategies.ict_smc - INFO - MITOUSDT - 1h趨勢: bear
+2025-10-24T09:14:21.482137363Z [inf]  2025-10-24 09:14:21,476 - strategies.ict_smc - INFO - HEMIUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.189253345Z [inf]      result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
+2025-10-24T09:14:22.189264913Z [inf]    File "/app/strategies/ict_smc.py", line 357, in generate_signal
+2025-10-24T09:14:22.189273351Z [inf]      self.identify_order_blocks(df)
+2025-10-24T09:14:22.189282819Z [inf]    File "/app/strategies/ict_smc.py", line 90, in identify_order_blocks
+2025-10-24T09:14:22.189290194Z [inf]      elif self.is_valid_order_block(df, i, 'bearish'):
+2025-10-24T09:14:22.189298127Z [inf]    File "/app/strategies/ict_smc.py", line 59, in is_valid_order_block
+2025-10-24T09:14:22.189306046Z [inf]      next_body = df.iloc[idx+1]['open'] - df.iloc[idx+1]['close']
+2025-10-24T09:14:22.189314638Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/indexing.py", line 1153, in __getitem__
+2025-10-24T09:14:22.189322362Z [inf]      return self._getitem_axis(maybe_callable, axis=axis)
+2025-10-24T09:14:22.189330038Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/indexing.py", line 1716, in _getitem_axis
+2025-10-24T09:14:22.189338184Z [inf]      return self.obj._ixs(key, axis=axis)
+2025-10-24T09:14:22.189346384Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/frame.py", line 3792, in _ixs
+2025-10-24T09:14:22.189355056Z [inf]      copy = isinstance(new_mgr.array, np.ndarray) and new_mgr.array.base is None
+2025-10-24T09:14:22.189362821Z [inf]    File "/opt/venv/lib/python3.11/site-packages/pandas/core/internals/base.py", line 301, in array
+2025-10-24T09:14:22.189374815Z [inf]      @final
+2025-10-24T09:14:22.189383277Z [inf]  
+2025-10-24T09:14:22.189390066Z [inf]  2025-10-24 09:14:21,664 - strategies.ict_smc - INFO - OPENUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.189397359Z [inf]  2025-10-24 09:14:21,757 - strategies.ict_smc - INFO - SKYUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.189402996Z [inf]  2025-10-24 09:14:21,842 - strategies.ict_smc - INFO - AVNTUSDT - 1h趨勢: bull
+2025-10-24T09:14:22.189840971Z [inf]  2025-10-24 09:14:21,931 - strategies.ict_smc - INFO - HOLOUSDT - 1h趨勢: bull
+2025-10-24T09:14:22.189842311Z [inf]  2025-10-24 09:14:21,568 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0601 (信心度: 80.0%) - 1h空頭 + 看跌結構 + 價格在阻力區 + 中高信心
+2025-10-24T09:14:22.189846552Z [inf]  2025-10-24 09:14:22,018 - strategies.ict_smc - INFO - ZKCUSDT - 1h趨勢: bull
+2025-10-24T09:14:22.189852855Z [inf]  2025-10-24 09:14:21,569 - strategies.ict_smc - INFO - LINEAUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.189856233Z [inf]  2025-10-24 09:14:22,105 - strategies.ict_smc - INFO - 0GUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.189861113Z [inf]  2025-10-24 09:14:21,574 - discord.gateway - WARNING - Shard ID None heartbeat blocked for more than 20 seconds.
+2025-10-24T09:14:22.189867205Z [inf]  Loop thread traceback (most recent call last):
+2025-10-24T09:14:22.189874540Z [inf]    File "/app/main_v3.py", line 549, in <module>
+2025-10-24T09:14:22.189886778Z [inf]      asyncio.run(main())
+2025-10-24T09:14:22.189893659Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 190, in run
+2025-10-24T09:14:22.189900545Z [inf]      return runner.run(main)
+2025-10-24T09:14:22.189908327Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/runners.py", line 118, in run
+2025-10-24T09:14:22.189915360Z [inf]      return self._loop.run_until_complete(task)
+2025-10-24T09:14:22.189922517Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+2025-10-24T09:14:22.189929403Z [inf]      self.run_forever()
+2025-10-24T09:14:22.189936569Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+2025-10-24T09:14:22.189942488Z [inf]      self._run_once()
+2025-10-24T09:14:22.189948593Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+2025-10-24T09:14:22.189955866Z [inf]      handle._run()
+2025-10-24T09:14:22.189962902Z [inf]    File "/root/.nix-profile/lib/python3.11/asyncio/events.py", line 84, in _run
+2025-10-24T09:14:22.189974103Z [inf]      self._context.run(self._callback, *self._args)
+2025-10-24T09:14:22.189979702Z [inf]    File "/app/services/strategy_engine.py", line 93, in analyze_symbol
+2025-10-24T09:14:22.200545500Z [inf]  2025-10-24 09:14:22,197 - strategies.ict_smc - INFO - BARDUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.292340918Z [inf]  2025-10-24 09:14:22,289 - strategies.ict_smc - INFO - ASTERUSDT - 1h趨勢: bear
+2025-10-24T09:14:22.379403972Z [inf]  2025-10-24 09:14:22,375 - strategies.ict_smc - INFO - MIRAUSDT - 1h趨勢: bull
+2025-10-24T09:14:22.472827342Z [inf]  2025-10-24 09:14:22,467 - strategies.ict_smc - INFO - FFUSDT - 1h趨勢: bull
+2025-10-24T09:14:23.146842074Z [inf]  2025-10-24 09:14:22,569 - strategies.ict_smc - INFO - EDENUSDT - 1h趨勢: bull
+2025-10-24T09:14:23.146847890Z [inf]  2025-10-24 09:14:22,648 - strategies.ict_smc - INFO - NOMUSDT - 1h趨勢: bear
+2025-10-24T09:14:23.146855141Z [inf]  2025-10-24 09:14:22,735 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 0.0205 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:23.146860413Z [inf]  2025-10-24 09:14:22,736 - strategies.ict_smc - INFO - 2ZUSDT - 1h趨勢: bear
+2025-10-24T09:14:23.146865690Z [inf]  2025-10-24 09:14:22,831 - strategies.ict_smc - INFO - YBUSDT - 1h趨勢: bear
+2025-10-24T09:14:23.146871307Z [inf]  2025-10-24 09:14:22,925 - strategies.ict_smc - INFO - EULUSDT - 1h趨勢: bear
+2025-10-24T09:14:23.146876948Z [inf]  2025-10-24 09:14:23,009 - strategies.ict_smc - INFO - ENSOUSDT - 1h趨勢: bear
+2025-10-24T09:14:23.146883699Z [inf]  2025-10-24 09:14:23,102 - strategies.ict_smc - INFO - ICT/SMC Signal: SELL at 1.5910 (信心度: 70.0%) - 1h空頭 + 中性結構 + 價格在阻力區 + 中信心
+2025-10-24T09:14:23.343475314Z [inf]  2025-10-24 09:14:23,338 - binance_client - INFO - Fetched 165 klines for ZBTUSDT
+2025-10-24T09:14:23.343481683Z [inf]  2025-10-24 09:14:23,338 - strategies.ict_smc - WARNING - Insufficient 1h data for ZBTUSDT, using neutral trend
+2025-10-24T09:14:23.343487602Z [inf]  2025-10-24 09:14:23,338 - strategies.ict_smc - INFO - ZBTUSDT - 1h趨勢: neutral
+2025-10-24T09:14:24.323989455Z [inf]  2025-10-24 09:14:23,671 - strategies.ict_smc - ERROR - Error fetching 1h trend for TURTLEUSDT: Insufficient klines data: 43 < 50
+2025-10-24T09:14:24.324000271Z [inf]  2025-10-24 09:14:23,671 - strategies.ict_smc - INFO - TURTLEUSDT - 1h趨勢: neutral
+2025-10-24T09:14:24.324007117Z [inf]  2025-10-24 09:14:23,774 - services.strategy_engine - INFO - Generated 28 signals from 369 symbols
+2025-10-24T09:14:24.324012927Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO - ✅ Analysis complete in 37.24s - 28 signals generated
+2025-10-24T09:14:24.324019671Z [inf]  2025-10-24 09:14:23,774 - services.strategy_engine - INFO - Filtered 25 signals, kept top 3
+2025-10-24T09:14:24.324031454Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO - 🎯 Top 3 signals selected:
+2025-10-24T09:14:24.324038580Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO -   1. KDAUSDT: SELL @ 0.0579 (confidence: 90.0%, ROI: 1.50%)
+2025-10-24T09:14:24.324044373Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO -   2. REIUSDT: SELL @ 0.0120 (confidence: 90.0%, ROI: 1.50%)
+2025-10-24T09:14:24.324050541Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO -   3. PUMPUSDT: BUY @ 0.0041 (confidence: 90.0%, ROI: 1.50%)
+2025-10-24T09:14:24.324056821Z [inf]  2025-10-24 09:14:23,774 - __main__ - INFO - 💼 Executing signals (2 slots available)...
+2025-10-24T09:14:24.324063913Z [inf]  2025-10-24 09:14:23,775 - risk_manager - INFO - 🎯 槓桿計算: 信心度=90.0% → 基礎=10.00x, 波動性=低(1.78%) → 調整=+2.0x, 最終槓桿=12.00x
+2025-10-24T09:14:24.324069700Z [inf]  2025-10-24 09:14:23,775 - risk_manager - INFO - Calculated position size: 1.282637 (Entry: 0.0579, SL: 0.059957142857142855, Capital allocated: $14.85)
+2025-10-24T09:14:24.324075330Z [inf]  2025-10-24 09:14:23,775 - services.execution_service - INFO - 📊 槓桿倉位計算: 保證金=$14.85, 槓桿=12.00x, 倉位價值=$178.24, 數量=46.174949
+2025-10-24T09:14:24.324083208Z [inf]  2025-10-24 09:14:23,775 - services.execution_service - INFO - [LIVE] Placing SELL MARKET order: KDAUSDT qty=46.174949
+2025-10-24T09:14:24.326158621Z [inf]  2025-10-24 09:14:24,265 - binance_client - INFO - 📈 KDAUSDT: Adjusted quantity to meet MIN_NOTIONAL $5.00: 46.174949 → 87.0 (notional: $5.01)
+2025-10-24T09:14:24.326166358Z [inf]  2025-10-24 09:14:24,265 - binance_client - INFO - Formatted quantity for KDAUSDT: 46.1749487150 → 87.0 (step=1.0, min=1.0)
+2025-10-24T09:14:24.517280658Z [inf]  2025-10-24 09:14:24,515 - binance_client - INFO - ✅ Futures order placed: 1036117814
+2025-10-24T09:14:24.517296257Z [inf]  2025-10-24 09:14:24,515 - services.execution_service - INFO - ✅ Order placed successfully: 1036117814
+2025-10-24T09:14:24.517303286Z [inf]  2025-10-24 09:14:24,515 - risk_manager - INFO - Opened SELL position for KDAUSDT at 0.0579
+2025-10-24T09:14:24.517310014Z [inf]  2025-10-24 09:14:24,515 - services.execution_service - INFO - EXECUTED SELL KDAUSDT @ 0.0579 qty=46.1749 (confidence: 90.0%)
+2025-10-24T09:14:24.522520511Z [inf]  2025-10-24 09:14:24,516 - __main__ - ERROR - Error in trading cycle: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:14:24.522531731Z [inf]  Traceback (most recent call last):
+2025-10-24T09:14:24.522538311Z [inf]    File "/app/main_v3.py", line 422, in run_cycle
+2025-10-24T09:14:24.522544635Z [inf]      await self.discord.send_notification(
+2025-10-24T09:14:24.522550880Z [inf]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-10-24T09:14:24.522556317Z [inf]  AttributeError: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:14:24.522562867Z [inf]  2025-10-24 09:14:24,516 - services.monitoring_service - CRITICAL - ALERT [CRITICAL]: Trading cycle error: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:14:24.522568899Z [inf]  2025-10-24 09:14:24,516 - services.monitoring_service - ERROR - Failed to send Discord alert: 'TradingBotNotifier' object has no attribute 'send_notification'
+2025-10-24T09:14:25.215781537Z [inf]  Traceback (most recent call last):
+2025-10-24T09:14:25.215784432Z [inf]  
+2025-10-24T09:14:25.215789525Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/app_commands/tree.py", line 1248, in _call
+2025-10-24T09:14:25.215797828Z [inf]      await command._invoke_with_namespace(interaction, namespace)
+2025-10-24T09:14:25.215798999Z [inf]  The above exception was the direct cause of the following exception:
+2025-10-24T09:14:25.215804795Z [inf]  2025-10-24 09:14:24,545 - __main__ - INFO - ⏳ Waiting 60s for next cycle...
+2025-10-24T09:14:25.215807519Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/app_commands/commands.py", line 853, in _invoke_with_namespace
+2025-10-24T09:14:25.215808238Z [inf]  
+2025-10-24T09:14:25.215809395Z [inf]  2025-10-24 09:14:24,805 - discord.app_commands.tree - ERROR - Ignoring exception in command 'positions'
+2025-10-24T09:14:25.215813252Z [inf]  2025-10-24 09:14:24,805 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 9d3f0195030c50d7623e8c3e82f04966.
+2025-10-24T09:14:25.215818448Z [inf]  Traceback (most recent call last):
+2025-10-24T09:14:25.215832657Z [inf]    File "/app/discord_bot.py", line 84, in positions
+2025-10-24T09:14:25.215832746Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/app_commands/commands.py", line 828, in _do_call
+2025-10-24T09:14:25.215840611Z [inf]      return await self._callback(interaction, **params)  # type: ignore
+2025-10-24T09:14:25.215845747Z [inf]      pnl = ((pos['current_price'] - pos['entry_price']) / pos['entry_price']) * 100 if pos['side'] == 'LONG' else ((pos['entry_price'] - pos['current_price']) / pos['entry_price']) * 100
+2025-10-24T09:14:25.215848298Z [inf]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-10-24T09:14:25.215853971Z [inf]                                                                                                                                          ~~~^^^^^^^^^^^^^^^^^
+2025-10-24T09:14:25.215869856Z [inf]  KeyError: 'current_price'
+2025-10-24T09:14:25.219773624Z [inf]      return await self._do_call(interaction, transformed_values)
+2025-10-24T09:14:25.219779412Z [inf]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-10-24T09:14:25.219788620Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/app_commands/commands.py", line 846, in _do_call
+2025-10-24T09:14:25.219794145Z [inf]      raise CommandInvokeError(self, e) from e
+2025-10-24T09:14:25.219801400Z [inf]  discord.app_commands.errors.CommandInvokeError: Command 'positions' raised an exception: KeyError: 'current_price'
