@@ -1,10 +1,11 @@
 import asyncio
 from binance.client import Client
 from binance import AsyncClient, BinanceSocketManager
+from binance.exceptions import BinanceAPIException
 import pandas as pd
 import numpy as np
 from config import Config
-from utils.helpers import setup_logger, timestamp_to_datetime
+from utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure, async_retry_on_failure
 
 logger = setup_logger(__name__)
 
@@ -52,44 +53,66 @@ class BinanceDataClient:
         self.bsm = BinanceSocketManager(self.async_client)
         logger.info("Async client initialized")
     
+    @retry_on_failure(
+        max_retries=3,
+        backoff_factor=1.0,
+        exceptions=(ConnectionError, TimeoutError, BinanceAPIException)
+    )
     def get_klines(self, symbol, interval='1h', limit=500):
+        """
+        獲取 K 線數據（帶重試）
+        
+        重試策略：
+        - 第 1 次失敗：等待 1 秒
+        - 第 2 次失敗：等待 2 秒  
+        - 第 3 次失敗：等待 4 秒
+        - 仍失敗：拋出異常
+        """
         if not self.client:
-            logger.error("Binance client not initialized")
-            return None
+            raise RuntimeError("Binance client not initialized")
         
-        try:
-            klines = self.client.get_klines(
-                symbol=symbol,
-                interval=interval,
-                limit=limit
-            )
-            
-            df = pd.DataFrame(klines, columns=[
-                'timestamp', 'open', 'high', 'low', 'close', 'volume',
-                'close_time', 'quote_volume', 'trades', 'taker_buy_base',
-                'taker_buy_quote', 'ignore'
-            ])
-            
-            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
-            for col in ['open', 'high', 'low', 'close', 'volume']:
-                df[col] = df[col].astype(float)
-            
-            logger.info(f"Fetched {len(df)} klines for {symbol}")
-            return df
+        klines = self.client.get_klines(
+            symbol=symbol,
+            interval=interval,
+            limit=limit
+        )
         
-        except Exception as e:
-            logger.error(f"Error fetching klines for {symbol}: {e}")
-            return None
+        # 數據驗證
+        if not klines or len(klines) < 50:
+            raise ValueError(f"Insufficient klines data: {len(klines)} < 50")
+        
+        df = pd.DataFrame(klines, columns=[
+            'timestamp', 'open', 'high', 'low', 'close', 'volume',
+            'close_time', 'quote_volume', 'trades', 'taker_buy_base',
+            'taker_buy_quote', 'ignore'
+        ])
+        
+        df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+        for col in ['open', 'high', 'low', 'close', 'volume']:
+            df[col] = df[col].astype(float)
+        
+        logger.info(f"Fetched {len(df)} klines for {symbol}")
+        return df
     
+    @retry_on_failure(
+        max_retries=2,
+        backoff_factor=0.5,
+        exceptions=(ConnectionError, TimeoutError, BinanceAPIException)
+    )
     def get_ticker_price(self, symbol):
+        """
+        獲取最新價格（輕量級，快速重試）
+        
+        重試策略：
+        - 第 1 次失敗：等待 0.5 秒
+        - 第 2 次失敗：等待 1 秒
+        - 仍失敗：拋出異常
+        """
         if not self.client:
-            return None
-        try:
-            ticker = self.client.get_symbol_ticker(symbol=symbol)
-            return float(ticker['price'])
-        except Exception as e:
-            logger.error(f"Error fetching ticker for {symbol}: {e}")
-            return None
+            raise RuntimeError("Binance client not initialized")
+        
+        ticker = self.client.get_symbol_ticker(symbol=symbol)
+        return float(ticker['price'])
     
     def get_account_balance(self):
         if not self.client:

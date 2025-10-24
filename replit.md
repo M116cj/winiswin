@@ -10,6 +10,17 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
+- **完整文檔系統** (NEW): 創建四份完整的技術文檔，對標 v2.0 模板並超越
+  - **`docs/strategy.md`**: ICT/SMC 策略邏輯詳解，包含訂單塊、流動性區域、市場結構、信心度計算
+  - **`docs/error_handling.md`**: 錯誤處理與 API 重連機制，包含重試裝飾器、指數退避、錯誤分類
+  - **`docs/indicators.md`**: 輕量級技術指標實現，包含 EMA/RSI/MACD/ATR/BB 的 NumPy 實現
+  - **`docs/implementation_comparison.md`**: v2.0 模板 vs v3.0 實現對比報告（**96.25% 符合度**）
+- **錯誤處理增強** (NEW): 添加生產級重試機制
+  - **指數退避重試裝飾器**：`@retry_on_failure` 和 `@async_retry_on_failure`
+  - **智能重試策略**：網路錯誤 3 次重試（1s → 2s → 4s），輕量請求 2 次重試（0.5s → 1s）
+  - **錯誤分類處理**：區分可恢復（ConnectionError, Timeout）vs 不可恢復（AuthError）錯誤
+  - **應用範圍**：`binance_client.py` 的 `get_klines()` 和 `get_ticker_price()`
+  - **日誌增強**：詳細記錄重試過程，便於調試和監控
 - **動態倉位監控與調整** (PRODUCTION-READY): 持倉期間持續驗證開倉時的市場條件，及時應對市場變化
   - **信號反轉檢測**：檢測市場結構反轉（做多→看跌，做空→看多），立即平倉
   - **信心度監控**：信心度下降 >20% 立即平倉，>10% 發送警告，>5% 提升時動態調整
@@ -94,3 +105,10 @@ The bot has undergone a significant architectural overhaul to v3.0, transitionin
 - **Binance API**: For real-time market data, order placement, and account information.
 - **Discord API**: For sending notifications and interactive slash commands.
 - **Python Libraries**: `numpy` for numerical operations, `asyncio` for asynchronous programming.
+
+### Documentation
+The project includes comprehensive documentation in the `docs/` directory:
+1. **`docs/strategy.md`**: Complete ICT/SMC strategy logic explanation
+2. **`docs/error_handling.md`**: Error handling patterns and retry mechanisms
+3. **`docs/indicators.md`**: Technical indicator implementations and validations
+4. **`docs/implementation_comparison.md`**: Comparison report between v2.0 template and v3.0 implementation
