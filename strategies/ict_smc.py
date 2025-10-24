@@ -1,8 +1,14 @@
 import numpy as np
 import pandas as pd
+from datetime import datetime, timezone
 from utils.helpers import setup_logger, get_market_structure_change
+from utils.indicators import TechnicalIndicators
 
 logger = setup_logger(__name__)
+
+# 全域緩存：用於儲存 1h 趨勢（避免每根 K 線都請求）
+_1h_trend_cache = {}
+_last_1h_update = {}
 
 class ICTSMCStrategy:
     def __init__(self):
@@ -159,6 +165,52 @@ class ICTSMCStrategy:
             
             # 收盤確認
             return breakdown_pct >= 0.003 and current_close < prev_low
+    
+    def get_1h_trend(self, symbol, binance_client):
+        """
+        獲取 1h 趨勢（v2.0 優化）
+        
+        緩存機制：每小時更新一次，避免頻繁 API 請求
+        趨勢判斷：基於 EMA200
+        """
+        current_time = datetime.now(timezone.utc)
+        current_hour = current_time.replace(minute=0, second=0, microsecond=0)
+        
+        # 檢查緩存
+        if symbol in _last_1h_update and _last_1h_update[symbol] == current_hour:
+            cached_trend = _1h_trend_cache.get(symbol, 'neutral')
+            logger.debug(f"Using cached 1h trend for {symbol}: {cached_trend}")
+            return cached_trend
+        
+        # 獲取 1h K 線數據
+        try:
+            klines_1h = binance_client.get_klines(symbol, '1h', limit=250)
+            
+            if klines_1h is None or len(klines_1h) < 200:
+                logger.warning(f"Insufficient 1h data for {symbol}, using neutral trend")
+                return 'neutral'
+            
+            # 計算 EMA200
+            ema200 = TechnicalIndicators.calculate_ema(klines_1h['close'].values, 200)
+            
+            if len(ema200) == 0 or pd.isna(ema200[-1]):
+                logger.warning(f"Invalid EMA200 for {symbol}, using neutral trend")
+                return 'neutral'
+            
+            # 判斷趨勢
+            current_price = klines_1h['close'].iloc[-1]
+            trend = 'bull' if current_price > ema200[-1] else 'bear'
+            
+            # 更新緩存
+            _1h_trend_cache[symbol] = trend
+            _last_1h_update[symbol] = current_hour
+            
+            logger.info(f"Updated 1h trend for {symbol}: {trend} (Price: {current_price:.2f}, EMA200: {ema200[-1]:.2f})")
+            return trend
+            
+        except Exception as e:
+            logger.error(f"Error fetching 1h trend for {symbol}: {e}")
+            return 'neutral'
     
     def check_market_structure(self, df):
         """
