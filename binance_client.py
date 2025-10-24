@@ -335,12 +335,16 @@ class BinanceDataClient:
                 return None
             
             # ✅ 使用期貨 API (futures_create_order)
+            # 設定持倉方向（雙向持倉模式必需）
+            position_side = 'LONG' if side == 'BUY' else 'SHORT'
+            
             if order_type == 'MARKET':
                 order = self.client.futures_create_order(
                     symbol=symbol,
                     side=side,
                     type=order_type,
-                    quantity=formatted_quantity
+                    quantity=formatted_quantity,
+                    positionSide=position_side  # 雙向持倉模式必需
                 )
             else:
                 # 限價單需要 timeInForce
@@ -350,7 +354,8 @@ class BinanceDataClient:
                     type=order_type,
                     quantity=formatted_quantity,
                     price=price,
-                    timeInForce='GTC'
+                    timeInForce='GTC',
+                    positionSide=position_side  # 雙向持倉模式必需
                 )
             
             logger.info(f"✅ Futures order placed: {order.get('orderId', 'N/A')}")

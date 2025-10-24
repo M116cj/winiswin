@@ -10,17 +10,21 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **🔧 CRITICAL FIX - 期貨 API 修復** (LATEST): 修復使用現貨 API 導致無法下單
-  - **問題 1**：`place_order` 使用現貨 API (`create_order`)，但資金在期貨錢包
-  - **問題 2**：`get_ticker_price` 使用現貨價格 API (`get_symbol_ticker`)
-  - **問題 3**：餘額加載錯誤地將現貨+期貨相加，但期貨交易只能用期貨錢包
-  - **症狀**：`APIError(code=-2010): Account has insufficient balance`
+- **🔧 CRITICAL FIX - 期貨 API 完整修復** (LATEST): 修復所有期貨交易問題
+  - **問題 1**：使用現貨 API (`create_order`) 而非期貨 API
+  - **問題 2**：使用現貨價格 API (`get_symbol_ticker`)
+  - **問題 3**：餘額邏輯錯誤（現貨+期貨），但期貨交易只能用期貨錢包
+  - **問題 4**：缺少 `positionSide` 參數（雙向持倉模式必需）
+  - **症狀**：
+    - `APIError(code=-2010): Account has insufficient balance`
+    - `APIError(code=-4061): Order's position side does not match user's setting`
   - **修復**：
     - ✅ `place_order` → 使用 `futures_create_order`
     - ✅ `get_ticker_price` → 使用 `futures_symbol_ticker`
     - ✅ 餘額邏輯 → 只使用期貨錢包餘額
-  - **影響**：現在系統完全使用期貨 API 進行 U本位合約交易
-  - **部署**：2025-10-24 17:45 UTC 已部署到 Railway EU
+    - ✅ 添加 `positionSide` 參數（BUY → LONG, SELL → SHORT）
+  - **影響**：系統現在完全支持 U本位合約雙向持倉模式
+  - **部署**：2025-10-24 18:00 UTC 已部署到 Railway EU
 - **✨ NEW FEATURE - 限價單支持**: 支持市價單和限價單兩種入場方式
   - **配置**：`ORDER_TYPE` = 'MARKET'（市價單，立即成交）或 'LIMIT'（限價單，掛單等待）
   - **限價邏輯**：做多時限價 = 市價 × (1 - 0.1%)，做空時限價 = 市價 × (1 + 0.1%)

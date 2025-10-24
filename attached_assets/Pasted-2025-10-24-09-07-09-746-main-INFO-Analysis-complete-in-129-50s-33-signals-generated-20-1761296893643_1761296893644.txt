@@ -1,0 +1,30 @@
+2025-10-24 09:07:09,746 - __main__ - INFO - ✅ Analysis complete in 129.50s - 33 signals generated
+2025-10-24 09:07:09,746 - services.strategy_engine - INFO - Filtered 30 signals, kept top 3
+2025-10-24 09:07:09,747 - __main__ - INFO - 🎯 Top 3 signals selected:
+2025-10-24 09:07:09,747 - __main__ - INFO -   1. CATIUSDT: BUY @ 0.0893 (confidence: 90.0%, ROI: 1.50%)
+2025-10-24 09:07:09,747 - __main__ - INFO -   2. LPTUSDT: BUY @ 5.1450 (confidence: 82.7%, ROI: 1.50%)
+2025-10-24 09:07:09,747 - __main__ - INFO -   3. REIUSDT: SELL @ 0.0120 (confidence: 80.0%, ROI: 1.50%)
+2025-10-24 09:07:09,747 - __main__ - INFO - 💼 Executing signals (3 slots available)...
+2025-10-24 09:07:09,747 - risk_manager - INFO - 🎯 槓桿計算: 信心度=90.0% → 基礎=10.00x, 波動性=低(1.49%) → 調整=+2.0x, 最終槓桿=12.00x
+2025-10-24 09:07:09,747 - risk_manager - INFO - Calculated position size: 0.831632 (Entry: 0.0893, SL: 0.08664285714285715, Capital allocated: $14.85)
+2025-10-24 09:07:09,747 - services.execution_service - INFO - 📊 槓桿倉位計算: 保證金=$14.85, 槓桿=12.00x, 倉位價值=$178.24, 數量=29.938741
+2025-10-24 09:07:09,747 - services.execution_service - INFO - [LIVE] Placing BUY MARKET order: CATIUSDT qty=29.938741
+2025-10-24 09:07:10,323 - binance_client - INFO - 📈 CATIUSDT: Adjusted quantity to meet MIN_NOTIONAL $5.00: 29.938741 → 57.0 (notional: $5.09)
+2025-10-24 09:07:10,323 - binance_client - INFO - Formatted quantity for CATIUSDT: 29.9387405442 → 57.0 (step=1.0, min=1.0)
+2025-10-24 09:07:10,556 - binance_client - ERROR - ❌ Futures order failed: APIError(code=-4061): Order's position side does not match user's setting.
+2025-10-24 09:07:10,556 - services.execution_service - WARNING - ⚠️  Order returned None (trading may be disabled)
+2025-10-24 09:07:10,556 - risk_manager - INFO - 🎯 槓桿計算: 信心度=82.7% → 基礎=4.86x, 波動性=低(0.56%) → 調整=+1.0x, 最終槓桿=5.83x
+2025-10-24 09:07:10,556 - risk_manager - INFO - Calculated position size: 0.014434 (Entry: 5.145, SL: 5.087571428571429, Capital allocated: $14.85)
+2025-10-24 09:07:10,556 - services.execution_service - INFO - 📊 槓桿倉位計算: 保證金=$14.85, 槓桿=5.83x, 倉位價值=$86.55, 數量=0.252320
+2025-10-24 09:07:10,556 - services.execution_service - INFO - [LIVE] Placing BUY MARKET order: LPTUSDT qty=0.252320
+2025-10-24 09:07:11,030 - binance_client - INFO - 📈 LPTUSDT: Adjusted quantity to meet MIN_NOTIONAL $5.00: 0.252320 → 1.0 (notional: $5.14)
+2025-10-24 09:07:11,031 - binance_client - INFO - Formatted quantity for LPTUSDT: 0.2523201588 → 1.0 (step=0.1, min=0.1)
+2025-10-24 09:07:11,265 - binance_client - ERROR - ❌ Futures order failed: APIError(code=-4061): Order's position side does not match user's setting.
+2025-10-24 09:07:11,265 - services.execution_service - WARNING - ⚠️  Order returned None (trading may be disabled)
+2025-10-24 09:07:11,265 - risk_manager - INFO - 🎯 槓桿計算: 信心度=80.0% → 基礎=3.00x, 波動性=低(0.93%) → 調整=+0.6x, 最終槓桿=3.60x
+2025-10-24 09:07:11,265 - risk_manager - INFO - Calculated position size: 6.214620 (Entry: 0.01195, SL: 0.012172857142857143, Capital allocated: $14.85)
+2025-10-24 09:07:11,265 - services.execution_service - INFO - 📊 槓桿倉位計算: 保證金=$14.85, 槓桿=3.60x, 倉位價值=$53.47, 數量=67.117896
+2025-10-24 09:07:11,266 - services.execution_service - INFO - [LIVE] Placing SELL MARKET order: REIUSDT qty=67.117896
+2025-10-24 09:07:11,971 - binance_client - INFO - 📈 REIUSDT: Adjusted quantity to meet MIN_NOTIONAL $5.00: 67.117896 → 419.0 (notional: $5.00)
+2025-10-24 09:07:11,971 - binance_client - INFO - Formatted quantity for REIUSDT: 67.1178961657 → 419.0 (step=1.0, min=1.0)
+2025-10-24 09:07:12,201 - binance_client - ERROR - ❌ Futures order failed: APIError(code=-4061): Order's position side does not match user's setting.
