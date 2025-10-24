@@ -148,9 +148,15 @@ class BinanceDataClient:
         return {}
     
     def get_futures_balance(self):
-        """Get USDT-M futures account USDT balance."""
+        """
+        Get USDT-M futures account USDT balance.
+        
+        Returns:
+            float: Actual balance (can be 0.0 if account is empty)
+            None: API call failed
+        """
         if not self.client:
-            return 0.0
+            return None
         try:
             # Method 1: Try to get account balance (more accurate)
             try:
@@ -171,7 +177,7 @@ class BinanceDataClient:
             
         except Exception as e:
             logger.error(f"Error fetching futures balance: {e}")
-            return 0.0
+            return None
     
     def get_funding_rate(self, symbol):
         try:

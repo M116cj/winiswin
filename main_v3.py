@@ -203,13 +203,12 @@ class TradingBotV3:
             await self.binance.get_ticker('BTCUSDT')
             self.monitoring_service.update_health('binance_api', 'healthy')
             logger.info("✅ Binance API connection verified")
-            
-            # Load real account balance
-            await self._load_account_balance()
-            
         except Exception as e:
             self.monitoring_service.update_health('binance_api', 'unhealthy')
             logger.error(f"❌ Binance API connection failed: {e}")
+        
+        # Always attempt to load balance (will use default if fails)
+        await self._load_account_balance()
         
         # Test Discord
         if self.discord:
@@ -221,85 +220,21 @@ class TradingBotV3:
     async def _load_account_balance(self):
         """Load real account balance from Binance and update RiskManager."""
         try:
-            logger.info("="*70)
-            logger.info("📊 Loading Account Balance from Binance")
-            logger.info("="*70)
-            
-            # Get account balance (using sync methods in executor)
+            # 讀取 Binance 期貨帳戶實際餘額
             loop = asyncio.get_event_loop()
-            balance_data = await loop.run_in_executor(None, self.binance.get_account_balance)
+            actual_balance = await loop.run_in_executor(None, self.binance.get_futures_balance)
             
-            if not balance_data:
-                logger.warning("⚠️  No balance data received from Binance API")
-                logger.info("ℹ️  Using default balance: $10,000 USDT")
-                logger.info("="*70)
-                return
-            
-            # ⚠️ CRITICAL: Futures trading can ONLY use futures wallet USDT
-            # Spot and futures wallets are separate - DO NOT combine them
-            spot_usdt = 0.0
-            futures_usdt = 0.0
-            
-            # Get USDT from spot account (for reference only)
-            if 'USDT' in balance_data:
-                spot_usdt = balance_data['USDT'].get('total', 0.0)
-                if spot_usdt > 0:
-                    logger.info(f"💼 現貨錢包 USDT: ${spot_usdt:,.2f} (無法用於合約交易)")
-            
-            # Get futures account balance (USDT-M) - THIS IS WHAT MATTERS
-            try:
-                futures_usdt = await loop.run_in_executor(None, self.binance.get_futures_balance)
-                if futures_usdt and futures_usdt > 0:
-                    logger.info(f"📈 合約錢包 USDT: ${futures_usdt:,.2f} ✅ 可用於交易")
+            # 區分 API 失敗（None）和實際餘額為 0（0.0）
+            if actual_balance is not None:
+                self.risk_manager.update_balance(actual_balance)
+                if actual_balance > 0:
+                    logger.info(f"💰 從 Binance 讀取實際餘額: ${actual_balance:.2f} USDT")
                 else:
-                    logger.warning(f"⚠️  合約錢包餘額為 $0 - 無法進行合約交易！")
-            except Exception as e:
-                logger.error(f"❌ 無法獲取合約餘額: {e}")
-                futures_usdt = 0.0
-            
-            # Use ONLY futures balance for futures trading
-            usable_balance = futures_usdt
-            min_required = 15.0  # Minimum $15 per position
-            
-            if usable_balance > 0:
-                logger.info("-"*70)
-                logger.info(f"✅ 可用合約交易資金: ${usable_balance:,.2f} USDT")
-                logger.info("-"*70)
-                logger.info(f"📊 Risk Management Configuration:")
-                logger.info(f"   • Max Positions: 3")
-                logger.info(f"   • Capital per Position: ${usable_balance/3:,.2f} USDT (33.33%)")
-                logger.info(f"   • Risk per Trade: {Config.RISK_PER_TRADE_PERCENT}%")
-                logger.info(f"   • Max Position Size: {Config.MAX_POSITION_SIZE_PERCENT}%")
-                
-                # Warn if balance is low
-                per_position = usable_balance / 3
-                if per_position < min_required:
-                    logger.warning(f"\n⚠️  警告：每個倉位僅 ${per_position:,.2f}，可能無法開倉")
-                    logger.warning(f"   建議期貨錢包至少 ${min_required * 3:,.0f} USDT")
-                
-                if spot_usdt > 0:
-                    logger.info(f"\n💡 提示：現貨錢包有 ${spot_usdt:,.2f} USDT 無法用於合約")
-                    logger.info(f"   如需使用，請在 Binance: 資產 → 劃轉 → 現貨→U本位合約")
-                
-                logger.info("="*70)
-                
-                # Update RiskManager with ONLY futures balance
-                self.risk_manager.update_balance(usable_balance)
+                    logger.warning(f"⚠️ Binance 帳戶餘額為 0 USDT！無法進行交易")
             else:
-                logger.error("\n❌ 合約錢包餘額為 $0 - 無法進行合約交易！")
-                if spot_usdt > 0:
-                    logger.info(f"\n💡 解決方案：")
-                    logger.info(f"   1. 登入 Binance → 資產 → 劃轉")
-                    logger.info(f"   2. 從「現貨錢包」劃轉到「U本位合約錢包」")
-                    logger.info(f"   3. 建議劃轉 ${spot_usdt:,.2f} USDT")
-                    logger.info(f"   4. 重啟機器人")
-                logger.info("\nℹ️  使用默認測試餘額: $10,000 USDT (僅模擬)")
-                logger.info("="*70)
-                
+                logger.warning(f"⚠️ 無法讀取 Binance 餘額（API 失敗），使用默認值: ${self.risk_manager.account_balance:.2f} USDT")
         except Exception as e:
-            logger.error(f"❌ Failed to load account balance: {e}")
-            logger.info("ℹ️  Using default balance: $10,000 USDT")
-            logger.info("="*70)
+            logger.error(f"❌ 讀取 Binance 餘額失敗: {e}，使用默認值: ${self.risk_manager.account_balance:.2f} USDT")
     
     async def rescan_symbol_immediately(self, symbol: str):
         """
@@ -383,6 +318,27 @@ class TradingBotV3:
         logger.info(f"\n{'='*70}")
         logger.info(f"📊 Trading Cycle #{self.cycle_count} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         logger.info(f"{'='*70}")
+        
+        # 每個交易週期更新帳戶餘額
+        try:
+            loop = asyncio.get_event_loop()
+            current_balance = await loop.run_in_executor(None, self.binance.get_futures_balance)
+            
+            # 區分 API 失敗（None）和實際餘額為 0（0.0）
+            if current_balance is not None:
+                old_balance = self.risk_manager.account_balance
+                self.risk_manager.update_balance(current_balance)
+                
+                # 只有當餘額變化超過 1% 時才記錄（避免日誌過多，防止除以零）
+                if old_balance > 0:
+                    balance_change_percent = abs(current_balance - old_balance) / old_balance * 100
+                    if balance_change_percent > 1.0:
+                        logger.info(f"💰 帳戶餘額更新: ${old_balance:.2f} → ${current_balance:.2f} USDT ({balance_change_percent:+.2f}%)")
+                elif current_balance != old_balance:
+                    # 餘額從 0 變化或變為 0
+                    logger.info(f"💰 帳戶餘額更新: ${old_balance:.2f} → ${current_balance:.2f} USDT")
+        except Exception as e:
+            logger.debug(f"餘額更新失敗: {e}")
         
         try:
             # Step 1: Fetch market data (concurrent batch fetching)
