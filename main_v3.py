@@ -151,6 +151,13 @@ class TradingBotV3:
         # Verify API connections
         await self._verify_connections()
         
+        # 🔒 為現有倉位設置交易所級別的止損/止盈保護
+        if self.execution_service.positions:
+            logger.info("\n" + "="*70)
+            logger.info("🔒 Setting Exchange-Level Protection for Existing Positions")
+            logger.info("="*70)
+            await self.execution_service.set_protection_for_existing_positions()
+        
         logger.info("\n" + "="*70)
         logger.info("✅ Initialization Complete - Bot Ready")
         logger.info("="*70)

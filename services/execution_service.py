@@ -226,6 +226,37 @@ class ExecutionService:
         
         return True
     
+    async def set_protection_for_existing_positions(self):
+        """
+        為現有倉位補設止損/止盈訂單（啟動時或手動調用）
+        
+        用於修復沒有交易所級別保護的舊倉位
+        """
+        if not self.positions:
+            logger.info("No existing positions to protect")
+            return
+        
+        logger.info(f"🔍 Checking {len(self.positions)} existing positions for exchange-level protection...")
+        
+        for symbol, position in self.positions.items():
+            try:
+                logger.info(
+                    f"📊 Position: {symbol} {position.action} @ {position.entry_price:.8f}, "
+                    f"qty={position.quantity}, SL={position.stop_loss:.8f}, TP={position.take_profit:.8f}"
+                )
+                
+                # 設置止損/止盈
+                if self.enable_trading:
+                    await self._set_stop_loss_take_profit(position)
+                else:
+                    logger.info(f"⚠️  Trading disabled, skipping protection for {symbol}")
+                    
+            except Exception as e:
+                logger.error(f"Error setting protection for {symbol}: {e}")
+                logger.exception(e)
+        
+        logger.info("✅ Finished setting protection for existing positions")
+    
     async def _set_stop_loss_take_profit(self, position: Position):
         """
         在交易所設置止損/止盈訂單（關鍵安全功能）
