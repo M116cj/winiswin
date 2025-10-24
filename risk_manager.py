@@ -36,6 +36,61 @@ class RiskManager:
         """Get capital allocated per position (1/3 of total for 3-position system)."""
         return self.account_balance * (self.capital_per_position / 100)
     
+    def calculate_breakeven_price(self, entry_price, leverage, action='BUY', use_taker_fee=True):
+        """
+        計算考慮槓桿和手續費的損益平衡價格
+        
+        Args:
+            entry_price: 進場價格
+            leverage: 槓桿倍數
+            action: 'BUY' (做多) 或 'SELL' (做空)
+            use_taker_fee: 是否使用吃單手續費（True）或掛單手續費（False）
+        
+        Returns:
+            損益平衡價格
+        
+        說明：
+            損益平衡價格 = 進場價格 ± 總手續費成本
+            總手續費成本 = (開倉手續費 + 平倉手續費) * 進場價格
+            
+            例如：
+            - 做多 BTC @ 50000，槓桿 10x，吃單手續費 0.04%
+            - 開倉手續費 = 50000 * 0.0004 = 20 USDT
+            - 平倉手續費 = 50000 * 0.0004 = 20 USDT
+            - 總手續費 = 40 USDT
+            - 損益平衡價格 = 50000 + 40 = 50040 USDT
+        """
+        try:
+            # 選擇手續費率
+            fee_rate = Config.TAKER_FEE_RATE if use_taker_fee else Config.MAKER_FEE_RATE
+            
+            # 計算總手續費率（開倉 + 平倉）
+            total_fee_rate = fee_rate * 2
+            
+            # 計算手續費成本（以價格百分比表示）
+            fee_cost_percent = total_fee_rate
+            
+            # 計算損益平衡價格
+            if action == 'BUY':
+                # 做多：需要價格上漲才能彌補手續費
+                breakeven = entry_price * (1 + fee_cost_percent)
+            else:  # SELL
+                # 做空：需要價格下跌才能彌補手續費
+                breakeven = entry_price * (1 - fee_cost_percent)
+            
+            logger.debug(
+                f"損益平衡計算: {action} @ {entry_price:.8f}, "
+                f"槓桿={leverage:.1f}x, 手續費={fee_rate*100:.3f}%×2, "
+                f"損益平衡={breakeven:.8f}"
+            )
+            
+            return breakeven
+            
+        except Exception as e:
+            logger.error(f"Error calculating breakeven price: {e}")
+            # 發生錯誤時，返回進場價格（保守做法）
+            return entry_price
+    
     def calculate_dynamic_leverage(self, confidence, atr, current_price):
         """
         智能槓桿計算：根據信心度和市場波動性動態調整槓桿倍數

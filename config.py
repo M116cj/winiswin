@@ -51,13 +51,22 @@ class Config:
     
     # SYMBOLS 將在運行時動態設置
     SYMBOLS = STATIC_SYMBOLS
-    TIMEFRAME = '15m'  # 15分鐘K線
+    TIMEFRAME = '1m'  # 1分鐘K線（高頻交易）
     
     MODEL_RETRAIN_INTERVAL = 3600
     LOOKBACK_PERIODS = 100
     
+    # 止損/止盈策略（基於損益平衡價格）
+    RISK_REWARD_RATIO = float(os.getenv('RISK_REWARD_RATIO', '2.0'))  # 風險收益比 1:1 或 1:2
     STOP_LOSS_ATR_MULTIPLIER = 2.0
     TAKE_PROFIT_ATR_MULTIPLIER = 3.0
+    
+    # 交易手續費（Binance 期貨）
+    MAKER_FEE_RATE = float(os.getenv('MAKER_FEE_RATE', '0.0002'))  # 0.02% 掛單手續費
+    TAKER_FEE_RATE = float(os.getenv('TAKER_FEE_RATE', '0.0004'))  # 0.04% 吃單手續費
+    
+    # 高頻交易參數
+    USE_BREAKEVEN_STOPS = os.getenv('USE_BREAKEVEN_STOPS', 'true').lower() == 'true'  # 使用損益平衡止損
     
     LOG_FILE = 'trading_bot.log'
     TRADES_FILE = 'trades.json'

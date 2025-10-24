@@ -416,10 +416,36 @@ class ICTSMCStrategy:
                 pass
             # 如果信心度超過門檻，生成信號
             elif confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈（防禦性檢查）
+                # 計算止損和止盈（基於損益平衡價格和風險收益比）
                 try:
-                    stop_loss = current_price - (atr * 2.0)
-                    take_profit = current_price + (atr * 3.0)
+                    from config import Config
+                    
+                    if Config.USE_BREAKEVEN_STOPS:
+                        # 🎯 高頻交易止損策略：基於損益平衡價格
+                        leverage = Config.DEFAULT_LEVERAGE
+                        fee_rate = Config.TAKER_FEE_RATE
+                        total_fee_percent = fee_rate * 2  # 開倉 + 平倉手續費
+                        
+                        # 做多：損益平衡價格 = 進場價 * (1 + 總手續費%)
+                        breakeven = current_price * (1 + total_fee_percent)
+                        
+                        # 止損：設在損益平衡價格下方 1.5 ATR
+                        stop_loss = breakeven - (atr * 1.5)
+                        
+                        # 止盈：基於風險收益比（1:1 或 1:2）
+                        risk = abs(current_price - stop_loss)
+                        reward = risk * Config.RISK_REWARD_RATIO
+                        take_profit = current_price + reward
+                        
+                        logger.debug(
+                            f"🎯 做多止損/止盈: 進場={current_price:.8f}, "
+                            f"損益平衡={breakeven:.8f}, 止損={stop_loss:.8f}, "
+                            f"止盈={take_profit:.8f}, R:R=1:{Config.RISK_REWARD_RATIO:.1f}"
+                        )
+                    else:
+                        # 傳統 ATR 止損策略
+                        stop_loss = current_price - (atr * 2.0)
+                        take_profit = current_price + (atr * 3.0)
                     
                     # 確保止損和止盈有效
                     if stop_loss <= 0 or take_profit <= 0:
@@ -491,10 +517,36 @@ class ICTSMCStrategy:
                 pass
             # 如果信心度超過門檻，生成信號
             elif confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈（防禦性檢查）
+                # 計算止損和止盈（基於損益平衡價格和風險收益比）
                 try:
-                    stop_loss = current_price + (atr * 2.0)
-                    take_profit = current_price - (atr * 3.0)
+                    from config import Config
+                    
+                    if Config.USE_BREAKEVEN_STOPS:
+                        # 🎯 高頻交易止損策略：基於損益平衡價格
+                        leverage = Config.DEFAULT_LEVERAGE
+                        fee_rate = Config.TAKER_FEE_RATE
+                        total_fee_percent = fee_rate * 2  # 開倉 + 平倉手續費
+                        
+                        # 做空：損益平衡價格 = 進場價 * (1 - 總手續費%)
+                        breakeven = current_price * (1 - total_fee_percent)
+                        
+                        # 止損：設在損益平衡價格上方 1.5 ATR
+                        stop_loss = breakeven + (atr * 1.5)
+                        
+                        # 止盈：基於風險收益比（1:1 或 1:2）
+                        risk = abs(stop_loss - current_price)
+                        reward = risk * Config.RISK_REWARD_RATIO
+                        take_profit = current_price - reward
+                        
+                        logger.debug(
+                            f"🎯 做空止損/止盈: 進場={current_price:.8f}, "
+                            f"損益平衡={breakeven:.8f}, 止損={stop_loss:.8f}, "
+                            f"止盈={take_profit:.8f}, R:R=1:{Config.RISK_REWARD_RATIO:.1f}"
+                        )
+                    else:
+                        # 傳統 ATR 止損策略
+                        stop_loss = current_price + (atr * 2.0)
+                        take_profit = current_price - (atr * 3.0)
                     
                     # 確保止損和止盈有效
                     if stop_loss <= 0 or take_profit <= 0:
