@@ -422,7 +422,21 @@ class ExecutionService:
             else:
                 logger.error(f"❌ Failed to set take-profit for {symbol}")
             
-            # 如果兩個訂單都失敗，發出嚴重警告
+            # ✅ 添加：驗證訂單是否成功創建
+            if sl_order and tp_order:
+                logger.info(
+                    f"🛡️ Position fully protected: {symbol}\n"
+                    f"  📉 Stop-Loss ID: {sl_order.get('orderId')}\n"
+                    f"  📈 Take-Profit ID: {tp_order.get('orderId')}"
+                )
+            elif not sl_order or not tp_order:
+                logger.critical(
+                    f"🚨 PARTIAL PROTECTION FAILURE for {symbol}!\n"
+                    f"  Stop-Loss: {'✅' if sl_order else '❌'}\n"
+                    f"  Take-Profit: {'✅' if tp_order else '❌'}"
+                )
+            
+            # 如果兩個訂單都失敗，發出嚴重警告並發送 Discord 通知
             if not sl_order and not tp_order:
                 logger.critical(
                     f"🚨 CRITICAL: Failed to set ANY protection orders for {symbol}! "

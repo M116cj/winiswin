@@ -423,7 +423,9 @@ class BinanceDataClient:
                 stopPrice=formatted_stop_price,
                 quantity=formatted_quantity,
                 positionSide=position_side,
-                reduceOnly=True  # 只平倉，不開新倉（安全保護）
+                reduceOnly=True,  # 只平倉，不開新倉（安全保護）
+                workingType='MARK_PRICE',  # 使用標記價格，更穩定
+                priceProtect=True  # 價格保護
             )
             
             logger.info(
@@ -471,7 +473,9 @@ class BinanceDataClient:
                 stopPrice=formatted_tp_price,
                 quantity=formatted_quantity,
                 positionSide=position_side,
-                reduceOnly=True  # 只平倉，不開新倉（安全保護）
+                reduceOnly=True,  # 只平倉，不開新倉（安全保護）
+                workingType='MARK_PRICE',  # 使用標記價格，更穩定
+                priceProtect=True  # 價格保護
             )
             
             logger.info(
@@ -524,6 +528,44 @@ class BinanceDataClient:
             
         except Exception as e:
             logger.error(f"Error fetching current positions from Binance: {e}")
+            return []
+    
+    def get_open_stop_orders(self, symbol=None):
+        """
+        獲取當前所有活躍的止損止盈訂單
+        
+        Args:
+            symbol: 交易對（可選，不指定則返回所有）
+            
+        Returns:
+            List of open STOP_MARKET and TAKE_PROFIT_MARKET orders
+        """
+        try:
+            if symbol:
+                orders = self.client.futures_get_open_orders(symbol=symbol)
+            else:
+                orders = self.client.futures_get_open_orders()
+            
+            # 過濾止損止盈訂單
+            stop_orders = [
+                order for order in orders
+                if order['type'] in ['STOP_MARKET', 'TAKE_PROFIT_MARKET']
+            ]
+            
+            if stop_orders:
+                logger.info(f"📊 Found {len(stop_orders)} active SL/TP orders")
+                for order in stop_orders:
+                    logger.info(
+                        f"  • {order['symbol']} {order['type']}: "
+                        f"{order['side']} @ {order['stopPrice']} "
+                        f"(ID: {order['orderId']})"
+                    )
+            else:
+                logger.info("No active SL/TP orders found")
+            
+            return stop_orders
+        except Exception as e:
+            logger.error(f"Error fetching open stop orders: {e}")
             return []
     
     def get_all_usdt_perpetual_pairs(self):
