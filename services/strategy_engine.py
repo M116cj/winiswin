@@ -66,7 +66,8 @@ class StrategyEngine:
         self,
         symbol: str,
         df: pd.DataFrame,
-        current_price: float
+        current_price: float,
+        binance_client=None
     ) -> Optional[Signal]:
         """
         Analyze a single symbol across all strategies.
@@ -75,6 +76,7 @@ class StrategyEngine:
             symbol: Trading symbol
             df: Price data DataFrame
             current_price: Current market price
+            binance_client: Binance client (for 1h trend filtering)
             
         Returns:
             Signal object or None
@@ -87,7 +89,8 @@ class StrategyEngine:
         self.stats['strategy_stats']['ict_smc']['analyses'] += 1
         
         try:
-            result = strategy.generate_signal(df)
+            # v2.0 優化：傳遞 symbol 和 binance_client 用於 1h 趨勢過濾
+            result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
             
             if result and result.get('type') != 'HOLD':
                 # Create signal object
@@ -117,13 +120,15 @@ class StrategyEngine:
     
     async def analyze_batch(
         self,
-        symbols_data: Dict[str, tuple]
+        symbols_data: Dict[str, tuple],
+        binance_client=None
     ) -> List[Signal]:
         """
         Analyze multiple symbols concurrently.
         
         Args:
             symbols_data: Dict of {symbol: (df, current_price)}
+            binance_client: Binance client (for 1h trend filtering)
             
         Returns:
             List of signals
@@ -131,7 +136,7 @@ class StrategyEngine:
         tasks = []
         for symbol, (df, price) in symbols_data.items():
             if df is not None and not df.empty:
-                tasks.append(self.analyze_symbol(symbol, df, price))
+                tasks.append(self.analyze_symbol(symbol, df, price, binance_client=binance_client))
         
         results = await asyncio.gather(*tasks, return_exceptions=True)
         

@@ -328,12 +328,30 @@ class ICTSMCStrategy:
         
         return min(confidence, 100.0)  # 上限 100%
     
-    def generate_signal(self, df):
+    def generate_signal(self, df, symbol=None, binance_client=None):
+        """
+        生成交易信號（整合 v2.0 + v3.0 優化）
+        
+        參數：
+            df: 15m K 線數據
+            symbol: 交易對符號（用於 1h 趨勢過濾）
+            binance_client: Binance 客戶端（用於獲取 1h 數據）
+        """
         if len(df) < 50:
             logger.warning("Insufficient data for ICT/SMC analysis")
             return None
         
-        # 識別市場特徵
+        # === v2.0 優化：1h 趨勢過濾 ===
+        trend_1h = 'neutral'
+        if symbol and binance_client:
+            try:
+                trend_1h = self.get_1h_trend(symbol, binance_client)
+                logger.info(f"{symbol} - 1h趨勢: {trend_1h}")
+            except Exception as e:
+                logger.warning(f"Failed to get 1h trend for {symbol}: {e}")
+                trend_1h = 'neutral'
+        
+        # 識別市場特徵（已整合 OB 三重驗證 和 MSB 幅度過濾）
         self.identify_order_blocks(df)
         self.identify_liquidity_zones(df)
         structure = self.check_market_structure(df)
@@ -389,8 +407,13 @@ class ICTSMCStrategy:
                 at_liquidity_zone=at_support
             )
             
+            # === v2.0 優化：1h 趨勢過濾（避免逆勢做多）===
+            if trend_1h == 'bear':
+                logger.debug(f"Skipping BUY signal: 1h trend is bearish")
+                # 不在空頭趨勢中做多，即使有看漲結構
+                pass
             # 如果信心度超過門檻，生成信號
-            if confidence >= self.min_confidence_threshold:
+            elif confidence >= self.min_confidence_threshold:
                 # 計算止損和止盈（防禦性檢查）
                 try:
                     stop_loss = current_price - (atr * 2.0)
@@ -423,7 +446,7 @@ class ICTSMCStrategy:
                     'take_profit': take_profit,
                     'confidence': confidence,
                     'expected_roi': expected_roi,
-                    'reason': self._build_reason('BUY', structure, at_support, confidence),
+                    'reason': self._build_reason('BUY', structure, at_support, confidence, trend_1h),
                     'metadata': {
                         'structure': structure,
                         'at_liquidity_zone': at_support,
@@ -432,7 +455,8 @@ class ICTSMCStrategy:
                         'ema_9': ema_9,
                         'ema_21': ema_21,
                         'atr': atr,
-                        'current_price': current_price
+                        'current_price': current_price,
+                        'trend_1h': trend_1h  # v2.0: 記錄 1h 趨勢
                     }
                 }
         
@@ -458,8 +482,13 @@ class ICTSMCStrategy:
                 at_liquidity_zone=at_resistance
             )
             
+            # === v2.0 優化：1h 趨勢過濾（避免逆勢做空）===
+            if trend_1h == 'bull':
+                logger.debug(f"Skipping SELL signal: 1h trend is bullish")
+                # 不在多頭趨勢中做空，即使有看跌結構
+                pass
             # 如果信心度超過門檻，生成信號
-            if confidence >= self.min_confidence_threshold:
+            elif confidence >= self.min_confidence_threshold:
                 # 計算止損和止盈（防禦性檢查）
                 try:
                     stop_loss = current_price + (atr * 2.0)
@@ -492,7 +521,7 @@ class ICTSMCStrategy:
                     'take_profit': take_profit,
                     'confidence': confidence,
                     'expected_roi': expected_roi,
-                    'reason': self._build_reason('SELL', structure, at_resistance, confidence),
+                    'reason': self._build_reason('SELL', structure, at_resistance, confidence, trend_1h),
                     'metadata': {
                         'structure': structure,
                         'at_liquidity_zone': at_resistance,
@@ -501,7 +530,8 @@ class ICTSMCStrategy:
                         'ema_9': ema_9,
                         'ema_21': ema_21,
                         'atr': atr,
-                        'current_price': current_price
+                        'current_price': current_price,
+                        'trend_1h': trend_1h  # v2.0: 記錄 1h 趨勢
                     }
                 }
         
@@ -513,9 +543,15 @@ class ICTSMCStrategy:
         
         return signal
     
-    def _build_reason(self, signal_type, structure, at_zone, confidence):
-        """構建信號原因描述"""
+    def _build_reason(self, signal_type, structure, at_zone, confidence, trend_1h='neutral'):
+        """構建信號原因描述（整合 v2.0 + v3.0）"""
         reasons = []
+        
+        # v2.0: 添加 1h 趨勢信息
+        if trend_1h == 'bull':
+            reasons.append("1h多頭")
+        elif trend_1h == 'bear':
+            reasons.append("1h空頭")
         
         if structure == 'bullish_structure':
             reasons.append("看漲結構")
