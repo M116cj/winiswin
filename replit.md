@@ -10,7 +10,14 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **🔧 CRITICAL FIX - 數量格式化修復** (LATEST): 修復 Binance API 科學計數法錯誤
+- **🔧 CRITICAL FIX - MIN_NOTIONAL 驗證** (LATEST): 修復低價幣訂單被拒絕問題
+  - **問題**：低價幣（如 TUTUSDT $0.024）的訂單名義價值不足 $5，被 Binance API 拒絕
+  - **症狀**：`APIError(code=-1013): Filter failure: NOTIONAL`
+  - **修復**：添加 `get_min_notional()` 和智能數量調整邏輯
+  - **實現**：如果名義價值 < MIN_NOTIONAL，自動增加數量；無法滿足則拒絕訂單
+  - **影響**：避免交易低流動性垃圾幣，提升交易質量
+  - **部署**：2025-10-24 16:40 UTC 已部署到 Railway EU
+- **🔧 CRITICAL FIX - 數量格式化修復**: 修復 Binance API 科學計數法錯誤
   - **問題**：小數量使用科學計數法（6.593e-05）導致 Binance API 拒絕訂單
   - **症狀**：`APIError(code=-1100): Illegal characters found in parameter 'quantity'`
   - **修復**：添加 `format_quantity()` 方法，根據 LOT_SIZE 過濾器正確格式化數量

@@ -204,16 +204,37 @@ class BinanceDataClient:
             logger.error(f"Error fetching symbol info for {symbol}: {e}")
             return None
     
-    def format_quantity(self, symbol, quantity):
+    def get_min_notional(self, symbol):
+        """獲取交易對的最小名義價值要求"""
+        try:
+            symbol_info = self.get_symbol_info(symbol)
+            if not symbol_info:
+                return 5.0  # Default minimum
+            
+            # 獲取 MIN_NOTIONAL 或 NOTIONAL 過濾器
+            for f in symbol_info['filters']:
+                if f['filterType'] == 'MIN_NOTIONAL':
+                    return float(f.get('minNotional', 5.0))
+                elif f['filterType'] == 'NOTIONAL':
+                    return float(f.get('minNotional', 5.0))
+            
+            return 5.0  # Default if not found
+            
+        except Exception as e:
+            logger.error(f"Error getting min notional for {symbol}: {e}")
+            return 5.0
+    
+    def format_quantity(self, symbol, quantity, price=None):
         """
-        根據交易對的 LOT_SIZE 過濾器格式化數量
+        根據交易對的 LOT_SIZE 和 MIN_NOTIONAL 過濾器格式化數量
         
         Args:
             symbol: 交易對
             quantity: 原始數量
+            price: 當前價格（用於驗證 MIN_NOTIONAL）
             
         Returns:
-            格式化後的數量（float）
+            格式化後的數量（float），如果無法滿足最小名義價值則返回 None
         """
         try:
             symbol_info = self.get_symbol_info(symbol)
@@ -247,6 +268,31 @@ class BinanceDataClient:
                 logger.warning(f"Quantity {formatted_qty} above maximum {max_qty}, using maximum")
                 formatted_qty = max_qty
             
+            # 驗證 MIN_NOTIONAL（如果提供了價格）
+            if price is not None:
+                min_notional = self.get_min_notional(symbol)
+                notional_value = formatted_qty * price
+                
+                if notional_value < min_notional:
+                    # 計算滿足最小名義價值所需的數量
+                    required_qty = min_notional / price
+                    formatted_qty = round_step_size(required_qty, step_size)
+                    
+                    # 再次驗證
+                    new_notional = formatted_qty * price
+                    if new_notional < min_notional:
+                        logger.warning(
+                            f"❌ {symbol}: Cannot meet MIN_NOTIONAL ${min_notional:.2f} "
+                            f"(price=${price:.8f}, qty={formatted_qty}, notional=${new_notional:.2f})"
+                        )
+                        return None
+                    
+                    logger.info(
+                        f"📈 {symbol}: Adjusted quantity to meet MIN_NOTIONAL "
+                        f"${min_notional:.2f}: {quantity:.6f} → {formatted_qty} "
+                        f"(notional: ${new_notional:.2f})"
+                    )
+            
             logger.info(f"Formatted quantity for {symbol}: {quantity:.10f} → {formatted_qty} (step={step_size}, min={min_qty})")
             
             return formatted_qty
@@ -261,8 +307,19 @@ class BinanceDataClient:
             return None
         
         try:
-            # 格式化數量（去除科學計數法，應用 LOT_SIZE 精度）
-            formatted_quantity = self.format_quantity(symbol, quantity)
+            # 獲取當前價格（用於 MIN_NOTIONAL 驗證）
+            if price is None:
+                current_price = self.get_ticker_price(symbol)
+            else:
+                current_price = float(price)
+            
+            # 格式化數量（去除科學計數法，應用 LOT_SIZE 和 MIN_NOTIONAL）
+            formatted_quantity = self.format_quantity(symbol, quantity, current_price)
+            
+            # 如果無法滿足最小名義價值，拒絕訂單
+            if formatted_quantity is None:
+                logger.error(f"❌ Order rejected: {symbol} cannot meet MIN_NOTIONAL requirement")
+                return None
             
             if order_type == 'MARKET':
                 order = self.client.create_order(

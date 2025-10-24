@@ -1,0 +1,20 @@
+2025-10-24 08:35:30,100 - risk_manager - INFO - Calculated position size: 3.102118 (Entry: 0.02394, SL: 0.024264285714285714, Capital allocated: $14.85)
+2025-10-24 08:35:30,100 - services.execution_service - INFO - Applied leverage 12.00x to position size
+2025-10-24 08:35:30,100 - services.execution_service - INFO - [LIVE] Placing SELL order: TUTUSDT qty=37.2254181370092
+2025-10-24 08:35:30,100 - binance_client - INFO - Formatted quantity for TUTUSDT: 37.2254181370 → 37.0 (step=1.0, min=1.0)
+2025-10-24 08:35:30,328 - binance_client - ERROR - Error placing order: APIError(code=-1013): Filter failure: NOTIONAL
+2025-10-24 08:35:30,329 - services.execution_service - WARNING - ⚠️  Order returned None (trading may be disabled)
+2025-10-24 08:35:30,329 - risk_manager - INFO - 🎯 槓桿計算: 信心度=90.0% → 基礎=10.00x, 波動性=低(0.66%) → 調整=+2.0x, 最終槓桿=12.00x
+2025-10-24 08:35:30,329 - risk_manager - INFO - Calculated position size: 2.999382 (Entry: 0.02476, SL: 0.025085714285714288, Capital allocated: $14.85)
+2025-10-24 08:35:30,329 - services.execution_service - INFO - Applied leverage 12.00x to position size
+2025-10-24 08:35:30,329 - services.execution_service - INFO - [LIVE] Placing SELL order: BROCCOLI714USDT qty=35.99258926494346
+2025-10-24 08:35:30,329 - binance_client - INFO - Formatted quantity for BROCCOLI714USDT: 35.9925892649 → 35.0 (step=1.0, min=1.0)
+2025-10-24 08:35:30,558 - binance_client - ERROR - Error placing order: APIError(code=-1013): Filter failure: NOTIONAL
+2025-10-24 08:35:30,558 - services.execution_service - WARNING - ⚠️  Order returned None (trading may be disabled)
+2025-10-24 08:35:30,558 - risk_manager - INFO - 🎯 槓桿計算: 信心度=82.8% → 基礎=4.97x, 波動性=低(1.56%) → 調整=+1.0x, 最終槓桿=5.96x
+2025-10-24 08:35:30,558 - risk_manager - INFO - Calculated position size: 1.258724 (Entry: 0.059, SL: 0.06084285714285714, Capital allocated: $14.85)
+2025-10-24 08:35:30,558 - services.execution_service - INFO - Applied leverage 5.96x to position size
+2025-10-24 08:35:30,558 - services.execution_service - INFO - [LIVE] Placing SELL order: KDAUSDT qty=7.506367211028704
+2025-10-24 08:35:30,558 - binance_client - INFO - Formatted quantity for KDAUSDT: 7.5063672110 → 7.0 (step=1.0, min=1.0)
+2025-10-24 08:35:30,783 - binance_client - ERROR - Error placing order: APIError(code=-1013): Filter failure: NOTIONAL
+2025-10-24 08:35:30,783 - services.execution_service - WARNING - ⚠️  Order returned None (trading may be disabled)
