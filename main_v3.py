@@ -45,7 +45,13 @@ class TradingBotV3:
     def __init__(self):
         """Initialize trading bot with all services."""
         logger.info("="*70)
-        logger.info("Initializing Cryptocurrency Trading Bot v3.0")
+        logger.info("Initializing Cryptocurrency Trading Bot v3.2")
+        logger.info("="*70)
+        logger.info("🚀 Version 3.2 Features:")
+        logger.info("  ✅ Dynamic Margin Sizing (3%-13% based on confidence)")
+        logger.info("  ✅ Win-Rate Based Leverage (3-20x based on performance)")
+        logger.info("  ✅ Exchange-Level Stop-Loss/Take-Profit Protection")
+        logger.info("  ✅ Comprehensive Trade Logging for XGBoost ML")
         logger.info("="*70)
         
         # Core components (BinanceClient reads from Config automatically)

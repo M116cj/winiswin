@@ -366,31 +366,36 @@ class ExecutionService:
                 f"SL @ {position.stop_loss:.8f}, TP @ {position.take_profit:.8f}"
             )
             
-            # 設置止損訂單
-            sl_order = self.binance.set_stop_loss_order(
-                symbol=symbol,
-                side=close_side,
-                quantity=quantity,
-                stop_price=position.stop_loss,
-                position_side=position_side
+            # 設置止損訂單（異步執行同步方法）
+            loop = asyncio.get_event_loop()
+            sl_order = await loop.run_in_executor(
+                None,
+                self.binance.set_stop_loss_order,
+                symbol,
+                close_side,
+                quantity,
+                position.stop_loss,
+                position_side
             )
             
             if sl_order:
-                logger.info(f"✅ Stop-loss order set successfully for {symbol}")
+                logger.info(f"✅ Stop-loss order set successfully for {symbol}: {sl_order.get('orderId', 'N/A')}")
             else:
                 logger.error(f"❌ Failed to set stop-loss for {symbol}")
             
-            # 設置止盈訂單
-            tp_order = self.binance.set_take_profit_order(
-                symbol=symbol,
-                side=close_side,
-                quantity=quantity,
-                tp_price=position.take_profit,
-                position_side=position_side
+            # 設置止盈訂單（異步執行同步方法）
+            tp_order = await loop.run_in_executor(
+                None,
+                self.binance.set_take_profit_order,
+                symbol,
+                close_side,
+                quantity,
+                position.take_profit,
+                position_side
             )
             
             if tp_order:
-                logger.info(f"✅ Take-profit order set successfully for {symbol}")
+                logger.info(f"✅ Take-profit order set successfully for {symbol}: {tp_order.get('orderId', 'N/A')}")
             else:
                 logger.error(f"❌ Failed to set take-profit for {symbol}")
             
