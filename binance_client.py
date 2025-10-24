@@ -115,8 +115,9 @@ class BinanceDataClient:
             limit=limit
         )
         
-        # 數據驗證（動態閾值：確保至少有請求數量的 20%，最少 1 條）
-        min_required = max(1, int(limit * 0.2))
+        # 數據驗證（動態閾值：至少 10 條或請求數量的 20%，取較大值）
+        # 對於技術分析，我們需要足夠的數據點
+        min_required = max(10, int(limit * 0.2))
         if not klines or len(klines) < min_required:
             raise ValueError(f"Insufficient klines data: {len(klines)} < {min_required} (requested: {limit})")
         
