@@ -226,6 +226,96 @@ class ExecutionService:
         
         return True
     
+    async def load_positions_from_binance(self):
+        """
+        從 Binance API 加載當前真實持倉到內存
+        
+        這個方法在啟動時調用，確保重啟後能識別現有倉位並為它們設置保護
+        """
+        try:
+            logger.info("🔍 Loading current positions from Binance API...")
+            
+            # 從 Binance API 獲取持倉
+            loop = asyncio.get_event_loop()
+            binance_positions = await loop.run_in_executor(None, self.binance.get_current_positions)
+            
+            if not binance_positions:
+                logger.info("No positions to load from Binance")
+                return 0
+            
+            loaded_count = 0
+            
+            for binance_pos in binance_positions:
+                try:
+                    symbol = binance_pos['symbol']
+                    position_side = binance_pos['positionSide']  # 'LONG' or 'SHORT'
+                    position_amt = float(binance_pos['positionAmt'])
+                    entry_price = float(binance_pos['entryPrice'])
+                    leverage = int(binance_pos.get('leverage', 1))
+                    
+                    # 根據 positionSide 確定 action
+                    # LONG = BUY 開倉, SHORT = SELL 開倉
+                    if position_side == 'LONG':
+                        action = 'BUY'
+                        quantity = abs(position_amt)
+                    else:  # SHORT
+                        action = 'SELL'
+                        quantity = abs(position_amt)
+                    
+                    # 計算止損/止盈（使用當前價格和簡單策略）
+                    current_price = entry_price  # 使用進場價作為參考
+                    
+                    # 簡單策略：3% 止損，5% 止盈
+                    if action == 'BUY':
+                        stop_loss = entry_price * 0.97
+                        take_profit = entry_price * 1.05
+                    else:
+                        stop_loss = entry_price * 1.03
+                        take_profit = entry_price * 0.95
+                    
+                    # 創建 Position 對象
+                    position = Position(
+                        symbol=symbol,
+                        action=action,
+                        entry_price=entry_price,
+                        quantity=quantity,
+                        stop_loss=stop_loss,
+                        take_profit=take_profit,
+                        opened_at=datetime.now(),  # 實際開倉時間未知，使用當前時間
+                        strategy='LOADED_FROM_BINANCE',
+                        confidence=80.0,  # 假設信心度
+                        allocated_capital=quantity * entry_price / leverage,  # 估算
+                        leverage=leverage
+                    )
+                    
+                    # 添加到內存
+                    self.positions[symbol] = position
+                    
+                    # 添加到風險管理器
+                    self.risk_manager.add_position(
+                        symbol, action, entry_price, quantity, stop_loss, take_profit
+                    )
+                    
+                    logger.info(
+                        f"✅ Loaded {symbol} {action} position: "
+                        f"qty={quantity:.4f}, entry={entry_price:.8f}, "
+                        f"SL={stop_loss:.8f}, TP={take_profit:.8f}"
+                    )
+                    
+                    loaded_count += 1
+                    
+                except Exception as e:
+                    logger.error(f"Error loading position {binance_pos.get('symbol', 'UNKNOWN')}: {e}")
+                    continue
+            
+            logger.info(f"✅ Successfully loaded {loaded_count} positions from Binance")
+            return loaded_count
+            
+        except Exception as e:
+            logger.error(f"Error loading positions from Binance: {e}")
+            logger.exception(e)
+            return 0
+    
     async def set_protection_for_existing_positions(self):
         """
         為現有倉位補設止損/止盈訂單（啟動時或手動調用）

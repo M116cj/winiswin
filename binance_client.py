@@ -400,7 +400,7 @@ class BinanceDataClient:
                 stopPrice=formatted_stop_price,
                 quantity=formatted_quantity,
                 positionSide=position_side,
-                closePosition=False  # 不自動平倉全部，使用指定數量
+                reduceOnly=True  # 只平倉，不開新倉（安全保護）
             )
             
             logger.info(
@@ -448,7 +448,7 @@ class BinanceDataClient:
                 stopPrice=formatted_tp_price,
                 quantity=formatted_quantity,
                 positionSide=position_side,
-                closePosition=False  # 不自動平倉全部，使用指定數量
+                reduceOnly=True  # 只平倉，不開新倉（安全保護）
             )
             
             logger.info(
@@ -460,6 +460,48 @@ class BinanceDataClient:
         except Exception as e:
             logger.error(f"❌ Failed to set take-profit for {symbol}: {e}")
             return None
+    
+    def get_current_positions(self):
+        """
+        獲取當前所有持倉（從 Binance 期貨 API）
+        
+        Returns:
+            List of position dictionaries with keys:
+            - symbol: str
+            - positionSide: 'LONG' or 'SHORT'
+            - positionAmt: float (負數表示空倉)
+            - entryPrice: float
+            - unrealizedProfit: float
+            - leverage: int
+        """
+        try:
+            # 獲取所有持倉信息（包括 LONG 和 SHORT）
+            positions = self.client.futures_position_information()
+            
+            # 過濾出有實際持倉的（數量不為0）
+            active_positions = [
+                pos for pos in positions
+                if float(pos.get('positionAmt', 0)) != 0
+            ]
+            
+            if active_positions:
+                logger.info(f"📊 Found {len(active_positions)} active positions from Binance")
+                for pos in active_positions:
+                    symbol = pos['symbol']
+                    side = pos['positionSide']
+                    amt = float(pos['positionAmt'])
+                    entry = float(pos['entryPrice'])
+                    logger.info(
+                        f"  • {symbol} {side}: {abs(amt)} @ {entry:.8f}"
+                    )
+            else:
+                logger.info("No active positions found on Binance")
+            
+            return active_positions
+            
+        except Exception as e:
+            logger.error(f"Error fetching current positions from Binance: {e}")
+            return []
     
     def get_all_usdt_perpetual_pairs(self):
         """獲取所有 USDT 永續合約交易對"""

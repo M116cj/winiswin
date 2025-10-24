@@ -151,12 +151,19 @@ class TradingBotV3:
         # Verify API connections
         await self._verify_connections()
         
-        # 🔒 為現有倉位設置交易所級別的止損/止盈保護
-        if self.execution_service.positions:
-            logger.info("\n" + "="*70)
-            logger.info("🔒 Setting Exchange-Level Protection for Existing Positions")
-            logger.info("="*70)
+        # 🔒 加載並保護現有倉位（重啟後恢復倉位狀態）
+        logger.info("\n" + "="*70)
+        logger.info("🔒 Loading & Protecting Existing Positions from Binance")
+        logger.info("="*70)
+        
+        # 從 Binance API 加載真實持倉到內存
+        loaded_count = await self.execution_service.load_positions_from_binance()
+        
+        # 為這些持倉設置交易所級別的止損/止盈保護
+        if loaded_count > 0:
             await self.execution_service.set_protection_for_existing_positions()
+        else:
+            logger.info("No existing positions found, skipping protection setup")
         
         logger.info("\n" + "="*70)
         logger.info("✅ Initialization Complete - Bot Ready")
