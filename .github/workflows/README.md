@@ -13,10 +13,25 @@
 
 1. 前往您的 GitHub repository
 2. Settings → Secrets and variables → Actions
-3. 點擊 "New repository secret"
-4. Name: `RAILWAY_TOKEN`
-5. Secret: 貼上您的 Railway token
-6. 點擊 "Add secret"
+3. 添加以下 secrets：
+
+#### Secret 1: RAILWAY_TOKEN（必需）
+- 點擊 "New repository secret"
+- Name: `RAILWAY_TOKEN`
+- Secret: 貼上您的 Railway token
+- 點擊 "Add secret"
+
+#### Secret 2: RAILWAY_SERVICE（可選）
+- 點擊 "New repository secret"
+- Name: `RAILWAY_SERVICE`
+- Secret: 您的 Railway 服務名稱（例如：`trading-bot`）
+- 點擊 "Add secret"
+- 如何獲取服務名稱：
+  1. 登入 Railway Dashboard
+  2. 進入您的專案
+  3. 查看服務名稱（通常顯示在專案頁面頂部）
+  4. 或在本地執行 `railway service` 查看所有服務
+- **注意**：如果不設置，默認使用 `trading-bot` 作為服務名稱
 
 ### 步驟 3：自動部署
 
