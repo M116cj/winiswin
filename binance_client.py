@@ -11,6 +11,19 @@ from utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure,
 
 logger = setup_logger(__name__)
 
+# 無效交易對黑名單（已下架或不存在的交易對）
+INVALID_SYMBOLS = {
+    "COAIUSDT", "SAPIENUSDT", "FLOCKUSDT", "STBLUSDT", "HANAUSDT",
+    "BLESSUSDT", "LIGHTUSDT", "FLUIDUSDT", "AKEUSDT", "XANUSDT",
+    "TRADOORUSDT", "CLOUSDT", "LYNUSDT", "EVAAUSDT", "KGENUSDT",
+    "4USDT", "MONUSDT", "METUSDT", "RVVUSDT", "TRUTHUSDT",
+    "GIGGLEUSDT", "VFYUSDT", "LABUSDT", "ALLUSDT", "CUDISUSDT",
+    "BASUSDT", "RECALLUSDT", "ARCUSDT", "AVAAIUSDT", "MELANIAUSDT",
+    "PIPPINUSDT", "VINEUSDT", "VVVUSDT", "SONICUSDT", "EULUSDT",
+    "RIVERUSDT", "APRUSDT", "YBUSDT",
+    "测试测试USDT", "币安人生USDT"
+}
+
 class BinanceDataClient:
     def __init__(self):
         self.api_key = Config.BINANCE_API_KEY
@@ -514,7 +527,7 @@ class BinanceDataClient:
             return []
     
     def get_all_usdt_perpetual_pairs(self):
-        """獲取所有 USDT 永續合約交易對"""
+        """獲取所有 USDT 永續合約交易對（過濾無效交易對）"""
         if not self.client:
             logger.error("Binance client not initialized")
             return ['BTCUSDT', 'ETHUSDT']
@@ -522,7 +535,8 @@ class BinanceDataClient:
         try:
             exchange_info = self.client.futures_exchange_info()
             
-            usdt_pairs = [
+            # 獲取所有 USDT 永續合約交易對
+            all_usdt_pairs = [
                 symbol['symbol'] 
                 for symbol in exchange_info['symbols'] 
                 if symbol['contractType'] == 'PERPETUAL' 
@@ -530,8 +544,23 @@ class BinanceDataClient:
                 and symbol['status'] == 'TRADING'
             ]
             
-            logger.info(f"Found {len(usdt_pairs)} USDT perpetual pairs")
-            return usdt_pairs
+            # 過濾掉無效交易對
+            valid_pairs = [
+                pair for pair in all_usdt_pairs 
+                if pair not in INVALID_SYMBOLS
+            ]
+            
+            # 記錄過濾統計
+            filtered_count = len(all_usdt_pairs) - len(valid_pairs)
+            if filtered_count > 0:
+                logger.info(
+                    f"✅ Filtered out {filtered_count} invalid symbols from {len(all_usdt_pairs)} total pairs. "
+                    f"Valid pairs: {len(valid_pairs)}"
+                )
+            else:
+                logger.info(f"Found {len(valid_pairs)} USDT perpetual pairs (no invalid symbols filtered)")
+            
+            return valid_pairs
         
         except Exception as e:
             logger.error(f"Error fetching trading pairs: {e}")

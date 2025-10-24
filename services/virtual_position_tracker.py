@@ -11,6 +11,7 @@ Virtual Position Tracker - 虛擬倉位追蹤系統
 import json
 import os
 import logging
+import asyncio
 from datetime import datetime
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, asdict
@@ -295,21 +296,46 @@ class VirtualPositionTracker:
             # ✅ 修復：獲取需要檢查的交易對列表（從倉位的 symbol 提取）
             symbols = list(set(pos.symbol for pos in self.virtual_positions.values()))
             
-            # 批量獲取當前價格（使用 ticker 數據）
+            # 批量獲取當前價格（使用 ticker 數據，帶重試機制）
             prices = {}
+            max_retries = 2
+            retry_delay = 0.5  # 秒
+            
             for symbol in symbols:
-                try:
-                    # 嘗試從 data_service 獲取 ticker
-                    ticker = await data_service.get_ticker_info(symbol)
-                    if ticker and 'lastPrice' in ticker:
-                        prices[symbol] = float(ticker['lastPrice'])
-                    else:
-                        # 如果 ticker 失敗，跳過此交易對
-                        logger.warning(f"Failed to get price for {symbol}")
-                        continue
-                except Exception as e:
-                    logger.error(f"Error fetching price for {symbol}: {e}")
-                    continue
+                price_fetched = False
+                
+                # 重試機制：最多重試 2 次
+                for attempt in range(max_retries + 1):
+                    try:
+                        # 嘗試從 data_service 獲取 ticker
+                        ticker = await data_service.get_ticker_info(symbol)
+                        if ticker and 'lastPrice' in ticker:
+                            prices[symbol] = float(ticker['lastPrice'])
+                            price_fetched = True
+                            
+                            # 如果之前失敗過，記錄成功重試
+                            if attempt > 0:
+                                logger.info(f"✅ Successfully fetched price for {symbol} on retry {attempt}")
+                            break
+                        else:
+                            # ticker 返回 None 或缺少 lastPrice
+                            if attempt < max_retries:
+                                logger.debug(f"No ticker data for {symbol}, retrying ({attempt + 1}/{max_retries})...")
+                                await asyncio.sleep(retry_delay)
+                            else:
+                                logger.warning(
+                                    f"⚠️ Failed to get price for {symbol} after {max_retries + 1} attempts "
+                                    f"(ticker returned None or missing lastPrice), skipping this cycle"
+                                )
+                    except Exception as e:
+                        if attempt < max_retries:
+                            logger.debug(f"Error fetching price for {symbol} (attempt {attempt + 1}/{max_retries + 1}): {e}, retrying...")
+                            await asyncio.sleep(retry_delay)
+                        else:
+                            logger.warning(
+                                f"⚠️ Error fetching price for {symbol} after {max_retries + 1} attempts: {e}. "
+                                f"Virtual position will be checked in next cycle."
+                            )
             
             # ✅ 修復：檢查每個虛擬倉位（現在鍵是 trade_id）
             positions_to_close = []
