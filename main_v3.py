@@ -353,12 +353,18 @@ class TradingBotV3:
             logger.info(f"🔍 Analyzing market data...")
             analysis_start = asyncio.get_event_loop().time()
             
-            # Prepare data for analysis
+            # Prepare data for analysis (ADD TECHNICAL INDICATORS!)
+            from utils.indicators import TechnicalIndicators
+            
             symbols_data = {}
             for symbol, df in klines_data.items():
                 if df is not None and not df.empty:
-                    current_price = float(df.iloc[-1]['close'])
-                    symbols_data[symbol] = (df, current_price)
+                    # 添加技術指標（MACD、EMA、ATR等）
+                    df_with_indicators = TechnicalIndicators.calculate_all_indicators(df)
+                    
+                    if df_with_indicators is not None and not df_with_indicators.empty:
+                        current_price = float(df_with_indicators.iloc[-1]['close'])
+                        symbols_data[symbol] = (df_with_indicators, current_price)
             
             # Run analysis (v2.0: 傳遞 binance_client 用於 1h 趨勢過濾)
             signals = await self.strategy_engine.analyze_batch(symbols_data, binance_client=self.binance)

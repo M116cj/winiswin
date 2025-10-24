@@ -1,0 +1,1001 @@
+2025-10-24T07:50:27.495045023Z [inf]  2025-10-24 07:50:27,456 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.495051860Z [inf]  2025-10-24 07:50:27,456 - strategies.ict_smc - INFO - LINEAUSDT - 1h趨勢: bear
+2025-10-24T07:50:27.495116256Z [inf]  2025-10-24 07:50:26,894 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.495159285Z [inf]  2025-10-24 07:50:26,894 - strategies.ict_smc - INFO - TOWNSUSDT - 1h趨勢: bull
+2025-10-24T07:50:27.495168736Z [inf]  2025-10-24 07:50:26,978 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.495176449Z [inf]  2025-10-24 07:50:26,978 - strategies.ict_smc - INFO - PROVEUSDT - 1h趨勢: bull
+2025-10-24T07:50:27.495188731Z [inf]  2025-10-24 07:50:27,049 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.495196675Z [inf]  2025-10-24 07:50:27,049 - strategies.ict_smc - INFO - XPLUSDT - 1h趨勢: bear
+2025-10-24T07:50:27.495203787Z [inf]  2025-10-24 07:50:27,145 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.527466678Z [inf]  2025-10-24 07:50:27,524 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.527476261Z [inf]  2025-10-24 07:50:27,524 - strategies.ict_smc - INFO - OPENUSDT - 1h趨勢: bear
+2025-10-24T07:50:27.598403641Z [inf]  2025-10-24 07:50:27,595 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.598409625Z [inf]  2025-10-24 07:50:27,596 - strategies.ict_smc - INFO - SKYUSDT - 1h趨勢: bull
+2025-10-24T07:50:27.682625281Z [inf]  2025-10-24 07:50:27,665 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.682631165Z [inf]  2025-10-24 07:50:27,665 - strategies.ict_smc - INFO - AVNTUSDT - 1h趨勢: bull
+2025-10-24T07:50:27.767253037Z [inf]  2025-10-24 07:50:27,759 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.767263860Z [inf]  2025-10-24 07:50:27,760 - strategies.ict_smc - INFO - HOLOUSDT - 1h趨勢: bull
+2025-10-24T07:50:27.862917211Z [inf]  2025-10-24 07:50:27,849 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:27.862922759Z [inf]  2025-10-24 07:50:27,849 - strategies.ict_smc - INFO - ZKCUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.628942046Z [inf]  2025-10-24 07:50:27,934 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.628949018Z [inf]  2025-10-24 07:50:27,934 - strategies.ict_smc - INFO - 0GUSDT - 1h趨勢: bear
+2025-10-24T07:50:28.628955743Z [inf]  2025-10-24 07:50:28,020 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.628962170Z [inf]  2025-10-24 07:50:28,020 - strategies.ict_smc - INFO - BARDUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.628969006Z [inf]  2025-10-24 07:50:28,107 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.628982198Z [inf]  2025-10-24 07:50:28,107 - strategies.ict_smc - INFO - ASTERUSDT - 1h趨勢: bear
+2025-10-24T07:50:28.628989018Z [inf]  2025-10-24 07:50:28,200 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.628995483Z [inf]  2025-10-24 07:50:28,200 - strategies.ict_smc - INFO - MIRAUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.629002106Z [inf]  2025-10-24 07:50:28,281 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.629008983Z [inf]  2025-10-24 07:50:28,281 - strategies.ict_smc - INFO - FFUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.629016753Z [inf]  2025-10-24 07:50:28,377 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.629023868Z [inf]  2025-10-24 07:50:28,377 - strategies.ict_smc - INFO - EDENUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.629030560Z [inf]  2025-10-24 07:50:28,466 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.629037907Z [inf]  2025-10-24 07:50:28,466 - strategies.ict_smc - INFO - NOMUSDT - 1h趨勢: bull
+2025-10-24T07:50:28.629044316Z [inf]  2025-10-24 07:50:28,557 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.629050596Z [inf]  2025-10-24 07:50:28,557 - strategies.ict_smc - INFO - 2ZUSDT - 1h趨勢: bear
+2025-10-24T07:50:28.657817119Z [inf]  2025-10-24 07:50:28,652 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.657827650Z [inf]  2025-10-24 07:50:28,653 - strategies.ict_smc - INFO - YBUSDT - 1h趨勢: bear
+2025-10-24T07:50:28.753194088Z [inf]  2025-10-24 07:50:28,748 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.753203456Z [inf]  2025-10-24 07:50:28,748 - strategies.ict_smc - INFO - EULUSDT - 1h趨勢: bear
+2025-10-24T07:50:28.852737177Z [inf]  2025-10-24 07:50:28,845 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:28.852743998Z [inf]  2025-10-24 07:50:28,845 - strategies.ict_smc - INFO - ENSOUSDT - 1h趨勢: bear
+2025-10-24T07:50:29.544092196Z [inf]  2025-10-24 07:50:28,935 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:29.544102669Z [inf]  2025-10-24 07:50:29,171 - binance_client - INFO - Fetched 163 klines for ZBTUSDT
+2025-10-24T07:50:29.544111299Z [inf]  2025-10-24 07:50:29,171 - strategies.ict_smc - WARNING - Insufficient 1h data for ZBTUSDT, using neutral trend
+2025-10-24T07:50:29.544120815Z [inf]  2025-10-24 07:50:29,171 - strategies.ict_smc - INFO - ZBTUSDT - 1h趨勢: neutral
+2025-10-24T07:50:29.544129454Z [inf]  2025-10-24 07:50:29,265 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:29.544139718Z [inf]  2025-10-24 07:50:29,497 - strategies.ict_smc - ERROR - Error fetching 1h trend for TURTLEUSDT: Insufficient klines data: 41 < 50
+2025-10-24T07:50:29.544149835Z [inf]  2025-10-24 07:50:29,497 - strategies.ict_smc - INFO - TURTLEUSDT - 1h趨勢: neutral
+2025-10-24T07:50:29.608263741Z [inf]  2025-10-24 07:50:29,602 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:50:29.613200516Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   💼 Active positions: 0/3
+2025-10-24T07:50:29.613209983Z [inf]  2025-10-24 07:50:29,608 - services.strategy_engine - INFO - Generated 0 signals from 369 symbols
+2025-10-24T07:50:29.613219009Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO - ======================================================================
+2025-10-24T07:50:29.613235237Z [inf]  2025-10-24 07:50:29,609 - __main__ - INFO - ✅ Analysis complete in 30.73s - 0 signals generated
+2025-10-24T07:50:29.613235676Z [inf]  
+2025-10-24T07:50:29.613248393Z [inf]  2025-10-24 07:50:29,609 - __main__ - INFO - ℹ️  No signals generated this cycle
+2025-10-24T07:50:29.613260145Z [inf]  2025-10-24 07:50:29,610 - core.cache_manager - INFO - Cleaned up 369 expired entries
+2025-10-24T07:50:29.613270849Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO - 
+2025-10-24T07:50:29.613280477Z [inf]  📊 Cycle Summary:
+2025-10-24T07:50:29.613289176Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   ⏱️  Total time: 38.49s
+2025-10-24T07:50:29.613300939Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   📥 Fetch time: 7.76s
+2025-10-24T07:50:29.613312136Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   🔍 Analysis time: 30.73s
+2025-10-24T07:50:29.613321238Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   📊 Symbols analyzed: 369
+2025-10-24T07:50:29.613328923Z [inf]  2025-10-24 07:50:29,610 - __main__ - INFO -   🎯 Signals generated: 0
+2025-10-24T07:50:29.671049448Z [inf]  2025-10-24 07:50:29,665 - __main__ - INFO - ⏳ Waiting 60s for next cycle...
+2025-10-24T07:50:29.671057123Z [inf]  2025-10-24 07:50:29,666 - discord.client - ERROR - Attempting a reconnect in 387.53s
+2025-10-24T07:50:29.671064931Z [inf]  Traceback (most recent call last):
+2025-10-24T07:50:29.671101875Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/client.py", line 659, in connect
+2025-10-24T07:50:29.671109535Z [inf]      await self.ws.poll_event()
+2025-10-24T07:50:29.671116740Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/gateway.py", line 623, in poll_event
+2025-10-24T07:50:29.671124009Z [inf]      await self.received_message(msg.data)
+2025-10-24T07:50:29.671131945Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/gateway.py", line 531, in received_message
+2025-10-24T07:50:29.671141592Z [inf]      await self.send_as_json(beat)
+2025-10-24T07:50:29.671147884Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/gateway.py", line 659, in send_as_json
+2025-10-24T07:50:29.671153817Z [inf]      await self.send(utils._to_json(data))
+2025-10-24T07:50:29.671160063Z [inf]    File "/opt/venv/lib/python3.11/site-packages/discord/gateway.py", line 655, in send
+2025-10-24T07:50:29.671166606Z [inf]      await self.socket.send_str(data)
+2025-10-24T07:50:29.671175107Z [inf]    File "/opt/venv/lib/python3.11/site-packages/aiohttp/client_ws.py", line 245, in send_str
+2025-10-24T07:50:29.671180479Z [inf]      await self._writer.send_frame(
+2025-10-24T07:50:29.671184569Z [inf]    File "/opt/venv/lib/python3.11/site-packages/aiohttp/_websocket/writer.py", line 126, in send_frame
+2025-10-24T07:50:29.671190047Z [inf]      raise ClientConnectionResetError("Cannot write to closing transport")
+2025-10-24T07:50:29.671195370Z [inf]  aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+2025-10-24T07:51:29.872727843Z [inf]  2025-10-24 07:51:29,727 - __main__ - INFO - 
+2025-10-24T07:51:29.872736601Z [inf]  ======================================================================
+2025-10-24T07:51:29.872745906Z [inf]  2025-10-24 07:51:29,727 - __main__ - INFO - 📊 Trading Cycle #60 - 2025-10-24 07:51:29
+2025-10-24T07:51:29.872753514Z [inf]  2025-10-24 07:51:29,727 - __main__ - INFO - ======================================================================
+2025-10-24T07:51:29.872761202Z [inf]  2025-10-24 07:51:29,727 - __main__ - INFO - 📥 Fetching data for 525 symbols...
+2025-10-24T07:51:30.823329185Z [inf]  2025-10-24 07:51:30,538 - binance_client - ERROR - Error fetching async klines for BTCDOMUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:30.823338254Z [inf]  2025-10-24 07:51:30,567 - binance_client - ERROR - Error fetching async klines for 1000XECUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:30.823505818Z [inf]  2025-10-24 07:51:30,599 - binance_client - ERROR - Error fetching async klines for 1000SHIBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.032245373Z [inf]  2025-10-24 07:51:31,025 - binance_client - ERROR - Error fetching async klines for 1000LUNCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.042242691Z [inf]  2025-10-24 07:51:31,034 - binance_client - ERROR - Error fetching async klines for LUNA2USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.079861873Z [inf]  2025-10-24 07:51:31,075 - binance_client - ERROR - Error fetching async klines for 1000PEPEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.115437696Z [inf]  2025-10-24 07:51:31,112 - binance_client - ERROR - Error fetching async klines for 1000FLOKIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.841629821Z [inf]  2025-10-24 07:51:31,820 - binance_client - ERROR - Error fetching async klines for BSVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.841638982Z [inf]  2025-10-24 07:51:31,827 - binance_client - ERROR - Error fetching async klines for DODOXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.873328756Z [inf]  2025-10-24 07:51:31,869 - binance_client - ERROR - Error fetching async klines for TOKENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.885309209Z [inf]  2025-10-24 07:51:31,880 - binance_client - ERROR - Error fetching async klines for KASUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.885322689Z [inf]  2025-10-24 07:51:31,881 - binance_client - ERROR - Error fetching async klines for 1000RATSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.900039393Z [inf]  2025-10-24 07:51:31,898 - binance_client - ERROR - Error fetching async klines for ETHWUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:31.900044698Z [inf]  2025-10-24 07:51:31,898 - binance_client - ERROR - Error fetching async klines for 1000BONKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:32.825846033Z [inf]  2025-10-24 07:51:32,287 - binance_client - ERROR - Error fetching async klines for ZETAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:32.825851717Z [inf]  2025-10-24 07:51:32,305 - binance_client - ERROR - Error fetching async klines for POPCATUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:32.825856333Z [inf]  2025-10-24 07:51:32,317 - binance_client - ERROR - Error fetching async klines for MYROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:32.825860669Z [inf]  2025-10-24 07:51:32,327 - binance_client - ERROR - Error fetching async klines for MEWUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:32.825869445Z [inf]  2025-10-24 07:51:32,421 - binance_client - ERROR - Error fetching async klines for BRETTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.073497489Z [inf]  2025-10-24 07:51:33,071 - binance_client - ERROR - Error fetching async klines for MOODENGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.073512301Z [inf]  2025-10-24 07:51:33,071 - binance_client - ERROR - Error fetching async klines for GOATUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.076932191Z [inf]  2025-10-24 07:51:33,072 - binance_client - ERROR - Error fetching async klines for SWELLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.076941378Z [inf]  2025-10-24 07:51:33,072 - binance_client - ERROR - Error fetching async klines for 1000XUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.083844210Z [inf]  2025-10-24 07:51:33,079 - binance_client - ERROR - Error fetching async klines for KOMAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.083857698Z [inf]  2025-10-24 07:51:33,080 - binance_client - ERROR - Error fetching async klines for PONKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.090976913Z [inf]  2025-10-24 07:51:33,087 - binance_client - ERROR - Error fetching async klines for BANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.094929194Z [inf]  2025-10-24 07:51:33,091 - binance_client - ERROR - Error fetching async klines for 1000WHYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.107790370Z [inf]  2025-10-24 07:51:33,102 - binance_client - ERROR - Error fetching async klines for SAFEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.107799680Z [inf]  2025-10-24 07:51:33,102 - binance_client - ERROR - Error fetching async klines for GRASSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.107806999Z [inf]  2025-10-24 07:51:33,102 - binance_client - ERROR - Error fetching async klines for 1000000MOGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.111777267Z [inf]  2025-10-24 07:51:33,106 - binance_client - ERROR - Error fetching async klines for RAYSOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.115454012Z [inf]  2025-10-24 07:51:33,113 - binance_client - ERROR - Error fetching async klines for DRIFTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.115467129Z [inf]  2025-10-24 07:51:33,114 - binance_client - ERROR - Error fetching async klines for AKTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.119026002Z [inf]  2025-10-24 07:51:33,114 - binance_client - ERROR - Error fetching async klines for AEROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.140927049Z [inf]  2025-10-24 07:51:33,134 - binance_client - ERROR - Error fetching async klines for DEGENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.768195603Z [inf]  2025-10-24 07:51:33,140 - binance_client - ERROR - Error fetching async klines for CHILLGUYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.768211689Z [inf]  2025-10-24 07:51:33,156 - binance_client - ERROR - Error fetching async klines for MOCAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.768222608Z [inf]  2025-10-24 07:51:33,167 - binance_client - ERROR - Error fetching async klines for SPXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.768234532Z [inf]  2025-10-24 07:51:33,503 - binance_client - ERROR - Error fetching async klines for HIPPOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.859692175Z [inf]  2025-10-24 07:51:33,854 - binance_client - ERROR - Error fetching async klines for FARTCOINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.859701165Z [inf]  2025-10-24 07:51:33,855 - binance_client - ERROR - Error fetching async klines for GRIFFAINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.870135617Z [inf]  2025-10-24 07:51:33,866 - binance_client - ERROR - Error fetching async klines for ALCHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.870146543Z [inf]  2025-10-24 07:51:33,866 - binance_client - ERROR - Error fetching async klines for ARCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.879588043Z [inf]  2025-10-24 07:51:33,875 - binance_client - ERROR - Error fetching async klines for AVAAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.882709486Z [inf]  2025-10-24 07:51:33,879 - binance_client - ERROR - Error fetching async klines for VINEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.885353391Z [inf]  2025-10-24 07:51:33,883 - binance_client - ERROR - Error fetching async klines for ZEREBROUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.885364160Z [inf]  2025-10-24 07:51:33,883 - binance_client - ERROR - Error fetching async klines for IPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.885371706Z [inf]  2025-10-24 07:51:33,883 - binance_client - ERROR - Error fetching async klines for VVVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.885379276Z [inf]  2025-10-24 07:51:33,883 - binance_client - ERROR - Error fetching async klines for MELANIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.903121173Z [inf]  2025-10-24 07:51:33,893 - binance_client - ERROR - Error fetching async klines for SONICUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.903130120Z [inf]  2025-10-24 07:51:33,894 - binance_client - ERROR - Error fetching async klines for AI16ZUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.903134867Z [inf]  2025-10-24 07:51:33,894 - binance_client - ERROR - Error fetching async klines for SWARMSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.919819026Z [inf]  2025-10-24 07:51:33,916 - binance_client - ERROR - Error fetching async klines for BIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.923173144Z [inf]  2025-10-24 07:51:33,918 - binance_client - ERROR - Error fetching async klines for B3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:33.923184733Z [inf]  2025-10-24 07:51:33,919 - binance_client - ERROR - Error fetching async klines for PIPPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816028204Z [inf]  2025-10-24 07:51:34,278 - binance_client - ERROR - Error fetching async klines for BROCCOLIF3BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816037853Z [inf]  2025-10-24 07:51:34,278 - binance_client - ERROR - Error fetching async klines for PROMPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816045649Z [inf]  2025-10-24 07:51:34,279 - binance_client - ERROR - Error fetching async klines for OBOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816052816Z [inf]  2025-10-24 07:51:34,294 - binance_client - ERROR - Error fetching async klines for MAVIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816075549Z [inf]  2025-10-24 07:51:34,294 - binance_client - ERROR - Error fetching async klines for BRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816085207Z [inf]  2025-10-24 07:51:34,294 - binance_client - ERROR - Error fetching async klines for B2USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816094072Z [inf]  2025-10-24 07:51:34,294 - binance_client - ERROR - Error fetching async klines for JELLYJELLYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816095881Z [inf]  2025-10-24 07:51:34,277 - binance_client - ERROR - Error fetching async klines for ATHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816099600Z [inf]  2025-10-24 07:51:34,309 - binance_client - ERROR - Error fetching async klines for FHEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816104302Z [inf]  2025-10-24 07:51:34,298 - binance_client - ERROR - Error fetching async klines for SIRENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816114000Z [inf]  2025-10-24 07:51:34,305 - binance_client - ERROR - Error fetching async klines for MILKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.816123122Z [inf]  2025-10-24 07:51:34,305 - binance_client - ERROR - Error fetching async klines for BANKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898400705Z [inf]  2025-10-24 07:51:34,312 - binance_client - ERROR - Error fetching async klines for SKYAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898410374Z [inf]  2025-10-24 07:51:34,312 - binance_client - ERROR - Error fetching async klines for XCNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898418746Z [inf]  2025-10-24 07:51:34,312 - binance_client - ERROR - Error fetching async klines for EPTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898429205Z [inf]  2025-10-24 07:51:34,318 - binance_client - ERROR - Error fetching async klines for AIOTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898436870Z [inf]  2025-10-24 07:51:34,321 - binance_client - ERROR - Error fetching async klines for DEEPUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898445978Z [inf]  2025-10-24 07:51:34,340 - binance_client - ERROR - Error fetching async klines for DOODUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898455615Z [inf]  2025-10-24 07:51:34,347 - binance_client - ERROR - Error fetching async klines for ZKJUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898465820Z [inf]  2025-10-24 07:51:34,688 - binance_client - ERROR - Error fetching async klines for PORT3USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898474394Z [inf]  2025-10-24 07:51:34,689 - binance_client - ERROR - Error fetching async klines for AGTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898482483Z [inf]  2025-10-24 07:51:34,690 - binance_client - ERROR - Error fetching async klines for DMCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898495784Z [inf]  2025-10-24 07:51:34,691 - binance_client - ERROR - Error fetching async klines for BUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898503997Z [inf]  2025-10-24 07:51:34,692 - binance_client - ERROR - Error fetching async klines for SOONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898567544Z [inf]  2025-10-24 07:51:34,697 - binance_client - ERROR - Error fetching async klines for PUFFERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898575185Z [inf]  2025-10-24 07:51:34,699 - binance_client - ERROR - Error fetching async klines for ZRCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898583816Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for 1000000BOBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898591282Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for CROSSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898599308Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for SKATEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898608519Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for MYXUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898616510Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for TAIKOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898624476Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for MERLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898632134Z [inf]  2025-10-24 07:51:34,700 - binance_client - ERROR - Error fetching async klines for HUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898640206Z [inf]  2025-10-24 07:51:34,701 - binance_client - ERROR - Error fetching async klines for HYPEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898648456Z [inf]  2025-10-24 07:51:34,710 - binance_client - ERROR - Error fetching async klines for PUMPBTCUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898657208Z [inf]  2025-10-24 07:51:34,710 - binance_client - ERROR - Error fetching async klines for PLAYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898851379Z [inf]  2025-10-24 07:51:34,711 - binance_client - ERROR - Error fetching async klines for SQDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898858509Z [inf]  2025-10-24 07:51:34,716 - binance_client - ERROR - Error fetching async klines for TAGUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898866329Z [inf]  2025-10-24 07:51:34,716 - binance_client - ERROR - Error fetching async klines for OLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898873798Z [inf]  2025-10-24 07:51:34,716 - binance_client - ERROR - Error fetching async klines for FUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898881529Z [inf]  2025-10-24 07:51:34,719 - binance_client - ERROR - Error fetching async klines for BULLAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898896506Z [inf]  2025-10-24 07:51:34,722 - binance_client - ERROR - Error fetching async klines for TAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898906693Z [inf]  2025-10-24 07:51:34,725 - binance_client - ERROR - Error fetching async klines for VELVETUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898918336Z [inf]  2025-10-24 07:51:34,725 - binance_client - ERROR - Error fetching async klines for IDOLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898925389Z [inf]  2025-10-24 07:51:34,736 - binance_client - ERROR - Error fetching async klines for ICNTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898931633Z [inf]  2025-10-24 07:51:34,736 - binance_client - ERROR - Error fetching async klines for MUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898939989Z [inf]  2025-10-24 07:51:34,736 - binance_client - ERROR - Error fetching async klines for TANSSIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898946421Z [inf]  2025-10-24 07:51:34,736 - binance_client - ERROR - Error fetching async klines for ZORAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898953013Z [inf]  2025-10-24 07:51:34,736 - binance_client - ERROR - Error fetching async klines for TACUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898962088Z [inf]  2025-10-24 07:51:34,747 - binance_client - ERROR - Error fetching async klines for BDXNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898981996Z [inf]  2025-10-24 07:51:34,747 - binance_client - ERROR - Error fetching async klines for AINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:34.898990015Z [inf]  2025-10-24 07:51:34,751 - binance_client - ERROR - Error fetching async klines for ESPORTSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.087578621Z [inf]  2025-10-24 07:51:35,083 - binance_client - ERROR - Error fetching async klines for ALLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.087590106Z [inf]  2025-10-24 07:51:35,084 - binance_client - ERROR - Error fetching async klines for DAMUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.091337153Z [inf]  2025-10-24 07:51:35,086 - binance_client - ERROR - Error fetching async klines for YALAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.091345578Z [inf]  2025-10-24 07:51:35,088 - binance_client - ERROR - Error fetching async klines for XNYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.103246991Z [inf]  2025-10-24 07:51:35,097 - binance_client - ERROR - Error fetching async klines for NAORISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.103258206Z [inf]  2025-10-24 07:51:35,097 - binance_client - ERROR - Error fetching async klines for XPINUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.103263263Z [inf]  2025-10-24 07:51:35,097 - binance_client - ERROR - Error fetching async klines for TAKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.103268621Z [inf]  2025-10-24 07:51:35,101 - binance_client - ERROR - Error fetching async klines for SAPIENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.106687187Z [inf]  2025-10-24 07:51:35,101 - binance_client - ERROR - Error fetching async klines for CARVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.106698465Z [inf]  2025-10-24 07:51:35,101 - binance_client - ERROR - Error fetching async klines for AIOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.106706126Z [inf]  2025-10-24 07:51:35,101 - binance_client - ERROR - Error fetching async klines for BASUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.110130340Z [inf]  2025-10-24 07:51:35,105 - binance_client - ERROR - Error fetching async klines for INUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.113168809Z [inf]  2025-10-24 07:51:35,109 - binance_client - ERROR - Error fetching async klines for ARIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.113244951Z [inf]  2025-10-24 07:51:35,109 - binance_client - ERROR - Error fetching async klines for QUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.113250498Z [inf]  2025-10-24 07:51:35,109 - binance_client - ERROR - Error fetching async klines for BTRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.117843127Z [inf]  2025-10-24 07:51:35,112 - binance_client - ERROR - Error fetching async klines for USELESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.120807335Z [inf]  2025-10-24 07:51:35,116 - binance_client - ERROR - Error fetching async klines for CUDISUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.120818902Z [inf]  2025-10-24 07:51:35,116 - binance_client - ERROR - Error fetching async klines for UBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.120825833Z [inf]  2025-10-24 07:51:35,116 - binance_client - ERROR - Error fetching async klines for PTBUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.136430231Z [inf]  2025-10-24 07:51:35,134 - binance_client - ERROR - Error fetching async klines for STBLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141799240Z [inf]  2025-10-24 07:51:35,137 - binance_client - ERROR - Error fetching async klines for AKEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141806658Z [inf]  2025-10-24 07:51:35,137 - binance_client - ERROR - Error fetching async klines for TOSHIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141812826Z [inf]  2025-10-24 07:51:35,137 - binance_client - ERROR - Error fetching async klines for FLOCKUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141819651Z [inf]  2025-10-24 07:51:35,138 - binance_client - ERROR - Error fetching async klines for XANUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141825692Z [inf]  2025-10-24 07:51:35,138 - binance_client - ERROR - Error fetching async klines for LIGHTUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141831572Z [inf]  2025-10-24 07:51:35,138 - binance_client - ERROR - Error fetching async klines for FLUIDUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141837054Z [inf]  2025-10-24 07:51:35,138 - binance_client - ERROR - Error fetching async klines for COAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.141844852Z [inf]  2025-10-24 07:51:35,138 - binance_client - ERROR - Error fetching async klines for AIAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.147968798Z [inf]  2025-10-24 07:51:35,144 - binance_client - ERROR - Error fetching async klines for BLESSUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.147978153Z [inf]  2025-10-24 07:51:35,146 - binance_client - ERROR - Error fetching async klines for HANAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789559640Z [inf]  2025-10-24 07:51:35,155 - binance_client - ERROR - Error fetching async klines for ORDERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789588445Z [inf]  2025-10-24 07:51:35,482 - binance_client - ERROR - Error fetching async klines for TRUTHUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789596715Z [inf]  2025-10-24 07:51:35,483 - binance_client - ERROR - Error fetching async klines for EVAAUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789604903Z [inf]  2025-10-24 07:51:35,483 - binance_client - ERROR - Error fetching async klines for RECALLUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789612970Z [inf]  2025-10-24 07:51:35,485 - binance_client - ERROR - Error fetching async klines for LYNUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789621821Z [inf]  2025-10-24 07:51:35,494 - binance_client - ERROR - Error fetching async klines for KGENUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789629114Z [inf]  2025-10-24 07:51:35,499 - binance_client - ERROR - Error fetching async klines for VFYUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789634886Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for APRUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789641356Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for RIVERUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789647686Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for MONUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789653644Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for 4USDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.789707611Z [inf]  2025-10-24 07:51:35,152 - binance_client - ERROR - Error fetching async klines for TRADOORUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798607775Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for CLOUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798621300Z [inf]  2025-10-24 07:51:35,503 - binance_client - ERROR - Error fetching async klines for 币安人生USDT: APIError(code=-1100): Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'.
+2025-10-24T07:51:35.798629495Z [inf]  2025-10-24 07:51:35,504 - binance_client - ERROR - Error fetching async klines for RVVUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798637062Z [inf]  2025-10-24 07:51:35,504 - binance_client - ERROR - Error fetching async klines for METUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798643944Z [inf]  2025-10-24 07:51:35,504 - binance_client - ERROR - Error fetching async klines for BLUAIUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798669506Z [inf]  2025-10-24 07:51:35,616 - services.data_service - INFO - Fetched 369/525 symbols in 5.89s
+2025-10-24T07:51:35.798677281Z [inf]  2025-10-24 07:51:35,616 - __main__ - INFO - ✅ Fetched data in 5.89s
+2025-10-24T07:51:35.798682855Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for GIGGLEUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798685476Z [inf]  2025-10-24 07:51:35,616 - __main__ - INFO - 🔍 Analyzing market data...
+2025-10-24T07:51:35.798688798Z [inf]  2025-10-24 07:51:35,500 - binance_client - ERROR - Error fetching async klines for LABUSDT: APIError(code=-1121): Invalid symbol.
+2025-10-24T07:51:35.798693477Z [inf]  2025-10-24 07:51:35,658 - strategies.ict_smc - INFO - BTCUSDT - 1h趨勢: bull
+2025-10-24T07:51:35.798700838Z [inf]  2025-10-24 07:51:35,759 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:35.798707683Z [inf]  2025-10-24 07:51:35,759 - strategies.ict_smc - INFO - ETHUSDT - 1h趨勢: bull
+2025-10-24T07:51:35.851469687Z [inf]  2025-10-24 07:51:35,847 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:35.851478910Z [inf]  2025-10-24 07:51:35,847 - strategies.ict_smc - INFO - BCHUSDT - 1h趨勢: bull
+2025-10-24T07:51:35.923306733Z [inf]  2025-10-24 07:51:35,919 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:35.923314968Z [inf]  2025-10-24 07:51:35,919 - strategies.ict_smc - INFO - XRPUSDT - 1h趨勢: bull
+2025-10-24T07:51:35.998969504Z [inf]  2025-10-24 07:51:35,995 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:35.998974932Z [inf]  2025-10-24 07:51:35,995 - strategies.ict_smc - INFO - LTCUSDT - 1h趨勢: bull
+2025-10-24T07:51:36.069569453Z [inf]  2025-10-24 07:51:36,065 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.069580446Z [inf]  2025-10-24 07:51:36,065 - strategies.ict_smc - INFO - TRXUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.130561413Z [inf]  2025-10-24 07:51:36,128 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.130570552Z [inf]  2025-10-24 07:51:36,128 - strategies.ict_smc - INFO - ETCUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.905725943Z [inf]  2025-10-24 07:51:36,196 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905731102Z [inf]  2025-10-24 07:51:36,196 - strategies.ict_smc - INFO - LINKUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.905738536Z [inf]  2025-10-24 07:51:36,263 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905746204Z [inf]  2025-10-24 07:51:36,263 - strategies.ict_smc - INFO - XLMUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.905754494Z [inf]  2025-10-24 07:51:36,337 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905761920Z [inf]  2025-10-24 07:51:36,338 - strategies.ict_smc - INFO - ADAUSDT - 1h趨勢: bull
+2025-10-24T07:51:36.905770335Z [inf]  2025-10-24 07:51:36,413 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905779186Z [inf]  2025-10-24 07:51:36,413 - strategies.ict_smc - INFO - XMRUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.905787613Z [inf]  2025-10-24 07:51:36,492 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905793598Z [inf]  2025-10-24 07:51:36,493 - strategies.ict_smc - INFO - DASHUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.905799795Z [inf]  2025-10-24 07:51:36,589 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905806996Z [inf]  2025-10-24 07:51:36,589 - strategies.ict_smc - INFO - ZECUSDT - 1h趨勢: bull
+2025-10-24T07:51:36.905812476Z [inf]  2025-10-24 07:51:36,693 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905819349Z [inf]  2025-10-24 07:51:36,694 - strategies.ict_smc - INFO - XTZUSDT - 1h趨勢: bull
+2025-10-24T07:51:36.905825880Z [inf]  2025-10-24 07:51:36,790 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.905832985Z [inf]  2025-10-24 07:51:36,790 - strategies.ict_smc - INFO - BNBUSDT - 1h趨勢: bull
+2025-10-24T07:51:36.910001660Z [inf]  2025-10-24 07:51:36,891 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.910008869Z [inf]  2025-10-24 07:51:36,891 - strategies.ict_smc - INFO - ATOMUSDT - 1h趨勢: bear
+2025-10-24T07:51:36.969240256Z [inf]  2025-10-24 07:51:36,964 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:36.969249367Z [inf]  2025-10-24 07:51:36,964 - strategies.ict_smc - INFO - ONTUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.035982427Z [inf]  2025-10-24 07:51:37,034 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.035989542Z [inf]  2025-10-24 07:51:37,034 - strategies.ict_smc - INFO - IOTAUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.105036270Z [inf]  2025-10-24 07:51:37,099 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.105044564Z [inf]  2025-10-24 07:51:37,099 - strategies.ict_smc - INFO - BATUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.865213800Z [inf]  2025-10-24 07:51:37,330 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865227116Z [inf]  2025-10-24 07:51:37,330 - strategies.ict_smc - INFO - QTUMUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.865236286Z [inf]  2025-10-24 07:51:37,401 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865242259Z [inf]  2025-10-24 07:51:37,401 - strategies.ict_smc - INFO - IOSTUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.865248244Z [inf]  2025-10-24 07:51:37,467 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865255817Z [inf]  2025-10-24 07:51:37,467 - strategies.ict_smc - INFO - THETAUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.865263055Z [inf]  2025-10-24 07:51:37,527 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865270217Z [inf]  2025-10-24 07:51:37,528 - strategies.ict_smc - INFO - ALGOUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.865274917Z [inf]  2025-10-24 07:51:37,603 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865282312Z [inf]  2025-10-24 07:51:37,603 - strategies.ict_smc - INFO - ZILUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.865287100Z [inf]  2025-10-24 07:51:37,670 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865292805Z [inf]  2025-10-24 07:51:37,670 - strategies.ict_smc - INFO - KNCUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.865415372Z [inf]  2025-10-24 07:51:37,176 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865422859Z [inf]  2025-10-24 07:51:37,177 - strategies.ict_smc - INFO - VETUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.865430021Z [inf]  2025-10-24 07:51:37,244 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.865437560Z [inf]  2025-10-24 07:51:37,245 - strategies.ict_smc - INFO - NEOUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.870074356Z [inf]  2025-10-24 07:51:37,748 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.870080156Z [inf]  2025-10-24 07:51:37,748 - strategies.ict_smc - INFO - ZRXUSDT - 1h趨勢: bear
+2025-10-24T07:51:37.870086979Z [inf]  2025-10-24 07:51:37,816 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.870098244Z [inf]  2025-10-24 07:51:37,817 - strategies.ict_smc - INFO - COMPUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.898184667Z [inf]  2025-10-24 07:51:37,894 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.898194106Z [inf]  2025-10-24 07:51:37,894 - strategies.ict_smc - INFO - DOGEUSDT - 1h趨勢: bull
+2025-10-24T07:51:37.980372956Z [inf]  2025-10-24 07:51:37,976 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:37.980382965Z [inf]  2025-10-24 07:51:37,976 - strategies.ict_smc - INFO - SXPUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.047010863Z [inf]  2025-10-24 07:51:38,043 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.047019631Z [inf]  2025-10-24 07:51:38,043 - strategies.ict_smc - INFO - KAVAUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.115561201Z [inf]  2025-10-24 07:51:38,111 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.115572405Z [inf]  2025-10-24 07:51:38,111 - strategies.ict_smc - INFO - BANDUSDT - 1h趨勢: bull
+2025-10-24T07:51:38.837051273Z [inf]  2025-10-24 07:51:38,633 - strategies.ict_smc - INFO - SUSHIUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837354998Z [inf]  2025-10-24 07:51:38,178 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837360286Z [inf]  2025-10-24 07:51:38,179 - strategies.ict_smc - INFO - RLCUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837365809Z [inf]  2025-10-24 07:51:38,239 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837396339Z [inf]  2025-10-24 07:51:38,240 - strategies.ict_smc - INFO - SNXUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837403690Z [inf]  2025-10-24 07:51:38,300 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837409233Z [inf]  2025-10-24 07:51:38,300 - strategies.ict_smc - INFO - DOTUSDT - 1h趨勢: bull
+2025-10-24T07:51:38.837417020Z [inf]  2025-10-24 07:51:38,368 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837421884Z [inf]  2025-10-24 07:51:38,368 - strategies.ict_smc - INFO - YFIUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837426792Z [inf]  2025-10-24 07:51:38,440 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837431967Z [inf]  2025-10-24 07:51:38,440 - strategies.ict_smc - INFO - CRVUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837438910Z [inf]  2025-10-24 07:51:38,508 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837446701Z [inf]  2025-10-24 07:51:38,508 - strategies.ict_smc - INFO - TRBUSDT - 1h趨勢: bull
+2025-10-24T07:51:38.837452381Z [inf]  2025-10-24 07:51:38,575 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.837457826Z [inf]  2025-10-24 07:51:38,576 - strategies.ict_smc - INFO - RUNEUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.837464321Z [inf]  2025-10-24 07:51:38,633 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.841404052Z [inf]  2025-10-24 07:51:38,698 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.841412504Z [inf]  2025-10-24 07:51:38,699 - strategies.ict_smc - INFO - EGLDUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.841419783Z [inf]  2025-10-24 07:51:38,761 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.841427312Z [inf]  2025-10-24 07:51:38,761 - strategies.ict_smc - INFO - SOLUSDT - 1h趨勢: bull
+2025-10-24T07:51:38.841435742Z [inf]  2025-10-24 07:51:38,835 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.841441970Z [inf]  2025-10-24 07:51:38,835 - strategies.ict_smc - INFO - ICXUSDT - 1h趨勢: bull
+2025-10-24T07:51:38.906038179Z [inf]  2025-10-24 07:51:38,904 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.906050623Z [inf]  2025-10-24 07:51:38,904 - strategies.ict_smc - INFO - STORJUSDT - 1h趨勢: bear
+2025-10-24T07:51:38.989671066Z [inf]  2025-10-24 07:51:38,984 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:38.989681927Z [inf]  2025-10-24 07:51:38,985 - strategies.ict_smc - INFO - UNIUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.063621125Z [inf]  2025-10-24 07:51:39,060 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.063628119Z [inf]  2025-10-24 07:51:39,060 - strategies.ict_smc - INFO - AVAXUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.139370049Z [inf]  2025-10-24 07:51:39,135 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.139380674Z [inf]  2025-10-24 07:51:39,136 - strategies.ict_smc - INFO - ENJUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.834599564Z [inf]  2025-10-24 07:51:39,232 - strategies.ict_smc - INFO - FLMUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.834601653Z [inf]  2025-10-24 07:51:39,719 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834613835Z [inf]  2025-10-24 07:51:39,295 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834617386Z [inf]  2025-10-24 07:51:39,719 - strategies.ict_smc - INFO - BELUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.834626058Z [inf]  2025-10-24 07:51:39,295 - strategies.ict_smc - INFO - KSMUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.834633286Z [inf]  2025-10-24 07:51:39,359 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834641869Z [inf]  2025-10-24 07:51:39,359 - strategies.ict_smc - INFO - NEARUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.834651329Z [inf]  2025-10-24 07:51:39,430 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834658456Z [inf]  2025-10-24 07:51:39,430 - strategies.ict_smc - INFO - AAVEUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.834665960Z [inf]  2025-10-24 07:51:39,501 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834674229Z [inf]  2025-10-24 07:51:39,502 - strategies.ict_smc - INFO - FILUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.834689042Z [inf]  2025-10-24 07:51:39,584 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834696452Z [inf]  2025-10-24 07:51:39,584 - strategies.ict_smc - INFO - RSRUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.834703212Z [inf]  2025-10-24 07:51:39,659 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.834709141Z [inf]  2025-10-24 07:51:39,659 - strategies.ict_smc - INFO - LRCUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.835106763Z [inf]  2025-10-24 07:51:39,231 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.839200877Z [inf]  2025-10-24 07:51:39,789 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.839205752Z [inf]  2025-10-24 07:51:39,789 - strategies.ict_smc - INFO - AXSUSDT - 1h趨勢: bull
+2025-10-24T07:51:39.867284863Z [inf]  2025-10-24 07:51:39,860 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.867291178Z [inf]  2025-10-24 07:51:39,861 - strategies.ict_smc - INFO - ZENUSDT - 1h趨勢: bear
+2025-10-24T07:51:39.938394367Z [inf]  2025-10-24 07:51:39,935 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:39.938401573Z [inf]  2025-10-24 07:51:39,935 - strategies.ict_smc - INFO - SKLUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.013944760Z [inf]  2025-10-24 07:51:40,010 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.013952398Z [inf]  2025-10-24 07:51:40,010 - strategies.ict_smc - INFO - GRTUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.090340209Z [inf]  2025-10-24 07:51:40,085 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.090362338Z [inf]  2025-10-24 07:51:40,085 - strategies.ict_smc - INFO - 1INCHUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.153656745Z [inf]  2025-10-24 07:51:40,150 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.153668292Z [inf]  2025-10-24 07:51:40,151 - strategies.ict_smc - INFO - CHZUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.834020357Z [inf]  2025-10-24 07:51:40,224 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834029101Z [inf]  2025-10-24 07:51:40,225 - strategies.ict_smc - INFO - SANDUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.834037037Z [inf]  2025-10-24 07:51:40,298 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834045279Z [inf]  2025-10-24 07:51:40,298 - strategies.ict_smc - INFO - ANKRUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.834053348Z [inf]  2025-10-24 07:51:40,363 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834061840Z [inf]  2025-10-24 07:51:40,363 - strategies.ict_smc - INFO - RVNUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.834072419Z [inf]  2025-10-24 07:51:40,431 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834080999Z [inf]  2025-10-24 07:51:40,431 - strategies.ict_smc - INFO - SFPUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.834089975Z [inf]  2025-10-24 07:51:40,513 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834098822Z [inf]  2025-10-24 07:51:40,513 - strategies.ict_smc - INFO - COTIUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.834107597Z [inf]  2025-10-24 07:51:40,599 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834116768Z [inf]  2025-10-24 07:51:40,599 - strategies.ict_smc - INFO - CHRUSDT - 1h趨勢: bull
+2025-10-24T07:51:40.834126369Z [inf]  2025-10-24 07:51:40,665 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834135326Z [inf]  2025-10-24 07:51:40,666 - strategies.ict_smc - INFO - MANAUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.834148369Z [inf]  2025-10-24 07:51:40,747 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.834158913Z [inf]  2025-10-24 07:51:40,748 - strategies.ict_smc - INFO - ALICEUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.860158200Z [inf]  2025-10-24 07:51:40,855 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.860167846Z [inf]  2025-10-24 07:51:40,855 - strategies.ict_smc - INFO - HBARUSDT - 1h趨勢: bear
+2025-10-24T07:51:40.961781128Z [inf]  2025-10-24 07:51:40,959 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:40.961796134Z [inf]  2025-10-24 07:51:40,959 - strategies.ict_smc - INFO - ONEUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.055072885Z [inf]  2025-10-24 07:51:41,050 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.055082596Z [inf]  2025-10-24 07:51:41,051 - strategies.ict_smc - INFO - DENTUSDT - 1h趨勢: bull
+2025-10-24T07:51:41.147215936Z [inf]  2025-10-24 07:51:41,144 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.147228933Z [inf]  2025-10-24 07:51:41,144 - strategies.ict_smc - INFO - CELRUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.781990280Z [inf]  2025-10-24 07:51:41,429 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782000308Z [inf]  2025-10-24 07:51:41,429 - strategies.ict_smc - INFO - OGNUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.782010983Z [inf]  2025-10-24 07:51:41,488 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782018296Z [inf]  2025-10-24 07:51:41,488 - strategies.ict_smc - INFO - NKNUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.782035015Z [inf]  2025-10-24 07:51:41,250 - strategies.ict_smc - INFO - HOTUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.782041828Z [inf]  2025-10-24 07:51:41,343 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782048607Z [inf]  2025-10-24 07:51:41,343 - strategies.ict_smc - INFO - MTLUSDT - 1h趨勢: bull
+2025-10-24T07:51:41.782065851Z [inf]  2025-10-24 07:51:41,590 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782073161Z [inf]  2025-10-24 07:51:41,590 - strategies.ict_smc - INFO - IOTXUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.782079031Z [inf]  2025-10-24 07:51:41,656 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782098340Z [inf]  2025-10-24 07:51:41,657 - strategies.ict_smc - INFO - C98USDT - 1h趨勢: bear
+2025-10-24T07:51:41.782102006Z [inf]  2025-10-24 07:51:41,540 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782107446Z [inf]  2025-10-24 07:51:41,724 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782117461Z [inf]  2025-10-24 07:51:41,249 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.782118181Z [inf]  2025-10-24 07:51:41,540 - strategies.ict_smc - INFO - GTCUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.782118675Z [inf]  2025-10-24 07:51:41,724 - strategies.ict_smc - INFO - MASKUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.795673174Z [inf]  2025-10-24 07:51:41,791 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.795680943Z [inf]  2025-10-24 07:51:41,792 - strategies.ict_smc - INFO - ATAUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.842518057Z [inf]  2025-10-24 07:51:41,838 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.842526873Z [inf]  2025-10-24 07:51:41,838 - strategies.ict_smc - INFO - DYDXUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.903975203Z [inf]  2025-10-24 07:51:41,902 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.903984697Z [inf]  2025-10-24 07:51:41,902 - strategies.ict_smc - INFO - GALAUSDT - 1h趨勢: bear
+2025-10-24T07:51:41.970537673Z [inf]  2025-10-24 07:51:41,968 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:41.970565462Z [inf]  2025-10-24 07:51:41,968 - strategies.ict_smc - INFO - CELOUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.045607953Z [inf]  2025-10-24 07:51:42,043 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.045617890Z [inf]  2025-10-24 07:51:42,043 - strategies.ict_smc - INFO - ARUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.103765567Z [inf]  2025-10-24 07:51:42,101 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.103772431Z [inf]  2025-10-24 07:51:42,101 - strategies.ict_smc - INFO - ARPAUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.736681524Z [inf]  2025-10-24 07:51:42,168 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736687708Z [inf]  2025-10-24 07:51:42,168 - strategies.ict_smc - INFO - CTSIUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.736694221Z [inf]  2025-10-24 07:51:42,229 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736699209Z [inf]  2025-10-24 07:51:42,229 - strategies.ict_smc - INFO - LPTUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.736705638Z [inf]  2025-10-24 07:51:42,300 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736711058Z [inf]  2025-10-24 07:51:42,300 - strategies.ict_smc - INFO - ENSUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.736720044Z [inf]  2025-10-24 07:51:42,367 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736726469Z [inf]  2025-10-24 07:51:42,368 - strategies.ict_smc - INFO - PEOPLEUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.736732934Z [inf]  2025-10-24 07:51:42,435 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736739546Z [inf]  2025-10-24 07:51:42,435 - strategies.ict_smc - INFO - ROSEUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.736746527Z [inf]  2025-10-24 07:51:42,504 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736758763Z [inf]  2025-10-24 07:51:42,505 - strategies.ict_smc - INFO - DUSKUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.736765401Z [inf]  2025-10-24 07:51:42,567 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736772150Z [inf]  2025-10-24 07:51:42,567 - strategies.ict_smc - INFO - FLOWUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.736781393Z [inf]  2025-10-24 07:51:42,626 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.736787096Z [inf]  2025-10-24 07:51:42,626 - strategies.ict_smc - INFO - IMXUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.740436619Z [inf]  2025-10-24 07:51:42,687 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.740444977Z [inf]  2025-10-24 07:51:42,687 - strategies.ict_smc - INFO - API3USDT - 1h趨勢: bull
+2025-10-24T07:51:42.767575368Z [inf]  2025-10-24 07:51:42,765 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.767581664Z [inf]  2025-10-24 07:51:42,765 - strategies.ict_smc - INFO - GMTUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.845397555Z [inf]  2025-10-24 07:51:42,842 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.845406509Z [inf]  2025-10-24 07:51:42,842 - strategies.ict_smc - INFO - APEUSDT - 1h趨勢: bull
+2025-10-24T07:51:42.912851368Z [inf]  2025-10-24 07:51:42,910 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.912870299Z [inf]  2025-10-24 07:51:42,910 - strategies.ict_smc - INFO - WOOUSDT - 1h趨勢: bear
+2025-10-24T07:51:42.977513750Z [inf]  2025-10-24 07:51:42,973 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:42.977521184Z [inf]  2025-10-24 07:51:42,973 - strategies.ict_smc - INFO - JASMYUSDT - 1h趨勢: bull
+2025-10-24T07:51:43.047930174Z [inf]  2025-10-24 07:51:43,045 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.047936954Z [inf]  2025-10-24 07:51:43,045 - strategies.ict_smc - INFO - OPUSDT - 1h趨勢: bull
+2025-10-24T07:51:43.123493795Z [inf]  2025-10-24 07:51:43,116 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.123512612Z [inf]  2025-10-24 07:51:43,117 - strategies.ict_smc - INFO - INJUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833112032Z [inf]  2025-10-24 07:51:43,258 - strategies.ict_smc - INFO - SPELLUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833119948Z [inf]  2025-10-24 07:51:43,335 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833125889Z [inf]  2025-10-24 07:51:43,335 - strategies.ict_smc - INFO - LDOUSDT - 1h趨勢: bull
+2025-10-24T07:51:43.833131287Z [inf]  2025-10-24 07:51:43,408 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833137198Z [inf]  2025-10-24 07:51:43,408 - strategies.ict_smc - INFO - ICPUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833142224Z [inf]  2025-10-24 07:51:43,479 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833148058Z [inf]  2025-10-24 07:51:43,557 - strategies.ict_smc - INFO - QNTUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833149244Z [inf]  2025-10-24 07:51:43,479 - strategies.ict_smc - INFO - APTUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833154855Z [inf]  2025-10-24 07:51:43,557 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833160580Z [inf]  2025-10-24 07:51:43,628 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833169227Z [inf]  2025-10-24 07:51:43,628 - strategies.ict_smc - INFO - FETUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833179796Z [inf]  2025-10-24 07:51:43,699 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833186436Z [inf]  2025-10-24 07:51:43,699 - strategies.ict_smc - INFO - FXSUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833251944Z [inf]  2025-10-24 07:51:43,191 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.833259094Z [inf]  2025-10-24 07:51:43,191 - strategies.ict_smc - INFO - STGUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.833266140Z [inf]  2025-10-24 07:51:43,258 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.837611755Z [inf]  2025-10-24 07:51:43,763 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.837626745Z [inf]  2025-10-24 07:51:43,763 - strategies.ict_smc - INFO - HOOKUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.837633532Z [inf]  2025-10-24 07:51:43,829 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.837640927Z [inf]  2025-10-24 07:51:43,829 - strategies.ict_smc - INFO - MAGICUSDT - 1h趨勢: bear
+2025-10-24T07:51:43.901138002Z [inf]  2025-10-24 07:51:43,898 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.901145934Z [inf]  2025-10-24 07:51:43,898 - strategies.ict_smc - INFO - TUSDT - 1h趨勢: bull
+2025-10-24T07:51:43.969236474Z [inf]  2025-10-24 07:51:43,965 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:43.969243711Z [inf]  2025-10-24 07:51:43,966 - strategies.ict_smc - INFO - HIGHUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.037433538Z [inf]  2025-10-24 07:51:44,035 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.037451474Z [inf]  2025-10-24 07:51:44,035 - strategies.ict_smc - INFO - MINAUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.103881074Z [inf]  2025-10-24 07:51:44,098 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.103895606Z [inf]  2025-10-24 07:51:44,098 - strategies.ict_smc - INFO - ASTRUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.783775649Z [inf]  2025-10-24 07:51:44,167 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783785118Z [inf]  2025-10-24 07:51:44,167 - strategies.ict_smc - INFO - PHBUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.783791997Z [inf]  2025-10-24 07:51:44,230 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783799006Z [inf]  2025-10-24 07:51:44,230 - strategies.ict_smc - INFO - GMXUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.783806489Z [inf]  2025-10-24 07:51:44,298 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783814192Z [inf]  2025-10-24 07:51:44,298 - strategies.ict_smc - INFO - CFXUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.783823975Z [inf]  2025-10-24 07:51:44,365 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783833314Z [inf]  2025-10-24 07:51:44,365 - strategies.ict_smc - INFO - STXUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.783847818Z [inf]  2025-10-24 07:51:44,435 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783857357Z [inf]  2025-10-24 07:51:44,435 - strategies.ict_smc - INFO - ACHUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.783865174Z [inf]  2025-10-24 07:51:44,502 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783871646Z [inf]  2025-10-24 07:51:44,502 - strategies.ict_smc - INFO - SSVUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.783878392Z [inf]  2025-10-24 07:51:44,579 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783885016Z [inf]  2025-10-24 07:51:44,580 - strategies.ict_smc - INFO - CKBUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.783896345Z [inf]  2025-10-24 07:51:44,667 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.783902947Z [inf]  2025-10-24 07:51:44,667 - strategies.ict_smc - INFO - PERPUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.787737723Z [inf]  2025-10-24 07:51:44,745 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.787744849Z [inf]  2025-10-24 07:51:44,745 - strategies.ict_smc - INFO - TRUUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.803691897Z [inf]  2025-10-24 07:51:44,799 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.803699881Z [inf]  2025-10-24 07:51:44,799 - strategies.ict_smc - INFO - LQTYUSDT - 1h趨勢: bear
+2025-10-24T07:51:44.885037950Z [inf]  2025-10-24 07:51:44,881 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.885044237Z [inf]  2025-10-24 07:51:44,881 - strategies.ict_smc - INFO - USDCUSDT - 1h趨勢: bull
+2025-10-24T07:51:44.959208206Z [inf]  2025-10-24 07:51:44,954 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:44.959217123Z [inf]  2025-10-24 07:51:44,954 - strategies.ict_smc - INFO - IDUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.046096642Z [inf]  2025-10-24 07:51:45,044 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.046108552Z [inf]  2025-10-24 07:51:45,044 - strategies.ict_smc - INFO - ARBUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.141676762Z [inf]  2025-10-24 07:51:45,137 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.141684176Z [inf]  2025-10-24 07:51:45,138 - strategies.ict_smc - INFO - JOEUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870523722Z [inf]  2025-10-24 07:51:45,417 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870535858Z [inf]  2025-10-24 07:51:45,417 - strategies.ict_smc - INFO - XVSUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870542983Z [inf]  2025-10-24 07:51:45,481 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870552529Z [inf]  2025-10-24 07:51:45,482 - strategies.ict_smc - INFO - BLURUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870560802Z [inf]  2025-10-24 07:51:45,555 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870568846Z [inf]  2025-10-24 07:51:45,556 - strategies.ict_smc - INFO - EDUUSDT - 1h趨勢: bull
+2025-10-24T07:51:45.870588826Z [inf]  2025-10-24 07:51:45,634 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870596845Z [inf]  2025-10-24 07:51:45,634 - strategies.ict_smc - INFO - SUIUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870603571Z [inf]  2025-10-24 07:51:45,734 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870604285Z [inf]  2025-10-24 07:51:45,209 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870615145Z [inf]  2025-10-24 07:51:45,734 - strategies.ict_smc - INFO - UMAUSDT - 1h趨勢: bull
+2025-10-24T07:51:45.870622519Z [inf]  2025-10-24 07:51:45,209 - strategies.ict_smc - INFO - TLMUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870634001Z [inf]  2025-10-24 07:51:45,276 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870643155Z [inf]  2025-10-24 07:51:45,276 - strategies.ict_smc - INFO - RDNTUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.870650873Z [inf]  2025-10-24 07:51:45,358 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.870659018Z [inf]  2025-10-24 07:51:45,358 - strategies.ict_smc - INFO - HFTUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.875665722Z [inf]  2025-10-24 07:51:45,819 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.875670532Z [inf]  2025-10-24 07:51:45,819 - strategies.ict_smc - INFO - NMRUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.891589383Z [inf]  2025-10-24 07:51:45,888 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.891596944Z [inf]  2025-10-24 07:51:45,888 - strategies.ict_smc - INFO - MAVUSDT - 1h趨勢: bear
+2025-10-24T07:51:45.962897800Z [inf]  2025-10-24 07:51:45,958 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:45.962906258Z [inf]  2025-10-24 07:51:45,958 - strategies.ict_smc - INFO - XVGUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.035564476Z [inf]  2025-10-24 07:51:46,032 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.035572343Z [inf]  2025-10-24 07:51:46,032 - strategies.ict_smc - INFO - WLDUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.102290058Z [inf]  2025-10-24 07:51:46,100 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.102299727Z [inf]  2025-10-24 07:51:46,100 - strategies.ict_smc - INFO - PENDLEUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787684967Z [inf]  2025-10-24 07:51:46,172 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787692318Z [inf]  2025-10-24 07:51:46,172 - strategies.ict_smc - INFO - ARKMUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787699214Z [inf]  2025-10-24 07:51:46,233 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787706121Z [inf]  2025-10-24 07:51:46,234 - strategies.ict_smc - INFO - AGLDUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787714487Z [inf]  2025-10-24 07:51:46,289 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787720802Z [inf]  2025-10-24 07:51:46,289 - strategies.ict_smc - INFO - YGGUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787728113Z [inf]  2025-10-24 07:51:46,353 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787735103Z [inf]  2025-10-24 07:51:46,353 - strategies.ict_smc - INFO - BNTUSDT - 1h趨勢: bull
+2025-10-24T07:51:46.787741239Z [inf]  2025-10-24 07:51:46,419 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787749653Z [inf]  2025-10-24 07:51:46,419 - strategies.ict_smc - INFO - OXTUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787756662Z [inf]  2025-10-24 07:51:46,476 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787764245Z [inf]  2025-10-24 07:51:46,477 - strategies.ict_smc - INFO - SEIUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787774933Z [inf]  2025-10-24 07:51:46,545 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787781122Z [inf]  2025-10-24 07:51:46,546 - strategies.ict_smc - INFO - CYBERUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.787787583Z [inf]  2025-10-24 07:51:46,608 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.787794590Z [inf]  2025-10-24 07:51:46,608 - strategies.ict_smc - INFO - ARKUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.791410905Z [inf]  2025-10-24 07:51:46,679 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.791417630Z [inf]  2025-10-24 07:51:46,680 - strategies.ict_smc - INFO - BICOUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.791424303Z [inf]  2025-10-24 07:51:46,738 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.791430529Z [inf]  2025-10-24 07:51:46,738 - strategies.ict_smc - INFO - BIGTIMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.803287212Z [inf]  2025-10-24 07:51:46,801 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.803292874Z [inf]  2025-10-24 07:51:46,801 - strategies.ict_smc - INFO - WAXPUSDT - 1h趨勢: bear
+2025-10-24T07:51:46.883978814Z [inf]  2025-10-24 07:51:46,861 - strategies.ict_smc - INFO - RIFUSDT - 1h趨勢: bull
+2025-10-24T07:51:46.884039224Z [inf]  2025-10-24 07:51:46,861 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.921614988Z [inf]  2025-10-24 07:51:46,913 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.921622836Z [inf]  2025-10-24 07:51:46,913 - strategies.ict_smc - INFO - POLYXUSDT - 1h趨勢: bull
+2025-10-24T07:51:46.994637228Z [inf]  2025-10-24 07:51:46,993 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:46.994646311Z [inf]  2025-10-24 07:51:46,993 - strategies.ict_smc - INFO - GASUSDT - 1h趨勢: bull
+2025-10-24T07:51:47.074128794Z [inf]  2025-10-24 07:51:47,056 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.074145827Z [inf]  2025-10-24 07:51:47,056 - strategies.ict_smc - INFO - POWRUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.123663449Z [inf]  2025-10-24 07:51:47,119 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.123671230Z [inf]  2025-10-24 07:51:47,119 - strategies.ict_smc - INFO - TIAUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801833990Z [inf]  2025-10-24 07:51:47,384 - strategies.ict_smc - INFO - ORDIUSDT - 1h趨勢: bull
+2025-10-24T07:51:47.801842551Z [inf]  2025-10-24 07:51:47,471 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801850243Z [inf]  2025-10-24 07:51:47,471 - strategies.ict_smc - INFO - STEEMUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801858088Z [inf]  2025-10-24 07:51:47,578 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801861598Z [inf]  2025-10-24 07:51:47,181 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801865619Z [inf]  2025-10-24 07:51:47,578 - strategies.ict_smc - INFO - ILVUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801872109Z [inf]  2025-10-24 07:51:47,777 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801872422Z [inf]  2025-10-24 07:51:47,181 - strategies.ict_smc - INFO - CAKEUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801874898Z [inf]  2025-10-24 07:51:47,695 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801880732Z [inf]  2025-10-24 07:51:47,778 - strategies.ict_smc - INFO - BEAMXUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801883291Z [inf]  2025-10-24 07:51:47,696 - strategies.ict_smc - INFO - NTRNUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801885642Z [inf]  2025-10-24 07:51:47,254 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801894796Z [inf]  2025-10-24 07:51:47,255 - strategies.ict_smc - INFO - MEMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801906150Z [inf]  2025-10-24 07:51:47,318 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.801914122Z [inf]  2025-10-24 07:51:47,318 - strategies.ict_smc - INFO - TWTUSDT - 1h趨勢: bear
+2025-10-24T07:51:47.801921001Z [inf]  2025-10-24 07:51:47,384 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.878509848Z [inf]  2025-10-24 07:51:47,864 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.878517115Z [inf]  2025-10-24 07:51:47,865 - strategies.ict_smc - INFO - PYTHUSDT - 1h趨勢: bull
+2025-10-24T07:51:47.956028064Z [inf]  2025-10-24 07:51:47,947 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:47.956034067Z [inf]  2025-10-24 07:51:47,947 - strategies.ict_smc - INFO - SUPERUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.054046822Z [inf]  2025-10-24 07:51:48,047 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.054056471Z [inf]  2025-10-24 07:51:48,048 - strategies.ict_smc - INFO - USTCUSDT - 1h趨勢: bull
+2025-10-24T07:51:48.137259024Z [inf]  2025-10-24 07:51:48,132 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.137271467Z [inf]  2025-10-24 07:51:48,133 - strategies.ict_smc - INFO - ONGUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798454314Z [inf]  2025-10-24 07:51:48,206 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798461417Z [inf]  2025-10-24 07:51:48,206 - strategies.ict_smc - INFO - JTOUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798469007Z [inf]  2025-10-24 07:51:48,280 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798475501Z [inf]  2025-10-24 07:51:48,280 - strategies.ict_smc - INFO - 1000SATSUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798481691Z [inf]  2025-10-24 07:51:48,365 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798488241Z [inf]  2025-10-24 07:51:48,365 - strategies.ict_smc - INFO - AUCTIONUSDT - 1h趨勢: bull
+2025-10-24T07:51:48.798494842Z [inf]  2025-10-24 07:51:48,434 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798503410Z [inf]  2025-10-24 07:51:48,435 - strategies.ict_smc - INFO - ACEUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798512447Z [inf]  2025-10-24 07:51:48,488 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798519009Z [inf]  2025-10-24 07:51:48,488 - strategies.ict_smc - INFO - MOVRUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798526452Z [inf]  2025-10-24 07:51:48,555 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798533032Z [inf]  2025-10-24 07:51:48,556 - strategies.ict_smc - INFO - NFPUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798539654Z [inf]  2025-10-24 07:51:48,613 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798546404Z [inf]  2025-10-24 07:51:48,613 - strategies.ict_smc - INFO - AIUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.798553056Z [inf]  2025-10-24 07:51:48,674 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.798559817Z [inf]  2025-10-24 07:51:48,675 - strategies.ict_smc - INFO - XAIUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.801801281Z [inf]  2025-10-24 07:51:48,733 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.801805704Z [inf]  2025-10-24 07:51:48,733 - strategies.ict_smc - INFO - WIFUSDT - 1h趨勢: bull
+2025-10-24T07:51:48.801811062Z [inf]  2025-10-24 07:51:48,792 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.801816853Z [inf]  2025-10-24 07:51:48,793 - strategies.ict_smc - INFO - MANTAUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.860380772Z [inf]  2025-10-24 07:51:48,858 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.860386400Z [inf]  2025-10-24 07:51:48,859 - strategies.ict_smc - INFO - ONDOUSDT - 1h趨勢: bear
+2025-10-24T07:51:48.964247906Z [inf]  2025-10-24 07:51:48,955 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:48.964257632Z [inf]  2025-10-24 07:51:48,955 - strategies.ict_smc - INFO - LSKUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.043290878Z [inf]  2025-10-24 07:51:49,037 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.043311500Z [inf]  2025-10-24 07:51:49,037 - strategies.ict_smc - INFO - ALTUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.113783123Z [inf]  2025-10-24 07:51:49,108 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.113790681Z [inf]  2025-10-24 07:51:49,109 - strategies.ict_smc - INFO - JUPUSDT - 1h趨勢: bull
+2025-10-24T07:51:49.889277890Z [inf]  2025-10-24 07:51:49,664 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889285001Z [inf]  2025-10-24 07:51:49,385 - strategies.ict_smc - INFO - PIXELUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.889297295Z [inf]  2025-10-24 07:51:49,664 - strategies.ict_smc - INFO - TONUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.889299396Z [inf]  2025-10-24 07:51:49,458 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889308487Z [inf]  2025-10-24 07:51:49,459 - strategies.ict_smc - INFO - STRKUSDT - 1h趨勢: bull
+2025-10-24T07:51:49.889317163Z [inf]  2025-10-24 07:51:49,530 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889323991Z [inf]  2025-10-24 07:51:49,531 - strategies.ict_smc - INFO - GLMUSDT - 1h趨勢: bull
+2025-10-24T07:51:49.889330411Z [inf]  2025-10-24 07:51:49,608 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889336335Z [inf]  2025-10-24 07:51:49,608 - strategies.ict_smc - INFO - PORTALUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.889372476Z [inf]  2025-10-24 07:51:49,180 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889463696Z [inf]  2025-10-24 07:51:49,181 - strategies.ict_smc - INFO - RONINUSDT - 1h趨勢: bull
+2025-10-24T07:51:49.889470509Z [inf]  2025-10-24 07:51:49,253 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889477807Z [inf]  2025-10-24 07:51:49,254 - strategies.ict_smc - INFO - DYMUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.889483329Z [inf]  2025-10-24 07:51:49,318 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.889488454Z [inf]  2025-10-24 07:51:49,318 - strategies.ict_smc - INFO - OMUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.889496687Z [inf]  2025-10-24 07:51:49,385 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.893862945Z [inf]  2025-10-24 07:51:49,735 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.893868538Z [inf]  2025-10-24 07:51:49,735 - strategies.ict_smc - INFO - AXLUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.893873858Z [inf]  2025-10-24 07:51:49,809 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.893879916Z [inf]  2025-10-24 07:51:49,809 - strategies.ict_smc - INFO - METISUSDT - 1h趨勢: bull
+2025-10-24T07:51:49.893886653Z [inf]  2025-10-24 07:51:49,874 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.893893118Z [inf]  2025-10-24 07:51:49,874 - strategies.ict_smc - INFO - AEVOUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.935337580Z [inf]  2025-10-24 07:51:49,932 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.935350642Z [inf]  2025-10-24 07:51:49,932 - strategies.ict_smc - INFO - VANRYUSDT - 1h趨勢: bear
+2025-10-24T07:51:49.993431218Z [inf]  2025-10-24 07:51:49,987 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:49.993444839Z [inf]  2025-10-24 07:51:49,987 - strategies.ict_smc - INFO - BOMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.065295510Z [inf]  2025-10-24 07:51:50,059 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.065302369Z [inf]  2025-10-24 07:51:50,060 - strategies.ict_smc - INFO - ETHFIUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.137465399Z [inf]  2025-10-24 07:51:50,130 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.137495745Z [inf]  2025-10-24 07:51:50,130 - strategies.ict_smc - INFO - ENAUSDT - 1h趨勢: bull
+2025-10-24T07:51:50.860204388Z [inf]  2025-10-24 07:51:50,210 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860224229Z [inf]  2025-10-24 07:51:50,210 - strategies.ict_smc - INFO - WUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860231286Z [inf]  2025-10-24 07:51:50,282 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860236973Z [inf]  2025-10-24 07:51:50,282 - strategies.ict_smc - INFO - TNSRUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860242930Z [inf]  2025-10-24 07:51:50,354 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860249038Z [inf]  2025-10-24 07:51:50,354 - strategies.ict_smc - INFO - SAGAUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860254298Z [inf]  2025-10-24 07:51:50,423 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860258937Z [inf]  2025-10-24 07:51:50,423 - strategies.ict_smc - INFO - TAOUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860264784Z [inf]  2025-10-24 07:51:50,495 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860269846Z [inf]  2025-10-24 07:51:50,495 - strategies.ict_smc - INFO - REZUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860274727Z [inf]  2025-10-24 07:51:50,561 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860280715Z [inf]  2025-10-24 07:51:50,561 - strategies.ict_smc - INFO - BBUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860293504Z [inf]  2025-10-24 07:51:50,637 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860301891Z [inf]  2025-10-24 07:51:50,637 - strategies.ict_smc - INFO - NOTUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.860306971Z [inf]  2025-10-24 07:51:50,698 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.860311952Z [inf]  2025-10-24 07:51:50,699 - strategies.ict_smc - INFO - TURBOUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.863882384Z [inf]  2025-10-24 07:51:50,764 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.863886827Z [inf]  2025-10-24 07:51:50,764 - strategies.ict_smc - INFO - IOUSDT - 1h趨勢: bull
+2025-10-24T07:51:50.863891068Z [inf]  2025-10-24 07:51:50,818 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.863895216Z [inf]  2025-10-24 07:51:50,818 - strategies.ict_smc - INFO - ZKUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.900273523Z [inf]  2025-10-24 07:51:50,892 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.900281953Z [inf]  2025-10-24 07:51:50,892 - strategies.ict_smc - INFO - LISTAUSDT - 1h趨勢: bear
+2025-10-24T07:51:50.961041411Z [inf]  2025-10-24 07:51:50,959 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:50.961047350Z [inf]  2025-10-24 07:51:50,959 - strategies.ict_smc - INFO - ZROUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.022675255Z [inf]  2025-10-24 07:51:51,019 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.022690650Z [inf]  2025-10-24 07:51:51,020 - strategies.ict_smc - INFO - RENDERUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.087918935Z [inf]  2025-10-24 07:51:51,085 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.087927906Z [inf]  2025-10-24 07:51:51,085 - strategies.ict_smc - INFO - BANANAUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.151873571Z [inf]  2025-10-24 07:51:51,147 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.151880966Z [inf]  2025-10-24 07:51:51,147 - strategies.ict_smc - INFO - RAREUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821646522Z [inf]  2025-10-24 07:51:51,503 - strategies.ict_smc - INFO - DOGSUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821656736Z [inf]  2025-10-24 07:51:51,563 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821662285Z [inf]  2025-10-24 07:51:51,564 - strategies.ict_smc - INFO - MBOXUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821667679Z [inf]  2025-10-24 07:51:51,619 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821672679Z [inf]  2025-10-24 07:51:51,619 - strategies.ict_smc - INFO - CHESSUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821732131Z [inf]  2025-10-24 07:51:51,262 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821743028Z [inf]  2025-10-24 07:51:51,262 - strategies.ict_smc - INFO - SYNUSDT - 1h趨勢: bull
+2025-10-24T07:51:51.821750068Z [inf]  2025-10-24 07:51:51,324 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821758182Z [inf]  2025-10-24 07:51:51,324 - strategies.ict_smc - INFO - SYSUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821771622Z [inf]  2025-10-24 07:51:51,389 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821778628Z [inf]  2025-10-24 07:51:51,389 - strategies.ict_smc - INFO - VOXELUSDT - 1h趨勢: bull
+2025-10-24T07:51:51.821784868Z [inf]  2025-10-24 07:51:51,443 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821791050Z [inf]  2025-10-24 07:51:51,444 - strategies.ict_smc - INFO - SUNUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.821798126Z [inf]  2025-10-24 07:51:51,503 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821881155Z [inf]  2025-10-24 07:51:51,197 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.821886967Z [inf]  2025-10-24 07:51:51,198 - strategies.ict_smc - INFO - GUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.824402102Z [inf]  2025-10-24 07:51:51,688 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.824407881Z [inf]  2025-10-24 07:51:51,688 - strategies.ict_smc - INFO - FLUXUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.824415164Z [inf]  2025-10-24 07:51:51,751 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.824420840Z [inf]  2025-10-24 07:51:51,751 - strategies.ict_smc - INFO - QUICKUSDT - 1h趨勢: bull
+2025-10-24T07:51:51.824426324Z [inf]  2025-10-24 07:51:51,816 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.824431229Z [inf]  2025-10-24 07:51:51,816 - strategies.ict_smc - INFO - RPLUSDT - 1h趨勢: bear
+2025-10-24T07:51:51.878152766Z [inf]  2025-10-24 07:51:51,874 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.878165236Z [inf]  2025-10-24 07:51:51,875 - strategies.ict_smc - INFO - POLUSDT - 1h趨勢: bull
+2025-10-24T07:51:51.945080805Z [inf]  2025-10-24 07:51:51,943 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:51.945092190Z [inf]  2025-10-24 07:51:51,943 - strategies.ict_smc - INFO - 1MBABYDOGEUSDT - 1h趨勢: bull
+2025-10-24T07:51:52.042550296Z [inf]  2025-10-24 07:51:52,018 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.042555621Z [inf]  2025-10-24 07:51:52,019 - strategies.ict_smc - INFO - NEIROUSDT - 1h趨勢: bull
+2025-10-24T07:51:52.096174720Z [inf]  2025-10-24 07:51:52,092 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.096185079Z [inf]  2025-10-24 07:51:52,092 - strategies.ict_smc - INFO - KDAUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.175503977Z [inf]  2025-10-24 07:51:52,169 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.175512741Z [inf]  2025-10-24 07:51:52,169 - strategies.ict_smc - INFO - FIDAUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811255605Z [inf]  2025-10-24 07:51:52,527 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811267545Z [inf]  2025-10-24 07:51:52,527 - strategies.ict_smc - INFO - COSUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811274645Z [inf]  2025-10-24 07:51:52,590 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811283981Z [inf]  2025-10-24 07:51:52,590 - strategies.ict_smc - INFO - EIGENUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811293588Z [inf]  2025-10-24 07:51:52,654 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811304043Z [inf]  2025-10-24 07:51:52,654 - strategies.ict_smc - INFO - DIAUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811323985Z [inf]  2025-10-24 07:51:52,236 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811335147Z [inf]  2025-10-24 07:51:52,236 - strategies.ict_smc - INFO - FIOUSDT - 1h趨勢: bull
+2025-10-24T07:51:52.811343968Z [inf]  2025-10-24 07:51:52,302 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811356972Z [inf]  2025-10-24 07:51:52,302 - strategies.ict_smc - INFO - CATIUSDT - 1h趨勢: bull
+2025-10-24T07:51:52.811365559Z [inf]  2025-10-24 07:51:52,362 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811374807Z [inf]  2025-10-24 07:51:52,363 - strategies.ict_smc - INFO - GHSTUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811384754Z [inf]  2025-10-24 07:51:52,414 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811395435Z [inf]  2025-10-24 07:51:52,414 - strategies.ict_smc - INFO - HMSTRUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.811406485Z [inf]  2025-10-24 07:51:52,467 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.811417629Z [inf]  2025-10-24 07:51:52,467 - strategies.ict_smc - INFO - REIUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.814590403Z [inf]  2025-10-24 07:51:52,717 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.814595392Z [inf]  2025-10-24 07:51:52,717 - strategies.ict_smc - INFO - 1000CATUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.814599618Z [inf]  2025-10-24 07:51:52,773 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.814604721Z [inf]  2025-10-24 07:51:52,773 - strategies.ict_smc - INFO - SCRUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.826278493Z [inf]  2025-10-24 07:51:52,817 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.826285560Z [inf]  2025-10-24 07:51:52,818 - strategies.ict_smc - INFO - SANTOSUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.887045267Z [inf]  2025-10-24 07:51:52,878 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.887052220Z [inf]  2025-10-24 07:51:52,878 - strategies.ict_smc - INFO - COWUSDT - 1h趨勢: bear
+2025-10-24T07:51:52.941785125Z [inf]  2025-10-24 07:51:52,939 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.941793562Z [inf]  2025-10-24 07:51:52,939 - strategies.ict_smc - INFO - CETUSUSDT - 1h趨勢: bull
+2025-10-24T07:51:52.998100214Z [inf]  2025-10-24 07:51:52,992 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:52.998106282Z [inf]  2025-10-24 07:51:52,992 - strategies.ict_smc - INFO - ACTUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.054245073Z [inf]  2025-10-24 07:51:53,051 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.054256561Z [inf]  2025-10-24 07:51:53,051 - strategies.ict_smc - INFO - PNUTUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.122430588Z [inf]  2025-10-24 07:51:53,119 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.122443299Z [inf]  2025-10-24 07:51:53,119 - strategies.ict_smc - INFO - SCRTUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.191870271Z [inf]  2025-10-24 07:51:53,184 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.191885137Z [inf]  2025-10-24 07:51:53,184 - strategies.ict_smc - INFO - 1000CHEEMSUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808612112Z [inf]  2025-10-24 07:51:53,384 - strategies.ict_smc - INFO - KAIAUSDT - 1h趨勢: bull
+2025-10-24T07:51:53.808628407Z [inf]  2025-10-24 07:51:53,444 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808638449Z [inf]  2025-10-24 07:51:53,445 - strategies.ict_smc - INFO - ACXUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808646463Z [inf]  2025-10-24 07:51:53,521 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808656149Z [inf]  2025-10-24 07:51:53,521 - strategies.ict_smc - INFO - ORCAUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808665408Z [inf]  2025-10-24 07:51:53,605 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808673918Z [inf]  2025-10-24 07:51:53,606 - strategies.ict_smc - INFO - MOVEUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808682767Z [inf]  2025-10-24 07:51:53,683 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808690516Z [inf]  2025-10-24 07:51:53,684 - strategies.ict_smc - INFO - VIRTUALUSDT - 1h趨勢: bull
+2025-10-24T07:51:53.808700444Z [inf]  2025-10-24 07:51:53,750 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808711110Z [inf]  2025-10-24 07:51:53,750 - strategies.ict_smc - INFO - MEUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808748714Z [inf]  2025-10-24 07:51:53,244 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808755683Z [inf]  2025-10-24 07:51:53,244 - strategies.ict_smc - INFO - THEUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.808761650Z [inf]  2025-10-24 07:51:53,307 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.808766640Z [inf]  2025-10-24 07:51:53,307 - strategies.ict_smc - INFO - MORPHOUSDT - 1h趨勢: bull
+2025-10-24T07:51:53.808770866Z [inf]  2025-10-24 07:51:53,383 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.812818571Z [inf]  2025-10-24 07:51:53,803 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.812823640Z [inf]  2025-10-24 07:51:53,803 - strategies.ict_smc - INFO - AVAUSDT - 1h趨勢: bull
+2025-10-24T07:51:53.874839382Z [inf]  2025-10-24 07:51:53,870 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.874846008Z [inf]  2025-10-24 07:51:53,871 - strategies.ict_smc - INFO - DEGOUSDT - 1h趨勢: bear
+2025-10-24T07:51:53.946262096Z [inf]  2025-10-24 07:51:53,938 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:53.946273044Z [inf]  2025-10-24 07:51:53,938 - strategies.ict_smc - INFO - VELODROMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.003435361Z [inf]  2025-10-24 07:51:53,989 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.003445531Z [inf]  2025-10-24 07:51:53,990 - strategies.ict_smc - INFO - VANAUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.101828059Z [inf]  2025-10-24 07:51:54,067 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.101833126Z [inf]  2025-10-24 07:51:54,067 - strategies.ict_smc - INFO - PENGUUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.145947211Z [inf]  2025-10-24 07:51:54,142 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.145959899Z [inf]  2025-10-24 07:51:54,142 - strategies.ict_smc - INFO - LUMIAUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.197799955Z [inf]  2025-10-24 07:51:54,188 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.197805913Z [inf]  2025-10-24 07:51:54,188 - strategies.ict_smc - INFO - USUALUSDT - 1h趨勢: bull
+2025-10-24T07:51:54.763300228Z [inf]  2025-10-24 07:51:54,236 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763307161Z [inf]  2025-10-24 07:51:54,236 - strategies.ict_smc - INFO - AIXBTUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763314275Z [inf]  2025-10-24 07:51:54,292 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763322076Z [inf]  2025-10-24 07:51:54,292 - strategies.ict_smc - INFO - KMNOUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763327656Z [inf]  2025-10-24 07:51:54,354 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763333576Z [inf]  2025-10-24 07:51:54,354 - strategies.ict_smc - INFO - CGPTUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763339750Z [inf]  2025-10-24 07:51:54,409 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763346465Z [inf]  2025-10-24 07:51:54,410 - strategies.ict_smc - INFO - HIVEUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763352964Z [inf]  2025-10-24 07:51:54,488 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763358371Z [inf]  2025-10-24 07:51:54,489 - strategies.ict_smc - INFO - DEXEUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763368113Z [inf]  2025-10-24 07:51:54,557 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763376359Z [inf]  2025-10-24 07:51:54,557 - strategies.ict_smc - INFO - PHAUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763382817Z [inf]  2025-10-24 07:51:54,615 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763389366Z [inf]  2025-10-24 07:51:54,615 - strategies.ict_smc - INFO - DFUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.763395825Z [inf]  2025-10-24 07:51:54,681 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.763403290Z [inf]  2025-10-24 07:51:54,683 - strategies.ict_smc - INFO - BIOUSDT - 1h趨勢: bull
+2025-10-24T07:51:54.766945859Z [inf]  2025-10-24 07:51:54,744 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.766951116Z [inf]  2025-10-24 07:51:54,744 - strategies.ict_smc - INFO - COOKIEUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.811013742Z [inf]  2025-10-24 07:51:54,803 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.811022270Z [inf]  2025-10-24 07:51:54,803 - strategies.ict_smc - INFO - DUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.873092268Z [inf]  2025-10-24 07:51:54,865 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.873102224Z [inf]  2025-10-24 07:51:54,865 - strategies.ict_smc - INFO - PROMUSDT - 1h趨勢: bear
+2025-10-24T07:51:54.937125375Z [inf]  2025-10-24 07:51:54,929 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:54.937140741Z [inf]  2025-10-24 07:51:54,929 - strategies.ict_smc - INFO - SUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.000443212Z [inf]  2025-10-24 07:51:54,995 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.000464988Z [inf]  2025-10-24 07:51:54,995 - strategies.ict_smc - INFO - SOLVUSDT - 1h趨勢: bull
+2025-10-24T07:51:55.069161321Z [inf]  2025-10-24 07:51:55,060 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.069168533Z [inf]  2025-10-24 07:51:55,060 - strategies.ict_smc - INFO - TRUMPUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.129769814Z [inf]  2025-10-24 07:51:55,125 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.129777760Z [inf]  2025-10-24 07:51:55,126 - strategies.ict_smc - INFO - VTHOUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.197444167Z [inf]  2025-10-24 07:51:55,193 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.197454366Z [inf]  2025-10-24 07:51:55,194 - strategies.ict_smc - INFO - ANIMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.864150071Z [inf]  2025-10-24 07:51:55,252 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864156855Z [inf]  2025-10-24 07:51:55,253 - strategies.ict_smc - INFO - BERAUSDT - 1h趨勢: bull
+2025-10-24T07:51:55.864163341Z [inf]  2025-10-24 07:51:55,328 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864170973Z [inf]  2025-10-24 07:51:55,328 - strategies.ict_smc - INFO - TSTUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.864177144Z [inf]  2025-10-24 07:51:55,396 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864183646Z [inf]  2025-10-24 07:51:55,396 - strategies.ict_smc - INFO - LAYERUSDT - 1h趨勢: bull
+2025-10-24T07:51:55.864193942Z [inf]  2025-10-24 07:51:55,460 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864201301Z [inf]  2025-10-24 07:51:55,461 - strategies.ict_smc - INFO - HEIUSDT - 1h趨勢: bull
+2025-10-24T07:51:55.864208332Z [inf]  2025-10-24 07:51:55,543 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864215953Z [inf]  2025-10-24 07:51:55,543 - strategies.ict_smc - INFO - GPSUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.864222699Z [inf]  2025-10-24 07:51:55,640 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864229233Z [inf]  2025-10-24 07:51:55,641 - strategies.ict_smc - INFO - SHELLUSDT - 1h趨勢: bull
+2025-10-24T07:51:55.864235758Z [inf]  2025-10-24 07:51:55,739 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864241608Z [inf]  2025-10-24 07:51:55,740 - strategies.ict_smc - INFO - KAITOUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.864249549Z [inf]  2025-10-24 07:51:55,825 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.864257353Z [inf]  2025-10-24 07:51:55,825 - strategies.ict_smc - INFO - REDUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.894942719Z [inf]  2025-10-24 07:51:55,893 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.894951405Z [inf]  2025-10-24 07:51:55,893 - strategies.ict_smc - INFO - VICUSDT - 1h趨勢: bear
+2025-10-24T07:51:55.981425661Z [inf]  2025-10-24 07:51:55,978 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:55.981432898Z [inf]  2025-10-24 07:51:55,979 - strategies.ict_smc - INFO - EPICUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.050789698Z [inf]  2025-10-24 07:51:56,046 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.050797949Z [inf]  2025-10-24 07:51:56,047 - strategies.ict_smc - INFO - BMTUSDT - 1h趨勢: bull
+2025-10-24T07:51:56.112568671Z [inf]  2025-10-24 07:51:56,109 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.112576017Z [inf]  2025-10-24 07:51:56,109 - strategies.ict_smc - INFO - MUBARAKUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.198189161Z [inf]  2025-10-24 07:51:56,192 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.198197459Z [inf]  2025-10-24 07:51:56,192 - strategies.ict_smc - INFO - FORMUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.783011554Z [inf]  2025-10-24 07:51:56,392 - strategies.ict_smc - INFO - BANANAS31USDT - 1h趨勢: bear
+2025-10-24T07:51:56.783025409Z [inf]  2025-10-24 07:51:56,453 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783035833Z [inf]  2025-10-24 07:51:56,454 - strategies.ict_smc - INFO - PLUMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.783043275Z [inf]  2025-10-24 07:51:56,529 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783051075Z [inf]  2025-10-24 07:51:56,529 - strategies.ict_smc - INFO - NILUSDT - 1h趨勢: bull
+2025-10-24T07:51:56.783064233Z [inf]  2025-10-24 07:51:56,607 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783072315Z [inf]  2025-10-24 07:51:56,607 - strategies.ict_smc - INFO - PARTIUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.783078559Z [inf]  2025-10-24 07:51:56,666 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783083962Z [inf]  2025-10-24 07:51:56,666 - strategies.ict_smc - INFO - PAXGUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.783096715Z [inf]  2025-10-24 07:51:56,739 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783105318Z [inf]  2025-10-24 07:51:56,739 - strategies.ict_smc - INFO - WALUSDT - 1h趨勢: bull
+2025-10-24T07:51:56.783230706Z [inf]  2025-10-24 07:51:56,254 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783237830Z [inf]  2025-10-24 07:51:56,254 - strategies.ict_smc - INFO - TUTUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.783244859Z [inf]  2025-10-24 07:51:56,323 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.783252351Z [inf]  2025-10-24 07:51:56,323 - strategies.ict_smc - INFO - BROCCOLI714USDT - 1h趨勢: bear
+2025-10-24T07:51:56.783261309Z [inf]  2025-10-24 07:51:56,392 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.823385921Z [inf]  2025-10-24 07:51:56,809 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.823393152Z [inf]  2025-10-24 07:51:56,810 - strategies.ict_smc - INFO - FUNUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.878444853Z [inf]  2025-10-24 07:51:56,876 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.878458935Z [inf]  2025-10-24 07:51:56,876 - strategies.ict_smc - INFO - MLNUSDT - 1h趨勢: bear
+2025-10-24T07:51:56.956258160Z [inf]  2025-10-24 07:51:56,935 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:56.956271178Z [inf]  2025-10-24 07:51:56,935 - strategies.ict_smc - INFO - GUNUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.000266401Z [inf]  2025-10-24 07:51:56,997 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.000276373Z [inf]  2025-10-24 07:51:56,997 - strategies.ict_smc - INFO - BABYUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.073194451Z [inf]  2025-10-24 07:51:57,069 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.073201658Z [inf]  2025-10-24 07:51:57,070 - strategies.ict_smc - INFO - FORTHUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.143157896Z [inf]  2025-10-24 07:51:57,133 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.143166015Z [inf]  2025-10-24 07:51:57,133 - strategies.ict_smc - INFO - STOUSDT - 1h趨勢: bull
+2025-10-24T07:51:57.209470758Z [inf]  2025-10-24 07:51:57,200 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.209479118Z [inf]  2025-10-24 07:51:57,200 - strategies.ict_smc - INFO - KERNELUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714436426Z [inf]  2025-10-24 07:51:57,335 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714447979Z [inf]  2025-10-24 07:51:57,336 - strategies.ict_smc - INFO - INITUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714456930Z [inf]  2025-10-24 07:51:57,397 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714466497Z [inf]  2025-10-24 07:51:57,397 - strategies.ict_smc - INFO - AERGOUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714472353Z [inf]  2025-10-24 07:51:57,455 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714478156Z [inf]  2025-10-24 07:51:57,456 - strategies.ict_smc - INFO - HYPERUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714493162Z [inf]  2025-10-24 07:51:57,272 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714503704Z [inf]  2025-10-24 07:51:57,273 - strategies.ict_smc - INFO - WCTUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714799338Z [inf]  2025-10-24 07:51:57,523 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714803629Z [inf]  2025-10-24 07:51:57,646 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714810132Z [inf]  2025-10-24 07:51:57,647 - strategies.ict_smc - INFO - SIGNUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714824467Z [inf]  2025-10-24 07:51:57,523 - strategies.ict_smc - INFO - FISUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.714832713Z [inf]  2025-10-24 07:51:57,586 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.714839576Z [inf]  2025-10-24 07:51:57,586 - strategies.ict_smc - INFO - JSTUSDT - 1h趨勢: bull
+2025-10-24T07:51:57.718799647Z [inf]  2025-10-24 07:51:57,717 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.718805977Z [inf]  2025-10-24 07:51:57,717 - strategies.ict_smc - INFO - PUNDIXUSDT - 1h趨勢: bull
+2025-10-24T07:51:57.806137362Z [inf]  2025-10-24 07:51:57,791 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.806154615Z [inf]  2025-10-24 07:51:57,792 - strategies.ict_smc - INFO - CTKUSDT - 1h趨勢: bear
+2025-10-24T07:51:57.866176951Z [inf]  2025-10-24 07:51:57,862 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.866190745Z [inf]  2025-10-24 07:51:57,862 - strategies.ict_smc - INFO - DOLOUSDT - 1h趨勢: bull
+2025-10-24T07:51:57.942292714Z [inf]  2025-10-24 07:51:57,930 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:57.942307028Z [inf]  2025-10-24 07:51:57,930 - strategies.ict_smc - INFO - HAEDALUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.014849746Z [inf]  2025-10-24 07:51:57,995 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.014856636Z [inf]  2025-10-24 07:51:57,995 - strategies.ict_smc - INFO - SXTUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.071837296Z [inf]  2025-10-24 07:51:58,063 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.071855349Z [inf]  2025-10-24 07:51:58,064 - strategies.ict_smc - INFO - ASRUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.128398674Z [inf]  2025-10-24 07:51:58,126 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.128406122Z [inf]  2025-10-24 07:51:58,126 - strategies.ict_smc - INFO - ALPINEUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.204924309Z [inf]  2025-10-24 07:51:58,200 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.204980954Z [inf]  2025-10-24 07:51:58,200 - strategies.ict_smc - INFO - SYRUPUSDT - 1h趨勢: bull
+2025-10-24T07:51:58.799577142Z [inf]  2025-10-24 07:51:58,278 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799585133Z [inf]  2025-10-24 07:51:58,278 - strategies.ict_smc - INFO - OGUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.799592814Z [inf]  2025-10-24 07:51:58,355 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799601586Z [inf]  2025-10-24 07:51:58,356 - strategies.ict_smc - INFO - NXPCUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.799611118Z [inf]  2025-10-24 07:51:58,424 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799623811Z [inf]  2025-10-24 07:51:58,424 - strategies.ict_smc - INFO - CVCUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.799631415Z [inf]  2025-10-24 07:51:58,508 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799636952Z [inf]  2025-10-24 07:51:58,508 - strategies.ict_smc - INFO - AWEUSDT - 1h趨勢: bull
+2025-10-24T07:51:58.799647653Z [inf]  2025-10-24 07:51:58,593 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799652533Z [inf]  2025-10-24 07:51:58,593 - strategies.ict_smc - INFO - HUMAUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.799658360Z [inf]  2025-10-24 07:51:58,663 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799663871Z [inf]  2025-10-24 07:51:58,663 - strategies.ict_smc - INFO - AUSDT - 1h趨勢: bull
+2025-10-24T07:51:58.799669837Z [inf]  2025-10-24 07:51:58,731 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.799674829Z [inf]  2025-10-24 07:51:58,731 - strategies.ict_smc - INFO - SOPHUSDT - 1h趨勢: bull
+2025-10-24T07:51:58.813818522Z [inf]  2025-10-24 07:51:58,811 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.813827503Z [inf]  2025-10-24 07:51:58,811 - strategies.ict_smc - INFO - LAUSDT - 1h趨勢: bull
+2025-10-24T07:51:58.888837310Z [inf]  2025-10-24 07:51:58,885 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.888849268Z [inf]  2025-10-24 07:51:58,885 - strategies.ict_smc - INFO - HOMEUSDT - 1h趨勢: bear
+2025-10-24T07:51:58.987831536Z [inf]  2025-10-24 07:51:58,977 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:58.987840366Z [inf]  2025-10-24 07:51:58,978 - strategies.ict_smc - INFO - RESOLVUSDT - 1h趨勢: bear
+2025-10-24T07:51:59.047452515Z [inf]  2025-10-24 07:51:59,043 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.047461062Z [inf]  2025-10-24 07:51:59,043 - strategies.ict_smc - INFO - SPKUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.123934749Z [inf]  2025-10-24 07:51:59,121 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.123942885Z [inf]  2025-10-24 07:51:59,121 - strategies.ict_smc - INFO - NEWTUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.193550201Z [inf]  2025-10-24 07:51:59,187 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.193559012Z [inf]  2025-10-24 07:51:59,188 - strategies.ict_smc - INFO - SAHARAUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911910145Z [inf]  2025-10-24 07:51:59,789 - strategies.ict_smc - INFO - A2ZUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911918274Z [inf]  2025-10-24 07:51:59,281 - strategies.ict_smc - INFO - PUMPUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911919972Z [inf]  2025-10-24 07:51:59,861 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911928035Z [inf]  2025-10-24 07:51:59,861 - strategies.ict_smc - INFO - TOWNSUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911932387Z [inf]  2025-10-24 07:51:59,374 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911939440Z [inf]  2025-10-24 07:51:59,374 - strategies.ict_smc - INFO - CUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911945586Z [inf]  2025-10-24 07:51:59,455 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911951101Z [inf]  2025-10-24 07:51:59,455 - strategies.ict_smc - INFO - ERAUSDT - 1h趨勢: bear
+2025-10-24T07:51:59.911957492Z [inf]  2025-10-24 07:51:59,532 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911963285Z [inf]  2025-10-24 07:51:59,532 - strategies.ict_smc - INFO - CVXUSDT - 1h趨勢: bear
+2025-10-24T07:51:59.911967925Z [inf]  2025-10-24 07:51:59,619 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911972905Z [inf]  2025-10-24 07:51:59,619 - strategies.ict_smc - INFO - SLPUSDT - 1h趨勢: bear
+2025-10-24T07:51:59.911979383Z [inf]  2025-10-24 07:51:59,711 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.911989638Z [inf]  2025-10-24 07:51:59,711 - strategies.ict_smc - INFO - TREEUSDT - 1h趨勢: bull
+2025-10-24T07:51:59.911997561Z [inf]  2025-10-24 07:51:59,789 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.912056951Z [inf]  2025-10-24 07:51:59,281 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.948321973Z [inf]  2025-10-24 07:51:59,945 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:51:59.948331468Z [inf]  2025-10-24 07:51:59,945 - strategies.ict_smc - INFO - PROVEUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.047273200Z [inf]  2025-10-24 07:52:00,044 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.047284913Z [inf]  2025-10-24 07:52:00,044 - strategies.ict_smc - INFO - XPLUSDT - 1h趨勢: bear
+2025-10-24T07:52:00.151674181Z [inf]  2025-10-24 07:52:00,145 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.151691366Z [inf]  2025-10-24 07:52:00,145 - strategies.ict_smc - INFO - WLFIUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.926074763Z [inf]  2025-10-24 07:52:00,401 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926083928Z [inf]  2025-10-24 07:52:00,401 - strategies.ict_smc - INFO - HEMIUSDT - 1h趨勢: bear
+2025-10-24T07:52:00.926093167Z [inf]  2025-10-24 07:52:00,470 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926094264Z [inf]  2025-10-24 07:52:00,235 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926107048Z [inf]  2025-10-24 07:52:00,470 - strategies.ict_smc - INFO - LINEAUSDT - 1h趨勢: bear
+2025-10-24T07:52:00.926107125Z [inf]  2025-10-24 07:52:00,235 - strategies.ict_smc - INFO - SOMIUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.926111432Z [inf]  2025-10-24 07:52:00,787 - strategies.ict_smc - INFO - HOLOUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.926118070Z [inf]  2025-10-24 07:52:00,545 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926120128Z [inf]  2025-10-24 07:52:00,323 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926128193Z [inf]  2025-10-24 07:52:00,545 - strategies.ict_smc - INFO - OPENUSDT - 1h趨勢: bear
+2025-10-24T07:52:00.926138548Z [inf]  2025-10-24 07:52:00,323 - strategies.ict_smc - INFO - MITOUSDT - 1h趨勢: bear
+2025-10-24T07:52:00.926149234Z [inf]  2025-10-24 07:52:00,623 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926161301Z [inf]  2025-10-24 07:52:00,623 - strategies.ict_smc - INFO - SKYUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.926168316Z [inf]  2025-10-24 07:52:00,706 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.926175140Z [inf]  2025-10-24 07:52:00,707 - strategies.ict_smc - INFO - AVNTUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.926181949Z [inf]  2025-10-24 07:52:00,787 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.930076131Z [inf]  2025-10-24 07:52:00,859 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.930081048Z [inf]  2025-10-24 07:52:00,859 - strategies.ict_smc - INFO - ZKCUSDT - 1h趨勢: bull
+2025-10-24T07:52:00.934627295Z [inf]  2025-10-24 07:52:00,931 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:00.934637232Z [inf]  2025-10-24 07:52:00,931 - strategies.ict_smc - INFO - 0GUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.025260706Z [inf]  2025-10-24 07:52:01,017 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.025267421Z [inf]  2025-10-24 07:52:01,017 - strategies.ict_smc - INFO - BARDUSDT - 1h趨勢: bull
+2025-10-24T07:52:01.097960082Z [inf]  2025-10-24 07:52:01,095 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.097975519Z [inf]  2025-10-24 07:52:01,096 - strategies.ict_smc - INFO - ASTERUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.211458512Z [inf]  2025-10-24 07:52:01,209 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.211462543Z [inf]  2025-10-24 07:52:01,210 - strategies.ict_smc - INFO - MIRAUSDT - 1h趨勢: bull
+2025-10-24T07:52:01.900592389Z [inf]  2025-10-24 07:52:01,464 - strategies.ict_smc - INFO - EDENUSDT - 1h趨勢: bull
+2025-10-24T07:52:01.900601488Z [inf]  2025-10-24 07:52:01,578 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900607883Z [inf]  2025-10-24 07:52:01,578 - strategies.ict_smc - INFO - NOMUSDT - 1h趨勢: bull
+2025-10-24T07:52:01.900612937Z [inf]  2025-10-24 07:52:01,661 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900618642Z [inf]  2025-10-24 07:52:01,661 - strategies.ict_smc - INFO - 2ZUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.900619031Z [inf]  2025-10-24 07:52:01,736 - strategies.ict_smc - INFO - YBUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.900623712Z [inf]  2025-10-24 07:52:01,736 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900632532Z [inf]  2025-10-24 07:52:01,808 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900641382Z [inf]  2025-10-24 07:52:01,809 - strategies.ict_smc - INFO - EULUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.900648971Z [inf]  2025-10-24 07:52:01,895 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900667983Z [inf]  2025-10-24 07:52:01,332 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.900674459Z [inf]  2025-10-24 07:52:01,332 - strategies.ict_smc - INFO - FFUSDT - 1h趨勢: bull
+2025-10-24T07:52:01.900677870Z [inf]  2025-10-24 07:52:01,895 - strategies.ict_smc - INFO - ENSOUSDT - 1h趨勢: bear
+2025-10-24T07:52:01.900681322Z [inf]  2025-10-24 07:52:01,463 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:01.997359030Z [inf]  2025-10-24 07:52:01,971 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:02.212039397Z [inf]  2025-10-24 07:52:02,205 - binance_client - INFO - Fetched 163 klines for ZBTUSDT
+2025-10-24T07:52:02.212065849Z [inf]  2025-10-24 07:52:02,205 - strategies.ict_smc - WARNING - Insufficient 1h data for ZBTUSDT, using neutral trend
+2025-10-24T07:52:02.212073931Z [inf]  2025-10-24 07:52:02,206 - strategies.ict_smc - INFO - ZBTUSDT - 1h趨勢: neutral
+2025-10-24T07:52:02.837336988Z [inf]  2025-10-24 07:52:02,513 - strategies.ict_smc - INFO - TURTLEUSDT - 1h趨勢: neutral
+2025-10-24T07:52:02.837344240Z [inf]  2025-10-24 07:52:02,568 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:02.837361188Z [inf]  2025-10-24 07:52:02,571 - services.strategy_engine - INFO - Generated 0 signals from 369 symbols
+2025-10-24T07:52:02.837371989Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   📊 Symbols analyzed: 369
+2025-10-24T07:52:02.837372102Z [inf]  2025-10-24 07:52:02,571 - __main__ - INFO - ✅ Analysis complete in 26.95s - 0 signals generated
+2025-10-24T07:52:02.837375023Z [inf]  2025-10-24 07:52:02,285 - strategies.ict_smc - ERROR - Missing required indicators: 'macd'
+2025-10-24T07:52:02.837397354Z [inf]  2025-10-24 07:52:02,571 - __main__ - INFO - ℹ️  No signals generated this cycle
+2025-10-24T07:52:02.837405407Z [inf]  2025-10-24 07:52:02,572 - core.cache_manager - INFO - Cleaned up 230 expired entries
+2025-10-24T07:52:02.837407241Z [inf]  2025-10-24 07:52:02,513 - strategies.ict_smc - ERROR - Error fetching 1h trend for TURTLEUSDT: Insufficient klines data: 41 < 50
+2025-10-24T07:52:02.837415926Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO - 
+2025-10-24T07:52:02.837419054Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   🎯 Signals generated: 0
+2025-10-24T07:52:02.837429553Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   💼 Active positions: 0/3
+2025-10-24T07:52:02.837433378Z [inf]  📊 Cycle Summary:
+2025-10-24T07:52:02.837446294Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   ⏱️  Total time: 32.85s
+2025-10-24T07:52:02.837446440Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO - ======================================================================
+2025-10-24T07:52:02.837456999Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   📥 Fetch time: 5.89s
+2025-10-24T07:52:02.837466176Z [inf]  2025-10-24 07:52:02,572 - __main__ - INFO -   🔍 Analysis time: 26.95s
+2025-10-24T07:52:02.841107178Z [inf]  
+2025-10-24T07:52:02.841112911Z [inf]  2025-10-24 07:52:02,603 - __main__ - INFO - ⏳ Waiting 60s for next cycle...

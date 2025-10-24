@@ -10,7 +10,13 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **v2.0 策略優化整合** (LATEST): Phase 1 P0 優化完成整合 🎯
+- **🔧 CRITICAL FIX - 技術指標計算修復** (LATEST): 修復導致 0 signals 的嚴重 bug
+  - **問題**：主循環未調用 `TechnicalIndicators.calculate_all_indicators()`
+  - **症狀**：大量 "Missing required indicators: 'macd'" 錯誤，導致 0 signals generated
+  - **修復**：在 main_v3.py 第 366 行添加指標計算邏輯
+  - **影響**：所有信號生成功能恢復正常，機器人現在可以正確分析市場並生成交易信號
+  - **部署**：2025-10-24 15:20 UTC 已部署到 Railway EU
+- **v2.0 策略優化整合**: Phase 1 P0 優化完成整合 🎯
   - **OB 三重驗證**：反向 K 棒 + 突破幅度 >1.2x + 5 根不回測，過濾 60%+ 弱信號
   - **MSB 幅度過濾**：突破幅度 >0.3% + 收盤確認，消除假突破
   - **1h 趨勢過濾**：EMA200 大週期過濾，避免逆勢交易（預期勝率提升 20-30%）
