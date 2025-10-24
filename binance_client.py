@@ -2,8 +2,10 @@ import asyncio
 from binance.client import Client
 from binance import AsyncClient, BinanceSocketManager
 from binance.exceptions import BinanceAPIException
+from binance.helpers import round_step_size
 import pandas as pd
 import numpy as np
+import math
 from config import Config
 from utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure, async_retry_on_failure
 
@@ -20,6 +22,7 @@ class BinanceDataClient:
             self.client = None
             self.async_client = None
             self.bsm = None
+            self.symbol_info_cache = {}
             return
         
         try:
@@ -39,6 +42,7 @@ class BinanceDataClient:
         
         self.async_client = None
         self.bsm = None
+        self.symbol_info_cache = {}
     
     async def initialize_async(self):
         if not self.api_key or not self.api_secret:
@@ -181,25 +185,98 @@ class BinanceDataClient:
             logger.error(f"Error fetching long/short ratio for {symbol}: {e}")
             return None
     
+    def get_symbol_info(self, symbol):
+        """獲取交易對信息（帶緩存）"""
+        if symbol in self.symbol_info_cache:
+            return self.symbol_info_cache[symbol]
+        
+        try:
+            exchange_info = self.client.futures_exchange_info()
+            for s in exchange_info['symbols']:
+                if s['symbol'] == symbol:
+                    self.symbol_info_cache[symbol] = s
+                    return s
+            
+            logger.warning(f"Symbol {symbol} not found in exchange info")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error fetching symbol info for {symbol}: {e}")
+            return None
+    
+    def format_quantity(self, symbol, quantity):
+        """
+        根據交易對的 LOT_SIZE 過濾器格式化數量
+        
+        Args:
+            symbol: 交易對
+            quantity: 原始數量
+            
+        Returns:
+            格式化後的數量（float）
+        """
+        try:
+            symbol_info = self.get_symbol_info(symbol)
+            if not symbol_info:
+                logger.warning(f"No symbol info for {symbol}, using raw quantity")
+                return quantity
+            
+            # 獲取 LOT_SIZE 過濾器
+            lot_size_filter = None
+            for f in symbol_info['filters']:
+                if f['filterType'] == 'LOT_SIZE':
+                    lot_size_filter = f
+                    break
+            
+            if not lot_size_filter:
+                logger.warning(f"No LOT_SIZE filter for {symbol}, using raw quantity")
+                return quantity
+            
+            step_size = float(lot_size_filter['stepSize'])
+            min_qty = float(lot_size_filter['minQty'])
+            max_qty = float(lot_size_filter['maxQty'])
+            
+            # 使用 binance helper 函數進行精確的步長舍入
+            formatted_qty = round_step_size(quantity, step_size)
+            
+            # 確保符合最小/最大數量要求
+            if formatted_qty < min_qty:
+                logger.warning(f"Quantity {formatted_qty} below minimum {min_qty}, using minimum")
+                formatted_qty = min_qty
+            elif formatted_qty > max_qty:
+                logger.warning(f"Quantity {formatted_qty} above maximum {max_qty}, using maximum")
+                formatted_qty = max_qty
+            
+            logger.info(f"Formatted quantity for {symbol}: {quantity:.10f} → {formatted_qty} (step={step_size}, min={min_qty})")
+            
+            return formatted_qty
+            
+        except Exception as e:
+            logger.error(f"Error formatting quantity for {symbol}: {e}")
+            return quantity
+    
     def place_order(self, symbol, side, order_type, quantity, price=None):
         if not Config.ENABLE_TRADING:
             logger.warning("Trading is disabled. Set ENABLE_TRADING=true to enable.")
             return None
         
         try:
+            # 格式化數量（去除科學計數法，應用 LOT_SIZE 精度）
+            formatted_quantity = self.format_quantity(symbol, quantity)
+            
             if order_type == 'MARKET':
                 order = self.client.create_order(
                     symbol=symbol,
                     side=side,
                     type=order_type,
-                    quantity=quantity
+                    quantity=formatted_quantity
                 )
             else:
                 order = self.client.create_order(
                     symbol=symbol,
                     side=side,
                     type=order_type,
-                    quantity=quantity,
+                    quantity=formatted_quantity,
                     price=price,
                     timeInForce='GTC'
                 )
