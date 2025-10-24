@@ -274,9 +274,20 @@ class BinanceDataClient:
                 notional_value = formatted_qty * price
                 
                 if notional_value < min_notional:
-                    # 計算滿足最小名義價值所需的數量
+                    # 計算滿足最小名義價值所需的數量（向上舍入以確保滿足）
                     required_qty = min_notional / price
-                    formatted_qty = round_step_size(required_qty, step_size)
+                    
+                    # 向上舍入到下一個 stepSize 倍數
+                    if step_size >= 1.0:
+                        # 整數步長：向上取整
+                        formatted_qty = math.ceil(required_qty / step_size) * step_size
+                    else:
+                        # 小數步長：使用 round_step_size 後再驗證
+                        formatted_qty = round_step_size(required_qty, step_size)
+                        
+                        # 如果舍入後仍不足，手動增加一個步長
+                        if formatted_qty * price < min_notional:
+                            formatted_qty += step_size
                     
                     # 再次驗證
                     new_notional = formatted_qty * price
