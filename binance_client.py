@@ -115,9 +115,10 @@ class BinanceDataClient:
             limit=limit
         )
         
-        # 數據驗證
-        if not klines or len(klines) < 50:
-            raise ValueError(f"Insufficient klines data: {len(klines)} < 50")
+        # 數據驗證（動態閾值：確保至少有請求數量的 20%，最少 1 條）
+        min_required = max(1, int(limit * 0.2))
+        if not klines or len(klines) < min_required:
+            raise ValueError(f"Insufficient klines data: {len(klines)} < {min_required} (requested: {limit})")
         
         df = pd.DataFrame(klines, columns=[
             'timestamp', 'open', 'high', 'low', 'close', 'volume',
