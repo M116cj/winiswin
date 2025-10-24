@@ -1,4 +1,5 @@
 import asyncio
+import time
 from binance.client import Client
 from binance import AsyncClient, BinanceSocketManager
 from binance.exceptions import BinanceAPIException
@@ -11,37 +12,11 @@ from utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure,
 
 logger = setup_logger(__name__)
 
-# 無效交易對黑名單（已下架或不存在的交易對 - 從實際錯誤日誌中提取）
-# 總計：168 個無效交易對（2024-10-24更新）
+# 手動黑名單：確實無效的交易對（極少數）
+# 說明：大部分有效交易對通過 API 動態獲取（status='TRADING'）
+# 此黑名單僅用於過濾測試符號或格式錯誤的交易對
 INVALID_SYMBOLS = {
-    "1000000BOBUSDT", "1000000MOGUSDT", "1000BONKUSDT", "1000FLOKIUSDT", 
-    "1000LUNCUSDT", "1000PEPEUSDT", "1000RATSUSDT", "1000SHIBUSDT", "1000WHYUSDT", 
-    "1000XECUSDT", "1000XUSDT", "4USDT", "AEROUSDT", "AGTUSDT", "AI16ZUSDT", 
-    "AIAUSDT", "AINUSDT", "AIOTUSDT", "AIOUSDT", "AKEUSDT", "AKTUSDT", "ALCHUSDT", 
-    "ALLUSDT", "ALPHAUSDT", "APRUSDT", "ARCUSDT", "ARIAUSDT", "ASTERUSDT", 
-    "ATHUSDT", "AVAAIUSDT", "B2USDT", "B3USDT", "BAKEUSDT", "BANKUSDT", "BANUSDT", 
-    "BASUSDT", "BDXNUSDT", "BIDUSDT", "BLESSUSDT", "BLUAIUSDT", "BRETTUSDT", 
-    "BROCCOLIF3BUSDT", "BRUSDT", "BSVUSDT", "BSWUSDT", "BTCDOMUSDT", "BTRUSDT", 
-    "BULLAUSDT", "BUSDT", "CARVUSDT", "CHILLGUYUSDT", "CLOUSDT", "COAIUSDT", 
-    "CROSSUSDT", "CUDISUSDT", "DAMUSDT", "DEEPUSDT", "DEGENUSDT", "DMCUSDT", 
-    "DODOXUSDT", "DOODUSDT", "DRIFTUSDT", "EPTUSDT", "ESPORTSUSDT", "ETHWUSDT", 
-    "EULUSDT", "EVAAUSDT", "FARTCOINUSDT", "FHEUSDT", "FLOCKUSDT", "FLUIDUSDT", 
-    "FUSDT", "GIGGLEUSDT", "GOATUSDT", "GRASSUSDT", "GRIFFAINUSDT", "HANAUSDT", 
-    "HIPPOUSDT", "HUSDT", "HYPEUSDT", "ICNTUSDT", "IDOLUSDT", "INUSDT", "IPUSDT", 
-    "JELLYJELLYUSDT", "KASUSDT", "KGENUSDT", "KOMAUSDT", "LABUSDT", "LIGHTUSDT", 
-    "LUNA2USDT", "LYNUSDT", "MAVIAUSDT", "MELANIAUSDT", "MERLUSDT", "METUSDT", 
-    "MEWUSDT", "MILKUSDT", "MOCAUSDT", "MONUSDT", "MOODENGUSDT", "MORPHOUSDT", 
-    "MUSDT", "MYROUSDT", "MYXUSDT", "NAORISUSDT", "NEIROETHUSDT", "OBOLUSDT", 
-    "OLUSDT", "OMNIUSDT", "ONUSDT", "ORDERUSDT", "PIPPINUSDT", "PLAYUSDT", 
-    "PONKEUSDT", "POPCATUSDT", "PORT3USDT", "PROMPTUSDT", "PTBUSDT", "PUFFERUSDT", 
-    "PUMPBTCUSDT", "QUSDT", "RAYSOLUSDT", "RECALLUSDT", "RIVERUSDT", "RVVUSDT", 
-    "SAFEUSDT", "SAPIENUSDT", "SIRENUSDT", "SKATEUSDT", "SKYAIUSDT", "SLERFUSDT", 
-    "SONICUSDT", "SOONUSDT", "SPXUSDT", "SQDUSDT", "STBLUSDT", "SWARMSUSDT", 
-    "SWELLUSDT", "TACUSDT", "TAGUSDT", "TAIKOUSDT", "TAKEUSDT", "TANSSIUSDT", 
-    "TAUSDT", "TOKENUSDT", "TOSHIUSDT", "TRADOORUSDT", "TRUTHUSDT", "UBUSDT", 
-    "USELESSUSDT", "UXLINKUSDT", "VELVETUSDT", "VFYUSDT", "VINEUSDT", "VVVUSDT", 
-    "WALUSDT", "XANUSDT", "XCNUSDT", "XNYUSDT", "XPINUSDT", "YALAUSDT", "YBUSDT", 
-    "ZEREBROUSDT", "ZETAUSDT", "ZKJUSDT", "ZORAUSDT", "ZRCUSDT",
+    # 測試符號（非正式交易對）
     "测试测试USDT", "币安人生USDT"
 }
 
@@ -77,6 +52,10 @@ class BinanceDataClient:
         self.async_client = None
         self.bsm = None
         self.symbol_info_cache = {}
+        
+        # 動態交易對驗證緩存（TTL: 1小時）
+        self.valid_symbols_cache = None
+        self.valid_symbols_cache_time = None
     
     async def initialize_async(self):
         if not self.api_key or not self.api_secret:
@@ -156,21 +135,17 @@ class BinanceDataClient:
         return float(ticker['price'])
     
     def get_account_balance(self):
-        if not self.client:
-            return {}
-        try:
-            account = self.client.get_account()
-            balances = {}
-            for balance in account['balances']:
-                asset = balance['asset']
-                free = float(balance['free'])
-                locked = float(balance['locked'])
-                if free > 0 or locked > 0:
-                    balances[asset] = {'free': free, 'locked': locked, 'total': free + locked}
-            return balances
-        except Exception as e:
-            logger.error(f"Error fetching account balance: {e}")
-            return {}
+        """
+        ⚠️ DEPRECATED: This method uses Spot API (get_account) which is not needed.
+        Use get_futures_balance() instead for futures trading.
+        
+        This method is kept for backward compatibility but disabled.
+        """
+        logger.warning(
+            "get_account_balance() is deprecated and disabled. "
+            "Use get_futures_balance() for futures trading."
+        )
+        return {}
     
     def get_futures_balance(self):
         """Get USDT-M futures account USDT balance."""
@@ -221,6 +196,72 @@ class BinanceDataClient:
         except Exception as e:
             logger.error(f"Error fetching long/short ratio for {symbol}: {e}")
             return None
+    
+    def get_valid_futures_symbols(self):
+        """
+        獲取所有有效的 USDT 永續合約交易對（帶 TTL 緩存）
+        
+        緩存策略：
+        - TTL: 1 小時（3600 秒）
+        - 緩存命中時直接返回，避免重複 API 調用
+        - 緩存過期時重新從 API 獲取
+        
+        Returns:
+            Set of valid USDT perpetual contract symbols with status='TRADING'
+        """
+        # 檢查緩存是否有效（TTL: 1 小時）
+        cache_ttl = 3600  # 1 小時
+        current_time = time.time()
+        
+        if (self.valid_symbols_cache is not None and 
+            self.valid_symbols_cache_time is not None and 
+            current_time - self.valid_symbols_cache_time < cache_ttl):
+            logger.debug(
+                f"✅ Using cached valid symbols "
+                f"(age: {int(current_time - self.valid_symbols_cache_time)}s, "
+                f"TTL: {cache_ttl}s)"
+            )
+            return self.valid_symbols_cache
+        
+        # 緩存過期或不存在，從 API 獲取
+        if not self.client:
+            logger.error("Binance client not initialized")
+            return set()
+        
+        try:
+            logger.info("🔄 Fetching valid futures symbols from Binance API...")
+            exchange_info = self.client.futures_exchange_info()
+            
+            # 過濾有效的 USDT 永續合約（status == 'TRADING'）
+            valid_symbols = {
+                symbol['symbol'] 
+                for symbol in exchange_info['symbols'] 
+                if symbol['contractType'] == 'PERPETUAL' 
+                and symbol['quoteAsset'] == 'USDT'
+                and symbol['status'] == 'TRADING'
+            }
+            
+            # 更新緩存
+            self.valid_symbols_cache = valid_symbols
+            self.valid_symbols_cache_time = current_time
+            
+            logger.info(
+                f"✅ Fetched {len(valid_symbols)} valid USDT perpetual symbols "
+                f"(cached for {cache_ttl}s)"
+            )
+            
+            return valid_symbols
+            
+        except Exception as e:
+            logger.error(f"❌ Error fetching valid futures symbols: {e}")
+            # 如果 API 調用失敗但有舊緩存，返回舊緩存
+            if self.valid_symbols_cache is not None:
+                logger.warning(
+                    f"⚠️ Using stale cache "
+                    f"(age: {int(current_time - self.valid_symbols_cache_time)}s)"
+                )
+                return self.valid_symbols_cache
+            return set()
     
     def get_symbol_info(self, symbol):
         """獲取交易對信息（帶緩存）"""
@@ -592,43 +633,54 @@ class BinanceDataClient:
             return []
     
     def get_all_usdt_perpetual_pairs(self):
-        """獲取所有 USDT 永續合約交易對（過濾無效交易對）"""
+        """
+        獲取所有有效的 USDT 永續合約交易對（使用動態驗證）
+        
+        工作流程：
+        1. 使用 get_valid_futures_symbols() 從 API 獲取有效交易對（帶緩存）
+        2. 應用手動黑名單過濾（INVALID_SYMBOLS）
+        3. 記錄統計信息
+        
+        Returns:
+            List of valid USDT perpetual symbols
+        """
         if not self.client:
             logger.error("Binance client not initialized")
             return ['BTCUSDT', 'ETHUSDT']
         
         try:
-            exchange_info = self.client.futures_exchange_info()
+            # 步驟 1: 從 API 獲取有效交易對（使用緩存）
+            valid_symbols = self.get_valid_futures_symbols()
             
-            # 獲取所有 USDT 永續合約交易對
-            all_usdt_pairs = [
-                symbol['symbol'] 
-                for symbol in exchange_info['symbols'] 
-                if symbol['contractType'] == 'PERPETUAL' 
-                and symbol['quoteAsset'] == 'USDT'
-                and symbol['status'] == 'TRADING'
+            if not valid_symbols:
+                logger.warning("No valid symbols returned from API, using fallback")
+                return ['BTCUSDT', 'ETHUSDT']
+            
+            # 步驟 2: 應用手動黑名單過濾
+            filtered_pairs = [
+                symbol for symbol in valid_symbols
+                if symbol not in INVALID_SYMBOLS
             ]
             
-            # 過濾掉無效交易對
-            valid_pairs = [
-                pair for pair in all_usdt_pairs 
-                if pair not in INVALID_SYMBOLS
-            ]
+            # 步驟 3: 記錄統計信息
+            api_count = len(valid_symbols)
+            blacklist_filtered = api_count - len(filtered_pairs)
             
-            # 記錄過濾統計
-            filtered_count = len(all_usdt_pairs) - len(valid_pairs)
-            if filtered_count > 0:
+            if blacklist_filtered > 0:
                 logger.info(
-                    f"✅ Filtered out {filtered_count} invalid symbols from {len(all_usdt_pairs)} total pairs. "
-                    f"Valid pairs: {len(valid_pairs)}"
+                    f"✅ Total valid symbols: {len(filtered_pairs)} "
+                    f"(API: {api_count}, manual blacklist filtered: {blacklist_filtered})"
                 )
             else:
-                logger.info(f"Found {len(valid_pairs)} USDT perpetual pairs (no invalid symbols filtered)")
+                logger.info(
+                    f"✅ Total valid symbols: {len(filtered_pairs)} "
+                    f"(no manual blacklist filtering needed)"
+                )
             
-            return valid_pairs
+            return filtered_pairs
         
         except Exception as e:
-            logger.error(f"Error fetching trading pairs: {e}")
+            logger.error(f"❌ Error in get_all_usdt_perpetual_pairs: {e}")
             return ['BTCUSDT', 'ETHUSDT']
     
     def get_top_pairs_by_volume(self, limit=50):
