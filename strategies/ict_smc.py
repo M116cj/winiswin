@@ -10,6 +10,10 @@ logger = setup_logger(__name__)
 _1h_trend_cache = {}
 _last_1h_update = {}
 
+# 全域緩存：用於儲存 15m 趨勢（多時間框架策略 - v3.0）
+_15m_trend_cache = {}
+_last_15m_update = {}
+
 class ICTSMCStrategy:
     def __init__(self):
         self.name = "ICT/SMC Strategy"
@@ -195,8 +199,17 @@ class ICTSMCStrategy:
             # 計算 EMA200
             ema200 = TechnicalIndicators.calculate_ema(klines_1h['close'].values, 200)
             
-            if len(ema200) == 0 or pd.isna(ema200[-1]):
-                logger.warning(f"Invalid EMA200 for {symbol}, using neutral trend")
+            # 檢查 EMA 是否有效（接受 ndarray/Series/list）
+            if not isinstance(ema200, (np.ndarray, pd.Series, list)):
+                logger.warning(f"Invalid EMA200 type for {symbol}")
+                return 'neutral'
+            
+            if len(ema200) == 0:
+                logger.warning(f"Empty EMA200 for {symbol}")
+                return 'neutral'
+            
+            if pd.isna(ema200[-1]):
+                logger.warning(f"NaN EMA200 for {symbol}")
                 return 'neutral'
             
             # 判斷趨勢
@@ -212,6 +225,74 @@ class ICTSMCStrategy:
             
         except Exception as e:
             logger.error(f"Error fetching 1h trend for {symbol}: {e}")
+            return 'neutral'
+    
+    def get_15m_trend(self, symbol, binance_client):
+        """
+        獲取 15m 趨勢（v3.0 多時間框架策略）
+        
+        緩存機制：每 15 分鐘更新一次，避免頻繁 API 請求
+        趨勢判斷：基於 EMA200
+        返回值：'bull' (多頭), 'bear' (空頭), 'neutral' (中性)
+        
+        使用場景：
+        - 15m K線定義整體趨勢方向
+        - 1m K線執行具體交易
+        - 只在 15m 趨勢方向一致時才開倉
+        """
+        current_time = datetime.now(timezone.utc)
+        # 計算當前 15 分鐘時間段的起始時間
+        minutes_since_hour = current_time.minute
+        current_15m_period = (minutes_since_hour // 15) * 15
+        current_15m = current_time.replace(minute=current_15m_period, second=0, microsecond=0)
+        
+        # 檢查緩存（每 15 分鐘更新一次）
+        if symbol in _last_15m_update and _last_15m_update[symbol] == current_15m:
+            cached_trend = _15m_trend_cache.get(symbol, 'neutral')
+            logger.debug(f"📦 使用緩存的 15m 趨勢 {symbol}: {cached_trend}")
+            return cached_trend
+        
+        # 獲取 15m K 線數據
+        try:
+            from config import Config
+            klines_15m = binance_client.get_klines(symbol, Config.TREND_TIMEFRAME, limit=250)
+            
+            if klines_15m is None or len(klines_15m) < 200:
+                logger.warning(f"⚠️  15m 數據不足 {symbol}，使用中性趨勢")
+                return 'neutral'
+            
+            # 計算 EMA200
+            ema200 = TechnicalIndicators.calculate_ema(klines_15m['close'].values, 200)
+            
+            # 檢查 EMA 是否有效（接受 ndarray/Series/list）
+            if not isinstance(ema200, (np.ndarray, pd.Series, list)):
+                logger.warning(f"⚠️  15m EMA200 類型無效 {symbol}，使用中性趨勢")
+                return 'neutral'
+            
+            if len(ema200) == 0:
+                logger.warning(f"⚠️  15m EMA200 為空 {symbol}，使用中性趨勢")
+                return 'neutral'
+            
+            if pd.isna(ema200[-1]):
+                logger.warning(f"⚠️  15m EMA200 無效 {symbol}，使用中性趨勢")
+                return 'neutral'
+            
+            # 判斷趨勢：價格 > EMA200 = 多頭，否則 = 空頭
+            current_price = klines_15m['close'].iloc[-1]
+            trend = 'bull' if current_price > ema200[-1] else 'bear'
+            
+            # 更新緩存
+            _15m_trend_cache[symbol] = trend
+            _last_15m_update[symbol] = current_15m
+            
+            logger.info(
+                f"🔄 更新 15m 趨勢 {symbol}: {trend} "
+                f"(價格: {current_price:.2f}, EMA200: {ema200[-1]:.2f})"
+            )
+            return trend
+            
+        except Exception as e:
+            logger.error(f"❌ 獲取 15m 趨勢失敗 {symbol}: {e}")
             return 'neutral'
     
     def check_market_structure(self, df):
@@ -330,28 +411,66 @@ class ICTSMCStrategy:
         
         return min(confidence, 100.0)  # 上限 100%
     
-    def generate_signal(self, df, symbol=None, binance_client=None):
+    def get_dynamic_risk_reward_ratio(self, confidence):
         """
-        生成交易信號（整合 v2.0 + v3.0 優化）
+        根據信心度動態調整風險回報比（v3.0 優化）
         
         參數：
-            df: 15m K 線數據
-            symbol: 交易對符號（用於 1h 趨勢過濾）
-            binance_client: Binance 客戶端（用於獲取 1h 數據）
+            confidence: 信號信心度 (0-100)
+        
+        返回：
+            風險回報比 (1.0 到 2.0)
+        
+        邏輯：
+            - 高信心度 (90% 及以上)：使用 1:2 風險回報比（最大化收益）
+            - 中信心度 (80-90%)：使用 1:1.5 風險回報比（平衡收益與風險）
+            - 低信心度 (70-80%)：使用 1:1 風險回報比（保守策略）
+            - 低於 70%：不應該生成信號（由 min_confidence_threshold 過濾）
+        """
+        from config import Config
+        
+        if confidence >= 90.0:
+            # 高信心度：使用最大風險回報比 1:2
+            ratio = Config.MAX_RISK_REWARD_RATIO
+            logger.debug(f"💎 高信心度 {confidence:.1f}% → 使用 1:{ratio:.1f} 風險回報比")
+        elif confidence >= 80.0:
+            # 中信心度：使用中等風險回報比 1:1.5
+            ratio = Config.MEDIUM_RISK_REWARD_RATIO
+            logger.debug(f"⭐ 中信心度 {confidence:.1f}% → 使用 1:{ratio:.1f} 風險回報比")
+        else:
+            # 低信心度 (70-80%)：使用最小風險回報比 1:1
+            ratio = Config.MIN_RISK_REWARD_RATIO
+            logger.debug(f"🔹 低信心度 {confidence:.1f}% → 使用 1:{ratio:.1f} 風險回報比")
+        
+        return ratio
+    
+    def generate_signal(self, df, symbol=None, binance_client=None):
+        """
+        生成交易信號（整合 v2.0 + v3.0 多時間框架優化）
+        
+        參數：
+            df: 1m K 線數據（用於執行交易）
+            symbol: 交易對符號（用於 15m 趨勢過濾）
+            binance_client: Binance 客戶端（用於獲取 15m 數據）
+        
+        多時間框架策略：
+            - 15m K線：定義趨勢方向（EMA200）
+            - 1m K線：執行交易信號（技術指標分析）
+            - 只在 15m 趨勢一致時才開倉
         """
         if len(df) < 50:
             logger.warning("Insufficient data for ICT/SMC analysis")
             return None
         
-        # === v2.0 優化：1h 趨勢過濾 ===
-        trend_1h = 'neutral'
+        # === v3.0 優化：15m 趨勢過濾（多時間框架策略）===
+        trend_15m = 'neutral'
         if symbol and binance_client:
             try:
-                trend_1h = self.get_1h_trend(symbol, binance_client)
-                logger.info(f"{symbol} - 1h趨勢: {trend_1h}")
+                trend_15m = self.get_15m_trend(symbol, binance_client)
+                logger.info(f"📊 {symbol} - 15m趨勢: {trend_15m}")
             except Exception as e:
-                logger.warning(f"Failed to get 1h trend for {symbol}: {e}")
-                trend_1h = 'neutral'
+                logger.warning(f"⚠️  獲取 15m 趨勢失敗 {symbol}: {e}")
+                trend_15m = 'neutral'
         
         # 識別市場特徵（已整合 OB 三重驗證 和 MSB 幅度過濾）
         self.identify_order_blocks(df)
@@ -409,14 +528,17 @@ class ICTSMCStrategy:
                 at_liquidity_zone=at_support
             )
             
-            # === v2.0 優化：1h 趨勢過濾（避免逆勢做多）===
-            if trend_1h == 'bear':
-                logger.debug(f"Skipping BUY signal: 1h trend is bearish")
+            # === v3.0 優化：15m 趨勢過濾（避免逆勢做多）===
+            if trend_15m == 'bear':
+                logger.debug(f"🚫 跳過做多信號：15m 趨勢為空頭")
                 # 不在空頭趨勢中做多，即使有看漲結構
                 pass
             # 如果信心度超過門檻，生成信號
             elif confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈（基於損益平衡價格和風險收益比）
+                # 計算動態風險回報比（基於信心度）
+                dynamic_rr_ratio = self.get_dynamic_risk_reward_ratio(confidence)
+                
+                # 計算止損和止盈（基於損益平衡價格和動態風險收益比）
                 try:
                     from config import Config
                     
@@ -432,15 +554,32 @@ class ICTSMCStrategy:
                         # 止損：設在損益平衡價格下方 1.5 ATR
                         stop_loss = breakeven - (atr * 1.5)
                         
-                        # 止盈：基於風險收益比（1:1 或 1:2）
+                        # 驗證止損必須低於入場價（做多）
+                        if stop_loss >= current_price:
+                            logger.warning(
+                                f"⚠️  無效的做多止損 (止損={stop_loss:.8f} >= 入場={current_price:.8f}), "
+                                f"使用傳統 ATR 止損"
+                            )
+                            stop_loss = current_price - (atr * 2.0)
+                        
+                        # 確保止損仍然有效
+                        if stop_loss >= current_price:
+                            logger.error(
+                                f"❌ 無法設置有效的做多止損 (止損={stop_loss:.8f} >= 入場={current_price:.8f}), "
+                                f"跳過信號"
+                            )
+                            return None
+                        
+                        # 止盈：基於動態風險收益比（1:1 到 1:2）
                         risk = abs(current_price - stop_loss)
-                        reward = risk * Config.RISK_REWARD_RATIO
+                        reward = risk * dynamic_rr_ratio
                         take_profit = current_price + reward
                         
-                        logger.debug(
+                        logger.info(
                             f"🎯 做多止損/止盈: 進場={current_price:.8f}, "
                             f"損益平衡={breakeven:.8f}, 止損={stop_loss:.8f}, "
-                            f"止盈={take_profit:.8f}, R:R=1:{Config.RISK_REWARD_RATIO:.1f}"
+                            f"止盈={take_profit:.8f}, R:R=1:{dynamic_rr_ratio:.1f} "
+                            f"(信心度={confidence:.1f}%)"
                         )
                     else:
                         # 傳統 ATR 止損策略
@@ -474,7 +613,7 @@ class ICTSMCStrategy:
                     'take_profit': take_profit,
                     'confidence': confidence,
                     'expected_roi': expected_roi,
-                    'reason': self._build_reason('BUY', structure, at_support, confidence, trend_1h),
+                    'reason': self._build_reason('BUY', structure, at_support, confidence, trend_15m),
                     'metadata': {
                         'structure': structure,
                         'at_liquidity_zone': at_support,
@@ -484,7 +623,8 @@ class ICTSMCStrategy:
                         'ema_21': ema_21,
                         'atr': atr,
                         'current_price': current_price,
-                        'trend_1h': trend_1h  # v2.0: 記錄 1h 趨勢
+                        'trend_15m': trend_15m,  # v3.0: 記錄 15m 趨勢
+                        'dynamic_rr_ratio': dynamic_rr_ratio  # v3.0: 記錄動態風險回報比
                     }
                 }
         
@@ -510,14 +650,17 @@ class ICTSMCStrategy:
                 at_liquidity_zone=at_resistance
             )
             
-            # === v2.0 優化：1h 趨勢過濾（避免逆勢做空）===
-            if trend_1h == 'bull':
-                logger.debug(f"Skipping SELL signal: 1h trend is bullish")
+            # === v3.0 優化：15m 趨勢過濾（避免逆勢做空）===
+            if trend_15m == 'bull':
+                logger.debug(f"🚫 跳過做空信號：15m 趨勢為多頭")
                 # 不在多頭趨勢中做空，即使有看跌結構
                 pass
             # 如果信心度超過門檻，生成信號
             elif confidence >= self.min_confidence_threshold:
-                # 計算止損和止盈（基於損益平衡價格和風險收益比）
+                # 計算動態風險回報比（基於信心度）
+                dynamic_rr_ratio = self.get_dynamic_risk_reward_ratio(confidence)
+                
+                # 計算止損和止盈（基於損益平衡價格和動態風險收益比）
                 try:
                     from config import Config
                     
@@ -533,15 +676,32 @@ class ICTSMCStrategy:
                         # 止損：設在損益平衡價格上方 1.5 ATR
                         stop_loss = breakeven + (atr * 1.5)
                         
-                        # 止盈：基於風險收益比（1:1 或 1:2）
+                        # 驗證止損必須高於入場價（做空）
+                        if stop_loss <= current_price:
+                            logger.warning(
+                                f"⚠️  無效的做空止損 (止損={stop_loss:.8f} <= 入場={current_price:.8f}), "
+                                f"使用傳統 ATR 止損"
+                            )
+                            stop_loss = current_price + (atr * 2.0)
+                        
+                        # 確保止損仍然有效
+                        if stop_loss <= current_price:
+                            logger.error(
+                                f"❌ 無法設置有效的做空止損 (止損={stop_loss:.8f} <= 入場={current_price:.8f}), "
+                                f"跳過信號"
+                            )
+                            return None
+                        
+                        # 止盈：基於動態風險收益比（1:1 到 1:2）
                         risk = abs(stop_loss - current_price)
-                        reward = risk * Config.RISK_REWARD_RATIO
+                        reward = risk * dynamic_rr_ratio
                         take_profit = current_price - reward
                         
-                        logger.debug(
+                        logger.info(
                             f"🎯 做空止損/止盈: 進場={current_price:.8f}, "
                             f"損益平衡={breakeven:.8f}, 止損={stop_loss:.8f}, "
-                            f"止盈={take_profit:.8f}, R:R=1:{Config.RISK_REWARD_RATIO:.1f}"
+                            f"止盈={take_profit:.8f}, R:R=1:{dynamic_rr_ratio:.1f} "
+                            f"(信心度={confidence:.1f}%)"
                         )
                     else:
                         # 傳統 ATR 止損策略
@@ -575,7 +735,7 @@ class ICTSMCStrategy:
                     'take_profit': take_profit,
                     'confidence': confidence,
                     'expected_roi': expected_roi,
-                    'reason': self._build_reason('SELL', structure, at_resistance, confidence, trend_1h),
+                    'reason': self._build_reason('SELL', structure, at_resistance, confidence, trend_15m),
                     'metadata': {
                         'structure': structure,
                         'at_liquidity_zone': at_resistance,
@@ -585,7 +745,8 @@ class ICTSMCStrategy:
                         'ema_21': ema_21,
                         'atr': atr,
                         'current_price': current_price,
-                        'trend_1h': trend_1h  # v2.0: 記錄 1h 趨勢
+                        'trend_15m': trend_15m,  # v3.0: 記錄 15m 趨勢
+                        'dynamic_rr_ratio': dynamic_rr_ratio  # v3.0: 記錄動態風險回報比
                     }
                 }
         
@@ -597,15 +758,15 @@ class ICTSMCStrategy:
         
         return signal
     
-    def _build_reason(self, signal_type, structure, at_zone, confidence, trend_1h='neutral'):
-        """構建信號原因描述（整合 v2.0 + v3.0）"""
+    def _build_reason(self, signal_type, structure, at_zone, confidence, trend_15m='neutral'):
+        """構建信號原因描述（整合 v2.0 + v3.0 多時間框架）"""
         reasons = []
         
-        # v2.0: 添加 1h 趨勢信息
-        if trend_1h == 'bull':
-            reasons.append("1h多頭")
-        elif trend_1h == 'bear':
-            reasons.append("1h空頭")
+        # v3.0: 添加 15m 趨勢信息
+        if trend_15m == 'bull':
+            reasons.append("15m多頭")
+        elif trend_15m == 'bear':
+            reasons.append("15m空頭")
         
         if structure == 'bullish_structure':
             reasons.append("看漲結構")

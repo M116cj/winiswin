@@ -60,6 +60,15 @@ class Config:
     SYMBOLS = STATIC_SYMBOLS
     TIMEFRAME = '1m'  # 1分鐘K線（高頻交易）
     
+    # 多時間框架配置（Multi-Timeframe Strategy）
+    TREND_TIMEFRAME = '15m'  # 15分鐘K線用於判斷趨勢方向
+    EXECUTION_TIMEFRAME = '1m'  # 1分鐘K線用於執行交易
+    
+    # 動態風險回報比配置（根據信心度調整）
+    MIN_RISK_REWARD_RATIO = 1.0  # 最小風險回報比（低信心度 70-80%）
+    MAX_RISK_REWARD_RATIO = 2.0  # 最大風險回報比（高信心度 90%+）
+    MEDIUM_RISK_REWARD_RATIO = 1.5  # 中等風險回報比（中信心度 80-90%）
+    
     MODEL_RETRAIN_INTERVAL = 3600
     LOOKBACK_PERIODS = 100
     
