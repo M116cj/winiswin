@@ -16,15 +16,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Railway Status"
+args = "Trading Bot"
 
 [[workflows.workflow]]
-name = "Railway Status"
+name = "Trading Bot"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python railway_status.py"
+args = "python main_v3.py"
 
 [workflows.workflow.metadata]
 outputType = "console"
