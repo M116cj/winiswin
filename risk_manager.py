@@ -329,6 +329,31 @@ class RiskManager:
         # 計算倉位價值（保證金 × 槓桿）
         position_value = margin * leverage
         
+        # ===== 智能保證金調整：確保倉位價值 >= 最小要求 =====
+        min_notional = Config.MIN_NOTIONAL * Config.MIN_NOTIONAL_SAFETY_MARGIN
+        if position_value < min_notional:
+            # 反向計算最小保證金
+            min_margin = min_notional / leverage
+            
+            # 檢查是否超出總資金
+            if min_margin > self.account_balance:
+                logger.error(
+                    f"❌ 資金不足：最小保證金 ${min_margin:.2f} 超過總資金 ${self.account_balance:.2f}"
+                )
+                return None
+            
+            logger.warning(
+                f"⚠️ 智能調整：倉位價值 ${position_value:.2f} < 最低要求 ${min_notional:.2f}\n"
+                f"   📊 保證金調整：${margin:.2f} → ${min_margin:.2f}\n"
+                f"   📈 倉位價值調整：${position_value:.2f} → ${min_notional:.2f}\n"
+                f"   🎯 槓桿：{leverage:.2f}x"
+            )
+            
+            margin = min_margin
+            position_value = margin * leverage
+            # 重新計算實際保證金比例
+            margin_percent = (margin / self.account_balance) * 100.0
+        
         # 計算數量
         quantity = position_value / entry_price
         

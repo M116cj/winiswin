@@ -44,6 +44,10 @@ class Config:
     MARGIN_MIN_PERCENT = float(os.getenv('MARGIN_MIN_PERCENT', '3.0'))   # 最小保證金 3%
     MARGIN_MAX_PERCENT = float(os.getenv('MARGIN_MAX_PERCENT', '13.0'))  # 最大保證金 13%
     
+    # 最小倉位價值（Binance 要求）
+    MIN_NOTIONAL = float(os.getenv('MIN_NOTIONAL', '5.0'))  # 默認 $5 USDT
+    MIN_NOTIONAL_SAFETY_MARGIN = float(os.getenv('MIN_NOTIONAL_SAFETY_MARGIN', '1.02'))  # 安全邊際 2%
+    
     # 槓桿計算模式
     LEVERAGE_MODE = os.getenv('LEVERAGE_MODE', 'win_rate')  # 'win_rate' = 勝率模式, 'confidence' = 信心度模式
     
