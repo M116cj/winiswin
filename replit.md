@@ -36,7 +36,7 @@ The bot features a modular, service-oriented design with production-ready risk m
     - **Dynamic Risk/Reward**: 1:1 to 1:2 ratio based on signal confidence.
 - **Intelligent Position Selection**: Scans all 648 symbols, scores signals by confidence/expected ROI, sorts them, and opens positions only for the top 3 signals, dynamically managing existing positions.
 - **Advanced Risk Management**:
-    - Automatic account balance detection from Binance API (Spot + Futures USDT).
+    - **Automatic Balance Loading**: Reads actual USDT futures balance from Binance API on startup and every trading cycle. Correctly distinguishes API failures (retains previous balance) from legitimate zero balances (updates to 0), ensuring accurate capital allocation. Periodic updates only log when balance changes >1% to reduce noise.
     - **Variable Margin Sizing**: Each position uses 3%-13% of total capital as margin (based on signal confidence).
     - **Win-Rate Based Leverage**: Leverage (3-20x) calculated from historical win rate.
     - Dynamic stop-loss/take-profit based on ATR.
