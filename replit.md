@@ -10,13 +10,19 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **動態倉位監控與調整** (NEW): 持倉期間持續驗證開倉時的市場條件，及時應對市場變化
+- **動態倉位監控與調整** (PRODUCTION-READY): 持倉期間持續驗證開倉時的市場條件，及時應對市場變化
   - **信號反轉檢測**：檢測市場結構反轉（做多→看跌，做空→看多），立即平倉
-  - **信心度監控**：信心度下降 >20% 立即平倉，>10% 發送警告
+  - **信心度監控**：信心度下降 >20% 立即平倉，>10% 發送警告，>5% 提升時動態調整
   - **動態止損/止盈調整**：信心度提升時自動調整保護水平（僅收緊，不放寬）
+    - 多頭：止損只能上移，止盈可上移
+    - 空頭：止損只能下移，止盈可下移
+    - 所有調整經 RiskManager 驗證後才執行
   - **逆向移動警告**：價格逆向移動 >2% 且信心度 <75% 時發送警告
+  - **時間框架一致性**：驗證時使用與開倉一致的時間框架（Config.TIMEFRAME）
+  - **數據獲取失敗處理**：高信心度倉位（≥80%）無法獲取數據時發送警告
   - **風險保護**：所有調整都經過驗證，確保不會削弱原有保護
   - Discord 通知：倉位警告、動態調整、信號失效平倉
+  - 統計追蹤：validation_checks, signal_reversals, confidence_warnings, dynamic_adjustments
 - **平倉後立即重新掃描機制**: 當任何倉位平倉後（止損/止盈/手動），系統會立即重新分析該交易對
   - 繞過30秒緩存，強制獲取最新市場數據 (`force_refresh=True`)
   - 如果發現新信號且有空閒倉位，立即開倉
