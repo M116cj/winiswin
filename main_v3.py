@@ -347,7 +347,7 @@ class TradingBotV3:
                     symbols_data[symbol] = (df, current_price)
             
             # Run analysis (v2.0: 傳遞 binance_client 用於 1h 趨勢過濾)
-            signals = await self.strategy_engine.analyze_batch(symbols_data, binance_client=self.binance_client)
+            signals = await self.strategy_engine.analyze_batch(symbols_data, binance_client=self.binance)
             
             analysis_time = asyncio.get_event_loop().time() - analysis_start
             self.monitoring_service.record_metric('analysis_time_seconds', analysis_time)
