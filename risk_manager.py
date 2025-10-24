@@ -326,6 +326,11 @@ class RiskManager:
         if leverage is None:
             leverage = Config.DEFAULT_LEVERAGE
         
+        # 安全檢查：槓桿必須 > 0
+        if leverage <= 0:
+            logger.error(f"Invalid leverage {leverage}, must be > 0")
+            return None
+        
         # 計算倉位價值（保證金 × 槓桿）
         position_value = margin * leverage
         
