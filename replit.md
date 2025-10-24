@@ -69,6 +69,54 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
    - `ml_training_data.json`: 完整的 ML 訓練數據（開倉 + 平倉合併）
    - `ml_pending_entries.json`: 待處理的開倉記錄（進程重啟持久化）
 
+#### 🎯 Virtual Position Tracking (Latest - 2025-10-24)
+**Implementation**: 追蹤排名第 4 名以後的信號作為虛擬倉位，大幅增加 XGBoost 訓練數據量
+
+1. **虛擬倉位創建** (`VirtualPositionTracker`)
+   - 從排名第 4 開始的信號自動創建虛擬倉位（不真實開倉）
+   - 最多追蹤 10 個併發虛擬倉位
+   - 只追蹤信心度 ≥ 70% 的信號
+   - 使用與真實交易相同的止盈/止損計算邏輯
+   - 記錄完整的開倉特徵（與真實交易完全相同）
+
+2. **虛擬倉位監控**
+   - 每個交易週期檢查所有虛擬倉位的止盈/止損觸發
+   - 批量獲取價格數據，避免過多 API 請求
+   - 自動追蹤持倉時長（cycles_since_open）
+   - 超時自動平倉（96 個週期 ≈ 1.6 小時）
+
+3. **虛擬倉位平倉**
+   - 止盈觸發：價格達到目標價格
+   - 止損觸發：價格觸及止損價格
+   - 超時平倉：超過最大追蹤時間
+   - 記錄完整的平倉數據（K 線歷史、MFE/MAE、退出原因）
+
+4. **數據標記**
+   - 所有虛擬交易數據標記為 `is_virtual: true`
+   - 與真實交易數據存儲在同一個 ML 文件中
+   - 可根據 `is_virtual` 字段區分真實和虛擬交易
+
+5. **持久化和恢復**
+   - 虛擬倉位持久化到 `virtual_positions.json`
+   - 進程重啟後自動恢復虛擬倉位
+   - trade_id 匹配機制確保開倉和平倉數據正確合併
+
+6. **性能優化**
+   - 使用 trade_id 作為字典鍵（O(1) 查找）
+   - 支持同一 symbol 的多個虛擬倉位
+   - 批量價格獲取，重用 DataService 緩存
+   - 最大倉位數限制防止資源耗盡
+
+7. **數據文件**
+   - `virtual_positions.json`: 活躍虛擬倉位（進程重啟持久化）
+   - `ml_training_data.json`: 包含虛擬和真實交易的完整 ML 數據
+
+**優勢**：
+- 無需承擔風險即可收集大量訓練數據
+- 提供更多樣化的市場情況樣本
+- 測試不同信號質量的實際表現
+- 加速 XGBoost 模型訓練和優化
+
 #### Critical Bug Fixes (Earlier)
 1. **Fixed Margin Calculation (v3.0 → v3.2)**
    - **Issue**: RiskManager was importing old `calculate_position_size` from utils/helpers, causing fixed $0.4-0.6 margins
