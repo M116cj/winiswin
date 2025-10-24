@@ -365,6 +365,102 @@ class BinanceDataClient:
             logger.error(f"❌ Futures order failed: {e}")
             return None
     
+    def set_stop_loss_order(self, symbol, side, quantity, stop_price, position_side):
+        """
+        設置止損訂單（交易所級別保護）
+        
+        Args:
+            symbol: 交易對
+            side: 'BUY' (平空倉) 或 'SELL' (平多倉)
+            quantity: 數量
+            stop_price: 止損觸發價格
+            position_side: 'LONG' 或 'SHORT'
+            
+        Returns:
+            訂單響應或 None
+        """
+        if not Config.ENABLE_TRADING:
+            logger.warning("Trading is disabled. Set ENABLE_TRADING=true to enable.")
+            return None
+        
+        try:
+            # 格式化數量
+            formatted_quantity = self.format_quantity(symbol, quantity, stop_price)
+            if formatted_quantity is None:
+                logger.error(f"❌ Stop-loss order rejected: {symbol} cannot meet requirements")
+                return None
+            
+            # 格式化止損價格（保留8位小數）
+            formatted_stop_price = round(stop_price, 8)
+            
+            order = self.client.futures_create_order(
+                symbol=symbol,
+                side=side,
+                type='STOP_MARKET',
+                stopPrice=formatted_stop_price,
+                quantity=formatted_quantity,
+                positionSide=position_side,
+                closePosition=False  # 不自動平倉全部，使用指定數量
+            )
+            
+            logger.info(
+                f"✅ Stop-loss order set: {symbol} {side} @ {formatted_stop_price} "
+                f"(qty={formatted_quantity}, position={position_side}, orderId={order.get('orderId', 'N/A')})"
+            )
+            return order
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to set stop-loss for {symbol}: {e}")
+            return None
+    
+    def set_take_profit_order(self, symbol, side, quantity, tp_price, position_side):
+        """
+        設置止盈訂單（交易所級別保護）
+        
+        Args:
+            symbol: 交易對
+            side: 'BUY' (平空倉) 或 'SELL' (平多倉)
+            quantity: 數量
+            tp_price: 止盈觸發價格
+            position_side: 'LONG' 或 'SHORT'
+            
+        Returns:
+            訂單響應或 None
+        """
+        if not Config.ENABLE_TRADING:
+            logger.warning("Trading is disabled. Set ENABLE_TRADING=true to enable.")
+            return None
+        
+        try:
+            # 格式化數量
+            formatted_quantity = self.format_quantity(symbol, quantity, tp_price)
+            if formatted_quantity is None:
+                logger.error(f"❌ Take-profit order rejected: {symbol} cannot meet requirements")
+                return None
+            
+            # 格式化止盈價格（保留8位小數）
+            formatted_tp_price = round(tp_price, 8)
+            
+            order = self.client.futures_create_order(
+                symbol=symbol,
+                side=side,
+                type='TAKE_PROFIT_MARKET',
+                stopPrice=formatted_tp_price,
+                quantity=formatted_quantity,
+                positionSide=position_side,
+                closePosition=False  # 不自動平倉全部，使用指定數量
+            )
+            
+            logger.info(
+                f"✅ Take-profit order set: {symbol} {side} @ {formatted_tp_price} "
+                f"(qty={formatted_quantity}, position={position_side}, orderId={order.get('orderId', 'N/A')})"
+            )
+            return order
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to set take-profit for {symbol}: {e}")
+            return None
+    
     def get_all_usdt_perpetual_pairs(self):
         """獲取所有 USDT 永續合約交易對"""
         if not self.client:
