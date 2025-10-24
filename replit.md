@@ -10,7 +10,31 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (v3.2 - 2025-10-24)
-**Critical Bug Fixes:**
+
+#### 🎯 Multi-Timeframe Trading Strategy (Latest)
+**Implementation**: 使用15分鐘K線定義趨勢，1分鐘K線執行交易
+1. **15分鐘趨勢分析** (`get_15m_trend()`)
+   - 使用 EMA200 判斷整體趨勢方向（價格 > EMA200 = 多頭，否則 = 空頭）
+   - 緩存機制：每15分鐘更新一次，避免頻繁 API 請求
+   - 只在15分鐘趨勢一致時才允許開倉（防止逆勢交易）
+
+2. **1分鐘精確執行**
+   - 在1分鐘K線上尋找精確入場點
+   - 結合 ICT/SMC 策略（訂單塊、流動性區域、市場結構）
+   - 使用 MACD、EMA 進行技術確認
+
+3. **動態風險回報比** (1:1 到 1:2)
+   - 高信心度信號 (≥90%): 使用 1:2 風險回報比
+   - 中信心度信號 (80-90%): 使用 1:1.5 風險回報比
+   - 低信心度信號 (70-80%): 使用 1:1 風險回報比
+   - 根據信號質量自動調整收益目標
+
+4. **增強止損保護**
+   - 驗證止損必須在正確的一側（做多: SL < 入場價，做空: SL > 入場價）
+   - 當損益平衡止損無效時，自動降級到傳統 ATR 止損 (2.0x)
+   - 雙重驗證確保風險控制完整性
+
+#### Critical Bug Fixes (Earlier)
 1. **Fixed Margin Calculation (v3.0 → v3.2)**
    - **Issue**: RiskManager was importing old `calculate_position_size` from utils/helpers, causing fixed $0.4-0.6 margins
    - **Fix**: Removed legacy import, now correctly uses dynamic margin sizing (3%-13% based on signal confidence)
@@ -43,7 +67,13 @@ The bot has undergone a significant architectural overhaul to v3.2, transitionin
     - `StrategyEngine`: Manages multi-strategy analysis and signal ranking.
     - `ExecutionService`: Oversees the position lifecycle, including automatic stop-loss/take-profit.
     - `MonitoringService`: Collects system metrics and manages alerts.
-- **Trading Strategy (ICT/SMC)**: Identifies order blocks, liquidity zones, and market structure. Uses MACD and EMA for confirmation and assigns a confidence score (70-100%). Includes OB triple validation, MSB amplitude filtering, and 1h trend filtering.
+- **Trading Strategy (ICT/SMC with Multi-Timeframe Analysis)**: 
+    - **Trend Definition**: 15-minute K-line with EMA200 determines overall trend direction
+    - **Execution**: 1-minute K-line for precise entry timing
+    - **Signal Components**: Order blocks, liquidity zones, market structure with MACD and EMA confirmation
+    - **Confidence Scoring**: 70-100% multi-factor weighting system
+    - **Validation**: OB triple validation, MSB amplitude filtering, 15m trend filtering to prevent counter-trend trades
+    - **Dynamic Risk/Reward**: 1:1 to 1:2 ratio based on signal confidence (90%+ → 1:2, 80-90% → 1:1.5, 70-80% → 1:1)
 - **Intelligent Position Selection**: Scans all 648 symbols, scores signals by confidence/expected ROI, sorts them, and opens positions only for the top 3 signals, dynamically managing existing positions.
 - **Advanced Risk Management (v3.2)**:
     - Automatic account balance detection from Binance API (Spot + Futures USDT).
@@ -64,14 +94,15 @@ The bot has undergone a significant architectural overhaul to v3.2, transitionin
 - **Dynamic Position Monitoring**: Continuously validates market conditions for open positions, detecting signal reversals, monitoring confidence changes, and dynamically adjusting stop-loss/take-profit levels.
 - **Immediate Rescan after Closure**: Forces a rescan of a trading pair immediately after a position is closed, maximizing capital utilization.
 - **Security**: API keys stored in environment variables, trading disabled by default, testnet mode for testing, and no withdrawal permissions on API keys.
-- **High-Frequency Trading Mode (v3.1)**:
-    - Switched to 1-minute candles for rapid signal detection and execution
-    - Breakeven-based stop-loss/take-profit calculation accounting for leverage and fees
-    - Configurable risk/reward ratios (1:1 or 1:2) via RISK_REWARD_RATIO parameter
-    - Trading fees: Maker 0.02%, Taker 0.04% (configurable)
-    - Stop-loss positioned at breakeven ± 1.5 ATR buffer
-    - Take-profit calculated using: risk × RISK_REWARD_RATIO
-    - Optimized for short-term price movements with tight risk management
+- **Multi-Timeframe Trading Mode (v3.2)**:
+    - **Trend Timeframe**: 15-minute K-lines with EMA200 for trend direction (configurable via TREND_TIMEFRAME)
+    - **Execution Timeframe**: 1-minute K-lines for precise entry timing (configurable via EXECUTION_TIMEFRAME)
+    - **Dynamic Risk/Reward**: 1:1 to 1:2 based on signal confidence (MIN_RISK_REWARD_RATIO = 1.0, MAX_RISK_REWARD_RATIO = 2.0)
+    - **Breakeven-based Stops**: Accounts for leverage and fees with 1.5 ATR buffer
+    - **Stop-Loss Validation**: Guarantees stop is on correct side of entry (long: SL < entry, short: SL > entry)
+    - **Fallback Protection**: Auto-switches to traditional ATR stops (2.0x) if breakeven stops are invalid
+    - **Trading Fees**: Maker 0.02%, Taker 0.04% (configurable)
+    - **Cache Optimization**: 15m trend cached per 15-minute period to minimize API calls
 
 ### External Dependencies
 - **Binance API**: For real-time market data, order placement, and account information.
