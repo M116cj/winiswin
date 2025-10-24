@@ -86,3 +86,8 @@ class Config:
     
     LOG_FILE = 'trading_bot.log'
     TRADES_FILE = 'trades.json'
+    
+    # 虛擬倉位追蹤配置
+    MAX_VIRTUAL_POSITIONS = int(os.getenv('MAX_VIRTUAL_POSITIONS', '10'))  # 最大併發虛擬倉位數
+    VIRTUAL_MIN_CONFIDENCE = float(os.getenv('VIRTUAL_MIN_CONFIDENCE', '70.0'))  # 虛擬倉位最低信心度
+    VIRTUAL_MAX_AGE_CYCLES = int(os.getenv('VIRTUAL_MAX_AGE_CYCLES', '96'))  # 虛擬倉位最大追蹤週期數（約 1.6 小時）

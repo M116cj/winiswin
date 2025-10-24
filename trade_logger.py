@@ -115,7 +115,7 @@ class TradeLogger:
         except Exception as e:
             logger.error(f"Error saving ML data: {e}")
     
-    def log_position_entry(self, trade_data: Dict, binance_client=None, timeframe='1m') -> str:
+    def log_position_entry(self, trade_data: Dict, binance_client=None, timeframe='1m', is_virtual=False) -> str:
         """
         記錄開倉時的完整特徵數據
         
@@ -137,6 +137,7 @@ class TradeLogger:
                 - metadata: 信號的完整 metadata（包含所有技術指標）
             binance_client: Binance 客戶端（用於獲取 K 線快照）
             timeframe: 時間框架
+            is_virtual: 是否為虛擬倉位（默認 False）
             
         Returns:
             trade_id: 唯一的交易ID
@@ -175,6 +176,7 @@ class TradeLogger:
                 'leverage': self._safe_float(trade_data.get('leverage'), 1.0),
                 'margin': self._safe_float(trade_data.get('margin'), 0.0),
                 'margin_percent': self._safe_float(trade_data.get('margin_percent'), 0.0),
+                'is_virtual': is_virtual,  # 新增：標記是否為虛擬倉位
                 
                 # ICT/SMC 信號特徵
                 'signal_features': {
@@ -238,7 +240,7 @@ class TradeLogger:
             logger.exception(e)
             return None
     
-    def log_position_exit(self, trade_data: Dict, binance_client=None, timeframe='1m'):
+    def log_position_exit(self, trade_data: Dict, binance_client=None, timeframe='1m', is_virtual=False):
         """
         記錄平倉時的完整歷史數據，並合併開倉數據生成 ML 訓練樣本
         
@@ -256,6 +258,7 @@ class TradeLogger:
                 - metadata: 平倉時的技術指標
             binance_client: Binance 客戶端（用於獲取 K 線歷史）
             timeframe: 時間框架
+            is_virtual: 是否為虛擬倉位（默認 False）
         """
         try:
             trade_id = trade_data.get('trade_id')
@@ -332,6 +335,7 @@ class TradeLogger:
                 'pnl': float(trade_data.get('pnl', 0.0)),
                 'pnl_percent': float(trade_data.get('pnl_percent', 0.0)),
                 'holding_duration_minutes': float(trade_data.get('holding_duration_minutes', 0.0)),
+                'is_virtual': is_virtual,  # 新增：標記是否為虛擬倉位
                 
                 # 從開倉到平倉的完整 K 線歷史
                 'kline_history': kline_history,

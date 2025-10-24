@@ -25,6 +25,7 @@ from config import Config
 
 # Import services
 from services import DataService, StrategyEngine, ExecutionService, MonitoringService
+from services.virtual_position_tracker import VirtualPositionTracker
 from binance_client import BinanceClient
 from discord_bot import TradingBotNotifier as DiscordBot
 from risk_manager import RiskManager
@@ -52,6 +53,7 @@ class TradingBotV3:
         logger.info("  ✅ Win-Rate Based Leverage (3-20x based on performance)")
         logger.info("  ✅ Exchange-Level Stop-Loss/Take-Profit Protection")
         logger.info("  ✅ Comprehensive Trade Logging for XGBoost ML")
+        logger.info("  ✅ Virtual Position Tracking (Rank 4+ signals)")
         logger.info("="*70)
         
         # Core components (BinanceClient reads from Config automatically)
@@ -106,6 +108,16 @@ class TradingBotV3:
         
         self.monitoring_service = MonitoringService(
             discord_bot=self.discord
+        )
+        
+        # Initialize Virtual Position Tracker
+        self.virtual_tracker = VirtualPositionTracker(
+            trade_logger=self.trade_logger,
+            risk_manager=self.risk_manager,
+            binance_client=self.binance,
+            max_virtual_positions=Config.MAX_VIRTUAL_POSITIONS,
+            min_confidence=Config.VIRTUAL_MIN_CONFIDENCE,
+            max_age_cycles=Config.VIRTUAL_MAX_AGE_CYCLES
         )
         
         # State
@@ -438,23 +450,24 @@ class TradingBotV3:
                 
                 for signal in top_signals[:available_slots]:
                     success = await self.execution_service.execute_signal(signal)
-                    
-                    if success and self.discord:
-                        await self.discord.send_notification(
-                            f"🎯 **New {signal.action} Signal**\n"
-                            f"Symbol: {signal.symbol}\n"
-                            f"Price: {signal.price:.4f}\n"
-                            f"Confidence: {signal.confidence:.1f}%\n"
-                            f"Expected ROI: {signal.expected_roi:.2f}%"
-                        )
             
-            # Step 5: Monitor existing positions
+            # Step 5: Create virtual positions from remaining signals (rank 4+)
+            if signals and len(signals) > 3:
+                logger.info(f"🔷 Creating virtual positions from rank 4+ signals...")
+                # Sort all signals by confidence (same as top_signals logic)
+                sorted_signals = sorted(signals, key=lambda s: s.confidence, reverse=True)
+                self.virtual_tracker.create_virtual_positions(sorted_signals, start_rank=4)
+            
+            # Step 6: Check existing virtual positions
+            await self.virtual_tracker.check_virtual_positions(self.data_service)
+            
+            # Step 7: Monitor existing positions
             if self.execution_service.positions:
                 closed = await self.execution_service.monitor_positions()
                 if closed:
                     logger.info(f"🔄 Closed {len(closed)} positions: {', '.join(closed)}")
             
-            # Step 6: Cleanup cache
+            # Step 8: Cleanup cache
             await self.data_service.cleanup_cache()
             
             # Calculate cycle time
@@ -522,6 +535,10 @@ class TradingBotV3:
         logger.info("="*70)
         
         self.is_running = False
+        
+        # Save virtual positions
+        logger.info("Saving virtual positions...")
+        self.virtual_tracker.save_virtual_positions()
         
         # Close all positions if live trading
         if Config.ENABLE_TRADING and self.execution_service.positions:
