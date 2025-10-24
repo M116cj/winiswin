@@ -275,8 +275,9 @@ class BinanceDataClient:
                 notional_value = formatted_qty * price
                 
                 if notional_value < min_notional:
-                    # 計算滿足最小名義價值所需的數量（向上舍入以確保滿足）
-                    required_qty = min_notional / price
+                    # 🔧 使用安全邊際：1.02 倍最小名義價值（防止浮點精度問題）
+                    safe_min_notional = min_notional * 1.02
+                    required_qty = safe_min_notional / price
                     
                     # 向上舍入到下一個 stepSize 倍數
                     if step_size >= 1.0:
@@ -286,11 +287,20 @@ class BinanceDataClient:
                         # 小數步長：使用 round_step_size 後再驗證
                         formatted_qty = round_step_size(required_qty, step_size)
                         
-                        # 如果舍入後仍不足，手動增加一個步長
-                        if formatted_qty * price < min_notional:
+                        # 循環增加 stepSize 直到滿足要求（最多 10 次）
+                        attempts = 0
+                        while formatted_qty * price < safe_min_notional and attempts < 10:
                             formatted_qty += step_size
+                            attempts += 1
+                        
+                        if attempts >= 10:
+                            logger.error(
+                                f"❌ {symbol}: Failed to meet MIN_NOTIONAL after 10 attempts "
+                                f"(price=${price:.8f}, final_qty={formatted_qty})"
+                            )
+                            return None
                     
-                    # 再次驗證
+                    # 最終驗證（使用原始 min_notional，不是 safe 版本）
                     new_notional = formatted_qty * price
                     if new_notional < min_notional:
                         logger.warning(
@@ -302,7 +312,7 @@ class BinanceDataClient:
                     logger.info(
                         f"📈 {symbol}: Adjusted quantity to meet MIN_NOTIONAL "
                         f"${min_notional:.2f}: {quantity:.6f} → {formatted_qty} "
-                        f"(notional: ${new_notional:.2f})"
+                        f"(notional: ${new_notional:.2f}, safe margin: +2%)"
                     )
             
             logger.info(f"Formatted quantity for {symbol}: {quantity:.10f} → {formatted_qty} (step={step_size}, min={min_qty})")
