@@ -11,28 +11,81 @@ class ICTSMCStrategy:
         self.liquidity_zones = []
         self.min_confidence_threshold = 70.0  # 最低信心度門檻
     
+    def is_valid_order_block(self, df, idx, direction='bullish'):
+        """
+        三重驗證訂單塊有效性（v2.0 優化）
+        
+        驗證 1：反向 K 棒（必須是陰線/陽線）
+        驗證 2：突破 K 棒幅度 > 1.2x OB 本體
+        驗證 3：5 根 K 棒不回測 OB 低點/高點
+        """
+        if idx + 1 >= len(df):
+            return False
+        
+        if direction == 'bullish':
+            # 驗證 1：OB 必須是陰線
+            if df.iloc[idx]['close'] >= df.iloc[idx]['open']:
+                return False
+            
+            # 驗證 2：突破 K 棒幅度 > 1.2x OB 本體
+            ob_body = df.iloc[idx]['open'] - df.iloc[idx]['close']
+            next_body = df.iloc[idx+1]['close'] - df.iloc[idx+1]['open']
+            
+            if ob_body <= 0 or next_body < 1.2 * ob_body:
+                return False
+            
+            # 驗證 3：5 根 K 棒不回測 OB 低點
+            ob_low = df.iloc[idx]['low']
+            for i in range(1, min(6, len(df) - idx)):
+                if df.iloc[idx + i]['close'] < ob_low:
+                    return False
+            
+            return True
+            
+        else:  # bearish
+            # 驗證 1：OB 必須是陽線
+            if df.iloc[idx]['close'] <= df.iloc[idx]['open']:
+                return False
+            
+            # 驗證 2：突破 K 棒幅度 > 1.2x OB 本體
+            ob_body = df.iloc[idx]['close'] - df.iloc[idx]['open']
+            next_body = df.iloc[idx+1]['open'] - df.iloc[idx+1]['close']
+            
+            if ob_body <= 0 or next_body < 1.2 * ob_body:
+                return False
+            
+            # 驗證 3：5 根 K 棒不回測 OB 高點
+            ob_high = df.iloc[idx]['high']
+            for i in range(1, min(6, len(df) - idx)):
+                if df.iloc[idx + i]['close'] > ob_high:
+                    return False
+            
+            return True
+    
     def identify_order_blocks(self, df, lookback=20):
+        """識別有效的訂單塊（整合三重驗證）"""
         order_blocks = []
         
-        for i in range(lookback, len(df)):
-            current_close = df.iloc[i]['close']
-            prev_close = df.iloc[i-1]['close']
-            
-            if current_close > prev_close * 1.02:
+        for i in range(lookback, len(df) - 6):  # 留出 5 根 K 棒用於驗證
+            # 檢查看漲 OB
+            if self.is_valid_order_block(df, i, 'bullish'):
                 order_block = {
                     'type': 'bullish',
                     'high': df.iloc[i]['high'],
-                    'low': df.iloc[i-1]['low'],
-                    'timestamp': df.iloc[i]['timestamp']
+                    'low': df.iloc[i]['low'],
+                    'timestamp': df.iloc[i]['timestamp'],
+                    'validated': True
                 }
                 order_blocks.append(order_block)
             
-            elif current_close < prev_close * 0.98:
+            # 檢查看跌 OB
+            elif self.is_valid_order_block(df, i, 'bearish'):
                 order_block = {
                     'type': 'bearish',
-                    'high': df.iloc[i-1]['high'],
+                    'high': df.iloc[i]['high'],
                     'low': df.iloc[i]['low'],
-                    'timestamp': df.iloc[i]['timestamp']
+                    'timestamp': df.iloc[i]['timestamp'],
+                    'validated': True
                 }
                 order_blocks.append(order_block)
         
@@ -68,7 +121,49 @@ class ICTSMCStrategy:
         self.liquidity_zones = liquidity_zones[-5:]
         return self.liquidity_zones
     
+    def is_msb_confirmed(self, df, structure_type='bullish'):
+        """
+        MSB 幅度過濾（v2.0 優化）
+        
+        要求：
+        - 突破幅度 > 0.3%
+        - 收盤確認突破
+        """
+        if len(df) < 3:
+            return False
+        
+        if structure_type == 'bullish':
+            prev_high = df.iloc[-3]['high']
+            current_high = df.iloc[-2]['high']
+            current_close = df.iloc[-2]['close']
+            
+            # 突破幅度 > 0.3%
+            if prev_high <= 0:
+                return False
+            
+            breakout_pct = (current_high - prev_high) / prev_high
+            
+            # 收盤確認
+            return breakout_pct >= 0.003 and current_close > prev_high
+            
+        else:  # bearish
+            prev_low = df.iloc[-3]['low']
+            current_low = df.iloc[-2]['low']
+            current_close = df.iloc[-2]['close']
+            
+            # 突破幅度 > 0.3%
+            if prev_low <= 0:
+                return False
+            
+            breakdown_pct = (prev_low - current_low) / prev_low
+            
+            # 收盤確認
+            return breakdown_pct >= 0.003 and current_close < prev_low
+    
     def check_market_structure(self, df):
+        """
+        檢查市場結構（整合 MSB 幅度過濾）
+        """
         if len(df) < 10:
             return None
         
@@ -80,10 +175,20 @@ class ICTSMCStrategy:
         lower_highs = df['high'].iloc[-3:].is_monotonic_decreasing
         lower_lows = df['low'].iloc[-3:].is_monotonic_decreasing
         
+        # 基礎結構判斷
         if higher_highs and higher_lows:
-            return 'bullish_structure'
+            # 需要 MSB 確認
+            if self.is_msb_confirmed(df, 'bullish'):
+                return 'bullish_structure'
+            else:
+                return 'neutral_structure'  # 結構看漲但未確認
+                
         elif lower_highs and lower_lows:
-            return 'bearish_structure'
+            # 需要 MSB 確認
+            if self.is_msb_confirmed(df, 'bearish'):
+                return 'bearish_structure'
+            else:
+                return 'neutral_structure'  # 結構看跌但未確認
         else:
             return 'neutral_structure'
     
