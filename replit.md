@@ -10,7 +10,13 @@ This project is an automated cryptocurrency trading bot designed to monitor all 
 - Notifications: Discord alerts for all trades and warnings
 
 ### Recent Updates (October 24, 2025)
-- **🔧 CRITICAL FIX - 槓桿計算邏輯修復** (LATEST): 修復槓桿倉位計算錯誤
+- **✨ NEW FEATURE - 限價單支持** (LATEST): 支持市價單和限價單兩種入場方式
+  - **配置**：`ORDER_TYPE` = 'MARKET'（市價單，立即成交）或 'LIMIT'（限價單，掛單等待）
+  - **限價邏輯**：做多時限價 = 市價 × (1 - 0.1%)，做空時限價 = 市價 × (1 + 0.1%)
+  - **優勢**：限價單可獲得更好的入場價格，減少滑點
+  - **配置項**：`LIMIT_ORDER_OFFSET_PERCENT` = 0.1（可調整偏移百分比）
+  - **部署**：2025-10-24 17:15 UTC 已部署到 Railway EU
+- **🔧 CRITICAL FIX - 槓桿計算邏輯修復**: 修復槓桿倉位計算錯誤
   - **問題**：槓桿計算邏輯錯誤，導致實際倉位遠小於預期
   - **舊邏輯**：基於風險計算數量後簡單乘以槓桿（錯誤）
   - **新邏輯**：保證金 × 槓桿 = 倉位價值，再除以價格 = 數量（正確）

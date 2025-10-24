@@ -163,11 +163,12 @@ class ExecutionService:
         # Execute trade
         if self.enable_trading:
             try:
-                # Place market order
+                # Place order (MARKET or LIMIT based on config)
                 order = await self._place_order(
                     signal.symbol,
                     signal.action,
-                    position_params['quantity']
+                    position_params['quantity'],
+                    signal.price  # Pass entry price for limit order calculation
                 )
                 
                 if not order:
@@ -248,29 +249,71 @@ class ExecutionService:
             logger.error(f"Failed to send Discord notification: {e}")
             logger.exception(e)
     
-    async def _place_order(self, symbol: str, action: str, quantity: float) -> Optional[Dict]:
+    async def _place_order(self, symbol: str, action: str, quantity: float, price: float = None) -> Optional[Dict]:
         """
-        Place market order on Binance.
+        Place order on Binance (supports both MARKET and LIMIT orders).
         
         Args:
             symbol: Trading symbol
             action: 'BUY' or 'SELL'
             quantity: Order quantity
+            price: Entry price for limit order calculation (optional)
             
         Returns:
             Order response or None
         """
         try:
+            from config import Config
+            
             side = 'BUY' if action == 'BUY' else 'SELL'
+            order_type = Config.ORDER_TYPE
             
-            logger.info(f"{'[LIVE]' if self.enable_trading else '[SIM]'} Placing {side} order: {symbol} qty={quantity}")
+            # 計算限價單價格（如果使用限價單）
+            limit_price = None
+            if order_type == 'LIMIT':
+                if price is None:
+                    # 獲取當前價格
+                    price = self.binance.get_ticker_price(symbol)
+                
+                offset_pct = Config.LIMIT_ORDER_OFFSET_PERCENT / 100
+                
+                if action == 'BUY':
+                    # 做多：設置稍低於市價的限價（等待更好的買入價）
+                    limit_price = price * (1 - offset_pct)
+                else:
+                    # 做空：設置稍高於市價的限價（等待更好的賣出價）
+                    limit_price = price * (1 + offset_pct)
+                
+                # 格式化限價（使用 PRICE_FILTER 精度）
+                limit_price = round(limit_price, 8)  # Binance 最多 8 位小數
+                
+                logger.info(
+                    f"{'[LIVE]' if self.enable_trading else '[SIM]'} Placing {side} LIMIT order: "
+                    f"{symbol} qty={quantity:.6f}, price={limit_price:.8f} "
+                    f"(market: {price:.8f}, offset: {Config.LIMIT_ORDER_OFFSET_PERCENT}%)"
+                )
+            else:
+                logger.info(
+                    f"{'[LIVE]' if self.enable_trading else '[SIM]'} Placing {side} MARKET order: "
+                    f"{symbol} qty={quantity:.6f}"
+                )
             
-            order = self.binance.create_order(
-                symbol=symbol,
-                side=side,
-                type='MARKET',
-                quantity=quantity
-            )
+            # 下單
+            if order_type == 'LIMIT':
+                order = self.binance.create_order(
+                    symbol=symbol,
+                    side=side,
+                    type='LIMIT',
+                    quantity=quantity,
+                    price=limit_price
+                )
+            else:
+                order = self.binance.create_order(
+                    symbol=symbol,
+                    side=side,
+                    type='MARKET',
+                    quantity=quantity
+                )
             
             if order:
                 logger.info(f"✅ Order placed successfully: {order.get('orderId', 'N/A')}")

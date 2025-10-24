@@ -16,6 +16,10 @@ class Config:
     DEFAULT_LEVERAGE = float(os.getenv('DEFAULT_LEVERAGE', '3.0'))
     ENABLE_TRADING = os.getenv('ENABLE_TRADING', 'false').lower() == 'true'
     
+    # 訂單執行方式
+    ORDER_TYPE = os.getenv('ORDER_TYPE', 'MARKET')  # 'MARKET' = 市價單（立即成交），'LIMIT' = 限價單（掛單等待）
+    LIMIT_ORDER_OFFSET_PERCENT = float(os.getenv('LIMIT_ORDER_OFFSET_PERCENT', '0.1'))  # 限價單價格偏移（0.1% = 稍微更好的價格）
+    
     # 智能槓桿調整機制
     ENABLE_DYNAMIC_LEVERAGE = os.getenv('ENABLE_DYNAMIC_LEVERAGE', 'true').lower() == 'true'
     MIN_LEVERAGE = float(os.getenv('MIN_LEVERAGE', '3.0'))  # 最小槓桿
