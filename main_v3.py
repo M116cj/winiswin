@@ -202,48 +202,65 @@ class TradingBotV3:
                 logger.info("="*70)
                 return
             
-            # Calculate total USDT balance (spot + futures)
+            # ⚠️ CRITICAL: Futures trading can ONLY use futures wallet USDT
+            # Spot and futures wallets are separate - DO NOT combine them
             spot_usdt = 0.0
             futures_usdt = 0.0
             
-            # Get USDT from spot account
+            # Get USDT from spot account (for reference only)
             if 'USDT' in balance_data:
                 spot_usdt = balance_data['USDT'].get('total', 0.0)
                 if spot_usdt > 0:
-                    logger.info(f"💼 Spot Account USDT: ${spot_usdt:,.2f}")
+                    logger.info(f"💼 現貨錢包 USDT: ${spot_usdt:,.2f} (無法用於合約交易)")
             
-            # Try to get futures account balance (USDT-M)
+            # Get futures account balance (USDT-M) - THIS IS WHAT MATTERS
             try:
                 futures_usdt = await loop.run_in_executor(None, self.binance.get_futures_balance)
                 if futures_usdt and futures_usdt > 0:
-                    logger.info(f"📈 U本位合約 USDT: ${futures_usdt:,.2f}")
-                    logger.info(f"   (USDT-Margined Futures)")
+                    logger.info(f"📈 合約錢包 USDT: ${futures_usdt:,.2f} ✅ 可用於交易")
+                else:
+                    logger.warning(f"⚠️  合約錢包餘額為 $0 - 無法進行合約交易！")
             except Exception as e:
-                logger.warning(f"⚠️  Could not fetch futures balance: {e}")
+                logger.error(f"❌ 無法獲取合約餘額: {e}")
+                futures_usdt = 0.0
             
-            # Show zero balances only if both are zero
-            if spot_usdt == 0.0 and futures_usdt == 0.0:
-                logger.warning("⚠️  No USDT found in Spot or Futures accounts")
+            # Use ONLY futures balance for futures trading
+            usable_balance = futures_usdt
+            min_required = 15.0  # Minimum $15 per position
             
-            # Calculate total
-            total_usdt = spot_usdt + futures_usdt
-            
-            if total_usdt > 0:
+            if usable_balance > 0:
                 logger.info("-"*70)
-                logger.info(f"✅ Total Account Balance: ${total_usdt:,.2f} USDT")
+                logger.info(f"✅ 可用合約交易資金: ${usable_balance:,.2f} USDT")
                 logger.info("-"*70)
                 logger.info(f"📊 Risk Management Configuration:")
                 logger.info(f"   • Max Positions: 3")
-                logger.info(f"   • Capital per Position: ${total_usdt/3:,.2f} USDT (33.33%)")
+                logger.info(f"   • Capital per Position: ${usable_balance/3:,.2f} USDT (33.33%)")
                 logger.info(f"   • Risk per Trade: {Config.RISK_PER_TRADE_PERCENT}%")
                 logger.info(f"   • Max Position Size: {Config.MAX_POSITION_SIZE_PERCENT}%")
+                
+                # Warn if balance is low
+                per_position = usable_balance / 3
+                if per_position < min_required:
+                    logger.warning(f"\n⚠️  警告：每個倉位僅 ${per_position:,.2f}，可能無法開倉")
+                    logger.warning(f"   建議期貨錢包至少 ${min_required * 3:,.0f} USDT")
+                
+                if spot_usdt > 0:
+                    logger.info(f"\n💡 提示：現貨錢包有 ${spot_usdt:,.2f} USDT 無法用於合約")
+                    logger.info(f"   如需使用，請在 Binance: 資產 → 劃轉 → 現貨→U本位合約")
+                
                 logger.info("="*70)
                 
-                # Update RiskManager with real balance
-                self.risk_manager.update_balance(total_usdt)
+                # Update RiskManager with ONLY futures balance
+                self.risk_manager.update_balance(usable_balance)
             else:
-                logger.warning("⚠️  Zero balance detected in all accounts")
-                logger.info("ℹ️  Using default balance: $10,000 USDT")
+                logger.error("\n❌ 合約錢包餘額為 $0 - 無法進行合約交易！")
+                if spot_usdt > 0:
+                    logger.info(f"\n💡 解決方案：")
+                    logger.info(f"   1. 登入 Binance → 資產 → 劃轉")
+                    logger.info(f"   2. 從「現貨錢包」劃轉到「U本位合約錢包」")
+                    logger.info(f"   3. 建議劃轉 ${spot_usdt:,.2f} USDT")
+                    logger.info(f"   4. 重啟機器人")
+                logger.info("\nℹ️  使用默認測試餘額: $10,000 USDT (僅模擬)")
                 logger.info("="*70)
                 
         except Exception as e:
