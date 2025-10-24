@@ -1,0 +1,180 @@
+以下為純文字格式的三份完整模板，適用於 winiswin 專案 v2.0，可直接複製貼入文件或程式碼註解中：
+
+──────────────────────────────────────  
+1. 邏輯策略說明模板（ICT/SMC 策略）  
+──────────────────────────────────────
+
+標題：ICT/SMC 策略邏輯詳解（v2.0）
+
+1. 策略核心理念  
+本機器人採用 Inner Circle Trader (ICT) 與 Smart Money Concepts (SMC) 的市場結構分析框架，聚焦於：  
+- 識別機構資金行為（Smart Money）  
+- 捕捉訂單塊（Order Blocks）與流動性區域（Liquidity Zones）  
+- 判斷市場結構破壞（Market Structure Break, MSB）  
+
+本策略不使用預測模型（如 LSTM），純粹基於價格行為與輕量技術指標過濾訊號。
+
+2. 訊號生成流程  
+步驟如下：  
+(1) 獲取 15 分鐘或 1 小時 K 線數據  
+(2) 判定是否存在有效訂單塊（OB）  
+(3) 確認價格是否回測該 OB  
+(4) 檢查市場結構是否發生突破（MSB）  
+(5) 結合 MACD、RSI、EMA 等指標進行過濾  
+(6) 若所有條件符合，觸發交易訊號  
+
+2.1 訂單塊（Order Block, OB）判定  
+- 看漲 OB：強勢上漲前的最後一根下跌 K 線（收盤 > 開盤）  
+- 看跌 OB：強勢下跌前的最後一根上漲 K 線（收盤 < 開盤）  
+- 有效性條件：  
+  • OB 後至少 3 根 K 線未回測該區間  
+  • OB 區間未被後續價格完全吞沒  
+
+2.2 流動性區域（Liquidity Zone）  
+- 定義為近期高點/低點 ±0.3% 區間  
+- 若價格快速掃過後反轉，視為流動性抓取，可能產生反向訊號  
+
+2.3 市場結構（Market Structure）  
+- 上升結構：高點↑ + 低點↑  
+- 下降結構：高點↓ + 低點↓  
+- 結構破壞（MSB）：  
+  • 上升結構中跌破前低 → 轉空訊號  
+  • 下降結構中突破前高 → 轉多訊號  
+
+2.4 技術指標過濾（輕量級實現）  
+| 指標 | 參數 | 用途 |  
+|------|------|------|  
+| EMA | 50, 200 | 判斷趨勢方向（價格 > EMA200 → 優先做多）|  
+| RSI | 14 | 避免在超買（>70）做多 / 超賣（<30）做空 |  
+| MACD | (12,26,9) | 確認動能方向（柱狀圖由負轉正為多）|  
+| ATR | 14 | 動態設定止損距離（默認 1.5×ATR）|  
+
+多空條件範例（做多）：  
+- 價格回測看漲 OB  
+- 市場結構剛突破前高（MSB 確認）  
+- RSI 介於 40–70  
+- MACD 柱狀圖由負轉正  
+- 價格 > EMA200  
+
+3. 倉位與風險邏輯  
+- 倉位大小 = 帳戶權益 × RISK_PER_TRADE_PERCENT ÷ (1.5 × ATR)  
+- 止損 = OB 邊緣 ± 1.5×ATR  
+- 止盈 = 1:2 風險報酬比（可擴展為多階 TP）  
+
+──────────────────────────────────────  
+2. 錯誤處理與重連機制設計模板  
+──────────────────────────────────────
+
+標題：錯誤處理與 API 重連機制（v2.0）
+
+1. 設計原則  
+- 不因單次錯誤終止主循環  
+- 區分可恢復 vs 不可恢復錯誤  
+- 關鍵操作具備重試與指數退避（Exponential Backoff）  
+
+2. 錯誤分類與處理策略  
+| 錯誤類型 | 舉例 | 處理方式 |  
+|----------|------|----------|  
+| 網路暫時中斷 | requests.exceptions.ConnectionError | 重試 3 次，間隔 1/2/4 秒 |  
+| API 限流 | Binance 返回 429 | 等待 Retry-After 標頭指定時間 |  
+| 無效 API Key | 401 Unauthorized | 記錄錯誤並停止交易（不重試）|  
+| 訂單參數錯誤 | 價格超出漲跌停 | 跳過該交易對，記錄日誌 |  
+| Discord 通知失敗 | Token 錯誤 | 僅記錄警告，不阻塞交易 |  
+
+3. 建議實作：重試裝飾器（utils/helpers.py）  
+def retry_on_failure(max_retries=3, backoff_factor=1.0, exceptions=(Exception,)):  
+    def decorator(func):  
+        @wraps(func)  
+        def wrapper(*args, **kwargs):  
+            for attempt in range(max_retries + 1):  
+                try:  
+                    return func(*args, **kwargs)  
+                except exceptions as e:  
+                    if attempt == max_retries:  
+                        logging.error(f"❌ {func.__name__} failed after {max_retries} retries: {e}")  
+                        raise  
+                    wait = backoff_factor * (2 ** attempt)  
+                    logging.warning(f"⚠️ {func.__name__} failed (attempt {attempt+1}), retrying in {wait}s...")  
+                    time.sleep(wait)  
+            return None  
+        return wrapper  
+    return decorator  
+
+應用範例：  
+@retry_on_failure(max_retries=3, exceptions=(ConnectionError, Timeout))  
+def get_klines(self, symbol, interval, limit=100):  
+    return self.client.futures_klines(...)  
+
+4. 主循環健壯性設計  
+while True:  
+    try:  
+        for symbol in symbols:  
+            try:  
+                process_symbol(symbol)  
+            except Exception as e:  
+                log_error(f"Symbol {symbol} failed: {e}")  
+                continue  # 單一交易對錯誤不影響整體  
+        time.sleep(10)  
+    except KeyboardInterrupt:  
+        log_info("Shutting down gracefully...")  
+        break  
+    except Exception as e:  
+        log_critical(f"Main loop crashed: {e}")  
+        time.sleep(30)  # 避免無限崩潰  
+
+──────────────────────────────────────  
+3. 技術指標輕量級實現與優化說明模板  
+──────────────────────────────────────
+
+標題：輕量級技術指標實現（v2.0）
+
+1. 優化動機  
+- 移除 TA-Lib 避免原生編譯問題（尤其在 Railway 容器環境）  
+- 減少依賴體積（節省 200MB+）  
+- 保持指標計算精度與主流平台一致  
+
+2. 指標實現對照表  
+| 指標 | 原 TA-Lib 函數 | 本專案實現方式 | 驗證方式 |  
+|------|----------------|----------------|----------|  
+| EMA | talib.EMA(close, 50) | 自訂 ewm 遞迴計算 | 與 pandas .ewm().mean() 誤差 < 1e-6 |  
+| RSI | talib.RSI(close, 14) | 使用 gain/loss 平均值（Wilder’s Smoothing）| 與 TradingView 前 100 根 K 線比對 |  
+| MACD | talib.MACD(...) | 分別計算 EMA12/EMA26/DIF/DEA | 與 Binance 內建 MACD 視覺一致 |  
+| ATR | talib.ATR(...) | True Range 滑動平均 | 與 CoinGecko ATR 數據誤差 < 0.5% |  
+| 布林帶 | talib.BBANDS(...) | MA ± 2*std(close, 20) | 與 Binance 圖表重疊驗證 |  
+
+3. 核心程式碼片段（以 RSI 為例，utils/indicators.py）  
+def calculate_rsi(prices: np.ndarray, period: int = 14) -> float:  
+    deltas = np.diff(prices)  
+    gains = np.where(deltas > 0, deltas, 0)  
+    losses = np.where(deltas < 0, -deltas, 0)  
+
+    avg_gain = np.mean(gains[:period])  
+    avg_loss = np.mean(losses[:period])  
+
+    if avg_loss == 0:  
+        return 100.0  
+
+    rs = avg_gain / avg_loss  
+    rsi = 100 - (100 / (1 + rs))  
+
+    # Wilder’s Smoothing  
+    for i in range(period, len(gains)):  
+        avg_gain = (avg_gain * (period - 1) + gains[i]) / period  
+        avg_loss = (avg_loss * (period - 1) + losses[i]) / period  
+        if avg_loss == 0:  
+            rsi = 100.0  
+        else:  
+            rs = avg_gain / avg_loss  
+            rsi = 100 - (100 / (1 + rs))  
+    return rsi  
+
+4. 效能與正確性保障  
+- 所有指標函數接受 np.ndarray 輸入，避免 pandas overhead  
+- 建議補充單元測試，例如：  
+  def test_rsi_matches_tradingview():  
+      prices = np.array([...])  # 已知序列  
+      assert abs(calculate_rsi(prices) - 62.34) < 0.01  
+
+──────────────────────────────────────  
+END  
+──────────────────────────────────────
