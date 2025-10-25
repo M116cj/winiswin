@@ -26,27 +26,79 @@
 2. **API 優化**: 統一緩存，智能 TTL，預熱機制（減少 80% 請求）
 3. **XGBoost 強化**: 38 個標準化特徵，完整性保證，智能 flush
 4. **性能優化**: 批量計算，內存降低 44%
+5. **目錄重組**: 專業的模塊化結構，清晰的功能分類
 
-詳細信息請查看: `OPTIMIZATION_REPORT_V3.2.md`
+詳細信息請查看: `docs/OPTIMIZATION_REPORT_V3.2.md`
 
 ---
 
 ## 系統架構
 
+### 項目目錄結構
+
+```
+/
+├── src/                          # 所有源代碼
+│   ├── main.py                  # 主程序入口
+│   ├── config.py                # 配置管理
+│   ├── clients/                 # API 客戶端
+│   │   └── binance_client.py   # Binance API 客戶端
+│   ├── integrations/            # 第三方集成
+│   │   └── discord_bot.py      # Discord 通知和指令
+│   ├── managers/                # 管理器
+│   │   ├── risk_manager.py     # 動態風險控制
+│   │   └── trade_logger.py     # XGBoost 數據記錄
+│   ├── monitoring/              # 監控相關
+│   │   ├── health_check.py     # 健康檢查
+│   │   └── railway_status.py   # Railway 狀態
+│   ├── core/                    # 核心組件
+│   │   ├── cache_manager.py    # 緩存管理
+│   │   ├── circuit_breaker.py  # 熔斷器
+│   │   └── rate_limiter.py     # 限流器
+│   ├── services/                # 服務模塊
+│   │   ├── data_service.py     # 市場數據服務
+│   │   ├── strategy_engine.py  # 策略引擎
+│   │   ├── execution_service.py # 執行服務
+│   │   ├── monitoring_service.py # 監控服務
+│   │   └── virtual_position_tracker.py # 虛擬倉位追蹤
+│   ├── strategies/              # 交易策略
+│   │   └── ict_smc.py          # ICT/SMC 策略
+│   └── utils/                   # 工具函數
+│       ├── indicators.py       # 技術指標
+│       └── helpers.py          # 輔助工具
+├── data/                        # 數據文件
+│   ├── trades.json             # 交易記錄
+│   ├── ml_pending_entries.json # ML 待處理數據
+│   └── logs/                   # 日誌目錄
+│       └── trading_bot.log     # 系統日誌
+├── docs/                        # 文檔
+│   ├── README.md               # 項目說明
+│   ├── replit.md               # 技術文檔
+│   ├── OPTIMIZATION_REPORT_V3.2.md # 優化報告
+│   └── V3.0_SYSTEM_VALIDATION.md   # 系統驗證
+├── archive/                     # 歸檔文件
+├── models/                      # ML 模型
+├── Procfile                    # Railway 部署配置
+├── railway.json                # Railway 配置
+├── requirements.txt            # Python 依賴
+└── runtime.txt                 # Python 版本
+```
+
 ### 核心模塊
 
 ```
-main_v3.py (協調器)
-├─ binance_client.py         # Binance API 客戶端
+src/main.py (協調器)
+├─ clients/binance_client.py         # Binance API 客戶端
 ├─ services/
-│  ├─ data_service.py        # 市場數據（緩存、批量、限流）
-│  ├─ strategy_engine.py     # ICT/SMC 信號生成
-│  ├─ execution_service.py   # 訂單執行和倉位管理
-│  ├─ monitoring_service.py  # 系統監控
-│  └─ virtual_position_tracker.py  # 虛擬倉位（ML 數據）
-├─ risk_manager.py           # 動態風險控制
-├─ trade_logger.py           # XGBoost 數據記錄
-└─ discord_bot.py            # Discord 集成
+│  ├─ data_service.py                # 市場數據（緩存、批量、限流）
+│  ├─ strategy_engine.py             # ICT/SMC 信號生成
+│  ├─ execution_service.py           # 訂單執行和倉位管理
+│  ├─ monitoring_service.py          # 系統監控
+│  └─ virtual_position_tracker.py    # 虛擬倉位（ML 數據）
+├─ managers/
+│  ├─ risk_manager.py                # 動態風險控制
+│  └─ trade_logger.py                # XGBoost 數據記錄
+└─ integrations/discord_bot.py       # Discord 集成
 ```
 
 ### 數據流
@@ -114,9 +166,10 @@ Config → DataService → StrategyEngine → ExecutionService → RiskManager
 - 持久化到 3 個文件
 
 **數據文件**:
-- `trades.json` - 基本交易記錄
-- `ml_training_data.json` - ML 訓練數據
-- `ml_pending_entries.json` - 未完成交易
+- `data/trades.json` - 基本交易記錄
+- `data/ml_training_data.json` - ML 訓練數據
+- `data/ml_pending_entries.json` - 未完成交易
+- `data/logs/trading_bot.log` - 系統日誌
 
 ### 4. 動態風險管理
 - **動態槓桿**: 3-20x（基於歷史勝率）
