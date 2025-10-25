@@ -1,0 +1,168 @@
+以下是依據 winiswin v2.0 現有架構 與 v3.0 升級目標 所設計的 完整系統建構邏輯藍圖，聚焦於：
+
+清除冗餘
+統一數據與執行路徑
+降低 API 調用頻率
+模組高內聚、低耦合
+支援全市場、多時間框架、動態風險、XGBoost 數據基建
+保持輕量、高效、Replit/Railway 友好
+🧹 一、冗餘清理與結構重整
+刪除無效模組
+移除 strategies/arbitrage.py（未使用且偏離核心策略）
+移除所有 test_*.py、old_*.py、backup 等測試或舊版檔案
+合併工具函數
+將分散在 utils/helpers.py、risk_manager.py、ict_smc.py 中的重複邏輯（如價格四捨五入、數量精度處理）統一至 utils/core.py
+統一路徑管理
+在 config.py 中定義：
+python
+
+
+1
+2
+DATA_DIR = "./data"
+LOG_DIR = "./logs"
+所有日誌、ML 數據、快取檔案均寫入此目錄，避免硬編碼路徑
+參數集中化
+所有可配置參數（如信心度門檻、時間框架列表、ATR 週期）移至 config.py，不再硬寫於策略或風險模組
+🌐 二、統一市場數據服務（核心樞紐）
+建立 單一入口模組：services/market_data_service.py
+
+職責：
+一次性獲取所有 648 個 USDT 永續合約（/fapi/v1/exchangeInfo）
+分批處理 symbol（每週期 ≤50 個，60 秒內輪完全市場）
+為每個 symbol 同步獲取 1h / 15m / 1m K 線（使用 python-binance 同步呼叫）
+內建 LRU 快取（TTL=60s）：相同 symbol + interval 在 60 秒內不重複請求
+內建 簡單限流：每請求後 time.sleep(0.05)，確保 ≤5 req/sec
+輸出格式：
+python
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+⌄
+⌄
+{
+  'BTCUSDT': {
+    '1h': pd.DataFrame,
+    '15m': pd.DataFrame,
+    '1m': pd.DataFrame
+  },
+  ...
+}
+其他模組禁止直接調用 Binance API（除 execution_service.py 下單/平倉外）
+📊 三、多時間框架策略引擎（純函數、無副作用）
+模組：strategies/ict_smc.py
+
+輸入：單一 symbol 的多時間框架 K 線（來自 market_data_service）
+處理流程：
+1h：計算 EMA200 → 判斷主要趨勢（過濾反向信號）
+15m：識別訂單塊、流動性池、市場結構突破
+1m：確認入場時機（MACD 柱狀圖翻轉 + 價格進入訂單塊）
+計算 止損（SL） 與 止盈（TP）（基於 ATR，RR 1:1 ~ 1:2）
+計算 信心度分數（加權：結構 40% + MACD 20% + EMA 20% + 價格位置 10% + 流動性 10%）
+輸出：
+python
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+⌄
+⌄
+{
+  'symbol': 'BTCUSDT',
+  'signal': 'LONG',
+  'confidence': 0.82,
+  'entry': 61234.5,
+  'sl': 60900.0,
+  'tp': 61800.0,
+  'features': {  # 用於 XGBoost
+    'ema200_trend': 1,
+    'macd_hist': 0.45,
+    'ob_strength': 0.7,
+    'liquidity_score': 0.6,
+    'atr': 120.5,
+    ...
+  }
+}
+僅當 confidence ≥ 0.7 時返回有效信號
+⚖️ 四、動態風險管理（獨立服務）
+模組：services/risk_manager.py
+
+輸入：帳戶 USDT 餘額、歷史勝率（初始 0.6）、信號信心度
+邏輯：
+倉位大小：3% + 10% * ((confidence - 0.7) / 0.3) → 限制於 3–13%
+槓桿倍數：3x + 17x * min((win_rate - 0.5) / 0.2, 1.0) → 限制於 3–20x
+最終倉位數量 = (risk_pct * balance) / (entry - sl)
+輸出：quantity, leverage
+🛡️ 五、倉位生命週期與保護（執行核心）
+模組：services/execution_service.py
+
+建倉流程：
+調用 binance_client.set_leverage(symbol, leverage)
+下市價單開倉
+立即下兩筆保護單：
+STOP_MARKET（止損）
+TAKE_PROFIT_MARKET（止盈）
+參數：priceProtect=True, workingType='MARK_PRICE', closePosition=True
+啟動保護：
+啟動時自動掃描 binance_client.get_positions()
+對無 SL/TP 的現有倉位，自動補單（實現「即使 Bot 關閉，保護仍有效」）
+📈 六、XGBoost 數據基建（ML 就緒）
+模組：services/ml_logger.py
+
+真實倉位記錄：
+開倉時記錄 features
+平倉時更新 outcome（盈虧、持有時間、觸發原因）
+寫入 data/ml_real.csv
+虛擬倉位追蹤（第 4–10 名信號）：
+不下單，僅在記憶體模擬
+每週期檢查是否觸發 SL/TP 或超時（例如 15 分鐘）
+觸發後記錄完整特徵與結果
+寫入 data/ml_virtual.csv
+合併腳本：提供 merge_ml_data.py 用於訓練前整合
+💬 七、Discord 互動與通知
+模組：services/discord_bot.py
+
+Slash Commands（使用 discord.py）：
+/balance → 查詢 market_data_service.get_balance()
+/positions → 列出所有倉位（含 SL/TP 價格）
+/status → 顯示：監控 symbol 數、週期狀態、記憶體用量（可選）
+自動通知：
+開倉/平倉/止盈止損觸發 → 單一 Embed 訊息（含信心度、RR、結果）
+回撤 >5% → 發送警報
+非阻塞設計：使用 threading.Thread 發送訊息，不阻塞主循環
+🔄 八、主程式執行流程（main_v3.py）
+初始化：
+載入環境變數與 config
+啟動 Discord Bot（背景線程）
+建立 data/logs 目錄
+每 60 秒週期：
+a. 從 market_data_service 獲取本週期 50 個 symbols 的多時間框架 K 線
+b. 並行（非異步）分析所有 symbols，產生信號列表
+c. 過濾 confidence ≥ 0.7 的信號，按分數排序
+d. 前 3 名：交由 execution_service 開倉 + 設保護單
+e. 第 4–10 名：交由 ml_logger 追蹤為虛擬倉位
+f. 更新 ML 數據、發送 Discord 通知
+錯誤處理：
+每個步驟包覆 try-except
+連續失敗 3 次 → Discord 警報 + 安全等待
