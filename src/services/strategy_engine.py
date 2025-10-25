@@ -14,7 +14,7 @@ from dataclasses import dataclass
 import pandas as pd
 import logging
 
-from strategies.ict_smc import ICTSMCStrategy
+from src.strategies.ict_smc import ICTSMCStrategy
 
 logger = logging.getLogger(__name__)
 

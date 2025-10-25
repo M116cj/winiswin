@@ -7,8 +7,8 @@ from binance.helpers import round_step_size
 import pandas as pd
 import numpy as np
 import math
-from config import Config
-from utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure, async_retry_on_failure
+from src.config import Config
+from src.utils.helpers import setup_logger, timestamp_to_datetime, retry_on_failure, async_retry_on_failure
 
 logger = setup_logger(__name__)
 

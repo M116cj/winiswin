@@ -14,22 +14,22 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('trading_bot.log'),
+        logging.FileHandler('data/logs/trading_bot.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger(__name__)
 
 # Import configuration
-from config import Config
+from src.config import Config
 
 # Import services
-from services import DataService, StrategyEngine, ExecutionService, MonitoringService
-from services.virtual_position_tracker import VirtualPositionTracker
-from binance_client import BinanceClient
-from discord_bot import TradingBotNotifier as DiscordBot
-from risk_manager import RiskManager
-from trade_logger import TradeLogger
+from src.services import DataService, StrategyEngine, ExecutionService, MonitoringService
+from src.services.virtual_position_tracker import VirtualPositionTracker
+from src.clients.binance_client import BinanceClient
+from src.integrations.discord_bot import TradingBotNotifier as DiscordBot
+from src.managers.risk_manager import RiskManager
+from src.managers.trade_logger import TradeLogger
 
 
 class TradingBotV3:
@@ -375,7 +375,7 @@ class TradingBotV3:
             analysis_start = asyncio.get_event_loop().time()
             
             # Prepare data for analysis (v3.2 優化：批量向量化指標計算)
-            from utils.indicators import TechnicalIndicators
+            from src.utils.indicators import TechnicalIndicators
             
             # 批量計算所有 symbols 的技術指標（向量化優化）
             valid_klines = {sym: df for sym, df in klines_data.items() if df is not None and not df.empty}

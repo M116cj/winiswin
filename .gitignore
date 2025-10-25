@@ -26,14 +26,15 @@ env/
 # Logs
 *.log
 logs/
-trading_bot.log
+data/logs/
 
 # Database
 *.sqlite
 *.db
 
 # Trading data
-trades.json
+data/trades.json
+data/ml_pending_entries.json
 checkpoints/
 models/saved/
 data/cache/

@@ -2,8 +2,8 @@ import discord
 from discord import app_commands
 import asyncio
 from datetime import datetime
-from config import Config
-from utils.helpers import setup_logger, format_number
+from src.config import Config
+from src.utils.helpers import setup_logger, format_number
 
 logger = setup_logger(__name__)
 

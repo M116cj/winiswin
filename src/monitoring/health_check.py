@@ -4,8 +4,8 @@
 
 import asyncio
 import logging
-from config import Config
-from binance_client import BinanceClient
+from src.config import Config
+from src.clients.binance_client import BinanceClient
 
 logger = logging.getLogger(__name__)
 

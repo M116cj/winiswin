@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime, timezone
-from utils.helpers import setup_logger, get_market_structure_change
-from utils.indicators import TechnicalIndicators
+from src.utils.helpers import setup_logger, get_market_structure_change
+from src.utils.indicators import TechnicalIndicators
 
 logger = setup_logger(__name__)
 

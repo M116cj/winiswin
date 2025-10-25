@@ -5,7 +5,7 @@ import time
 import atexit
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from utils.helpers import setup_logger
+from src.utils.helpers import setup_logger
 
 logger = setup_logger(__name__)
 

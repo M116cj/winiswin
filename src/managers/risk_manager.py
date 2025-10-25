@@ -1,6 +1,6 @@
 import numpy as np
-from config import Config
-from utils.helpers import setup_logger
+from src.config import Config
+from src.utils.helpers import setup_logger
 
 logger = setup_logger(__name__)
 

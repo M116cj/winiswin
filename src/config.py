@@ -88,8 +88,8 @@ class Config:
     # 高頻交易參數
     USE_BREAKEVEN_STOPS = os.getenv('USE_BREAKEVEN_STOPS', 'true').lower() == 'true'  # 使用損益平衡止損
     
-    LOG_FILE = 'trading_bot.log'
-    TRADES_FILE = 'trades.json'
+    LOG_FILE = 'data/logs/trading_bot.log'
+    TRADES_FILE = 'data/trades.json'
     
     # 虛擬倉位追蹤配置
     MAX_VIRTUAL_POSITIONS = int(os.getenv('MAX_VIRTUAL_POSITIONS', '10'))  # 最大併發虛擬倉位數
