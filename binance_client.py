@@ -651,16 +651,16 @@ class BinanceDataClient:
             List of valid USDT perpetual symbols
         """
         if not self.client:
-            logger.error("Binance client not initialized")
-            return ['BTCUSDT', 'ETHUSDT']
+            logger.error("Binance client not initialized - using static symbols fallback")
+            return Config.STATIC_SYMBOLS
         
         try:
             # 步驟 1: 從 API 獲取有效交易對（使用緩存）
             valid_symbols = self.get_valid_futures_symbols()
             
             if not valid_symbols:
-                logger.warning("No valid symbols returned from API, using fallback")
-                return ['BTCUSDT', 'ETHUSDT']
+                logger.warning("No valid symbols returned from API, using static symbols fallback")
+                return Config.STATIC_SYMBOLS
             
             # 步驟 2: 應用手動黑名單過濾
             filtered_pairs = [
@@ -687,13 +687,14 @@ class BinanceDataClient:
         
         except Exception as e:
             logger.error(f"❌ Error in get_all_usdt_perpetual_pairs: {e}")
-            return ['BTCUSDT', 'ETHUSDT']
+            logger.warning(f"Using static symbols fallback: {Config.STATIC_SYMBOLS}")
+            return Config.STATIC_SYMBOLS
     
     def get_top_pairs_by_volume(self, limit=50):
         """獲取按24小時成交量排序的前N個交易對"""
         if not self.client:
-            logger.error("Binance client not initialized")
-            return ['BTCUSDT', 'ETHUSDT']
+            logger.error("Binance client not initialized - using static symbols fallback")
+            return Config.STATIC_SYMBOLS
         
         try:
             all_pairs = self.get_all_usdt_perpetual_pairs()
