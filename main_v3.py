@@ -374,18 +374,27 @@ class TradingBotV3:
             logger.info(f"🔍 Analyzing market data...")
             analysis_start = asyncio.get_event_loop().time()
             
-            # Prepare data for analysis (ADD TECHNICAL INDICATORS!)
+            # Prepare data for analysis (v3.2 優化：批量向量化指標計算)
             from utils.indicators import TechnicalIndicators
             
-            symbols_data = {}
-            for symbol, df in klines_data.items():
-                if df is not None and not df.empty:
-                    # 添加技術指標（MACD、EMA、ATR等）
-                    df_with_indicators = TechnicalIndicators.calculate_all_indicators(df)
-                    
+            # 批量計算所有 symbols 的技術指標（向量化優化）
+            valid_klines = {sym: df for sym, df in klines_data.items() if df is not None and not df.empty}
+            
+            if valid_klines:
+                # 使用批量計算方法（一次性處理所有 symbols，減少重複計算）
+                indicators_data = TechnicalIndicators.batch_calculate_indicators(
+                    valid_klines,
+                    optimize_memory=True  # 使用 float32 和只保留必要的列
+                )
+                
+                # 準備分析數據
+                symbols_data = {}
+                for symbol, df_with_indicators in indicators_data.items():
                     if df_with_indicators is not None and not df_with_indicators.empty:
                         current_price = float(df_with_indicators.iloc[-1]['close'])
                         symbols_data[symbol] = (df_with_indicators, current_price)
+            else:
+                symbols_data = {}
             
             # Run analysis (v3.1: 使用 DataService 緩存獲取趨勢數據)
             signals = await self.strategy_engine.analyze_batch(symbols_data, data_service=self.data_service)

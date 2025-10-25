@@ -1,10 +1,67 @@
 import json
 import os
+import threading
+import time
+import atexit
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from utils.helpers import setup_logger
 
 logger = setup_logger(__name__)
+
+ML_FEATURE_SCHEMA = {
+    'signal_features': {
+        'confidence': {'type': 'float', 'required': True, 'description': '信號信心度 (0-100)'},
+        'expected_roi': {'type': 'float', 'required': True, 'description': '預期收益率 (%)'},
+        'strategy': {'type': 'str', 'required': True, 'description': '策略名稱 (ICT_SMC, etc.)'},
+        'reason': {'type': 'str', 'required': True, 'description': '開倉理由'},
+        'market_structure': {'type': 'str', 'required': False, 'description': '市場結構 (bullish/bearish/neutral)'},
+        'ob_score': {'type': 'float', 'required': False, 'description': '訂單塊得分'},
+        'liquidity_grabbed': {'type': 'bool', 'required': False, 'description': '是否抓取流動性'},
+        'trend_15m': {'type': 'str', 'required': False, 'description': '15分鐘趨勢'},
+        'trend_1h': {'type': 'str', 'required': False, 'description': '1小時趨勢'}
+    },
+    'technical_indicators': {
+        'macd': {'type': 'float', 'required': False, 'description': 'MACD 值'},
+        'macd_signal': {'type': 'float', 'required': False, 'description': 'MACD 信號線'},
+        'macd_histogram': {'type': 'float', 'required': False, 'description': 'MACD 柱狀圖'},
+        'ema_9': {'type': 'float', 'required': False, 'description': '9週期EMA'},
+        'ema_21': {'type': 'float', 'required': False, 'description': '21週期EMA'},
+        'ema_50': {'type': 'float', 'required': False, 'description': '50週期EMA'},
+        'ema_200': {'type': 'float', 'required': False, 'description': '200週期EMA'},
+        'atr': {'type': 'float', 'required': False, 'description': '平均真實範圍'},
+        'bollinger_upper': {'type': 'float', 'required': False, 'description': '布林帶上軌'},
+        'bollinger_middle': {'type': 'float', 'required': False, 'description': '布林帶中軌'},
+        'bollinger_lower': {'type': 'float', 'required': False, 'description': '布林帶下軌'},
+        'rsi': {'type': 'float', 'required': False, 'description': '相對強弱指標'}
+    },
+    'price_position': {
+        'current_price': {'type': 'float', 'required': True, 'description': '當前價格'},
+        'distance_from_ema200': {'type': 'float', 'required': False, 'description': '與EMA200的距離'},
+        'distance_from_ema200_pct': {'type': 'float', 'required': False, 'description': '與EMA200的距離百分比'}
+    },
+    'trade_parameters': {
+        'entry_price': {'type': 'float', 'required': True, 'description': '入場價格'},
+        'stop_loss': {'type': 'float', 'required': False, 'description': '止損價格'},
+        'take_profit': {'type': 'float', 'required': False, 'description': '止盈價格'},
+        'leverage': {'type': 'float', 'required': True, 'description': '槓桿倍數'},
+        'margin': {'type': 'float', 'required': True, 'description': '保證金'},
+        'margin_percent': {'type': 'float', 'required': True, 'description': '保證金百分比'}
+    },
+    'kline_data': {
+        'entry_klines': {'type': 'list', 'required': False, 'description': '開倉時K線快照 (最近20根)'},
+        'kline_history': {'type': 'list', 'required': False, 'description': '持倉期間完整K線歷史'}
+    },
+    'outcome_labels': {
+        'outcome': {'type': 'str', 'required': True, 'description': '交易結果 (WIN/LOSS)'},
+        'pnl_percent': {'type': 'float', 'required': True, 'description': '損益百分比'},
+        'max_favorable_excursion': {'type': 'float', 'required': True, 'description': '最大有利波動 (%)'},
+        'max_adverse_excursion': {'type': 'float', 'required': True, 'description': '最大不利波動 (%)'},
+        'hit_take_profit': {'type': 'bool', 'required': True, 'description': '是否觸及止盈'},
+        'hit_stop_loss': {'type': 'bool', 'required': True, 'description': '是否觸及止損'}
+    }
+}
+
 
 class TradeLogger:
     """
@@ -15,9 +72,12 @@ class TradeLogger:
     2. 記錄平倉時的完整歷史數據（K線歷史、MFE/MAE、交易結果）
     3. 合併開倉/平倉數據生成完整的 ML 訓練樣本
     4. 保存基本交易記錄和 ML 訓練數據到不同文件
+    5. 智能 Flush 機制：每 10 筆交易或 30 秒自動保存
+    6. 數據完整性驗證：確保所有開倉都有對應的平倉
+    7. 統計追蹤：記錄完整性、特徵覆蓋率等
     """
     
-    def __init__(self, log_file='trades.json', ml_file='ml_training_data.json', buffer_size=10):
+    def __init__(self, log_file='trades.json', ml_file='ml_training_data.json', buffer_size=10, auto_flush_interval=30):
         """
         初始化交易日誌記錄器
         
@@ -25,21 +85,78 @@ class TradeLogger:
             log_file: 基本交易記錄文件
             ml_file: ML 訓練數據文件
             buffer_size: 緩衝區大小（多少條記錄後保存一次）
+            auto_flush_interval: 自動 flush 時間間隔（秒）
         """
         self.log_file = log_file
         self.ml_file = ml_file
-        self.pending_entries_file = 'ml_pending_entries.json'  # 待處理開倉記錄持久化文件
+        self.pending_entries_file = 'ml_pending_entries.json'
         self.buffer_size = buffer_size
+        self.auto_flush_interval = auto_flush_interval
         self.unsaved_count = 0
+        self.last_flush_time = time.time()
+        
+        # 統計數據
+        self.stats = {
+            'total_entries': 0,
+            'total_exits': 0,
+            'complete_pairs': 0,
+            'incomplete_pairs': 0,
+            'total_flushes': 0,
+            'last_flush_timestamp': None,
+            'validation_errors': 0,
+            'feature_coverage': {}
+        }
         
         # 加載現有記錄
         self.trades = self.load_trades()
         
         # ML 訓練數據結構
         self.ml_data = self.load_ml_data()
-        self.pending_entries = self.load_pending_entries()  # 從文件加載待處理開倉記錄（修復重啟丟失問題）
+        self.pending_entries = self.load_pending_entries()
         
-        logger.info(f"TradeLogger initialized: trades={len(self.trades)}, ml_samples={len(self.ml_data)}, pending_entries={len(self.pending_entries)}")
+        # 更新統計數據
+        self.stats['incomplete_pairs'] = len(self.pending_entries)
+        self.stats['complete_pairs'] = len(self.ml_data)
+        
+        # 啟動自動 flush 線程
+        self._stop_auto_flush = threading.Event()
+        self._auto_flush_thread = threading.Thread(target=self._auto_flush_worker, daemon=True)
+        self._auto_flush_thread.start()
+        
+        # 註冊退出時強制 flush
+        atexit.register(self._on_exit)
+        
+        logger.info(
+            f"TradeLogger initialized: "
+            f"trades={len(self.trades)}, "
+            f"ml_samples={len(self.ml_data)}, "
+            f"pending_entries={len(self.pending_entries)}, "
+            f"auto_flush_interval={auto_flush_interval}s"
+        )
+    
+    def _auto_flush_worker(self):
+        """自動 flush 工作線程 - 每 N 秒檢查並 flush"""
+        while not self._stop_auto_flush.is_set():
+            try:
+                time.sleep(self.auto_flush_interval)
+                
+                current_time = time.time()
+                time_since_last_flush = current_time - self.last_flush_time
+                
+                if time_since_last_flush >= self.auto_flush_interval:
+                    if self.unsaved_count > 0 or len(self.ml_data) > 0:
+                        logger.debug(f"Auto-flush triggered (interval: {self.auto_flush_interval}s)")
+                        self.flush()
+                
+            except Exception as e:
+                logger.error(f"Error in auto-flush worker: {e}")
+    
+    def _on_exit(self):
+        """程序退出時的清理函數"""
+        logger.info("TradeLogger shutting down, flushing all data...")
+        self._stop_auto_flush.set()
+        self.flush()
+        logger.info("TradeLogger shutdown complete")
     
     def load_trades(self) -> List[Dict]:
         """加載現有交易記錄"""
@@ -65,7 +182,7 @@ class TradeLogger:
     
     def load_pending_entries(self) -> Dict[str, Dict]:
         """
-        加載待處理的開倉記錄（修復問題 1.3）
+        加載待處理的開倉記錄
         
         進程重啟時從文件恢復待處理的開倉記錄，避免孤立交易
         
@@ -85,7 +202,7 @@ class TradeLogger:
     
     def save_pending_entries(self):
         """
-        保存待處理的開倉記錄到文件（修復問題 1.3）
+        保存待處理的開倉記錄到文件
         
         確保重啟後不會丟失待處理的開倉記錄
         """
@@ -115,6 +232,125 @@ class TradeLogger:
         except Exception as e:
             logger.error(f"Error saving ML data: {e}")
     
+    def validate_entry_data(self, trade_data: Dict) -> tuple[bool, List[str]]:
+        """
+        驗證開倉數據的完整性和正確性
+        
+        Args:
+            trade_data: 開倉數據字典
+            
+        Returns:
+            (is_valid, missing_fields)
+        """
+        missing_fields = []
+        warnings = []
+        
+        # 檢查必需字段
+        required_fields = ['symbol', 'side', 'entry_price', 'quantity', 'leverage', 'margin', 'confidence']
+        for field in required_fields:
+            if field not in trade_data or trade_data[field] is None:
+                missing_fields.append(field)
+        
+        # 檢查數據類型和範圍
+        if 'confidence' in trade_data:
+            confidence = trade_data['confidence']
+            if not isinstance(confidence, (int, float)) or not (0 <= confidence <= 100):
+                warnings.append(f"Invalid confidence value: {confidence}")
+        
+        if 'entry_price' in trade_data:
+            if not isinstance(trade_data['entry_price'], (int, float)) or trade_data['entry_price'] <= 0:
+                warnings.append(f"Invalid entry_price: {trade_data['entry_price']}")
+        
+        if 'leverage' in trade_data:
+            if not isinstance(trade_data['leverage'], (int, float)) or trade_data['leverage'] <= 0:
+                warnings.append(f"Invalid leverage: {trade_data['leverage']}")
+        
+        # 記錄警告
+        if warnings:
+            logger.warning(f"Validation warnings for entry data: {warnings}")
+            self.stats['validation_errors'] += 1
+        
+        is_valid = len(missing_fields) == 0
+        
+        if not is_valid:
+            logger.error(f"Missing required fields in entry data: {missing_fields}")
+            self.stats['validation_errors'] += 1
+        
+        return is_valid, missing_fields
+    
+    def validate_exit_data(self, trade_data: Dict) -> tuple[bool, List[str]]:
+        """
+        驗證平倉數據的完整性和正確性
+        
+        Args:
+            trade_data: 平倉數據字典
+            
+        Returns:
+            (is_valid, missing_fields)
+        """
+        missing_fields = []
+        warnings = []
+        
+        # 檢查必需字段
+        required_fields = ['trade_id', 'symbol', 'exit_price', 'pnl', 'pnl_percent']
+        for field in required_fields:
+            if field not in trade_data or trade_data[field] is None:
+                missing_fields.append(field)
+        
+        # 檢查 trade_id 是否存在於 pending_entries
+        if 'trade_id' in trade_data:
+            trade_id = trade_data['trade_id']
+            if trade_id not in self.pending_entries:
+                warnings.append(f"No matching entry record for trade_id: {trade_id}")
+        
+        # 記錄警告
+        if warnings:
+            logger.warning(f"Validation warnings for exit data: {warnings}")
+            self.stats['validation_errors'] += 1
+        
+        is_valid = len(missing_fields) == 0
+        
+        if not is_valid:
+            logger.error(f"Missing required fields in exit data: {missing_fields}")
+            self.stats['validation_errors'] += 1
+        
+        return is_valid, missing_fields
+    
+    def calculate_feature_coverage(self, entry_record: Dict) -> Dict[str, float]:
+        """
+        計算特徵覆蓋率
+        
+        Args:
+            entry_record: 開倉記錄
+            
+        Returns:
+            特徵覆蓋率字典
+        """
+        coverage = {
+            'signal_features': 0,
+            'technical_indicators': 0,
+            'price_position': 0,
+            'kline_data': 0
+        }
+        
+        signal_features = entry_record.get('signal_features', {})
+        total_signal_features = len(ML_FEATURE_SCHEMA['signal_features'])
+        present_signal_features = sum(1 for k in ML_FEATURE_SCHEMA['signal_features'].keys() if k in signal_features and signal_features[k] is not None)
+        coverage['signal_features'] = (present_signal_features / total_signal_features * 100) if total_signal_features > 0 else 0
+        
+        total_tech_indicators = len(ML_FEATURE_SCHEMA['technical_indicators'])
+        present_tech_indicators = sum(1 for k in ML_FEATURE_SCHEMA['technical_indicators'].keys() if k in signal_features and signal_features[k] is not None)
+        coverage['technical_indicators'] = (present_tech_indicators / total_tech_indicators * 100) if total_tech_indicators > 0 else 0
+        
+        total_price_position = len(ML_FEATURE_SCHEMA['price_position'])
+        present_price_position = sum(1 for k in ML_FEATURE_SCHEMA['price_position'].keys() if k in signal_features and signal_features[k] is not None)
+        coverage['price_position'] = (present_price_position / total_price_position * 100) if total_price_position > 0 else 0
+        
+        has_entry_klines = 'entry_klines' in entry_record and entry_record['entry_klines']
+        coverage['kline_data'] = 100 if has_entry_klines else 0
+        
+        return coverage
+    
     def log_position_entry(self, trade_data: Dict, binance_client=None, timeframe='1m', is_virtual=False) -> str:
         """
         記錄開倉時的完整特徵數據
@@ -143,6 +379,12 @@ class TradeLogger:
             trade_id: 唯一的交易ID
         """
         try:
+            # 驗證數據
+            is_valid, missing_fields = self.validate_entry_data(trade_data)
+            if not is_valid:
+                logger.error(f"Entry data validation failed, missing fields: {missing_fields}")
+                return None
+            
             # 生成唯一的交易ID
             timestamp = datetime.utcnow()
             trade_id = self._generate_trade_id(trade_data['symbol'], timestamp)
@@ -163,7 +405,7 @@ class TradeLogger:
             # 從 metadata 中提取技術指標
             metadata = trade_data.get('metadata', {})
             
-            # 構建完整的開倉記錄（修復問題 1.1 和 1.2）
+            # 構建完整的開倉記錄
             entry_record = {
                 'trade_id': trade_id,
                 'timestamp': timestamp.isoformat(),
@@ -171,12 +413,12 @@ class TradeLogger:
                 'side': trade_data.get('side', 'BUY'),
                 'entry_price': self._safe_float(trade_data.get('entry_price'), 0.0),
                 'quantity': self._safe_float(trade_data.get('quantity'), 0.0),
-                'stop_loss': self._safe_float(trade_data.get('stop_loss')),  # 修復 1.1：安全處理可能的 None
-                'take_profit': self._safe_float(trade_data.get('take_profit')),  # 修復 1.1：安全處理可能的 None
+                'stop_loss': self._safe_float(trade_data.get('stop_loss')),
+                'take_profit': self._safe_float(trade_data.get('take_profit')),
                 'leverage': self._safe_float(trade_data.get('leverage'), 1.0),
                 'margin': self._safe_float(trade_data.get('margin'), 0.0),
                 'margin_percent': self._safe_float(trade_data.get('margin_percent'), 0.0),
-                'is_virtual': is_virtual,  # 新增：標記是否為虛擬倉位
+                'is_virtual': is_virtual,
                 
                 # ICT/SMC 信號特徵
                 'signal_features': {
@@ -217,7 +459,7 @@ class TradeLogger:
                         metadata.get('ema_200')
                     ),
                     
-                    # 完整的 metadata（修復 1.2：清理所有不可序列化的對象）
+                    # 完整的 metadata
                     'metadata': self._sanitize_metadata(metadata)
                 },
                 
@@ -225,13 +467,27 @@ class TradeLogger:
                 'entry_klines': entry_klines
             }
             
+            # 計算特徵覆蓋率
+            coverage = self.calculate_feature_coverage(entry_record)
+            self.stats['feature_coverage'] = coverage
+            
             # 暫存開倉數據，等待平倉後合併
             self.pending_entries[trade_id] = entry_record
             
-            # 修復 1.3：立即持久化到文件，避免進程重啟導致孤立交易
+            # 更新統計
+            self.stats['total_entries'] += 1
+            self.stats['incomplete_pairs'] = len(self.pending_entries)
+            
+            # 立即持久化到文件，避免進程重啟導致孤立交易
             self.save_pending_entries()
             
-            logger.info(f"📥 Logged position entry: {trade_id} ({trade_data.get('symbol', 'UNKNOWN')} {trade_data.get('side', 'BUY')})")
+            logger.info(
+                f"📥 Logged position entry: {trade_id} ({trade_data.get('symbol', 'UNKNOWN')} {trade_data.get('side', 'BUY')}), "
+                f"feature_coverage: {coverage}"
+            )
+            
+            # 檢查是否需要 flush（每 buffer_size 條記錄）
+            self._check_and_flush()
             
             return trade_id
             
@@ -261,6 +517,12 @@ class TradeLogger:
             is_virtual: 是否為虛擬倉位（默認 False）
         """
         try:
+            # 驗證數據
+            is_valid, missing_fields = self.validate_exit_data(trade_data)
+            if not is_valid:
+                logger.error(f"Exit data validation failed, missing fields: {missing_fields}")
+                return
+            
             trade_id = trade_data.get('trade_id')
             
             if not trade_id:
@@ -269,13 +531,13 @@ class TradeLogger:
             
             # 檢查是否有對應的開倉記錄
             if trade_id not in self.pending_entries:
-                logger.warning(f"No entry record found for trade_id: {trade_id}")
-                # 仍然記錄平倉數據，但無法生成完整的 ML 樣本
+                logger.warning(f"⚠️  No entry record found for trade_id: {trade_id} - incomplete trade pair!")
+                self.stats['incomplete_pairs'] += 1
                 entry_record = None
             else:
                 entry_record = self.pending_entries[trade_id]
             
-            # 修復 1.4：驗證並解析時間戳（可能是字符串）
+            # 驗證並解析時間戳
             entry_time = trade_data.get('entry_time')
             exit_time = trade_data.get('exit_time')
             
@@ -313,7 +575,6 @@ class TradeLogger:
                     logger.warning(f"Failed to fetch kline history for {trade_data.get('symbol', 'UNKNOWN')}: {e}")
             
             # 計算 MFE/MAE（最大有利/不利波動）
-            # 修復：從 entry_record 獲取 side（如果可用）
             entry_price = self._safe_float(entry_record.get('entry_price')) if entry_record else self._safe_float(trade_data.get('entry_price'), 0)
             entry_side = entry_record.get('side') if entry_record else trade_data.get('side', 'BUY')
             
@@ -335,7 +596,7 @@ class TradeLogger:
                 'pnl': float(trade_data.get('pnl', 0.0)),
                 'pnl_percent': float(trade_data.get('pnl_percent', 0.0)),
                 'holding_duration_minutes': float(trade_data.get('holding_duration_minutes', 0.0)),
-                'is_virtual': is_virtual,  # 新增：標記是否為虛擬倉位
+                'is_virtual': is_virtual,
                 
                 # 從開倉到平倉的完整 K 線歷史
                 'kline_history': kline_history,
@@ -363,6 +624,9 @@ class TradeLogger:
                 }
             }
             
+            # 更新統計
+            self.stats['total_exits'] += 1
+            
             # 如果有對應的開倉記錄，合併生成完整的 ML 訓練樣本
             if entry_record:
                 ml_sample = self._merge_entry_exit_data(entry_record, exit_record)
@@ -371,7 +635,11 @@ class TradeLogger:
                 # 從暫存中移除
                 del self.pending_entries[trade_id]
                 
-                # 修復 1.3：立即持久化 pending_entries（刪除已完成的條目）
+                # 更新統計
+                self.stats['complete_pairs'] += 1
+                self.stats['incomplete_pairs'] = len(self.pending_entries)
+                
+                # 立即持久化 pending_entries（刪除已完成的條目）
                 self.save_pending_entries()
                 
                 logger.info(
@@ -379,15 +647,21 @@ class TradeLogger:
                     f"(PnL: {trade_data.get('pnl_percent', 0):.2f}%, MFE: {mfe:.2f}%, MAE: {mae:.2f}%)"
                 )
                 
-                # 定期保存 ML 數據
-                if len(self.ml_data) % self.buffer_size == 0:
-                    self.save_ml_data()
+                # 檢查是否需要 flush
+                self._check_and_flush()
             else:
-                logger.warning(f"No entry record for {trade_id}, ML sample not created")
+                logger.warning(f"⚠️  No entry record for {trade_id}, ML sample not created - incomplete pair!")
             
         except Exception as e:
             logger.error(f"Error logging position exit: {e}")
             logger.exception(e)
+    
+    def _check_and_flush(self):
+        """檢查並在需要時執行 flush"""
+        # 計數觸發
+        if self.stats['total_entries'] % self.buffer_size == 0:
+            logger.debug(f"Count-based flush triggered (every {self.buffer_size} entries)")
+            self.flush()
     
     def log_trade(self, trade_data: Dict):
         """
@@ -418,6 +692,35 @@ class TradeLogger:
             self.save_trades()
         
         logger.info(f"Logged trade: {trade_data.get('symbol')} {trade_data.get('type')}")
+    
+    def check_incomplete_pairs(self) -> List[Dict]:
+        """
+        檢查未閉合的交易對
+        
+        Returns:
+            未閉合的交易列表
+        """
+        incomplete = []
+        
+        for trade_id, entry_record in self.pending_entries.items():
+            incomplete.append({
+                'trade_id': trade_id,
+                'symbol': entry_record.get('symbol'),
+                'side': entry_record.get('side'),
+                'entry_price': entry_record.get('entry_price'),
+                'timestamp': entry_record.get('timestamp'),
+                'age_hours': (datetime.utcnow() - datetime.fromisoformat(entry_record.get('timestamp'))).total_seconds() / 3600
+            })
+        
+        if incomplete:
+            logger.warning(f"⚠️  Found {len(incomplete)} incomplete trade pairs:")
+            for item in incomplete:
+                logger.warning(
+                    f"  - {item['trade_id']}: {item['symbol']} {item['side']} @ {item['entry_price']}, "
+                    f"age: {item['age_hours']:.1f}h"
+                )
+        
+        return incomplete
     
     def _generate_trade_id(self, symbol: str, timestamp: datetime) -> str:
         """
@@ -532,7 +835,7 @@ class TradeLogger:
     
     def _calculate_mfe_mae(self, kline_history: List[Dict], entry_price: float, side: str) -> tuple:
         """
-        計算最大有利波動（MFE）和最大不利波動（MAE）（修復問題 1.6）
+        計算最大有利波動（MFE）和最大不利波動（MAE）
         
         Args:
             kline_history: K 線歷史
@@ -542,7 +845,7 @@ class TradeLogger:
         Returns:
             (mfe_percent, mae_percent)
         """
-        # 修復 1.6：添加完整的保護檢查
+        # 添加完整的保護檢查
         if not kline_history:
             logger.debug("Empty kline_history, returning (0.0, 0.0) for MFE/MAE")
             return (0.0, 0.0)
@@ -570,12 +873,10 @@ class TradeLogger:
                     
                     if side == 'BUY':
                         # 做多：high 是有利方向，low 是不利方向
-                        # 修復 1.6：添加除以零保護
                         favorable = (high - entry_price) / entry_price * 100 if entry_price > 0 else 0.0
                         adverse = (low - entry_price) / entry_price * 100 if entry_price > 0 else 0.0
                     else:  # SELL
                         # 做空：low 是有利方向，high 是不利方向
-                        # 修復 1.6：添加除以零保護
                         favorable = (entry_price - low) / entry_price * 100 if entry_price > 0 else 0.0
                         adverse = (entry_price - high) / entry_price * 100 if entry_price > 0 else 0.0
                     
@@ -612,7 +913,7 @@ class TradeLogger:
     
     def _sanitize_metadata(self, metadata):
         """
-        清理 metadata，確保可以序列化為 JSON（修復問題 1.2）
+        清理 metadata，確保可以序列化為 JSON
         
         處理各種不能直接序列化為 JSON 的對象：
         - NumPy 標量（np.int64, np.float64 等）→ Python float/int
@@ -731,11 +1032,34 @@ class TradeLogger:
     
     def flush(self):
         """強制保存所有未保存的數據"""
+        logger.info("🔄 Flushing all data to disk...")
+        
+        # 檢查未閉合的交易
+        incomplete = self.check_incomplete_pairs()
+        if incomplete:
+            logger.warning(f"⚠️  Warning: {len(incomplete)} incomplete trade pairs will be persisted")
+        
+        # 保存所有數據
         if self.unsaved_count > 0:
             self.save_trades()
         
         if len(self.ml_data) > 0:
             self.save_ml_data()
+        
+        # 保存待處理的開倉記錄
+        self.save_pending_entries()
+        
+        # 更新統計
+        self.stats['total_flushes'] += 1
+        self.stats['last_flush_timestamp'] = datetime.utcnow().isoformat()
+        self.last_flush_time = time.time()
+        
+        logger.info(
+            f"✅ Flush complete: "
+            f"trades={len(self.trades)}, "
+            f"ml_samples={len(self.ml_data)}, "
+            f"pending_entries={len(self.pending_entries)}"
+        )
     
     def get_recent_trades(self, limit: int = 10) -> List[Dict]:
         """獲取最近的交易"""
@@ -744,6 +1068,36 @@ class TradeLogger:
     def get_trades_by_symbol(self, symbol: str) -> List[Dict]:
         """獲取特定交易對的交易記錄"""
         return [trade for trade in self.trades if trade['symbol'] == symbol]
+    
+    def get_statistics(self) -> Dict:
+        """
+        獲取完整的統計信息
+        
+        Returns:
+            統計信息字典，包含：
+            - 總樣本數
+            - 完整/不完整交易對數量
+            - 特徵覆蓋率
+            - ML 訓練數據統計
+        """
+        ml_stats = self.get_ml_statistics()
+        
+        return {
+            'data_integrity': {
+                'total_entries': self.stats['total_entries'],
+                'total_exits': self.stats['total_exits'],
+                'complete_pairs': self.stats['complete_pairs'],
+                'incomplete_pairs': self.stats['incomplete_pairs'],
+                'pair_completion_rate': (self.stats['complete_pairs'] / self.stats['total_entries'] * 100) if self.stats['total_entries'] > 0 else 0
+            },
+            'ml_training_data': ml_stats,
+            'feature_coverage': self.stats.get('feature_coverage', {}),
+            'data_quality': {
+                'validation_errors': self.stats['validation_errors'],
+                'total_flushes': self.stats['total_flushes'],
+                'last_flush': self.stats.get('last_flush_timestamp', 'Never')
+            }
+        }
     
     def get_ml_statistics(self) -> Dict:
         """

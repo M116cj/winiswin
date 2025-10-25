@@ -1,0 +1,80 @@
+[
+  {
+    "trade_id": "BTCUSDT_20251025_040740",
+    "timestamp": "2025-10-25T04:07:40.037534",
+    "symbol": "BTCUSDT",
+    "side": "BUY",
+    "entry_price": 50000.0,
+    "quantity": 0.01,
+    "stop_loss": 49000.0,
+    "take_profit": 52000.0,
+    "leverage": 10.0,
+    "margin": 500.0,
+    "margin_percent": 5.0,
+    "is_virtual": false,
+    "signal_features": {
+      "confidence": 85.0,
+      "expected_roi": 4.0,
+      "strategy": "ICT_SMC",
+      "reason": "Test entry",
+      "market_structure": "neutral",
+      "ob_score": null,
+      "liquidity_grabbed": false,
+      "trend_15m": "neutral",
+      "trend_1h": "neutral",
+      "macd": 50.0,
+      "macd_signal": null,
+      "macd_histogram": null,
+      "ema_9": null,
+      "ema_21": null,
+      "ema_50": null,
+      "ema_200": 48000.0,
+      "atr": null,
+      "bollinger_upper": null,
+      "bollinger_middle": null,
+      "bollinger_lower": null,
+      "rsi": 65.0,
+      "current_price": 50000.0,
+      "distance_from_ema200": 2000.0,
+      "distance_from_ema200_pct": 4.166666666666666,
+      "metadata": {
+        "macd": 50.0,
+        "ema_200": 48000.0,
+        "current_price": 50000.0,
+        "rsi": 65.0
+      }
+    },
+    "entry_klines": [],
+    "exit": {
+      "trade_id": "BTCUSDT_20251025_040740",
+      "timestamp": "2025-10-25T04:07:40.039798",
+      "exit_price": 51000.0,
+      "exit_reason": "TAKE_PROFIT",
+      "pnl": 100.0,
+      "pnl_percent": 2.0,
+      "holding_duration_minutes": 30.0,
+      "is_virtual": false,
+      "kline_history": [],
+      "exit_features": {
+        "macd": null,
+        "macd_signal": null,
+        "ema_9": null,
+        "ema_21": null,
+        "ema_50": null,
+        "ema_200": null,
+        "atr": null,
+        "rsi": null
+      },
+      "ml_label": {
+        "outcome": "WIN",
+        "pnl_percent": 2.0,
+        "max_favorable_excursion": 0.0,
+        "max_adverse_excursion": 0.0,
+        "hit_take_profit": true,
+        "hit_stop_loss": false
+      }
+    },
+    "ml_ready": true,
+    "created_at": "2025-10-25T04:07:40.039858"
+  }
+]
