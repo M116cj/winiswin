@@ -133,7 +133,8 @@ class DataService:
         symbol: str,
         timeframe: str,
         limit: int,
-        force_refresh: bool = False
+        force_refresh: bool = False,
+        ttl: Optional[float] = None
     ) -> Optional[pd.DataFrame]:
         """
         Fetch klines for a single symbol with caching and rate limiting.
@@ -143,6 +144,7 @@ class DataService:
             timeframe: Candlestick timeframe
             limit: Number of candles
             force_refresh: If True, bypass cache and fetch fresh data
+            ttl: Custom cache TTL in seconds (if None, uses timeframe-based TTL)
             
         Returns:
             DataFrame or None if failed
@@ -173,8 +175,12 @@ class DataService:
             df = await self.circuit_breaker.call(fetch_async)
             
             if df is not None and not df.empty:
-                # Cache the result
-                await self.cache.set(cache_key, df, ttl=30.0)
+                # Determine TTL based on timeframe if not specified
+                if ttl is None:
+                    ttl = self._get_ttl_for_timeframe(timeframe)
+                
+                # Cache the result with appropriate TTL
+                await self.cache.set(cache_key, df, ttl=ttl)
                 return df
             
             return None
@@ -182,6 +188,29 @@ class DataService:
         except Exception as e:
             logger.error(f"Error fetching klines for {symbol}: {e}")
             return None
+    
+    def _get_ttl_for_timeframe(self, timeframe: str) -> float:
+        """
+        Get appropriate cache TTL based on timeframe.
+        
+        Args:
+            timeframe: Candlestick timeframe (e.g., '1m', '15m', '1h')
+            
+        Returns:
+            TTL in seconds
+        """
+        # Timeframe-based TTL mapping
+        ttl_mapping = {
+            '1m': 30.0,      # 1分鐘數據：30秒緩存
+            '5m': 150.0,     # 5分鐘數據：2.5分鐘緩存
+            '15m': 900.0,    # 15分鐘數據：15分鐘緩存
+            '30m': 1800.0,   # 30分鐘數據：30分鐘緩存
+            '1h': 3600.0,    # 1小時數據：1小時緩存
+            '4h': 7200.0,    # 4小時數據：2小時緩存
+            '1d': 14400.0,   # 1天數據：4小時緩存
+        }
+        
+        return ttl_mapping.get(timeframe, 30.0)  # 默認30秒
     
     async def get_ticker_info(self, symbol: str) -> Optional[Dict[str, Any]]:
         """
@@ -221,6 +250,59 @@ class DataService:
     async def cleanup_cache(self):
         """Remove expired cache entries."""
         await self.cache.cleanup_expired()
+    
+    async def prewarm_cache(
+        self,
+        symbols: List[str],
+        timeframes: List[str] = ['15m', '1h']
+    ) -> Dict[str, Dict[str, int]]:
+        """
+        Prewarm cache by fetching trend data for all symbols.
+        
+        This method is called on startup to populate the cache with 1h and 15m data,
+        avoiding bulk API calls during the first analysis cycle.
+        
+        Args:
+            symbols: List of trading symbols
+            timeframes: List of timeframes to prewarm (default: ['15m', '1h'])
+            
+        Returns:
+            Dict with statistics (successful, failed counts per timeframe)
+        """
+        logger.info(f"🔥 Prewarming cache for {len(symbols)} symbols across {len(timeframes)} timeframes...")
+        
+        stats = {tf: {'success': 0, 'failed': 0} for tf in timeframes}
+        
+        for timeframe in timeframes:
+            logger.info(f"   ⏰ Fetching {timeframe} data for {len(symbols)} symbols...")
+            
+            # Fetch all symbols for this timeframe concurrently
+            results = await self.fetch_klines_batch(
+                symbols=symbols,
+                timeframe=timeframe,
+                limit=250  # Need 250 for EMA200 calculation
+            )
+            
+            # Count successes and failures
+            for symbol, df in results.items():
+                if df is not None and not df.empty:
+                    stats[timeframe]['success'] += 1
+                else:
+                    stats[timeframe]['failed'] += 1
+            
+            logger.info(
+                f"   ✅ {timeframe}: {stats[timeframe]['success']} succeeded, "
+                f"{stats[timeframe]['failed']} failed"
+            )
+        
+        total_success = sum(s['success'] for s in stats.values())
+        total_failed = sum(s['failed'] for s in stats.values())
+        
+        logger.info(
+            f"🔥 Cache prewarming complete: {total_success} successful, {total_failed} failed"
+        )
+        
+        return stats
     
     def get_stats(self) -> Dict[str, Any]:
         """Get data service statistics."""

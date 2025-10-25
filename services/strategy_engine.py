@@ -37,14 +37,16 @@ class Signal:
 class StrategyEngine:
     """Engine for running multiple trading strategies and ranking signals."""
     
-    def __init__(self, risk_manager):
+    def __init__(self, risk_manager, data_service=None):
         """
         Initialize strategy engine.
         
         Args:
             risk_manager: Risk management instance
+            data_service: DataService instance for cached market data
         """
         self.risk_manager = risk_manager
+        self.data_service = data_service
         
         # Initialize strategies
         self.strategies = {
@@ -67,7 +69,7 @@ class StrategyEngine:
         symbol: str,
         df: pd.DataFrame,
         current_price: float,
-        binance_client=None
+        data_service=None
     ) -> Optional[Signal]:
         """
         Analyze a single symbol across all strategies.
@@ -76,12 +78,16 @@ class StrategyEngine:
             symbol: Trading symbol
             df: Price data DataFrame
             current_price: Current market price
-            binance_client: Binance client (for 1h trend filtering)
+            data_service: DataService instance (for cached trend data)
             
         Returns:
             Signal object or None
         """
         self.stats['total_analyses'] += 1
+        
+        # Use data_service from instance if not provided
+        if data_service is None:
+            data_service = self.data_service
         
         # For now, use ICT/SMC strategy
         # Future: Run multiple strategies and combine signals
@@ -89,8 +95,8 @@ class StrategyEngine:
         self.stats['strategy_stats']['ict_smc']['analyses'] += 1
         
         try:
-            # v2.0 優化：傳遞 symbol 和 binance_client 用於 1h 趨勢過濾
-            result = strategy.generate_signal(df, symbol=symbol, binance_client=binance_client)
+            # v3.1 優化：使用 DataService 緩存獲取趨勢數據
+            result = await strategy.generate_signal(df, symbol=symbol, data_service=data_service)
             
             if result and result.get('type') != 'HOLD':
                 # Create signal object
@@ -121,22 +127,26 @@ class StrategyEngine:
     async def analyze_batch(
         self,
         symbols_data: Dict[str, tuple],
-        binance_client=None
+        data_service=None
     ) -> List[Signal]:
         """
         Analyze multiple symbols concurrently.
         
         Args:
             symbols_data: Dict of {symbol: (df, current_price)}
-            binance_client: Binance client (for 1h trend filtering)
+            data_service: DataService instance (for cached trend data)
             
         Returns:
             List of signals
         """
+        # Use data_service from instance if not provided
+        if data_service is None:
+            data_service = self.data_service
+        
         tasks = []
         for symbol, (df, price) in symbols_data.items():
             if df is not None and not df.empty:
-                tasks.append(self.analyze_symbol(symbol, df, price, binance_client=binance_client))
+                tasks.append(self.analyze_symbol(symbol, df, price, data_service=data_service))
         
         results = await asyncio.gather(*tasks, return_exceptions=True)
         

@@ -83,7 +83,8 @@ class TradingBotV3:
         )
         
         self.strategy_engine = StrategyEngine(
-            risk_manager=self.risk_manager
+            risk_manager=self.risk_manager,
+            data_service=self.data_service  # v3.1: 傳遞 DataService 用於緩存
         )
         
         self.execution_service = ExecutionService(
@@ -169,6 +170,19 @@ class TradingBotV3:
         
         # Verify API connections
         await self._verify_connections()
+        
+        # 🔥 預熱緩存：加載所有 symbols 的 1h/15m 趨勢數據（v3.1 優化）
+        logger.info("\n" + "="*70)
+        logger.info("🔥 Prewarming Cache for Trend Data")
+        logger.info("="*70)
+        try:
+            await self.data_service.prewarm_cache(
+                symbols=self.symbols,
+                timeframes=['15m', '1h']  # 預熱 15m 和 1h 數據
+            )
+            logger.info("✅ Cache prewarming complete - ready for analysis")
+        except Exception as e:
+            logger.warning(f"⚠️  Cache prewarming failed: {e}, continuing anyway...")
         
         # 🔒 加載並保護現有倉位（重啟後恢復倉位狀態）
         logger.info("\n" + "="*70)
@@ -293,7 +307,8 @@ class TradingBotV3:
             if success:
                 logger.info(f"✅ {symbol} 立即重新開倉成功")
                 if self.discord:
-                    await self.discord.send_notification(
+                    await self.discord.send_alert(
+                        "trade",
                         f"⚡ **快速重新進場**\n"
                         f"交易對: {symbol}\n"
                         f"方向: {signal.action}\n"
@@ -372,8 +387,8 @@ class TradingBotV3:
                         current_price = float(df_with_indicators.iloc[-1]['close'])
                         symbols_data[symbol] = (df_with_indicators, current_price)
             
-            # Run analysis (v2.0: 傳遞 binance_client 用於 1h 趨勢過濾)
-            signals = await self.strategy_engine.analyze_batch(symbols_data, binance_client=self.binance)
+            # Run analysis (v3.1: 使用 DataService 緩存獲取趨勢數據)
+            signals = await self.strategy_engine.analyze_batch(symbols_data, data_service=self.data_service)
             
             analysis_time = asyncio.get_event_loop().time() - analysis_start
             self.monitoring_service.record_metric('analysis_time_seconds', analysis_time)

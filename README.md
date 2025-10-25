@@ -1,192 +1,128 @@
-# 🤖 加密貨幣交易機器人 v2.0
+# 🤖 Cryptocurrency Trading Bot v3.2
 
-## 🎯 專案概述
-
-自動化加密貨幣交易機器人，監控 Binance 期貨市場，使用 ICT/SMC 交易策略，自動風險管理，並通過 Discord 發送通知。
-
-**v2.0 重大優化**：移除 PyTorch LSTM，使用輕量級技術指標，構建時間減少 75%，記憶體使用減少 81%。
-
----
+自動化加密貨幣交易機器人，採用 ICT/SMC 策略，專為 Binance USDT 永續合約設計。
 
 ## ✨ 核心功能
 
-- ✅ **實時市場監控** - Binance API 即時數據
-- ✅ **技術分析** - 輕量級指標（MACD、布林帶、EMA、ATR、RSI）
-- ✅ **ICT/SMC 策略** - 訂單塊、流動性區域、市場結構
-- ✅ **風險管理** - 自動倉位計算、止損、止盈
-- ✅ **Discord 通知** - 實時交易提醒和性能報告
-- ✅ **交易日誌** - 批量優化寫入
-
----
-
-## 📊 v2.0 性能提升
-
-| 指標 | 優化前 | 優化後 | 改進 |
-|------|--------|--------|------|
-| 構建時間 | ~8 分鐘 | ~2 分鐘 | ⬇️ 75% |
-| 記憶體 | ~800MB | ~150MB | ⬇️ 81% |
-| 啟動時間 | 3-5 分鐘 | 10-20 秒 | ⬇️ 90% |
-| 依賴數 | 12 個 | 6 個 | ⬇️ 50% |
-
----
+- 📊 **全市場監控**：648 個 USDT 永續合約
+- 🎯 **ICT/SMC 策略**：多時間框架分析（1h/15m/1m）
+- 🛡️ **智能風險管理**：動態槓桿 3-20x，自動止損/止盈
+- 💬 **Discord 集成**：實時通知和交互式指令
+- 🤖 **XGBoost 準備**：完整的機器學習訓練數據收集
 
 ## 🚀 快速開始
 
-### Railway 部署（推薦）
+### 1. 環境配置
 
-**📖 完整指南**：[DEPLOY_INSTRUCTIONS_FINAL.md](DEPLOY_INSTRUCTIONS_FINAL.md)
-
-**快速 3 步驟**：
-
-1. **推送代碼到 GitHub**
-   ```bash
-   git add .
-   git commit -m "v2.0: Ready for deployment"
-   git push origin main
-   ```
-
-2. **在 Railway 創建項目**
-   - 訪問：https://railway.app/new
-   - 選擇 "Deploy from GitHub repo"
-   - 連接你的 repository
-
-3. **設置環境變數**
-   ```
-   BINANCE_API_KEY=你的key
-   BINANCE_SECRET_KEY=你的secret
-   DISCORD_BOT_TOKEN=你的token
-   DISCORD_CHANNEL_ID=你的channel_id
-   ENABLE_TRADING=false
-   ```
-
-**完成！** 等待 2-3 分鐘查看日誌
-
----
-
-## ⚙️ 環境變數
-
-### 必需
 ```bash
-BINANCE_API_KEY          # Binance API Key
-BINANCE_SECRET_KEY       # Binance Secret Key
-DISCORD_BOT_TOKEN        # Discord Bot Token
-DISCORD_CHANNEL_ID       # Discord Channel ID
+# 安裝依賴
+pip install -r requirements.txt
+
+# 配置環境變數
+cp .env.example .env
+# 編輯 .env 添加您的 API 密鑰
 ```
 
-### 可選
+### 2. 環境變數
+
 ```bash
-ENABLE_TRADING=false          # 先用模擬模式
-SYMBOL_MODE=auto              # auto/static/all
-MAX_SYMBOLS=50                # 最大監控數量
-RISK_PER_TRADE_PERCENT=0.3    # 每筆風險
-MAX_POSITION_SIZE_PERCENT=0.5 # 最大倉位
-DEFAULT_LEVERAGE=1.0          # 槓桿倍數
+# Binance API
+BINANCE_API_KEY=your_api_key
+BINANCE_SECRET_KEY=your_secret_key
+
+# Discord Bot
+DISCORD_BOT_TOKEN=your_bot_token
+DISCORD_CHANNEL_ID=your_channel_id
+
+# 交易設置
+ENABLE_TRADING=false  # true 啟用實盤交易
+SYMBOL_MODE=all       # all/auto/static
 ```
 
----
+### 3. 運行
 
-## 📁 專案結構
+```bash
+# 本地運行
+python main_v3.py
 
-```
-├── main.py              # 主程序（優化版）
-├── config.py           # 配置管理
-├── binance_client.py   # Binance API
-├── discord_bot.py      # Discord 通知
-├── risk_manager.py     # 風險管理
-├── trade_logger.py     # 交易日誌（優化）
-├── utils/
-│   ├── indicators.py   # 技術指標（輕量級）
-│   └── helpers.py      # 工具函數
-├── strategies/
-│   ├── ict_smc.py     # ICT/SMC 策略
-│   └── arbitrage.py   # 套利檢測
-├── requirements.txt    # 6 個核心依賴
-├── nixpacks.toml      # Railway 構建配置
-└── railway.json       # Railway 部署配置
+# Railway 部署
+railway up
 ```
 
----
+## 📊 系統架構
 
-## 🛠️ 技術棧
-
-### 核心依賴（只有 6 個！）
 ```
-python-binance==1.0.19  # Binance API
-discord.py==2.3.2       # Discord 通知
-pandas==2.1.4           # 數據處理
-numpy==1.26.3           # 數值計算
-python-dotenv==1.0.0    # 環境變數
-requests==2.32.3        # HTTP 請求
-```
-
-### v2.0 優化
-```
-❌ 移除 PyTorch - 節省 500MB、8分鐘構建時間
-❌ 移除 TA-Lib - 避免原生編譯
-❌ 移除 scikit-learn - 節省 100MB
-❌ 移除 matplotlib - 節省 150MB
+main_v3.py (協調器)
+├─ services/
+│  ├─ data_service.py        # 市場數據（緩存、批量）
+│  ├─ strategy_engine.py     # 信號生成
+│  ├─ execution_service.py   # 訂單執行
+│  ├─ monitoring_service.py  # 系統監控
+│  └─ virtual_position_tracker.py  # ML 數據生成
+├─ binance_client.py         # API 客戶端
+├─ risk_manager.py           # 風險控制
+├─ trade_logger.py           # 交易記錄
+└─ discord_bot.py            # Discord 集成
 ```
 
----
+## 💬 Discord 指令
 
-## 📚 文檔
+- `/status` - Bot 運行狀態
+- `/balance` - 帳戶餘額
+- `/positions` - 當前倉位
+- `/stats` - 交易統計
 
-- 📖 [部署指南](DEPLOY_INSTRUCTIONS_FINAL.md) - 3 步驟部署到 Railway
-- 📖 [優化報告](CODE_OPTIMIZATION_REPORT.md) - v2.0 詳細說明
-- 📖 [Railway 指南](RAILWAY_DEPLOYMENT_GUIDE.md) - Railway 深度配置
-- 📖 [專案總覽](replit.md) - 完整專案信息
+## 📈 交易策略
 
----
+### ICT/SMC 多時間框架
 
-## 🔒 安全提示
+- **1小時**：EMA200 趨勢過濾
+- **15分鐘**：趨勢定義
+- **1分鐘**：精準入場
 
-### API Key 權限
-```
-✅ 讀取市場數據
-✅ 執行交易
-❌ 禁止提款
-❌ 禁止轉帳
-```
+### 信號組件
 
-### 風險控制
-```
-✅ 每筆風險: 0.3%
-✅ 最大倉位: 0.5%
-✅ 槓桿: 1.0x
-✅ 回撤警報: 5%
-```
+- Order Blocks（訂單塊）
+- Liquidity Zones（流動性區域）
+- Market Structure Breaks（市場結構突破）
+- MACD + EMA 確認
 
-### 建議
-```
-⚠️ 起始資金: $100-500
-⚠️ 先測試 1-2 週（模擬模式）
-⚠️ 不要投入超過你能承受的損失
-```
+### 信心度評分
 
----
+- 市場結構：40%
+- MACD 確認：20%
+- EMA 確認：20%
+- 價格位置：10%
+- 流動性區域：10%
 
-## 💰 費用估算
+最低門檻：70%
 
-### Railway Hobby - $5/月
-```
-✅ 512MB RAM（足夠 50 個交易對）
-✅ 實際使用：~150MB
-✅ 足夠運行優化版本
-```
+## 🔒 安全特性
 
----
+- ✅ 交易所級止損/止盈（Mark Price 觸發）
+- ✅ 自動倉位保護（啟動時加載現有倉位）
+- ✅ API 限流保護
+- ✅ 故障容錯機制
+- ✅ 模擬模式支持
 
-## ✅ 版本歷史
+## 📝 文檔
 
-### v2.0 (2025-10-23) - 重大優化
-- ✅ 移除 PyTorch LSTM
-- ✅ 替換 TA-Lib 輕量級實現
-- ✅ 依賴優化（12 → 6）
-- ✅ 構建時間 -75%
-- ✅ 記憶體使用 -81%
+- 查看 `archive/old_docs/` 了解詳細文檔
+- 系統架構請參考 `archive/old_docs/ARCHITECTURE_V3.md`
+- 部署指南請參考 `archive/old_docs/RAILWAY_DEPLOYMENT_GUIDE.md`
 
----
+## 📦 部署
 
-**準備部署？** 👉 [開始部署](DEPLOY_INSTRUCTIONS_FINAL.md)
+系統已配置 Railway 自動部署：
 
-**祝交易順利！** 🚀📈
+1. 推送到 GitHub main 分支
+2. GitHub Actions 自動觸發部署
+3. 查看 Railway Dashboard 確認狀態
+
+## ⚠️ 免責聲明
+
+此軟件僅供教育和研究目的。加密貨幣交易存在高風險，可能導致資金損失。使用本軟件進行實盤交易的風險由您自行承擔。
+
+## 📄 授權
+
+MIT License

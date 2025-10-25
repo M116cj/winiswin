@@ -6,14 +6,6 @@ from utils.indicators import TechnicalIndicators
 
 logger = setup_logger(__name__)
 
-# 全域緩存：用於儲存 1h 趨勢（避免每根 K 線都請求）
-_1h_trend_cache = {}
-_last_1h_update = {}
-
-# 全域緩存：用於儲存 15m 趨勢（多時間框架策略 - v3.0）
-_15m_trend_cache = {}
-_last_15m_update = {}
-
 class ICTSMCStrategy:
     def __init__(self):
         self.name = "ICT/SMC Strategy"
@@ -173,25 +165,16 @@ class ICTSMCStrategy:
             # 收盤確認
             return breakdown_pct >= 0.003 and current_close < prev_low
     
-    def get_1h_trend(self, symbol, binance_client):
+    async def get_1h_trend(self, symbol, data_service):
         """
-        獲取 1h 趨勢（v2.0 優化）
+        獲取 1h 趨勢（v3.1 優化 - 使用 DataService 緩存）
         
-        緩存機制：每小時更新一次，避免頻繁 API 請求
+        緩存機制：DataService 自動緩存 1 小時（TTL=3600秒）
         趨勢判斷：基於 EMA200
         """
-        current_time = datetime.now(timezone.utc)
-        current_hour = current_time.replace(minute=0, second=0, microsecond=0)
-        
-        # 檢查緩存
-        if symbol in _last_1h_update and _last_1h_update[symbol] == current_hour:
-            cached_trend = _1h_trend_cache.get(symbol, 'neutral')
-            logger.debug(f"Using cached 1h trend for {symbol}: {cached_trend}")
-            return cached_trend
-        
-        # 獲取 1h K 線數據
+        # 獲取 1h K 線數據（DataService 會自動處理緩存）
         try:
-            klines_1h = binance_client.get_klines(symbol, '1h', limit=250)
+            klines_1h = await data_service.fetch_klines(symbol, '1h', limit=250)
             
             if klines_1h is None or len(klines_1h) < 200:
                 logger.warning(f"Insufficient 1h data for {symbol}, using neutral trend")
@@ -209,30 +192,28 @@ class ICTSMCStrategy:
                 logger.warning(f"Empty EMA200 for {symbol}")
                 return 'neutral'
             
-            if pd.isna(ema200[-1]):
+            # 確保取最後一個值（標量），然後檢查 NaN
+            last_ema = float(ema200[-1]) if isinstance(ema200, (np.ndarray, list)) else ema200.iloc[-1]
+            if pd.isna(last_ema) or np.isnan(last_ema):
                 logger.warning(f"NaN EMA200 for {symbol}")
                 return 'neutral'
             
             # 判斷趨勢
             current_price = klines_1h['close'].iloc[-1]
-            trend = 'bull' if current_price > ema200[-1] else 'bear'
+            trend = 'bull' if current_price > last_ema else 'bear'
             
-            # 更新緩存
-            _1h_trend_cache[symbol] = trend
-            _last_1h_update[symbol] = current_hour
-            
-            logger.info(f"Updated 1h trend for {symbol}: {trend} (Price: {current_price:.2f}, EMA200: {ema200[-1]:.2f})")
+            logger.debug(f"1h trend for {symbol}: {trend} (Price: {current_price:.2f}, EMA200: {ema200[-1]:.2f})")
             return trend
             
         except Exception as e:
             logger.error(f"Error fetching 1h trend for {symbol}: {e}")
             return 'neutral'
     
-    def get_15m_trend(self, symbol, binance_client):
+    async def get_15m_trend(self, symbol, data_service):
         """
-        獲取 15m 趨勢（v3.0 多時間框架策略）
+        獲取 15m 趨勢（v3.1 優化 - 使用 DataService 緩存）
         
-        緩存機制：每 15 分鐘更新一次，避免頻繁 API 請求
+        緩存機制：DataService 自動緩存 15 分鐘（TTL=900秒）
         趨勢判斷：基於 EMA200
         返回值：'bull' (多頭), 'bear' (空頭), 'neutral' (中性)
         
@@ -241,22 +222,10 @@ class ICTSMCStrategy:
         - 1m K線執行具體交易
         - 只在 15m 趨勢方向一致時才開倉
         """
-        current_time = datetime.now(timezone.utc)
-        # 計算當前 15 分鐘時間段的起始時間
-        minutes_since_hour = current_time.minute
-        current_15m_period = (minutes_since_hour // 15) * 15
-        current_15m = current_time.replace(minute=current_15m_period, second=0, microsecond=0)
-        
-        # 檢查緩存（每 15 分鐘更新一次）
-        if symbol in _last_15m_update and _last_15m_update[symbol] == current_15m:
-            cached_trend = _15m_trend_cache.get(symbol, 'neutral')
-            logger.debug(f"📦 使用緩存的 15m 趨勢 {symbol}: {cached_trend}")
-            return cached_trend
-        
-        # 獲取 15m K 線數據
+        # 獲取 15m K 線數據（DataService 會自動處理緩存）
         try:
             from config import Config
-            klines_15m = binance_client.get_klines(symbol, Config.TREND_TIMEFRAME, limit=250)
+            klines_15m = await data_service.fetch_klines(symbol, Config.TREND_TIMEFRAME, limit=250)
             
             if klines_15m is None or len(klines_15m) < 200:
                 logger.warning(f"⚠️  15m 數據不足 {symbol}，使用中性趨勢")
@@ -274,20 +243,18 @@ class ICTSMCStrategy:
                 logger.warning(f"⚠️  15m EMA200 為空 {symbol}，使用中性趨勢")
                 return 'neutral'
             
-            if pd.isna(ema200[-1]):
+            # 確保取最後一個值（標量），然後檢查 NaN
+            last_ema = float(ema200[-1]) if isinstance(ema200, (np.ndarray, list)) else ema200.iloc[-1]
+            if pd.isna(last_ema) or np.isnan(last_ema):
                 logger.warning(f"⚠️  15m EMA200 無效 {symbol}，使用中性趨勢")
                 return 'neutral'
             
             # 判斷趨勢：價格 > EMA200 = 多頭，否則 = 空頭
             current_price = klines_15m['close'].iloc[-1]
-            trend = 'bull' if current_price > ema200[-1] else 'bear'
+            trend = 'bull' if current_price > last_ema else 'bear'
             
-            # 更新緩存
-            _15m_trend_cache[symbol] = trend
-            _last_15m_update[symbol] = current_15m
-            
-            logger.info(
-                f"🔄 更新 15m 趨勢 {symbol}: {trend} "
+            logger.debug(
+                f"📊 15m 趨勢 {symbol}: {trend} "
                 f"(價格: {current_price:.2f}, EMA200: {ema200[-1]:.2f})"
             )
             return trend
@@ -445,14 +412,14 @@ class ICTSMCStrategy:
         
         return ratio
     
-    def generate_signal(self, df, symbol=None, binance_client=None):
+    async def generate_signal(self, df, symbol=None, data_service=None):
         """
-        生成交易信號（整合 v2.0 + v3.0 多時間框架優化）
+        生成交易信號（v3.1 優化 - 使用 DataService 緩存）
         
         參數：
             df: 1m K 線數據（用於執行交易）
             symbol: 交易對符號（用於 15m 趨勢過濾）
-            binance_client: Binance 客戶端（用於獲取 15m 數據）
+            data_service: DataService 實例（用於獲取緩存的 15m 數據）
         
         多時間框架策略：
             - 15m K線：定義趨勢方向（EMA200）
@@ -463,11 +430,11 @@ class ICTSMCStrategy:
             logger.warning("Insufficient data for ICT/SMC analysis")
             return None
         
-        # === v3.0 優化：15m 趨勢過濾（多時間框架策略）===
+        # === v3.1 優化：15m 趨勢過濾（使用 DataService 緩存）===
         trend_15m = 'neutral'
-        if symbol and binance_client:
+        if symbol and data_service:
             try:
-                trend_15m = self.get_15m_trend(symbol, binance_client)
+                trend_15m = await self.get_15m_trend(symbol, data_service)
                 logger.info(f"📊 {symbol} - 15m趨勢: {trend_15m}")
             except Exception as e:
                 logger.warning(f"⚠️  獲取 15m 趨勢失敗 {symbol}: {e}")
